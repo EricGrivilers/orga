@@ -1,0 +1,352 @@
+<page>
+	<page_footer>
+    <table style="width:{{mWidth}}mm" >
+      <tr>
+        <td style='width:{{mWidth}}mm;text-align:center'>Conditions générales applicables pour la vente et la location de nos produits en annexe de cette facture.</td>
+      </tr>
+      <tr>
+        <td style='width:{{mWidth}}mm;background-color:#ededed;text-align:center'>Organic sa - Mechelsesteenweg, 366 - 1950 Kraainem - Belgium<br/>
+          www.organic-concept.com - TVA/BTW: 0807.879.247 <br/>
+          Bank account: 001-5712962-29 - IBAN BE26001571296229 - Adresse SWIFT : GEBABEBB<br/>
+          Tel 00 32 2 720 77 45 - Fax 00 32 2 720 12 66 - info@organic-concept.com </td>
+      </tr>
+    </table>
+  </page_footer>
+ <table style="width:{{mWidth}}mm;" >
+
+    <tr>
+      <td style='width:100mm;vertical-align:top'><img src="themes/default/images/logo.png"><br/>
+        <br/>
+        	{% if invoice.priceHT>0 %} 
+        Facture {{invoice.reference}}
+        {% else %} 
+      		Note de crédit {{invoice.reference}}
+      	{% endif %} <br/>
+        Kraainem, le {{invoice.invoiceDate}}<br/>
+        <br/>
+       </td>
+      <td style='vertical-align:top;padding-top:4mm'><span style="color:#E1001A;font-weight:bold">{{reminder}} 
+      	{% if invoice.priceHT>0 %} 
+      		Facture 
+      	{% else %} 
+      		Note de crédit
+      	{% endif %}  
+      	
+      	{% if invoice.offreType=='rent' %} de location 
+      	{% elseif invoice.offreType=='winter' %} d'hivernage
+      	{% else %} de vente 
+      	{% endif %}
+      	
+      	{% if invoice.creditNote %} 
+      		<br/>sur facture {{invoice.creditNote}}
+      		{% endif %} 
+      		</span>
+      	
+      	
+      	
+      	<p style='padding-top:10mm'>
+      		{% if invoice.clientType=='cie' %} <b>{{invoice.name}}</b> {{invoice.cieType}} <br/> {{invoice.clientTitle}} {{invoice.firstname}} {{invoice.lastname}} <br/>
+      		{% else %}
+      		<b>{{invoice.clientTitle}} {{invoice.firstname}} {{invoice.lastname}} </b><br/>
+      		{% endif %}
+      		<br/>
+      		{{invoice.address}} {{invoice.number}}<br/>
+      		{{invoice.zip}} {{invoice.city}}<br/>
+      		{{invoice.country}}
+      	</p>
+       {% if invoice.clientType=='cie' %}
+       <br/>
+       <br/>
+        TVA {{invoice.vat}}
+        {% endif %}</td>
+    </tr>
+  </table>
+  <br/>
+   <br/>
+    <br/>
+ 
+   
+   {% if invoice.jobId>0 %}
+				<table style="width:{{mWidth}}mm">
+					<thead style='border-bottom:1px solid #ccc'>
+						<tr>
+							<th style="width:140mm;text-align:left;background-color:#ededed">Description</th>
+							<th style="width:40mm;text-align:right;background-color:#ededed">Montant HTVA</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for p in products %}
+						<tr>
+							<td style="width:140mm;text-align:left">{{p.description}}</td>
+							<td style="width:30mm;text-align:right">{{p.price}} €</td>
+						</tr>
+						{% endfor %}
+						<tr><td style='background-color:#ededed'>&nbsp;</td><td style='background-color:#ededed'></td></tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td style="text-align:right">Total HTVA :</td>
+							<td style="text-align:right">{{productsTotalHT}}  €</td>
+						</tr>
+						<tr style='border-bottom:1px solid #ccc'>
+							<td style="text-align:right">
+							{% if invoice.priceType=='htva' %} TVA (21%)
+							{% elseif invoice.priceType=='intra' %}
+							Intra communautaire {% endif %}
+								
+							</td>
+							<td style="text-align:right">{{productsTVA}}</td>
+							
+						</tr>
+						
+						<tr>
+							<td style="text-align:right;background-color:#ededed;">TOTAL TTC :</td>
+							<td style="text-align:right;background-color:#ededed;">{{productsTotalTTC}} €</td>
+							<td></td>
+						</tr>
+					</tfoot>
+				</table>
+				
+				<p>
+					&nbsp;
+				</p>
+				<table style="width:180mm">
+					
+					<tbody>
+						<tr>
+							<td style='width:100mm'>{{slice.comments}}</td>
+							<td style='width:19mm'>{{slice.slice}} %</td>
+							<td style="width:60mm;text-align:right;">TOTAL HTVA : {{slice.priceHT}} €</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td style="text-align:right;">TVA : {{sliceTVA}}</td>
+						</tr>
+						<tr><td style='background-color:#ededed'></td><td style='background-color:#ededed'></td><td style='background-color:#ededed'></td></tr>
+					</tbody>
+				</table>
+				{% endif %}
+				
+				{% if isLastSlice==1 or invoice.jobId<=0 %}
+				<table style="width:{{mWidth}}mm">
+				
+					<thead style='border-bottom:1px solid #ccc'>
+						
+						<tr>
+							<th style="width:140mm;text-align:left;background-color:#ededed">Description</th>
+							<th style="width:40mm;text-align:right;background-color:#ededed">Montant HTVA</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+						{% if outJobHT!=0 and isLastSlice==1 %}
+							{% for p in newproducts %}
+							
+							<tr>
+							<td style="width:140mm;text-align:left">{{p.description}}</td>
+							<td style="width:30mm;text-align:right">{{p.price}} €</td>
+							</tr>
+						
+							{% endfor %}
+						{% endif %}
+					</tbody>
+					{% if outJobHT!=0 and isLastSlice==1 %}
+					<tfoot>
+						<tr>
+							<td style="text-align:right">Total HTVA :</td>
+							<td style="text-align:right">{{outJobHT}}  €</td>
+							
+						</tr>
+						<tr style='border-bottom:1px solid #ccc'>
+							<td style="text-align:right">
+							{% if invoice.priceType=='htva' %} TVA (21%)
+							{% elseif invoice.priceType=='intra' %}
+							Intra communautaire {% endif %}
+								
+							</td>
+							<td style="text-align:right">{{outJobTVA}}</td>
+							
+						</tr>
+						<tr>
+							<td style="text-align:right;background-color:#ededed;">TOTAL TTC :</td>
+							<td style="text-align:right;background-color:#ededed;">{{outJobTTC}} €</td>
+							<td></td>
+						</tr>
+					</tfoot>
+					{% endif %}
+				</table>
+				
+				{% endif %}
+				<br/>
+				<table style='border:1px solid #000;width:180mm;font-weight:bold'>
+					<tbody><tr>
+							<td style='width:182mm;text-align:right;'>
+						TOTAL TVAC {% if grandTotal>0 %}à payer {% endif %} : <b>{{grandTotal}} €</b>
+								
+							</td>
+					</tr></tbody>
+				</table>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+  <!--<b><u>Lieu :</u></b>
+  <p> {deliveryAddress} </p>-->
+  <!--<br/>
+  {% if invoice.startBuild!='' %}
+  <b><u>Timing :</u></b>
+  <ul>
+    <li>Montage : {{invoice.startBuild}}</li>
+    <li>Jour(s) de votre evénement : {{invoice.inPlace}}</li>
+    <li>Démontage : {{invoice.endBuild}}</li>
+  </ul>
+{% endif %}-->
+    <br/>
+  <br/>
+  <br/>
+  <b><u>Conditions :</u></b>
+  <p>
+  {% if invoice.conditions1!='' %}
+  Conditions de paiement: comptant<br/>
+Communication à mentionner: le numéro de cette facture.<br/>
+  {% endif %}
+   {% if invoice.conditions2!='' %}
+   Le paiement de votre acompte confirme votre commande.<br/>
+  {% endif %}
+   {% if invoice.conditions!='' %}
+   {{invoice.conditions}}
+  {% endif %}
+  </p>
+  <br/>
+<b><u>Coordonnées bancaires :</u></b>
+  <p>Fortis Bank - Compte n° 001-5712962-29 - IBAN BE26001571296229 - Adresse SWIFT : GEBABEBB</p>
+  
+ 
+  
+</page>
+<page>
+ <table style="width:{{mWidth}}mm" >
+    <tr>
+      <td style='width:{{mWidth}}mm;background-color:#ededed;text-align:center'><b>ORGANIC SA/NV.  Conditions générales</b></td>
+    </tr>
+  </table>
+<table style="width:{{mWidth}}mm" >
+    <tr>
+      <td style="width:{{mWidth}}mm;vertical-align:top;font-size:6pt;text-align:justify">
+
+
+Conditions générales applicables pour la vente et la location de nos produits
+<p>
+<b>1.	Généralités – Dérogations</b><br/>
+
+Les présentes conditions générales de vente et de location sont d'application pour toutes les commandes qui nous sont passées. Le client est censé accepter les présentes conditions générales de vente et de location par le seul fait de sa commande. Les dérogations, même figurant sur les documents émanant du client, ne sont opposables que moyennant confirmation écrite de notre part. Même dans ce cas, les présentes conditions restent d'application pour tous les points auxquels il n'aura pas été expressément dérogé.
+</p>
+<p>
+<b>2.	Réserve de propriété</b><br/>
+
+Le vendeur se réserve la propriété de la marchandise jusqu'au paiement complet des sommes convenues contractuellement. Les risques sont à charge de l'acheteur. Les acomptes versés pourront être conservés pour couvrir les pertes éventuelles à la revente. En cas de revente des marchandises, même transformées, appartenant au vendeur, l'acheteur lui cède dès à présent toutes les créances résultant de leur revente. Le client assume la pleine responsabilité des marchandises données en location: il répond de toute détérioration ou destruction, même survenue par cas fortuit ou force majeure.
+</p>
+<p>
+<b>3.	Réclamations</b><br/>
+
+Les réclamations concernant les ventes ne seront recevables qu'à condition d'être adressées endéans les huit jours de la réception des marchandises et factures. Par dérogation, le délai sera porté à 15 jours pour les ventes au consommateur. Pour les ventes au consommateur, les présentes conditions renvoient aux dispositions impératives prévues aux articles 1649 bis, à 149 octies du code civil.  Les réclamations devront être adressées par lettre recommandée.
+
+Les réclamations concernant les locations ne seront recevables :
+* En cas de montage par la société Organic SA/NV ; qu'à condition d'être formulées à nos monteurs dès le montage et pour autant qu'elles soient confirmées par lettre recommandée à la poste, déposée le plus prochain jour ouvrable qui suit le montage;
+*En cas d'enlèvement des marchandises par les soins du client, que si elles sont formulées par lettre recommandée à la poste, dès le lendemain de l'enlèvement des marchandises en nos ateliers.
+Si la réclamation est reconnue justifiée, nos obligations se limiteront exclusivement au remplacement ou à la réparation gratuite des marchandises livrées ou de leur pièces défectueuses, sans que nous puissions être tenus à une indemnité quelconque de quelque chef que ce soit.
+L'éventuelle défaillance d'une marchandise vendue ou donnée en location ne dispense pas le client de régler la facture mais l'autorise uniquement, pour autant qu'il soit établi à suffisance que la dite défaillance nous soit totalement imputable et qu'elle n'ait été corrigée, à déduire le coût de la location ou de la vente sans qu'il puisse être question de dommage et intérêt complémentaire.
+</p>
+<p>
+<b>4.	Paiement</b><br/>
+
+A moins de stipulations contraires expressément acceptées par la société Organic SA/NV, le paiement de nos factures doit se faire net au grand comptant. Tout retard de paiement nous conférera le droit de résilier s'il nous plaît le marché pour la partie non exécutée sans préjudice de tous dommages-intérêts.
+
+Chaque fourniture constitue une opération distincte et nous n'admettons aucune compensation automatique du chef de retour, litige, contestation, etc., sauf accord exprès de notre part. Toutefois, en cas de faillite, déconfiture, demande de concordat de notre débiteur, la compensation jouera automatiquement sans qu'aucune formalité ne soit requise.
+
+Le défaut de paiement à l'échéance d'une traite acceptée rend exigible de plein droit toutes nos autres créances sur l'acheteur.
+</p>
+<p>
+<b>5.	Pénalités pour retard de paiement</b><br/>
+
+Les factures non payées à leur échéance sont productives, automatiquement et de plein droit, sans mise en demeure préalable d'un intérêt de 1% par mois. En outre, au cas ou une facture ne serait pas réglée dans les huit jours qui suivent une mise en demeure, le montant sera majoré d'une indemnité forfaitaire de 15% avec un minimum de 125 euros, pour couvrir les frais administratifs et la privation du capital roulant.
+</p>
+<p>
+<b>6.	Pluralité de contractants et solidarité</b><br/>
+
+En cas de commande par autrui, celui qui passe la commande est solidairement tenu avec le bénéficiaire de la commande de toutes les obligations en résultant. De même si la commande est facturée à la demande du client à une autre personne, tous deux sont solidairement tenus du paiement et de toutes obligations découlant de la commande.
+</p>
+<p>
+<b>7.	Annulations</b><br/>
+
+Le locataire peut annuler un contrat à conditions de :
+* le faire par lettre recommandée;
+* payer simultanément à titre de dommage et intérêt :
+• 25% du montant de la location si l'annulation se produit plus de 4 mois avant la date du montage
+• 40% du montant entre 3 et 4 mois du montage
+• 50% du montant entre 1 mois et 15 jours du montage
+• 75% du montant si l'annulation se produit à moins de 15 jours de la date du montage et tant que le matériel n'aura pas été chargé au dépôt du loueur.
+Même si le locataire ne peut utiliser le matériel loué, quelle qu'en soit la raison, le prix de la location est entièrement dû.
+De même l'acompte reste dû.
+
+Dans les contrats conclus avec les consommateurs, le loueur pourra annuler le contrat dans les mêmes conditions.
+</p>
+<p>
+<b>8.	Responsabilité des parties</b><br/>
+
+Le matériel du loueur est couvert par ce dernier uniquement pour sa propre responsabilité civile d'exploitation.
+Le locataire est responsable de la surveillance et de la protection du matériel loué et ce dès l'arrivée du premier matériel jusqu'à l'enlèvement complet. Il prendra toutes les dispositions pour garder le matériel en bon état, en évitant les actes de vandalisme ou de vol. Il prendra toutes les dispositions requises pour la protection contre le feu: signalisation, matériel d'extinction, appel des secours, mesures de police à faire respecter par le public… Il veillera à maintenir la tente fermée en cas de vent. En cas de neige, le locataire devra immédiatement mettre en marche un appareil de chauffage nécessaire pour faire fondre la neige de façon permanente; passé 3 cm de neige, il y a danger d'effondrement et le locataire sera rendu responsable des dégâts occasionnés par l'inobservance de cette clause. Il prendra les dispositions requises pour signaler le matériel au cas où celui-ci devait être placé sur un terrain public ou dans des endroits de passage. La responsabilité du locataire est engagée en tout ce qui concerne l'emploi du matériel loué: restent sous sa responsabilité entière notamment les accidents de personnes ou les dégâts aux biens qui résulteraient de l'utilisation ou de la jouissance des objets loués.
+Le démontage partiel ou total, le déplacement du matériel mobile est interdit sans autorisation préalable, et de toute manière sous la responsabilité exclusive du locataire.
+Le locataire prendra toutes les dispositions requises pour qu'en cas de tempête ou de malveillance, il puisse retendre chaque corde des tentes, enfoncer plus profondément ou changer de place l'un après l'autre les piquets si cela s'avérait indispensable ou nécessaire. Il en avertira le plus tôt possible le loueur.
+</p>
+<p>
+<b>9.	Montage et terrains</b><br/>
+
+Le locataire doit se procurer pour la date convenue du montage toutes les autorisations nécessaires.
+Le locataire devra être présent sur place pour indiquer l'endroit de montage et répondre à toutes les questions concernant les autorisations et dangers que cache le terrain.
+Le loueur ou ses délégués doivent pouvoir accéder en permanence, de nuit comme de jour, au matériel loué.
+Pendant les manifestations, des laissez-passer seront à la disposition du loueur.
+En aucun cas le personnel ou le camion du loueur ne pourront effectuer d'autre transports ou travaux pour le locataire.
+Si à l'arrivée du camion, le personnel prévu par le locataire n'était pas présent, une attente de quatre heures maximum sera respectée. Les heures perdues, hommes et camions seront facturés. Passé ce délai de quatre heures, le loueur peut faire rentrer son personnel, son matériel et ses camions au dépôt et la totalité de la location est exigible immédiatement.
+Au cas où le terrain ne serait pas stable, les frais de dégagement des véhicules et du matériel sont à charge du locataire. Les dégâts occasionnés au terrain sont également à charge du locataire (affaissement, ornières, plantations touchées…) Le sol doit être entièrement déblayé et propre, et ne doit pas présenter de dénivellation autre que celle(s) signalée(s) lors de la conclusion du contrat. Lorsque la stabilité de nos structures est assurée par des piquets d'ancrage enfoncés dans le sol ou par des poids morts déposés sur le sol, le locataire est tenu de se renseigner auprès des autorités compétentes afin de s'assurer qu'il n'y a aucun risque de détériorer les canalisations souterraines de gaz, eau, électricité, téléphone, … Tous les dommages occasionnés au terrain et à ses équipements sont à charge du locataire.
+Les terrains de montage des chapiteaux doivent pouvoir être percés par martèlement normal par des piquets d'ancrage: la présence en sous-sol ou en surface de revêtements durs comme par exemple du béton, doit nous être signalé avant la signature du contrat. Il en sera de même quand le terrain n'offre pas la résistance nécessaire à l'attachement des piquets (marécages, sable…)
+Lors du démontage du matériel, tout retard dû au non dégagement complet de celui-ci est facturé (prolongation de location, déplacements supplémentaires, allongement des heures de travail…)
+</p>
+<p>
+<b>10.	Matériel loué</b><br/>
+
+Le locataire est tenu de contrôler la marchandise lors de son enlèvement, de la livraison ou du montage, celui-ci valant agréation complète de ladite marchandise et de son état impeccable. 
+
+Il appartient au locataire de veiller à l'entretien du matériel livré et notamment d'éviter toute dégradation. Le locataire est responsable de tout dommage qui affecterait le matériel loué résultat d'un entreposage, d'un montage, d'une mise en œuvre, d'une utilisation inadéquate de sa part.
+
+Le locataire remettra au loueur le matériel dans un état de propreté impeccable. Dans le cas contraire, les frais de nettoyage ou de remise en état seront facturés.
+Il est défendu de clouer, agrafer, visser ou scier dans les boiseries et bâches, de les peindre ou de les marquer de façon durable, de cacher ou d'enlever la publicité du loueur, sauf stipulation expresse au moment de la signature du contrat. 
+
+Quelle que soit la personne en charge du transport des biens loués, la période de location s'étend du jour où les biens loués quittent les entrepôts du loueur. Toute location se compte par période de trois jours ouvrables en ce compris le jour de livraison et le jour de reprise. Tout jour supplémentaire commencé est dû en entier avec le même taux de location. 
+
+</p>
+<p>
+<b>11.	Délais - Force majeure</b><br/>
+
+Sauf faute lourde, le loueur est exonéré de toute responsabilité dans l'exécution du présent contrat, notamment en ce qui concerne des délais indiqués. Les délais de livraison et d'exécution sont toujours stipulés à titre indicatif. Nous ne pouvons être tenus au paiement de dommages et intérêts si ces délais ne sont pas respectés.
+Tout cas de force majeure dans le chef du loueur, le dégage de toute responsabilité, sans aucun droit à un dédommagement pour le locataire quant à la livraison du matériel loué et donne le droit au loueur d'annuler ce contrat. Sont conventionnellement considérés comme cas de force majeure l'état de guerre, de mobilisation, les grèves, émeutes ou rebellions, accidents, maladies ou autres calamités, crues, feu, tempêtes, avaries, destruction ou perte de matériel y compris dans les transports, des circonstances extraordinaires comme défense d'exportation ou d'importation, des mesures entravantes de n'importe quelle autorité, interruptions dans les services électriques ou dans l'approvisionnement en carburant.
+D'une manière générale, tout événement imprévu empêchant de commencer (dans ce cas l'acompte est immédiatement remboursé) ou de continuer normalement l'exécution des contrats, y compris tous les dérangements par lesquels l'exécution du contrat devient plus chère ou plus difficile.
+
+Les présentes conditions générales de location sont également disponibles sur le site www.organic.be. 
+</p>
+<p>
+<b>12.	Juridiction</b><br/>
+
+En cas de contestation, seront seuls compétents les tribunaux de Nivelles et la loi belge.
+</p>
+</td></tr></table>
+
+</page>

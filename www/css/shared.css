@@ -1,0 +1,691 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100.01%;
+	vertical-align: baseline;
+	background: transparent;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+blockquote, q
+{
+	quotes: none;
+}
+
+/*
+Safari doesn't support the quotes attribute, so we do this instead.
+*/
+blockquote:before, blockquote:after, q:before, q:after
+{
+	/*
+	CSS 2; used to remove quotes in case "none" fails below.
+	*/
+	content: "";
+	/*
+	CSS 2.1; will remove quotes if supported, and override the above.
+	User-agents that don't understand "none" should ignore it, and
+	keep the above value. This is here for future compatibility,
+	though I'm not 100% convinced that it's a good idea...
+	*/
+	content: none;
+}
+
+textarea { overflow: auto; }
+input { border: 0px solid white; margin: 0;  padding: 0; }body {
+	font: 100% Verdana, Arial, Helvetica, sans-serif;
+	background: #f2f0e1;
+	
+	
+	background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#ededed));/* safari */
+	background: -moz-linear-gradient(top,  #ccc,  #000);/*ff*/
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#000000'); /ie*/
+	margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+	padding:5px 10px;
+	text-align: center; /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
+	color: #000000;
+	font-size:12px;
+	font-family:Verdana, Geneva, sans-serif;
+}
+
+
+a {
+	cursor:pointer;
+	color:#000;
+}
+
+#container {
+	width: 100%;  /* this will create a container 80% of the browser width */
+	
+	margin: 0 auto; /* the auto margins (in conjunction with a width) center the page */
+	text-align: left; /* this overrides the text-align: center on the body element. */
+}
+
+#contentWrapper {
+background: #FFFFFF;
+min-height:500px;
+}
+
+
+#header {
+	padding: 0 10px 0 200px;
+	margin-bottom:10px;
+	background-repeat:no-repeat;
+	
+}
+
+#logo {
+	position:absolute;
+	margin:7px 0 0 10px;
+	z-index:100;
+	
+}
+#header h1 {
+	margin: 0; /* zeroing the margin of the last element in the #header div will avoid margin collapse - an unexplainable space between divs. If the div has a border around it, this is not necessary as that also avoids the margin collapse */
+	padding: 10px 0; /* using padding instead of margin will allow you to keep the element away from the edges of the div */
+}
+#mainContent {
+	padding: 0;
+	
+}
+#footer { 
+	margin:10px 0 0 0 ;
+	padding: 0 10px; /* this padding matches the left alignment of the elements in the divs that appear above it. */
+	font-size:11px;
+	text-align:center;
+} 
+
+
+
+#editor {
+	background:#666666;	
+	padding:10px;
+	border:1px solid #cccccc;
+	display:none;
+}
+
+.submenu {
+	text-align:right;
+	padding:10px;
+	background:#ededed;
+	font-size:12px;
+	margin:0 0 10px 0;
+	border-bottom:1px solid #666;
+}
+
+
+
+#mainContent ul.ui-tabs-nav li {
+	float: right;
+    display: block;
+}
+
+
+#tents ul.ui-tabs-nav li,#clients ul.ui-tabs-nav li  {
+	float: left;
+    display: block;
+}
+
+/*   utils */
+
+.left {
+	float:left;
+}
+
+.right {
+	float:right;
+}
+
+
+.clearfloat { /* this class should be placed on a div or break element and should be the final element before the close of a container that should fully contain its child floats */
+  clear: both;
+  height: 0;
+  font-size: 1px;
+  line-height: 0px;
+}
+
+/* form */
+form h1 {
+border-right:2px solid #e1001a;
+border-left:2px solid #e1001a;
+color:#ffffff;
+padding:2px 5px;
+text-align:center;
+background:#000000;
+}
+
+form h3 {
+
+color:#cccccc;
+
+}
+
+form a img {
+	margin:0 3px;
+}
+
+form table {
+	width:100%;
+	margin-bottom:10px;
+	border:1px solid #cccccc;
+	background:#ededed;
+}
+
+form input.formButton {
+background:#e1001a;
+color:#ffffff;
+margin:2px 5px;
+cursor:pointer;
+padding:2px;
+}
+
+form table td{
+	padding:4px;
+	vertical-align:top;
+}
+
+form table input,textarea,select {
+	border:1px solid #cccccc;
+	
+}
+
+form table input.disable {
+	border:1px solid #ededed;
+	background:#ededed;
+	font-weight:bold;
+	text-align:right;
+	
+}
+
+form table input,textarea {
+	
+	
+}
+
+.numField {
+	width:60px;
+}
+
+
+input {
+	font-size:1em;	
+}
+
+input.button {
+background:#e1001a;
+color:#ffffff;
+margin:2px 5px;
+padding:3px;
+font-size:12px;
+cursor:pointer;
+border:1px solid #e1001a;
+-moz-border-radius: 5px;
+border-radius: 5px;
+
+}
+
+input.cancel {
+background:#bbbbbb;
+border:1px solid #bbbbbb;
+
+}
+
+
+.scrollable tr.odd td {
+	background-color:#ededed;
+
+}
+
+
+/*   table tablesorter  */
+
+
+table.tablesorter thead{
+	width: 98%; 
+}
+table.tablesorter th a ,
+table.tablesorter th a:active  {
+  outline: none;
+}
+
+
+
+table.tablesorter {
+	width: 100%; 
+	font-size: 11px; 
+	letter-spacing: 0.08em;
+	border-collapse: collapse; 
+	margin:0 2% 0.4em 0; 
+	border: 1px solid #cccccc; 
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: #e6EEEE;
+	border: 1px solid #FFF;
+	font-size: 8pt;
+	padding: 4px;
+}
+table.tablesorter thead tr .header {
+	background-image: url(/lib/templates/default/images/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+
+table.tablesorter tbody tr.annu td,table.tablesorter tbody tr.canc td {
+	color:#aaaaaa;
+	
+}
+table.tablesorter tbody tr.odd td {
+	background-color:#ededed;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(/lib/templates/default/images/asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(/lib/templates/default/images/desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+background-color: #8dbdd8;
+}
+
+
+
+
+
+table.tablesorter td { 
+	padding: 0.3em 0.5em; 
+	border-left: 1px solid #cccccc; 
+	border-right: 1px solid #cccccc; 
+}
+
+table.tablesorter td.edit { 
+	width:20px; 
+}
+table.tablesorter th { 	
+	border: 1px solid #cccccc; 
+}
+table.tablesorter tr { 
+	/*background: #f6f6f6 url(ui-lightness/images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x;*/
+	background: #f6f6f6;
+}
+table tr.odd { 
+	background: #ffffff;;
+}
+caption {
+	margin: 0 0 1em 0;
+	text-align: left; 
+	padding: 0.3em 0.3em; 
+}
+table.tablesorter th a {	
+	padding: 0.5em 2em 0.5em 0.7em; 
+	display: block;
+	line-height: 1;
+	color: black;
+	border: 0 !important;
+	position: relative;
+}
+th.ui-table-desc a {	
+	background: url(desc.gif) right center no-repeat;
+}
+th.ui-table-asc a{	
+	background: url(asc.gif) right center no-repeat;
+}
+th.ui-table-desc a:hover,	
+th.ui-table-desc a:active,	
+th.ui-table-desc a:focus, 
+th a:hover,	
+th a:active,	
+th a:focus{	
+	background: url(asc.gif) right center no-repeat;
+}
+th.ui-table-asc a:hover, 
+th.ui-table-asc a:active, 
+th.ui-table-asc a:focus{	
+	background: url(desc.gif) right center no-repeat;
+}
+
+
+
+td.edit {
+	width:30px;
+}
+
+
+
+
+span.required {
+	color:red;
+	
+}
+
+.missing {
+	border:2px solid red;
+	background:#FFD2D3;
+}
+
+
+
+
+a:hover {
+	text-decoration:underline;
+}
+
+
+
+.preview-htva,
+.fc-agenda .preview-htva .fc-event-time,
+.preview-htva a {
+    background-color: #ffaa55; /* background color */
+    border-color: #cccccc;     /* border color */
+    color: #000;           /* text color */
+}
+.build-htva,
+.fc-agenda .build-htva .fc-event-time,
+.build-htva a {
+    background-color: #ff9944; /* background color */
+    border-color: #cccccc;     /* border color */
+    color: #000;           /* text color */
+    }
+	
+	
+.inplace-htva,
+.fc-agenda .inplace-htva .fc-event-time,
+.inplace-htva a {
+    /*background-color: #ff8833; /* background color */
+   background-color:#ccc;
+    border-color: #cccccc;     /* border color */
+    color: #000;           /* text color */
+   }
+   
+.unbuild-htva,
+.fc-agenda .unbuild-htva .fc-event-time,
+.unbuild-htva a {
+    /*background-color: #ff9944; /* background color */
+   background-color: #ff8833;
+    border-color: #cccccc;     /* border color */
+    color: #000;           /* text color */
+   }
+   
+
+
+.preview-gratis,
+.fc-agenda .preview-gratis .fc-event-time,
+.preview-gratis a {
+    background-color: #c98db8; /* background color */
+    border-color: #cccccc;     /* border color */
+    color: #000;           /* text color */
+}
+.build-gratis,
+.fc-agenda .build-gratis .fc-event-time,
+.build-gratis a {
+    background-color: #be78aa; /* background color */
+    border-color: #cccccc;     /* border color */
+    color: #000;           /* text color */
+    }
+	
+	
+.inplace-gratis,
+.fc-agenda .inplace-gratis .fc-event-time,
+.inplace-gratis a {
+    background-color: #a35c9b; /* background color */
+    border-color: #cccccc;     /* border color */
+    color: #000;           /* text color */
+   }
+   
+.unbuild-gratis,
+.fc-agenda .unbuild-gratis .fc-event-time,
+.unbuild-gratis a {
+    background-color: #be78aa; /* background color */
+    border-color: #cccccc;     /* border color */
+    color: #000;           /* text color */
+   }
+   
+.inplace-htva {
+	background-color:#ccc;
+}
+   
+.offre,
+.fc-agenda .offre .fc-event-time,
+.offre a {
+  /*  background-color: #fff200; /* background color */
+  /*  border-color: yellow;     /* border color */
+  /*  color: #333333;           /* text color */
+   }
+    
+#offres.a {
+	background:none;
+}
+tr.annu td,tr.canc td {
+	color:#cccccc;
+	background:#cccccc;
+	
+}
+
+table.scrollable  {width:100%;
+border:1px solid #cccccc;margin:0 0 20px 0;}
+
+table.scrollable th,table.scrollable td {
+	padding:0 5px;}
+
+h1.header {background:#ededed; border:1px solid #cccccc;padding:0 5px;}
+
+table.scrollable tfoot {background:#ededed;}
+
+h5 {
+	color:#aaaaaa; font-size:10px;
+}
+
+
+
+.afdatas {
+	position:absolute;
+	width:250px;
+	border:1px solid #000000;
+	padding:5px;
+	background:#cccccc;	
+	display:none;
+}
+
+
+textarea.productDescription {
+	width:100%;
+	
+}
+
+input.productPrice, .productPrice {
+	text-align:right;	
+}
+
+
+.menu {
+	list-style:none; 
+    height:2em;
+    padding:0; 
+    margin:0; 
+    border: none;	
+	
+
+}
+
+.menu li {
+	float:right; 
+    margin-right:0.13em; 
+}
+
+.menu li a {
+	display:block;
+    padding:0.3em 1em;
+    text-decoration:none;
+    border:0.06em solid #000;
+    border-bottom:0;
+    font:bold 1em/2em arial,geneva,helvetica,sans-serif;
+    color:#000;
+    background-color:#e7e7e7;
+
+    /* CSS 3 elements */
+    webkit-border-top-right-radius:0.50em;
+    -webkit-border-top-left-radius:0.50em;
+    -moz-border-radius-topright:0.50em;
+    -moz-border-radius-topleft:0.50em;
+    border-top-right-radius:0.50em;
+    border-top-left-radius:0.50em;
+	
+	border:1px solid #cccccc;
+	margin-left:3px;
+}
+
+
+.menu li a:hover {
+    background:#e1001a; 
+	border:1px solid #e1001a;
+    color:#fff;
+    text-decoration:none;
+}
+
+
+.menu li.current a {
+    background-color: #e1001a;
+	border:1px solid #e1001a;
+    color: #ffffff;
+	border-bottom:0;
+}
+
+
+.menu li.current a:hover {
+    
+    color: #fff;
+}
+
+
+fieldset {
+	background:#ededed;
+	margin:0 10px;
+	padding:10px;	
+	border:1px solid #cccccc;
+}
+
+
+
+.jobTable i {
+	color:#999;	
+}
+#overlay textarea {
+	
+		width:260px;
+		height:50px;
+}
+
+
+.element form {
+	padding:0 7px;	
+}
+
+
+.fieldError {
+	border:2px solid red;	
+}
+
+
+.ui-menu-item {
+	text-align:left;	
+}
+
+
+
+#issue {
+	
+	color:red;
+	border:2px solid red;
+}
+
+#issue {
+	
+	color:red;
+	border:2px solid red;
+}
+
+
+.alert {
+	border:2px dashed red;
+	margin:10px 0;
+	padding:5px;
+	background:#ededed;
+}
+
+.alertlow {
+	border:2px dashed #aaa;
+	margin:10px 0;
+	padding:5px;
+	background:#ededed;
+}
+
+option.alert {
+	background-color:red;
+	color:#fff;
+}
+
+
+.element {
+	background:none;
+	
+}
+
+
+
+
+.dataTables_wrapper {
+	padding-bottom:20px;
+	
+}
+
+
+.dataTables_filter input {
+	border:1px solid #ccc;
+}
+
+
+thead tr {
+	border-bottom:1px solid #ccc;
+}
