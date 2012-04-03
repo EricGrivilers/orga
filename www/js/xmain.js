@@ -9,7 +9,7 @@
 	 
 	//$('#mainContent').tabs();
 	//$("#mainContent").tabs( { selected: 4 } );
-	
+	$('a[title]').qtip();
 	
 	$('#mainContent').tabs({
 		select: function(event, ui) {

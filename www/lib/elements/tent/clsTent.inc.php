@@ -355,7 +355,14 @@ class tent {
 		($type=='rent')?$owner="=0":$owner=">0";
 		$db=new DB;
 		//$db->query="SELECT T.* FROM #__tents T LEFT JOIN #__tent2job TJ ON TJ.tentId=T.tentId LEFT JOIN #__jobs J ON J.jobId=TJ.jobId  WHERE (J.endBuild<'".$from."' OR J.startBuild>'".$to."') AND T.ownerId".$owner." AND T.public=1 GROUP BY T.tentId ORDER BY T.tentId";
-		$db->query="SELECT T.* FROM #__tents T WHERE T.tentId NOT IN (SELECT TJ.tentId FROM #__tent2job TJ LEFT JOIN #__jobs J ON J.jobId=TJ.jobId WHERE (J.endBuild>='".$from."' AND J.endBuild<='".$to."') OR (J.startBuild>='".$from."' AND J.startBuild<='".$to."')) AND T.ownerId".$owner." AND T.public=1 GROUP BY T.tentId ORDER BY T.tentId";
+		$db->query="SELECT T.* FROM #__tents T 
+		WHERE T.tentId NOT IN (
+		SELECT TJ.tentId FROM #__tent2job TJ LEFT JOIN #__jobs J ON J.jobId=TJ.jobId 
+		WHERE (J.endBuild>='".$from."' AND J.endBuild<='".$to."') 
+		OR (J.startBuild>='".$from."' AND J.startBuild<='".$to."') 
+		OR (J.startBuild<='".$from."' AND J.endBuild>='".$to."')
+		) 
+		AND T.ownerId".$owner." AND T.public=1 GROUP BY T.tentId ORDER BY T.tentId";
 		$db->setQuery();
 		//echo $db->query;
 		$this->availableTents=$db->output;
@@ -367,7 +374,12 @@ class tent {
 	function getInJobTents($from,$to,$type,$jobId) {
 		($type=='rent')?$owner="=0":$owner=">0";
 		$db=new DB;
-		$db->query="SELECT T.*,J.* FROM #__tents T LEFT JOIN #__tent2job TJ ON TJ.tentId=T.tentId LEFT JOIN #__jobs J ON J.jobId=TJ.jobId  WHERE ((J.startBuild >= '".$from."' AND J.startBuild <= '".$to."') OR (J.endBuild>='".$from."' AND J.endBuild<='".$to."')) AND T.ownerId".$owner." AND T.public=1  AND J.jobId!='".$jobId."' ORDER BY T.tentId";
+		$db->query="SELECT T.*,J.* FROM #__tents T LEFT JOIN #__tent2job TJ ON TJ.tentId=T.tentId LEFT JOIN #__jobs J ON J.jobId=TJ.jobId  
+		WHERE ((J.startBuild >= '".$from."' AND J.startBuild <= '".$to."') 
+		OR (J.endBuild>='".$from."' AND J.endBuild<='".$to."')
+		OR (J.startBuild<='".$from."' AND J.endBuild>='".$to."')
+		) 
+		AND T.ownerId".$owner." AND T.public=1  AND J.jobId!='".$jobId."' ORDER BY T.tentId";
 		$db->setQuery();
 		//echo $db->query;
 		$this->inJobTents=$db->output;

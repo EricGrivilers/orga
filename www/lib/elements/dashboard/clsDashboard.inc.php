@@ -168,7 +168,7 @@ class Dashboard extends element {
 							
 						}
 					}
-					$out.="<div style='background-image:url(/images/tentPlanBkg.gif);padding-left:".($j[4]*20)."px'><div style='width:".($j[5]*20)."px;overflow:hidden;background-color:".$col.";font-size:9px;height:10px;'><a href='/jobs?jobId=".$j[0]."'>".$j[1]."</a></div></div>";
+					$out.="<div style='background-image:url(/images/tentPlanBkg.gif);padding-left:".($j[4]*20)."px'><div style='width:".($j[5]*20)."px;overflow:hidden;background-color:".$col.";font-size:9px;height:10px;'><a href='/jobs?jobId=".$j[0]."' title=\"job ".$j[1]." du ".$j[2]." au ".$j[3]."\">".$j[1]."</a></div></div>";
 				}
 			}
 			if($t['offres']) {
@@ -185,7 +185,7 @@ class Dashboard extends element {
 							}
 						}
 					}
-					$out.="<div style='background-image:url(/images/tentPlanBkg.gif);padding-left:".($j[4]*20)."px'><div style='width:".($j[5]*20)."px;overflow:hidden;background-color:".$col.";font-size:9px;height:10px;'><a href='/quotes?offreId=".$j[0]."'>".$j[1]."</a></div></div>";
+					$out.="<div style='background-image:url(/images/tentPlanBkg.gif);padding-left:".($j[4]*20)."px'><div style='width:".($j[5]*20)."px;overflow:hidden;background-color:".$col.";font-size:9px;height:10px;'><a href='/quotes?offreId=".$j[0]."' title=\"offre ".$j[1]." du ".$j[2]." au ".$j[3]."\">".$j[1]."</a></div></div>";
 				}
 			}
 			$out.="</td></tr>";
