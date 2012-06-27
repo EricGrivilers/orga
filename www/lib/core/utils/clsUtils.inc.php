@@ -294,6 +294,16 @@ class utils {
     return $password;
 
   }
+
+	function deleteDocument($type,$id,$path) {
+		if(unlink(__root__."docs/".$type."s/".$id."/".$path)) {
+			return 'ok';
+		}
+		else {
+			return "error";
+		}
+		
+	}
 }
 
 ?>

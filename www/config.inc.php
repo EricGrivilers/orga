@@ -12,7 +12,8 @@ define(__postmaster__,"eric@caravanemedia.com");
 
 
 
-define(__web__,"http://organic.caravanemedia.net/");
+//define(__web__,"http://organic.caravanemedia.net/");
+define(__web__,"http://".$_SERVER['HTTP_HOST']."/");
 define(__domain__,"caravanemedia.net");
 
 define(__root__,dirname(__FILE__)."/");

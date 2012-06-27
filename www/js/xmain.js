@@ -950,10 +950,16 @@ function displayInvoices() {
  
  
  
- function deleteDocument(path) {
+ function deleteDocument(doc,type,id,path) {
  	if(confirm("Etes-vous sûr(e) ?")) {
- 		 $.post("ajax.php?action=deleteDocument",{'path':path},function(data) {
-		 
+ 		
+ 		 $.post("ajax.php?action=deleteDocument",{'type':type,'id':id,'path':path},function(data) {
+		 if(data=='ok') {
+		 	$(doc).closest('tr').remove();
+		 }
+		 else {
+		 	alert('error deleting');
+		 }
 	  });
  	}
  	

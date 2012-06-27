@@ -293,7 +293,7 @@ switch($_GET['action']) {
 	
 	
 	case 'deleteDocument':
-		utils::deleteDocument($_POST['path']);	
+		echo utils::deleteDocument($_POST['type'],$_POST['id'],$_POST['path']);	
 	break;
 	
 	
