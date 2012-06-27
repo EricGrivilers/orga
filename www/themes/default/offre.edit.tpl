@@ -380,7 +380,7 @@
 										<td>
 										<b>Disponibles</b>
 										<br>
-										<select id="t_available_tents" class="multiselect" multiple="multiple"  style="width:400px; height:150px;" rows="5">
+										<select id="t_available_tents" class="multiselect" multiple="multiple"  style="width:500px; height:150px;" rows="5">
 											{% for tent in tents.available %}
 											<option value="{{tent.tentId}}">{{tent.reference}} - {{tent.name}} - {{tent.color}}  - {{tent.m2}}m2 {{tent.inOption}} </option>
 											{% endfor %}

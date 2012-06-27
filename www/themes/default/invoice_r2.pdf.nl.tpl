@@ -5,10 +5,8 @@
         <td style='width:{{mWidth}}mm;text-align:center'>Algemene voorwaarden die geldig zijn voor de aankoop of huur van onze produkten zoals vermeld bij de annex van deze factuur.</td>
       </tr>
       <tr>
-        <td style='width:{{mWidth}}mm;background-color:#ededed;text-align:center'>Organic sa - Mechelsesteenweg, 366 - 1950 Kraainem - Belgium<br/>
-          www.organic-concept.com - TVA/BTW: 0807.879.247 <br/>
-          Bank account: 001-5712962-29 - IBAN BE26001571296229 - Adresse SWIFT : GEBABEBB<br/>
-          Tel 00 32 2 720 77 45 - Fax 00 32 2 720 12 66 - info@organic-concept.com </td>
+        <td style='width:{{mWidth}}mm;background-color:#ededed;text-align:center'>
+        	{% include 'shared/address.fr.tpl' %} </td>
       </tr>
     </table>
   </page_footer>
@@ -18,7 +16,7 @@
       <td style='width:100mm;vertical-align:top'><img src="themes/default/images/logo.png"><br/>
         <br/>
         Factuur {{invoice.reference}}<br/>
-        Kraainem,  {{invoice.r2RDate}}<br/>
+        Zaventem,  {{invoice.r2RDate}}<br/>
         <br/>
        </td>
       <td style='vertical-align:top;padding-top:4mm'><span style="color:#E1001A;font-weight:bold">Betalingsherinnering - 

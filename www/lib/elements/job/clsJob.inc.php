@@ -294,8 +294,14 @@ function getJob() {
 			}
 		}
 		$sArray=array(2,3,1,4);
-		if(is_array($this->planning)) {
-		array_multisort($sArray, $this->planning);
+		
+		
+		
+		if(is_array($this->planning) && count($this->planning)==4) {
+			array_multisort(array(2,3,1,4), $this->planning);
+		}
+		else if(is_array($this->planning) && count($this->planning)==3) {
+			array_multisort(array(2,3,4), $this->planning);
 		}
 		//print_r($this->client);
 		

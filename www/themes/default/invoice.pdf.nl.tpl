@@ -5,10 +5,8 @@
         <td style='width:{{mWidth}}mm;text-align:center'>Algemene voorwaarden die geldig zijn voor de aankoop of huur van onze produkten zoals vermeld bij de annex van deze factuur.</td>
       </tr>
       <tr>
-        <td style='width:{{mWidth}}mm;background-color:#ededed;text-align:center'>Organic sa - Mechelsesteenweg, 366 - 1950 Kraainem - Belgium<br/>
-          www.organic-concept.com - TVA/BTW: 0807.879.247 <br/>
-          Bank account: 001-5712962-29 - IBAN BE26001571296229 - Adresse SWIFT : GEBABEBB<br/>
-          Tel 00 32 2 720 77 45 - Fax 00 32 2 720 12 66 - info@organic-concept.com </td>
+        <td style='width:{{mWidth}}mm;background-color:#ededed;text-align:center'>
+        	{% include 'shared/address.fr.tpl' %} </td>
       </tr>
     </table>
   </page_footer>
@@ -20,7 +18,7 @@
         	{% if invoice.priceHT>0 %} Factuur {{invoice.reference}}{% else %} 
       		Creditnota {{invoice.reference}}
       	{% endif %}  <br/>
-        Kraainem,  {{invoice.invoiceDate}}<br/>
+        Zaventem,  {{invoice.invoiceDate}}<br/>
         <br/>
        </td>
       <td style='vertical-align:top;padding-top:4mm'><span style="color:#E1001A;font-weight:bold">{{reminder}} 
@@ -60,9 +58,15 @@
         {% endif %}</td>
     </tr>
   </table>
-  <br/>
-   <br/>
-    <br/>
+
+
+<br/>
+
+<br/>
+
+<br/>
+
+
  
    
    {% if invoice.jobId>0 %}
@@ -76,7 +80,7 @@
 					<tbody>
 						{% for p in products %}
 						<tr>
-							<td style="width:140mm;text-align:left">{{p.description}}</td>
+							<td style="width:140mm;text-align:left">{{p.description|nl2br}}</td>
 							<td style="width:40mm;text-align:right">{{p.price}} €</td>
 						</tr>
 						{% endfor %}
@@ -91,7 +95,7 @@
 							<td style="text-align:right">
 							{% if invoice.priceType=='htva' %} BTW (21%)
 							{% elseif invoice.priceType=='intra' %}
-							Intra comm. {% endif %}
+							<i>Dienstverrichtingen niet onderworpen aan Belgische BTW Art. 21,§3,7°,h) van het WBTW</i> {% endif %}
 								
 							</td>
 							<td style="text-align:right">{{productsTVA}}</td>
@@ -115,7 +119,7 @@
 						<tr>
 							<td style='width:100mm'>{{slice.comments}}</td>
 							<td style='width:19mm'>{{slice.slice}} %</td>
-							<td style="width:60mm;text-align:right;">TOTAAL incl BTW : {{slice.priceHT}} €</td>
+							<td style="width:60mm;text-align:right;">TOTAAL excl BTW : {{slice.priceHT}} €</td>
 						</tr>
 						<tr>
 							<td></td>
@@ -145,7 +149,7 @@
 							{% for p in newproducts %}
 							
 							<tr>
-							<td style="width:140mm;text-align:left">{{p.description}}</td>
+							<td style="width:140mm;text-align:left">{{p.description|nl2br}}</td>
 							<td style="width:30mm;text-align:right">{{p.price}} €</td>
 							</tr>
 						

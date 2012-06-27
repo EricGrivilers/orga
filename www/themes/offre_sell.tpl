@@ -163,7 +163,7 @@
 </tr>
 </table>
 <p>
-    Organic sa - Mechelsesteenweg, 366 - 1950 Kraainem - Belgium<br/>
+    Organic sa-nv - 71, Ikaroslaan - 1930 Zaventem - Belgium<br/>
 www.organic-concept.com - TVA/BTW: 0807.879.247 - 001-5712962-29<br/>
 Tel 00 32 2 720 77 45 - Fax 00 32 2 720 12 66 - info@organic-concept.com<br/>
 </p

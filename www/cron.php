@@ -10,7 +10,7 @@ include(__lib__."init.inc.php");
 	FROM #__invoices 
 	LEFT JOIN #__clients ON #__clients.clientId=#__invoices.clientId 
 	WHERE #__invoices.reference!='' 
-	AND #__invoice.priceHT>0 
+	AND #__invoices.priceHT>0 
 	AND (TO_DAYS(NOW()) - TO_DAYS(#__invoices.insertDate) >15) 
 	AND paymentDate='0000-00-00' 
 	AND r1=0 
@@ -28,6 +28,7 @@ include(__lib__."init.inc.php");
 	
 	
 	$db->setQuery();
+	//echo $db->query;
 	//echo $db->query;
 	$r1=$db->output;
 	$rc=0;
@@ -55,7 +56,7 @@ include(__lib__."init.inc.php");
 	FROM #__invoices 
 	LEFT JOIN #__clients ON #__clients.clientId=#__invoices.clientId 
 	WHERE #__invoices.reference!='' 
-	AND #__invoice.priceHT>0 
+	AND #__invoices.priceHT>0 
 	AND (TO_DAYS(NOW()) - TO_DAYS(#__invoices.r1Date) >8) 
 	AND paymentDate='0000-00-00' 
 	AND r2=0 
@@ -106,7 +107,7 @@ include(__lib__."init.inc.php");
 	FROM #__invoices 
 	LEFT JOIN #__clients ON #__clients.clientId=#__invoices.clientId 
 	WHERE #__invoices.reference!='' 
-	AND #__invoice.priceHT>0 
+	AND #__invoices.priceHT>0 
 	AND (TO_DAYS(NOW()) - TO_DAYS(#__invoices.r2Date) >15) 
 	AND paymentDate='0000-00-00' 
 	AND r2=1 

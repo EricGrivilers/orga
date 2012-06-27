@@ -169,7 +169,19 @@ class user extends element {
 		return template::parse("users.login.tpl",array());
 	}
 	
-	
+	function createPassword() {
+		$userId=$_GET['userId'];
+		$password=utils::generatePassword(8);
+		$db=new DB;
+		$db->query="SELECT email FROM #__users WHERE userId='".$userId."'";
+		$email=$db->setQuery('first','email');
+		
+		mail($email,"New password",$password,"From: contact@organic-concept.com");
+		$db=new DB;
+		$db->query="UPDATE #__users SET password=md5('".$password."') WHERE userId='".$userId."'";
+		$db->setQuery();
+		return $email;
+	}
 }
 
 

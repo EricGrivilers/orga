@@ -608,26 +608,26 @@ class offre {
 		}
 		
 		//options
-		if(count($_POST['options'])>0) {
+		if($this->offre['status']!='CONFIRMÉ') {
 			$db=new DB;
 			$db->query="DELETE FROM #__product2offre WHERE isOption=1 AND offreId='".$this->offreId."'";
 			$db->setQuery();
-			
-			
-			foreach($_POST['options'] as $product) {
-				$product['productId']=$pId;
-				$product['rank']=$pId;
-				$product['offreId']=$this->offreId;
-				$product['isFromOffre']=1;
-				$product['isOption']=1;
-				$db=new DB;
-				$db->query="INSERT INTO #__product2offre ".$db->setInsert($product)." ";
-				$db->setQuery();
-				$pId++;
-				//echo $db->query;
+				
+			if(count($_POST['options'])>0) {
+				foreach($_POST['options'] as $product) {
+					$product['productId']=$pId;
+					$product['rank']=$pId;
+					$product['offreId']=$this->offreId;
+					$product['isFromOffre']=1;
+					$product['isOption']=1;
+					$db=new DB;
+					$db->query="INSERT INTO #__product2offre ".$db->setInsert($product)." ";
+					$db->setQuery();
+					$pId++;
+					//echo $db->query;
+				}
 			}
 		}
-		
 		//slices
 		
 		$db=new DB;
