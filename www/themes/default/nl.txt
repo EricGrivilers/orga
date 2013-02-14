@@ -1,0 +1,60 @@
+Offre N°	Offerte n°
+facture N°	Factuur n°
+Location	Verhuur
+Vente	Verkoop
+Hivernage	overwintering (winterstockage)
+Offre de prix	prijsofferte
+Offre de location	Verhuurofferte
+Offre de vente	verkoopsofferte
+Offre de prix de location	Verhuurprijs – voorstel
+Offre de prix de vente	Verkoopprijs – voorstel
+Lieu	Plaats
+	
+Proposition de location de tente(s)	Verhuur – voorstel
+Proposition de vente de tente(s) sur mesure	Verkoop – voorstel
+Matériel par tente comprenant:	
+Matériel	materiaal
+Conditions générales applicables pour la vente et la location de nos produits en annexe de cette offre.	Algemene voorwaarden die geldig zijn voor de aankoop of huur van onze produkten zoals vermeld bij de annex van deze offerte
+TVA	BTW
+TTC	incl BTW
+TVA 21%	BTW 21 %
+Total HTVA	Totaal excl BTW
+TOTAL TVAC	TOTAAL incl BTW
+Intra-communautaire	
+Compte bancaire	Bankrekenning
+Coodonnées bancaires	bankgegevens
+Adresse SWIFT	swift adress
+IBAN	IBAN
+Tel	Tel
+Fax	Fax
+Budget(s) location	Budget verhuur
+Budget(s) vente	Budget verkoop
+Budget(s) location de tente(s)	Budget verhuur
+Budget(s) vente  de tente(s)	budget verkoop
+Description	Beschrijving
+Montant htva	bedrag excl BTW
+Total HTVA	Totaal excl BTW
+TOTAL TTC a payer	Totaal incl BTW te betalen
+Options	opties
+	
+Conditions (de vente)	verkoopsvoorwaarden
+La réservation sera prise en compte à la reception de votre accompte	de reservatie wordt geconfirmeerd bij ontvangst betaling
+Nos prix s'entendent hors TVA	onze prijzen zijn exclusief btw
+Validité de cette offre: 30 jours date de l'offre	geldigheid van deze offerte: 30 dagen
+Sincères salutations	Met vriendelijke groeten
+page (numérotion)	pagina 
+prix total	totaalprijs
+Total TVAC	
+Conditions de paiement	betalingsvoorwaarden
+comptant (pour un paiemet comptant)	contant
+Voir nos conditions de vente au verso	Zie achterzijde voor onze verkoopsvoorwaarden
+Concerne:	betreffend (betreffende)
+Hivernage de vos tentes Organic	
+Location de tente(s) Organic	
+Vente de tente(s) Organic
+
+Belgique	België
+Bruxelles	Brussel
+Du	Van
+au	tot
+sur devis	op aanvraag

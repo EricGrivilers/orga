@@ -1,0 +1,60 @@
+Offre N°	Offre N°
+facture N°	facture N°
+Location	Location
+Vente	Vente
+Hivernage	Hivernage
+Offre de prix	Offre de prix
+Offre de location	Offre de location
+Offre de vente	Offre de vente
+Offre de prix de location	Offre de prix de location
+Offre de prix de vente	Offre de prix de vente
+Lieu	Lieu
+	
+Proposition de location de tente(s)	Proposition de location de tente(s)
+Proposition de vente de tente(s) sur mesure	Proposition de vente de tente(s) sur mesure
+Matériel par tente comprenant:	Matériel par tente comprenant:
+Matériel	Matériel
+Conditions générales applicables pour la vente et la location de nos produits en annexe de cette offre.	Conditions générales applicables pour la vente et la location de nos produits en annexe de cette offre.
+TVA	TVA
+TTC	TTC
+TVA 21%	TVA 21%
+Total HTVA	Total HTVA
+TOTAL TVAC	TOTAL TVAC
+Intra-communautaire	Intra-communautaire
+Compte bancaire	Compte bancaire
+Coordonnées bancaires	Coodonnées bancaires
+Adresse SWIFT	Adresse SWIFT
+IBAN	IBAN
+Tel	Tel
+Fax	Fax
+Budget(s) location	Budget(s) location
+Budget(s) vente	Budget(s) vente
+Budget(s) location de tente(s)	Budget(s) location de tente(s)
+Budget(s) vente  de tente(s)	Budget(s) vente  de tente(s)
+Description	Description
+Montant htva	Montant HTVA
+Total HTVA	Total HTVA
+TOTAL TTC a payer	TOTAL TVAC &agrave; payer
+Options	Options
+	
+Conditions (de vente)	Conditions (de vente)
+La réservation sera prise en compte à la reception de votre accompte	La réservation sera prise en compte à la reception de votre accompte
+Nos prix s'entendent hors TVA	Nos prix s'entendent hors TVA
+Validité de cette offre: 30 jours date de l'offre	Validité de cette offre: 30 jours date de l'offre
+Sincères salutations	Sincères salutations
+page (numérotion)	page (numérotion)
+prix total	prix total
+Total TVAC	Total TVAC
+Conditions de paiement	Conditions de paiement
+comptant (pour un paiemet comptant)	comptant (pour un paiemet comptant)
+Voir nos conditions de vente au verso	Voir nos conditions de vente au verso
+Concerne:	Concerne:
+Hivernage de vos tentes Organic	Hivernage de vos tentes Organic
+Location de tente(s) Organic	Location de tente(s) Organic
+Vente de tente(s) Organic	Vente de tente(s) Organic
+
+Belgique	Belgique
+Bruxelles	Bruxelles
+Du	Du
+au	au
+sur devis	sur devis
