@@ -18,7 +18,16 @@
         "sensio/generator-bundle": "2.1.*",
         "jms/security-extra-bundle": "1.2.*",
         "jms/di-extra-bundle": "1.1.*",
-        "kriswallsmith/assetic": "1.1.*@dev"
+        "kriswallsmith/assetic": "1.1.*@dev",
+        "friendsofsymfony/user-bundle": "*",
+        "friendsofsymfony/facebook-bundle": "*",
+        "friendsofsymfony/jsrouting-bundle": "*",
+        "stof/doctrine-extensions-bundle": "dev-master",
+        "avalanche123/imagine-bundle": "v2.1",
+        "adesigns/calendar-bundle": "dev-master",
+        "blueimp/jQuery-File-Upload":"dev-master",
+        "leafo/lessphp": "0.3.5",
+        "twitter/bootstrap": "master"
     },
     "scripts": {
         "post-install-cmd": [
@@ -37,5 +46,44 @@
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web"
-    }
+    },
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type":"package",
+            "package":{
+                "name":"blueimp/jQuery-File-Upload",
+                "version":"dev-master",
+                "source":{
+                    "url":"git://github.com/blueimp/jQuery-File-Upload.git",
+                    "type":"git",
+                    "reference":"origin/master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "version": "master",
+                "name": "jquery/jquery",
+                "dist": {
+                    "url": "http://code.jquery.com/jquery-1.8.3.js",
+                    "type":"file"
+                }
+            }
+        },
+        {
+           "type": "package",
+           "package": {
+               "version": "master",
+               "name": "twitter/bootstrap",
+               "source": {
+           "url": "https://github.com/caravane/bootstrap",
+                   "type": "git",
+                   "reference": "master"
+               }
+           }
+       }
+    ]
+
 }
