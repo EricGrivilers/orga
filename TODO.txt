@@ -1,0 +1,60 @@
+UPDATE `extra_product2offre` SET offreId=null WHERE offreId NOT IN (SELECT offreId FROM extra_offres)
+UPDATE `extra_product2invoice` SET invoiceId=null WHERE invoiceId NOT IN (SELECT invoiceId FROM extra_invoices)
+
+UPDATE `extra_product2job` SET jobId=null WHERE jobId NOT IN (SELECT jobId FROM extra_jobs)
+
+UPDATE `extra_product2job` SET offreId=null WHERE offreId NOT IN (SELECT offreId FROM extra_offres)
+
+UPDATE `extra_product2offre` SET jobId=NULL WHERE jobId NOT IN(SELECT jobId FROM extra_jobs)
+
+UPDATE `extra_product2offre` SET offreId=NULL WHERE offreId NOT IN(SELECT offreId FROM extra_offres)
+
+UPDATE `extra_tent2job` SET offreId=NULL WHERE offreId NOT IN (SELECT offreId FROM extra_offres)
+
+UPDATE `extra_tent2job` SET jobId=NULL WHERE jobId NOT IN (SELECT jobId FROM extra_jobs)
+
+UPDATE `extra_tent2job` SET tentId=NULL WHERE tentId NOT IN (SELECT tentId FROM extra_tents)
+
+UPDATE `extra_tent2offre` SET offreId=NULL WHERE offreId NOT IN (SELECT offreId FROM extra_offres)
+
+UPDATE `extra_tent2offre` SET jobId=NULL WHERE jobId NOT IN (SELECT jobId FROM extra_jobs)
+
+UPDATE `extra_tent2offre` SET tentId=NULL WHERE tentId NOT IN (SELECT tentId FROM extra_tents)
+
+
+
+
+
+
+UPDATE `extra_jobs` SET offreId=NULL WHERE offreId NOT IN (SELECT offreId FROM extra_offres);
+UPDATE `extra_jobs` SET clientId=NULL WHERE clientId NOT IN (SELECT clientId FROM extra_clients);
+UPDATE `extra_jobs` SET userId=NULL WHERE userId NOT IN (SELECT userId FROM extra_users);
+
+
+
+UPDATE `extra_offres` SET clientId=NULL WHERE clientId NOT IN (SELECT clientId FROM extra_clients);
+UPDATE `extra_offres` SET userId=NULL WHERE userId NOT IN (SELECT userId FROM extra_users);
+
+UPDATE `extra_planning` SET offreId=NULL WHERE offreId NOT IN (SELECT offreId FROM extra_offres);
+UPDATE `extra_planning` SET jobId=NULL WHERE jobId NOT IN (SELECT jobId FROM extra_jobs);
+UPDATE `extra_planning` SET userId=NULL WHERE userId NOT IN (SELECT userId FROM extra_users);
+
+
+
+UPDATE `extra_planning2job` SET offreId=NULL WHERE offreId NOT IN (SELECT offreId FROM extra_offres);
+UPDATE `extra_planning2job` SET jobId=NULL WHERE jobId NOT IN (SELECT jobId FROM extra_jobs);
+UPDATE `extra_planning2job` SET userId=NULL WHERE userId NOT IN (SELECT userId FROM extra_users);
+
+UPDATE `extra_planning2offre` SET offreId=NULL WHERE offreId NOT IN (SELECT offreId FROM extra_offres);
+UPDATE `extra_planning2offre` SET jobId=NULL WHERE jobId NOT IN (SELECT jobId FROM extra_jobs);
+UPDATE `extra_planning2offre` SET userId=NULL WHERE userId NOT IN (SELECT userId FROM extra_users);
+
+
+
+
+UPDATE `extra_invoices` SET jobId=NULL WHERE jobId NOT IN (SELECT jobId FROM extra_jobs);
+UPDATE `extra_invoices` SET clientId=NULL WHERE clientId NOT IN (SELECT clientId FROM extra_clients);
+
+
+UPDATE `extra_tents` SET ownerId=NULL WHERE ownerId NOT IN (SELECT clientId FROM extra_clients);
+UPDATE `extra_tents` SET winterOffreId=NULL WHERE winterOffreId NOT IN (SELECT offreId FROM extra_offres);
