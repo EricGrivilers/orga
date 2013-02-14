@@ -950,7 +950,6 @@ function displayInvoices() {
  
  
  
-
  function deleteDocument(doc,type,id,path) {
  	if(confirm("Etes-vous sûr(e) ?")) {
  		
@@ -961,7 +960,6 @@ function displayInvoices() {
 		 else {
 		 	alert('error deleting');
 		 }
-
 	  });
  	}
  	

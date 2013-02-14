@@ -20,22 +20,22 @@
         Zaventem,  {{invoice.medRDate}}<br/>
         <br/>
        </td>
-      <td style='vertical-align:top;padding-top:4mm'><span style="color:#E1001A;font-weight:bold">INGEBREKESTELLING - 
-      	
-      	
-      	{% if invoice.offreType=='rent' %} Verhuur 
-      	{% elseif invoice.offreType=='winter' %} Overwintering 
-      	{% else %} Verkoop 
+      <td style='vertical-align:top;padding-top:4mm'><span style="color:#E1001A;font-weight:bold">INGEBREKESTELLING -
+
+
+      	{% if invoice.offreType=='rent' %} Verhuur
+      	{% elseif invoice.offreType=='winter' %} Overwintering
+      	{% else %} Verkoop
       	{% endif %}
-      	{% if invoice.priceHT>0 %} 
-      		factuur 
-      	{% else %} 
+      	{% if invoice.priceHT>0 %}
+      		factuur
+      	{% else %}
       		creditnota
-      	{% endif %}  
+      	{% endif %}
       	</span>
-      	
-      	
-      	
+
+
+
       	<p style='padding-top:10mm'>
       		{% if invoice.clientType=='cie' %} <b>{{invoice.name}}</b> {{invoice.cieType}} <br/> {{invoice.clientTitle}} {{invoice.firstname}} {{invoice.lastname}} <br/>
       		{% else %}
@@ -56,34 +56,29 @@
   <br/>
    <br/>
     <br/>
- 
-   
+
+
   <p>Beste klant,</p>
 
 
 
-<p>De Saldo factuur n° {{invoice.reference}} van{{invoice.invoiceDate}} is tot op heden nog niet betaald. Onze voorwaarden melden "contant te betalen bij levering".</p>
-<p>Wij hebben tot op heden geen betalingsbewijs mogen ontvangen, en rekening houdende met onze voorwaarden zijn we genoodzaakt om 15% extra aan te rekenen. </p>
- 	
+<p>De saldo factuur n° {{invoice.reference}} van {{invoice.invoiceDate}} is tot op heden nog niet betaald. Onze voorwaarden melden "contant te betalen bij levering".</p>
+<p>Wij hebben tot op heden geen betalingsbewijs mogen ontvangen, en rekening houdende met onze voorwaarden zijn we genoodzaakt om 15% extra kosten aan te rekenen. </p>
+
 
 
 <p></p>
-  
-  
+
+
  <table style="width:{mWidth}mm;border:1px solid #000000;" cellspacing='0' >
  	<tr >
  		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>FACTUUR</td>
  		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>DATUM</td>
 		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>BEDRAG</td>
  		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>BEDRAG BTW INCL</td>
-<<<<<<< HEAD
  		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>VERVALDATUM</td>
 		<td style='padding:2mm;border-bottom:1px solid #000000'>VOORWAARDEN</td>
-=======
- 		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>VERVALT DATUM</td>
-		<td style='padding:2mm;border-bottom:1px solid #000000'>VOORWARDEN</td>
->>>>>>> 15a450940ad355bec01e2a184219d4794347992e
- 		
+
  	</tr>
  	<tr>
  		<td style='padding:2mm;border-right:1px solid #000000'>{{invoice.reference}}</td>
@@ -92,45 +87,45 @@
  		<td style='padding:2mm;border-right:1px solid #000000;text-align:right'>{{grandTotal}} €</td>
  		<td style='padding:2mm;border-right:1px solid #000000'>{{invoice.invoiceDate}}</td>
 		<td style='padding:2mm;'>CONTANT</td>
- 		
+
  	</tr>
- 	
- 	
+
+
  	<tr>
  		<td style='padding:2mm;border-right:1px solid #000000'></td>
  		<td style='padding:2mm;border-right:1px solid #000000'></td>
 		<td style='padding:2mm;border-right:1px solid #000000;text-align:right'>{{slice.priceHT15}} €</td>
  		<td style='padding:2mm;border-right:1px solid #000000;text-align:right'>{{grandTotal15}} €</td>
  		<td style='padding:2mm;border-right:1px solid #000000'>{{invoice.invoiceDate15}}</td>
- 
+
 		<td style='padding:2mm;'>TOTAAL</td>
- 		
+
  	</tr>
- 	
+
  </table>
  <p></p>
   <p>Met vriendelijke groeten,</p>
   <p>Géraldine Henry de Frahan.</p>
-  
-  
-  
-  
+
+
+
+
   <br/>
   <br/>
   <br/>
   <b><u>Verkoopsvoorwaarden :</u></b>
   <p>
- 
+
   Betalingsvoorwaarden: contant<br/>
 Communicatie: factuur nummer<br/>
- 
+
   </p>
   <br/>
 <b><u>Bankgegevens :</u></b>
   <p>Fortis Bank - Bankrekening n° 001-5712962-29 - IBAN BE26001571296229 - SWIFT nummer: GEBABEBB</p>
-  
- 
-  
+
+
+
 </page>
 
 <page>
@@ -215,12 +210,12 @@ Tijdens het demonteren van het materiaal zal iedere vertraging die is te wijten 
 </p><p><b>
 10. Gehuurd materiaal</b><br/>
 
-De huurder dient de waar te controleren bij het afhalen, bij de levering of bij de montage, en dit zal gelijkstaan met een volledige goedkeuring van de genoemde waar en de onberispelijke staat ervan. 
+De huurder dient de waar te controleren bij het afhalen, bij de levering of bij de montage, en dit zal gelijkstaan met een volledige goedkeuring van de genoemde waar en de onberispelijke staat ervan.
 
 De huurder dient in te staan voor het onderhoud van het geleverde materiaal en het vermijden van alle schade daaraan. De huurder is verantwoordelijk voor alle eventuele schade aan het gehuurde materiaal als gevolg van opslag, montering, ingebruikname, ongepast gebruik door de huurder.
 
 De huurder zal het materiaal in een onberispelijke staat van netheid aan de verhuurder terugbezorgen. Indien dit niet het geval is, zullen de kosten voor reiniging of onderhoud gefactureerd worden.
-Het is verboden in het houtwerk en de dekzeilen te nagelen, nieten, schroeven of zagen, deze te beschilderen of op duurzame wijze te markeren, de reclame van de verhuurder te verbergen of weg te halen, behalve met uitdrukkelijke toestemming op het moment van de ondertekening van de overeenkomst. 
+Het is verboden in het houtwerk en de dekzeilen te nagelen, nieten, schroeven of zagen, deze te beschilderen of op duurzame wijze te markeren, de reclame van de verhuurder te verbergen of weg te halen, behalve met uitdrukkelijke toestemming op het moment van de ondertekening van de overeenkomst.
 
 Om het even welke persoon belast is met het transport van de gehuurde goederen, gaat de huurperiode in vanaf de dag waarop de gehuurde goederen de opslagplaats van de verhuurder verlaten. Huurperioden bedragen steeds drie werkdagen waarin de dag van levering en de dag van terugname zijn inbegrepen. Iedere aangevangen bijkomende dag is volledig verschuldigd tegen hetzelfde huurtarief. 
 </p><p><b>

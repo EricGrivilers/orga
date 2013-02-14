@@ -494,13 +494,11 @@
 				<h3>Documents</h3>
 				<table id='attachedFiles'>
 					{% for d in documents %}
-
 						<tr><td><a href='{{webRoot}}docs/offres/{{offre.offreId}}/{{d.url}}' target='_blank'>{{d.url}}</a></td><td>{% if d.type=='image' %}<img src="{{webRoot}}docs/offres/{{offre.offreId}}/{{d.url}}" style="height:60px"/>{% endif %}</td>
 							<td><a  onclick="deleteDocument(this,'offre','{{offre.offreId}}','{{d.url}}')"><img src="/themes/default/images/buttons/del.png"/></a></td>
 						</tr>
 					{% endfor %}
 					<tr><td colspan='3'><input id="file_upload" name="file_upload" type="file"  /><input type='hidden' id='attachedFilesFolder' value='docs/offres/{{offre.offreId}}' /></td></tr>
-
 				</table>
 				
 				<h3>Texte d'introduction à l'offre</h3>

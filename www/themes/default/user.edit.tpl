@@ -22,13 +22,10 @@
             <input type="text"  name="user[firstname]" value="{{user.firstname}}" style="width:90%" /></td>
         </tr>
         <tr>
-<<<<<<< HEAD
           <td colspan='3' >ISO (3 lettres) <input type="text" name="user[iso]" size="3" value="{{user.iso}}" /></td>
           <td>
         </tr>
         <tr>
-=======
->>>>>>> 15a450940ad355bec01e2a184219d4794347992e
           <td>Adresse</td>
           <td valign="top"><input type="radio" name="user[address]" value="be" {% if user.address=='be' %} checked {% endif %} />
             Organic BE
