@@ -76,8 +76,13 @@
  		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>DATUM</td>
 		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>BEDRAG</td>
  		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>BEDRAG BTW INCL</td>
+<<<<<<< HEAD
  		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>VERVALDATUM</td>
 		<td style='padding:2mm;border-bottom:1px solid #000000'>VOORWAARDEN</td>
+=======
+ 		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>VERVALT DATUM</td>
+		<td style='padding:2mm;border-bottom:1px solid #000000'>VOORWARDEN</td>
+>>>>>>> 15a450940ad355bec01e2a184219d4794347992e
  		
  	</tr>
  	<tr>

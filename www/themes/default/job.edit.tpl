@@ -450,9 +450,16 @@
 				<h3>Documents</h3>
 				<table id='attachedFiles'>
 					{% for d in documents %}
-						<tr><td><a href='{{webRoot}}docs/jobs/{{job.jobId}}/{{d.url}}' target='_blank'>{{d.url}}</a></td><td>{% if d.type=='image' %}<img src="{{webRoot}}docs/jobs/{{jobs.jobId}}/{{d.url}}" style="height:60px"/>{% endif %}</td></tr>
+
+						<tr><td><a href='{{webRoot}}docs/jobs/{{job.jobId}}/{{d.url}}' target='_blank'>{{d.url}}</a></td><td>{% if d.type=='image' %}<img src="{{webRoot}}docs/jobs/{{jobs.jobId}}/{{d.url}}" style="height:60px"/>{% endif %}</td>
+							
+							<td><a  onclick="deleteDocument(this,'job','{{job.jobId}}','{{d.url}}')"><img src="/themes/default/images/buttons/del.png"/></a></td>
+							
+							
+						</tr>
 					{% endfor %}
-					<tr><td colspan='2'><input id="file_upload" name="file_upload" type="file"  /><input type='hidden' id='attachedFilesFolder' value='docs/jobs/{{job.jobId}}' /></td></tr>
+					<tr><td colspan='3'><input id="file_upload" name="file_upload" type="file"  /><input type='hidden' id='attachedFilesFolder' value='docs/jobs/{{job.jobId}}' /></td></tr>
+
 				</table>
 				<h3>Données financières</h3>
 				<table id="fDatas">

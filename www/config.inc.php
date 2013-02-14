@@ -11,6 +11,7 @@ define(__postmaster__,"eric@caravanemedia.com");
 
 
 
+
 define(__web__,"http://".$_SERVER['HTTP_HOST']."/");
 define(__domain__,"caravanemedia.net");
 

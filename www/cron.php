@@ -162,9 +162,11 @@ include(__lib__."init.inc.php");
 		//mail('eric@caravanemedia.com','Rappels',$subject,'From:organic@caravanemedia.com');	
 		
 		mail('geraldine@organic-concept.com','Rappels',$subject,'FROM: organic@caravanemedia.net');
-		mail('yvan@organic-concept.com','Rappels',$subject,'FROM: organic@caravanemedia.net');
+		
+
 		mail('benjamin@organic-concept.com','Rappels',$subject,'FROM: organic@caravanemedia.net');
-		mail('eric@caravanemedia.com','Rappels',$subject,'FROM: organic@caravanemedia.net');
+
+		//mail('eric@caravanemedia.com','Rappels',$subject,'FROM: organic@caravanemedia.net');
 		
 		echo "mails sent";
 		
