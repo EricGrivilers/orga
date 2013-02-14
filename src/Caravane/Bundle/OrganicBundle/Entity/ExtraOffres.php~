@@ -1,0 +1,304 @@
+<?php
+
+namespace Caravane\Bundle\OrganicBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ExtraOffres
+ *
+ * @ORM\Table(name="extra_offres")
+ * @ORM\Entity
+ */
+class ExtraOffres
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="offreId", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $offreid;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="insertDate", type="datetime", nullable=false)
+     */
+    private $insertdate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updateDate", type="datetime", nullable=false)
+     */
+    private $updatedate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reference", type="string", length=50, nullable=false)
+     */
+    private $reference;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="offreType", type="string", length=10, nullable=false)
+     */
+    private $offretype;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="planningComments", type="text", nullable=false)
+     */
+    private $planningcomments;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="offreComments", type="text", nullable=false)
+     */
+    private $offrecomments;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="surface", type="string", length=100, nullable=false)
+     */
+    private $surface;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="startBuild", type="datetime", nullable=false)
+     */
+    private $startbuild;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="endBuild", type="datetime", nullable=false)
+     */
+    private $endbuild;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="requestDate", type="datetime", nullable=false)
+     */
+    private $requestdate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=30, nullable=false)
+     */
+    private $status;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="priceType", type="string", length=10, nullable=false)
+     */
+    private $pricetype;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="price", type="string", length=50, nullable=false)
+     */
+    private $price;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="priceComments", type="text", nullable=false)
+     */
+    private $pricecomments;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conditions", type="text", nullable=false)
+     */
+    private $conditions;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conditionsSlices", type="text", nullable=false)
+     */
+    private $conditionsslices;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tents", type="string", length=255, nullable=false)
+     */
+    private $tents;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tentsComments", type="text", nullable=false)
+     */
+    private $tentscomments;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=255, nullable=false)
+     */
+    private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="number", type="string", length=10, nullable=false)
+     */
+    private $number;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="zip", type="string", length=10, nullable=false)
+     */
+    private $zip;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=120, nullable=false)
+     */
+    private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="country", type="string", length=120, nullable=false)
+     */
+    private $country;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contact", type="string", length=255, nullable=false)
+     */
+    private $contact;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=20, nullable=false)
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone2", type="string", length=20, nullable=false)
+     */
+    private $phone2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mobile", type="string", length=20, nullable=false)
+     */
+    private $mobile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fax", type="string", length=20, nullable=false)
+     */
+    private $fax;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=120, nullable=false)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=255, nullable=false)
+     */
+    private $url;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comments", type="text", nullable=false)
+     */
+    private $comments;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="introText", type="text", nullable=false)
+     */
+    private $introtext;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="issue", type="boolean", nullable=false)
+     */
+    private $issue;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="deleted", type="string", length=255, nullable=false)
+     */
+    private $deleted;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="public", type="boolean", nullable=false)
+     */
+    private $public;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="language", type="string", length=2, nullable=false)
+     */
+    private $language;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="copyId", type="boolean", nullable=false)
+     */
+    private $copyid;
+
+    /**
+     * @var \ExtraUsers
+     *
+     * @ORM\ManyToOne(targetEntity="ExtraUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="userId", referencedColumnName="userId")
+     * })
+     */
+    private $userid;
+
+    /**
+     * @var \ExtraClients
+     *
+     * @ORM\ManyToOne(targetEntity="ExtraClients")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="clientId", referencedColumnName="clientId")
+     * })
+     */
+    private $clientid;
+
+
+}

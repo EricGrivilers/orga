@@ -1,0 +1,123 @@
+<?php
+
+namespace Caravane\Bundle\OrganicBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ExtraDatas
+ *
+ * @ORM\Table(name="extra_datas")
+ * @ORM\Entity
+ */
+class ExtraDatas
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="dataId", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $dataid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="parentId", type="integer", nullable=false)
+     */
+    private $parentid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rank", type="integer", nullable=false)
+     */
+    private $rank;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="subRank", type="integer", nullable=false)
+     */
+    private $subrank;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="link", type="string", length=255, nullable=false)
+     */
+    private $link;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=255, nullable=false)
+     */
+    private $url;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="thumbUrl", type="string", length=255, nullable=false)
+     */
+    private $thumburl;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=120, nullable=false)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="shortDescription", type="string", length=255, nullable=false)
+     */
+    private $shortdescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="longDescription", type="text", nullable=false)
+     */
+    private $longdescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="info1", type="text", nullable=false)
+     */
+    private $info1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="info2", type="text", nullable=false)
+     */
+    private $info2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="info3", type="text", nullable=false)
+     */
+    private $info3;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="categoryId", type="integer", nullable=false)
+     */
+    private $categoryid;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="insertDate", type="datetime", nullable=false)
+     */
+    private $insertdate;
+
+
+}

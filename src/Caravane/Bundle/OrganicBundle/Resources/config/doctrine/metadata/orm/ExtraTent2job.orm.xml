@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ExtraTent2job" table="extra_tent2job">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="etat" type="string" column="etat" length="100" nullable="false"/>
+    <field name="plancher" type="boolean" column="plancher" nullable="false"/>
+    <field name="surfaceplancher" type="string" column="surfacePlancher" length="255" nullable="false"/>
+    <field name="sol" type="string" column="sol" length="255" nullable="false"/>
+    <field name="canalisation" type="boolean" column="canalisation" nullable="false"/>
+    <field name="other" type="text" column="other" nullable="false"/>
+    <many-to-one field="jobid" target-entity="ExtraJobs">
+      <join-columns>
+        <join-column name="jobId" referenced-column-name="jobId"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="tentid" target-entity="ExtraTents">
+      <join-columns>
+        <join-column name="tentId" referenced-column-name="tentId"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="offreid" target-entity="ExtraOffres">
+      <join-columns>
+        <join-column name="offreId" referenced-column-name="offreId"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

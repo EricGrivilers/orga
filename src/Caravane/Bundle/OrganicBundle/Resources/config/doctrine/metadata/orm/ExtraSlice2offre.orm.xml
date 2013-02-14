@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ExtraSlice2offre" table="extra_slice2offre">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="offreid" type="integer" column="offreId" nullable="true"/>
+    <field name="jobid" type="integer" column="jobId" nullable="true"/>
+    <field name="invoiceid" type="integer" column="invoiceId" nullable="true"/>
+    <field name="sliceid" type="integer" column="sliceId" nullable="true"/>
+    <field name="slice" type="float" column="slice" nullable="false"/>
+    <field name="priceht" type="float" column="priceHT" nullable="false"/>
+    <field name="comments" type="text" column="comments" nullable="false"/>
+    <field name="status" type="string" column="status" length="20" nullable="false"/>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,214 @@
+<?php
+
+namespace Caravane\Bundle\OrganicBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ExtraClients
+ *
+ * @ORM\Table(name="extra_clients")
+ * @ORM\Entity
+ */
+class ExtraClients
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="clientId", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $clientid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reference", type="string", length=50, nullable=false)
+     */
+    private $reference;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="clientType", type="string", length=20, nullable=false)
+     */
+    private $clienttype;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="isOwner", type="boolean", nullable=false)
+     */
+    private $isowner;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=50, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="firstname", type="string", length=50, nullable=false)
+     */
+    private $firstname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lastname", type="string", length=50, nullable=false)
+     */
+    private $lastname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="clientTitle", type="string", length=20, nullable=false)
+     */
+    private $clienttitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cieType", type="string", length=10, nullable=false)
+     */
+    private $cietype;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vat", type="string", length=50, nullable=true)
+     */
+    private $vat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=255, nullable=false)
+     */
+    private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="number", type="string", length=10, nullable=false)
+     */
+    private $number;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="zip", type="string", length=10, nullable=false)
+     */
+    private $zip;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=120, nullable=false)
+     */
+    private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="country", type="string", length=120, nullable=false)
+     */
+    private $country;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=30, nullable=false)
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone2", type="string", length=30, nullable=false)
+     */
+    private $phone2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mobile", type="string", length=30, nullable=false)
+     */
+    private $mobile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fax", type="string", length=30, nullable=false)
+     */
+    private $fax;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=120, nullable=false)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=255, nullable=false)
+     */
+    private $url;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="language", type="string", length=2, nullable=false)
+     */
+    private $language;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="userId", type="integer", nullable=false)
+     */
+    private $userid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="origin", type="string", length=255, nullable=false)
+     */
+    private $origin;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="insertDate", type="datetime", nullable=false)
+     */
+    private $insertdate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updateDate", type="datetime", nullable=false)
+     */
+    private $updatedate;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="public", type="boolean", nullable=false)
+     */
+    private $public;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="jobId", type="integer", nullable=false)
+     */
+    private $jobid;
+
+
+}

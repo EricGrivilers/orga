@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ExtraTentsColors" table="extra_tents_colors">
+    <id name="colorid" type="integer" column="colorId">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="color" type="string" column="color" length="20" nullable="false"/>
+  </entity>
+</doctrine-mapping>

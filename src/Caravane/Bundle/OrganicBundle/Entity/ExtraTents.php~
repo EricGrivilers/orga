@@ -1,0 +1,171 @@
+<?php
+
+namespace Caravane\Bundle\OrganicBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ExtraTents
+ *
+ * @ORM\Table(name="extra_tents")
+ * @ORM\Entity
+ */
+class ExtraTents
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="tentId", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $tentid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=64, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reference", type="string", length=64, nullable=false)
+     */
+    private $reference;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="kit", type="boolean", nullable=false)
+     */
+    private $kit;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="owner", type="string", length=100, nullable=false)
+     */
+    private $owner;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="color", type="string", length=50, nullable=false)
+     */
+    private $color;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="length", type="string", length=10, nullable=false)
+     */
+    private $length;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="width", type="string", length=10, nullable=false)
+     */
+    private $width;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="m2", type="string", length=15, nullable=false)
+     */
+    private $m2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="weight", type="string", length=50, nullable=false)
+     */
+    private $weight;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="piquets", type="integer", nullable=false)
+     */
+    private $piquets;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=50, nullable=false)
+     */
+    private $status;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="etat", type="string", length=50, nullable=false)
+     */
+    private $etat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comments", type="text", nullable=false)
+     */
+    private $comments;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="winter", type="boolean", nullable=false)
+     */
+    private $winter;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="issue", type="integer", nullable=false)
+     */
+    private $issue;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="insertDate", type="datetime", nullable=false)
+     */
+    private $insertdate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updateDate", type="datetime", nullable=false)
+     */
+    private $updatedate;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="public", type="boolean", nullable=false)
+     */
+    private $public;
+
+    /**
+     * @var \ExtraOffres
+     *
+     * @ORM\ManyToOne(targetEntity="ExtraOffres")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="winterOffreId", referencedColumnName="offreId")
+     * })
+     */
+    private $winteroffreid;
+
+    /**
+     * @var \ExtraClients
+     *
+     * @ORM\ManyToOne(targetEntity="ExtraClients")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ownerId", referencedColumnName="clientId")
+     * })
+     */
+    private $ownerid;
+
+
+}

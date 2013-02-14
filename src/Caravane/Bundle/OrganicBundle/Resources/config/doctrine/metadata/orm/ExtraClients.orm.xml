@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ExtraClients" table="extra_clients">
+    <id name="clientid" type="integer" column="clientId">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="reference" type="string" column="reference" length="50" nullable="false"/>
+    <field name="clienttype" type="string" column="clientType" length="20" nullable="false"/>
+    <field name="isowner" type="boolean" column="isOwner" nullable="false"/>
+    <field name="name" type="string" column="name" length="50" nullable="false"/>
+    <field name="firstname" type="string" column="firstname" length="50" nullable="false"/>
+    <field name="lastname" type="string" column="lastname" length="50" nullable="false"/>
+    <field name="clienttitle" type="string" column="clientTitle" length="20" nullable="false"/>
+    <field name="cietype" type="string" column="cieType" length="10" nullable="false"/>
+    <field name="vat" type="string" column="vat" length="50" nullable="true"/>
+    <field name="address" type="string" column="address" length="255" nullable="false"/>
+    <field name="number" type="string" column="number" length="10" nullable="false"/>
+    <field name="zip" type="string" column="zip" length="10" nullable="false"/>
+    <field name="city" type="string" column="city" length="120" nullable="false"/>
+    <field name="country" type="string" column="country" length="120" nullable="false"/>
+    <field name="phone" type="string" column="phone" length="30" nullable="false"/>
+    <field name="phone2" type="string" column="phone2" length="30" nullable="false"/>
+    <field name="mobile" type="string" column="mobile" length="30" nullable="false"/>
+    <field name="fax" type="string" column="fax" length="30" nullable="false"/>
+    <field name="email" type="string" column="email" length="120" nullable="false"/>
+    <field name="url" type="string" column="url" length="255" nullable="false"/>
+    <field name="language" type="string" column="language" length="2" nullable="false"/>
+    <field name="userid" type="integer" column="userId" nullable="false"/>
+    <field name="origin" type="string" column="origin" length="255" nullable="false"/>
+    <field name="insertdate" type="datetime" column="insertDate" nullable="false"/>
+    <field name="updatedate" type="datetime" column="updateDate" nullable="false"/>
+    <field name="public" type="boolean" column="public" nullable="false"/>
+    <field name="jobid" type="integer" column="jobId" nullable="false"/>
+  </entity>
+</doctrine-mapping>

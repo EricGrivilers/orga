@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ExtraInvoices" table="extra_invoices">
+    <id name="invoiceid" type="integer" column="invoiceId">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="reference" type="string" column="reference" length="20" nullable="true"/>
+    <field name="year" type="string" column="year" length="4" nullable="false"/>
+    <field name="offretype" type="string" column="offreType" length="10" nullable="false"/>
+    <field name="slice" type="boolean" column="slice" nullable="false"/>
+    <field name="cslice" type="boolean" column="cSlice" nullable="false"/>
+    <field name="nbslices" type="boolean" column="nbSlices" nullable="false"/>
+    <field name="insertdate" type="date" column="insertDate" nullable="false"/>
+    <field name="paymentdate" type="date" column="paymentDate" nullable="false"/>
+    <field name="priceht" type="float" column="priceHT" nullable="false"/>
+    <field name="pricetype" type="string" column="priceType" length="10" nullable="false"/>
+    <field name="creditnote" type="string" column="creditNote" length="120" nullable="false"/>
+    <field name="comments" type="text" column="comments" nullable="false"/>
+    <field name="conditions" type="text" column="conditions" nullable="false"/>
+    <field name="conditions1" type="boolean" column="conditions1" nullable="false"/>
+    <field name="conditions2" type="boolean" column="conditions2" nullable="false"/>
+    <field name="content" type="text" column="content" nullable="false"/>
+    <field name="cietype" type="string" column="cieType" length="15" nullable="false"/>
+    <field name="clienttype" type="string" column="clientType" length="5" nullable="false"/>
+    <field name="clienttitle" type="string" column="clientTitle" length="5" nullable="false"/>
+    <field name="name" type="string" column="name" length="255" nullable="false"/>
+    <field name="lastname" type="string" column="lastname" length="255" nullable="false"/>
+    <field name="firstname" type="string" column="firstname" length="255" nullable="false"/>
+    <field name="vat" type="string" column="vat" length="30" nullable="false"/>
+    <field name="address" type="string" column="address" length="255" nullable="false"/>
+    <field name="number" type="string" column="number" length="20" nullable="false"/>
+    <field name="zip" type="string" column="zip" length="20" nullable="false"/>
+    <field name="city" type="string" column="city" length="120" nullable="false"/>
+    <field name="country" type="string" column="country" length="120" nullable="false"/>
+    <field name="status" type="string" column="status" length="10" nullable="false"/>
+    <field name="r1" type="boolean" column="r1" nullable="false"/>
+    <field name="r1date" type="date" column="r1Date" nullable="false"/>
+    <field name="r2" type="boolean" column="r2" nullable="false"/>
+    <field name="r2date" type="date" column="r2Date" nullable="false"/>
+    <field name="med" type="boolean" column="med" nullable="false"/>
+    <field name="meddate" type="date" column="medDate" nullable="false"/>
+    <field name="language" type="string" column="language" length="2" nullable="false"/>
+    <many-to-one field="jobid" target-entity="ExtraJobs">
+      <join-columns>
+        <join-column name="jobId" referenced-column-name="jobId"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="clientid" target-entity="ExtraClients">
+      <join-columns>
+        <join-column name="clientId" referenced-column-name="clientId"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
