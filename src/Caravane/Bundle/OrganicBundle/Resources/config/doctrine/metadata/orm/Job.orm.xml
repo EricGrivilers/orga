@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Job" table="job">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="insertdate" type="datetime" column="insertDate" nullable="false"/>
+    <field name="updatedate" type="datetime" column="updateDate" nullable="false"/>
+    <field name="reference" type="string" column="reference" length="50" nullable="false"/>
+    <field name="offretype" type="string" column="offreType" length="10" nullable="false"/>
+    <field name="planningcomments" type="text" column="planningComments" nullable="false"/>
+    <field name="offrecomments" type="text" column="offreComments" nullable="false"/>
+    <field name="surface" type="string" column="surface" length="100" nullable="false"/>
+    <field name="startbuild" type="datetime" column="startBuild" nullable="false"/>
+    <field name="endbuild" type="datetime" column="endBuild" nullable="false"/>
+    <field name="buildnotes" type="text" column="buildNotes" nullable="false"/>
+    <field name="unbuildnotes" type="text" column="unbuildNotes" nullable="false"/>
+    <field name="requestdate" type="datetime" column="requestDate" nullable="false"/>
+    <field name="status" type="string" column="status" length="30" nullable="false"/>
+    <field name="pricetype" type="string" column="priceType" length="11" nullable="true"/>
+    <field name="price" type="string" column="price" length="50" nullable="false"/>
+    <field name="pricecomments" type="text" column="priceComments" nullable="false"/>
+    <field name="conditions" type="text" column="conditions" nullable="false"/>
+    <field name="conditionsslices" type="text" column="conditionsSlices" nullable="false"/>
+    <field name="tents" type="string" column="tents" length="255" nullable="false"/>
+    <field name="tentscomments" type="text" column="tentsComments" nullable="false"/>
+    <field name="address" type="string" column="address" length="255" nullable="false"/>
+    <field name="number" type="string" column="number" length="10" nullable="false"/>
+    <field name="zip" type="string" column="zip" length="10" nullable="false"/>
+    <field name="city" type="string" column="city" length="120" nullable="false"/>
+    <field name="country" type="string" column="country" length="120" nullable="false"/>
+    <field name="contact" type="string" column="contact" length="255" nullable="false"/>
+    <field name="phone" type="string" column="phone" length="20" nullable="false"/>
+    <field name="phone2" type="string" column="phone2" length="20" nullable="false"/>
+    <field name="mobile" type="string" column="mobile" length="20" nullable="false"/>
+    <field name="fax" type="string" column="fax" length="20" nullable="false"/>
+    <field name="email" type="string" column="email" length="120" nullable="false"/>
+    <field name="url" type="string" column="url" length="255" nullable="false"/>
+    <field name="comments" type="text" column="comments" nullable="false"/>
+    <field name="public" type="boolean" column="public" nullable="false"/>
+    <field name="issue" type="boolean" column="issue" nullable="false"/>
+    <field name="jobreference" type="string" column="jobReference" length="20" nullable="false"/>
+    <field name="language" type="string" column="language" length="2" nullable="false"/>
+    <field name="copyid" type="boolean" column="copyId" nullable="false"/>
+    <many-to-one field="clientid" target-entity="Client">
+      <join-columns>
+        <join-column name="clientId" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="offreid" target-entity="Offre">
+      <join-columns>
+        <join-column name="offreId" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="userid" target-entity="User">
+      <join-columns>
+        <join-column name="userId" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

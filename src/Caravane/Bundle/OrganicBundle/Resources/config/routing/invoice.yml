@@ -1,0 +1,30 @@
+invoice:
+    pattern:  /
+    defaults: { _controller: "CaravaneOrganicBundle:Invoice:index" }
+
+invoice_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "CaravaneOrganicBundle:Invoice:show" }
+
+invoice_new:
+    pattern:  /new
+    defaults: { _controller: "CaravaneOrganicBundle:Invoice:new" }
+
+invoice_create:
+    pattern:  /create
+    defaults: { _controller: "CaravaneOrganicBundle:Invoice:create" }
+    requirements: { _method: post }
+
+invoice_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "CaravaneOrganicBundle:Invoice:edit" }
+
+invoice_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "CaravaneOrganicBundle:Invoice:update" }
+    requirements: { _method: post }
+
+invoice_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "CaravaneOrganicBundle:Invoice:delete" }
+    requirements: { _method: post }

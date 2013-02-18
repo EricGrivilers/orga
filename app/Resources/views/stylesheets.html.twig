@@ -1,0 +1,14 @@
+{% block stylesheets %}
+
+    {% stylesheets filter="lessphp" output="css/organic.css"
+    "../vendor/twitter/bootstrap/less/bootstrap.less"
+    "@CaravaneOrganicBundle/Resources/public/css/main.less"
+
+
+
+
+
+        %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
+{% endblock stylesheets %}

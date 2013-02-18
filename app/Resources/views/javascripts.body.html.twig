@@ -1,0 +1,23 @@
+{% block bodyscripts %}
+    {% javascripts output="js/organic-body.js"
+    "../vendor/jquery/jquery/jquery-1.8.3.js"
+    "../vendor/twitter/bootstrap/js/bootstrap-affix.js"
+    "../vendor/twitter/bootstrap/js/bootstrap-transition.js"
+    "../vendor/twitter/bootstrap/js/bootstrap-modal.js"
+    "../vendor/twitter/bootstrap/js/bootstrap-dropdown.js"
+    "../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js"
+    "../vendor/twitter/bootstrap/js/bootstrap-tab.js"
+    "../vendor/twitter/bootstrap/js/bootstrap-tooltip.js"
+    "../vendor/twitter/bootstrap/js/bootstrap-popover.js"
+    "../vendor/twitter/bootstrap/js/bootstrap-alert.js"
+    "../vendor/twitter/bootstrap/js/bootstrap-button.js"
+    "../vendor/twitter/bootstrap/js/bootstrap-collapse.js"
+    "../vendor/twitter/bootstrap/js/bootstrap-carousel.js"
+    "../vendor/twitter/bootstrap/js/bootstrap-typeahead.js"
+    "@CaravaneOrganicBundle/Resources/public/js/main.js"
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+{% endblock bodyscripts %}

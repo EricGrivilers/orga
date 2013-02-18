@@ -58,3 +58,8 @@ UPDATE `extra_invoices` SET clientId=NULL WHERE clientId NOT IN (SELECT clientId
 
 UPDATE `extra_tents` SET ownerId=NULL WHERE ownerId NOT IN (SELECT clientId FROM extra_clients);
 UPDATE `extra_tents` SET winterOffreId=NULL WHERE winterOffreId NOT IN (SELECT offreId FROM extra_offres);
+
+
+UPDATE `slice2offre` SET offreId=NULL WHERE offreId NOT IN (SELECT offreId FROM offre)
+UPDATE `slice2offre` SET jobId=NULL WHERE jobId NOT IN (SELECT jobId FROM job)
+UPDATE `slice2offre` SET invoiceId=NULL WHERE invoiceId NOT IN (SELECT invoiceId FROM invoice)

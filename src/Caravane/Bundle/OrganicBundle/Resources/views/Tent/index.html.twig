@@ -1,0 +1,71 @@
+<h1>Tent list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Reference</th>
+            <th>Kit</th>
+            <th>Owner</th>
+            <th>Color</th>
+            <th>Length</th>
+            <th>Width</th>
+            <th>M2</th>
+            <th>Weight</th>
+            <th>Piquets</th>
+            <th>Status</th>
+            <th>Etat</th>
+            <th>Comments</th>
+            <th>Winter</th>
+            <th>Issue</th>
+            <th>Insertdate</th>
+            <th>Updatedate</th>
+            <th>Public</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('tent_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.name }}</td>
+            <td>{{ entity.reference }}</td>
+            <td>{{ entity.kit }}</td>
+            <td>{{ entity.owner }}</td>
+            <td>{{ entity.color }}</td>
+            <td>{{ entity.length }}</td>
+            <td>{{ entity.width }}</td>
+            <td>{{ entity.m2 }}</td>
+            <td>{{ entity.weight }}</td>
+            <td>{{ entity.piquets }}</td>
+            <td>{{ entity.status }}</td>
+            <td>{{ entity.etat }}</td>
+            <td>{{ entity.comments }}</td>
+            <td>{{ entity.winter }}</td>
+            <td>{{ entity.issue }}</td>
+            <td>{% if entity.insertdate %}{{ entity.insertdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.updatedate %}{{ entity.updatedate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.public }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('tent_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('tent_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('tent_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>

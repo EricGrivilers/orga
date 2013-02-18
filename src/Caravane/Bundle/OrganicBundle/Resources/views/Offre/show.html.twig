@@ -1,0 +1,177 @@
+<h1>Offre</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Insertdate</th>
+            <td>{{ entity.insertdate|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Updatedate</th>
+            <td>{{ entity.updatedate|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Reference</th>
+            <td>{{ entity.reference }}</td>
+        </tr>
+        <tr>
+            <th>Offretype</th>
+            <td>{{ entity.offretype }}</td>
+        </tr>
+        <tr>
+            <th>Planningcomments</th>
+            <td>{{ entity.planningcomments }}</td>
+        </tr>
+        <tr>
+            <th>Offrecomments</th>
+            <td>{{ entity.offrecomments }}</td>
+        </tr>
+        <tr>
+            <th>Surface</th>
+            <td>{{ entity.surface }}</td>
+        </tr>
+        <tr>
+            <th>Startbuild</th>
+            <td>{{ entity.startbuild|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Endbuild</th>
+            <td>{{ entity.endbuild|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Requestdate</th>
+            <td>{{ entity.requestdate|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ entity.status }}</td>
+        </tr>
+        <tr>
+            <th>Pricetype</th>
+            <td>{{ entity.pricetype }}</td>
+        </tr>
+        <tr>
+            <th>Price</th>
+            <td>{{ entity.price }}</td>
+        </tr>
+        <tr>
+            <th>Pricecomments</th>
+            <td>{{ entity.pricecomments }}</td>
+        </tr>
+        <tr>
+            <th>Conditions</th>
+            <td>{{ entity.conditions }}</td>
+        </tr>
+        <tr>
+            <th>Conditionsslices</th>
+            <td>{{ entity.conditionsslices }}</td>
+        </tr>
+        <tr>
+            <th>Tents</th>
+            <td>{{ entity.tents }}</td>
+        </tr>
+        <tr>
+            <th>Tentscomments</th>
+            <td>{{ entity.tentscomments }}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>{{ entity.address }}</td>
+        </tr>
+        <tr>
+            <th>Number</th>
+            <td>{{ entity.number }}</td>
+        </tr>
+        <tr>
+            <th>Zip</th>
+            <td>{{ entity.zip }}</td>
+        </tr>
+        <tr>
+            <th>City</th>
+            <td>{{ entity.city }}</td>
+        </tr>
+        <tr>
+            <th>Country</th>
+            <td>{{ entity.country }}</td>
+        </tr>
+        <tr>
+            <th>Contact</th>
+            <td>{{ entity.contact }}</td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td>{{ entity.phone }}</td>
+        </tr>
+        <tr>
+            <th>Phone2</th>
+            <td>{{ entity.phone2 }}</td>
+        </tr>
+        <tr>
+            <th>Mobile</th>
+            <td>{{ entity.mobile }}</td>
+        </tr>
+        <tr>
+            <th>Fax</th>
+            <td>{{ entity.fax }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ entity.email }}</td>
+        </tr>
+        <tr>
+            <th>Url</th>
+            <td>{{ entity.url }}</td>
+        </tr>
+        <tr>
+            <th>Comments</th>
+            <td>{{ entity.comments }}</td>
+        </tr>
+        <tr>
+            <th>Introtext</th>
+            <td>{{ entity.introtext }}</td>
+        </tr>
+        <tr>
+            <th>Issue</th>
+            <td>{{ entity.issue }}</td>
+        </tr>
+        <tr>
+            <th>Deleted</th>
+            <td>{{ entity.deleted }}</td>
+        </tr>
+        <tr>
+            <th>Public</th>
+            <td>{{ entity.public }}</td>
+        </tr>
+        <tr>
+            <th>Language</th>
+            <td>{{ entity.language }}</td>
+        </tr>
+        <tr>
+            <th>Copyid</th>
+            <td>{{ entity.copyid }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('offre') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('offre_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('offre_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>

@@ -1,0 +1,107 @@
+<h1>Invoice list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Reference</th>
+            <th>Year</th>
+            <th>Offretype</th>
+            <th>Slice</th>
+            <th>Cslice</th>
+            <th>Nbslices</th>
+            <th>Insertdate</th>
+            <th>Paymentdate</th>
+            <th>Priceht</th>
+            <th>Pricetype</th>
+            <th>Creditnote</th>
+            <th>Comments</th>
+            <th>Conditions</th>
+            <th>Conditions1</th>
+            <th>Conditions2</th>
+            <th>Content</th>
+            <th>Cietype</th>
+            <th>Clienttype</th>
+            <th>Clienttitle</th>
+            <th>Name</th>
+            <th>Lastname</th>
+            <th>Firstname</th>
+            <th>Vat</th>
+            <th>Address</th>
+            <th>Number</th>
+            <th>Zip</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Status</th>
+            <th>R1</th>
+            <th>R1date</th>
+            <th>R2</th>
+            <th>R2date</th>
+            <th>Med</th>
+            <th>Meddate</th>
+            <th>Language</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('invoice_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.reference }}</td>
+            <td>{{ entity.year }}</td>
+            <td>{{ entity.offretype }}</td>
+            <td>{{ entity.slice }}</td>
+            <td>{{ entity.cslice }}</td>
+            <td>{{ entity.nbslices }}</td>
+            <td>{% if entity.insertdate %}{{ entity.insertdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.paymentdate %}{{ entity.paymentdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.priceht }}</td>
+            <td>{{ entity.pricetype }}</td>
+            <td>{{ entity.creditnote }}</td>
+            <td>{{ entity.comments }}</td>
+            <td>{{ entity.conditions }}</td>
+            <td>{{ entity.conditions1 }}</td>
+            <td>{{ entity.conditions2 }}</td>
+            <td>{{ entity.content }}</td>
+            <td>{{ entity.cietype }}</td>
+            <td>{{ entity.clienttype }}</td>
+            <td>{{ entity.clienttitle }}</td>
+            <td>{{ entity.name }}</td>
+            <td>{{ entity.lastname }}</td>
+            <td>{{ entity.firstname }}</td>
+            <td>{{ entity.vat }}</td>
+            <td>{{ entity.address }}</td>
+            <td>{{ entity.number }}</td>
+            <td>{{ entity.zip }}</td>
+            <td>{{ entity.city }}</td>
+            <td>{{ entity.country }}</td>
+            <td>{{ entity.status }}</td>
+            <td>{{ entity.r1 }}</td>
+            <td>{% if entity.r1date %}{{ entity.r1date|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.r2 }}</td>
+            <td>{% if entity.r2date %}{{ entity.r2date|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.med }}</td>
+            <td>{% if entity.meddate %}{{ entity.meddate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.language }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('invoice_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('invoice_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('invoice_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>

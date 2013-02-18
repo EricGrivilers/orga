@@ -1,0 +1,30 @@
+job:
+    pattern:  /
+    defaults: { _controller: "CaravaneOrganicBundle:Job:index" }
+
+job_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "CaravaneOrganicBundle:Job:show" }
+
+job_new:
+    pattern:  /new
+    defaults: { _controller: "CaravaneOrganicBundle:Job:new" }
+
+job_create:
+    pattern:  /create
+    defaults: { _controller: "CaravaneOrganicBundle:Job:create" }
+    requirements: { _method: post }
+
+job_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "CaravaneOrganicBundle:Job:edit" }
+
+job_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "CaravaneOrganicBundle:Job:update" }
+    requirements: { _method: post }
+
+job_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "CaravaneOrganicBundle:Job:delete" }
+    requirements: { _method: post }

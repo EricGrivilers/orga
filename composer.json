@@ -27,7 +27,8 @@
         "adesigns/calendar-bundle": "dev-master",
         "blueimp/jQuery-File-Upload":"dev-master",
         "leafo/lessphp": "0.3.5",
-        "twitter/bootstrap": "master"
+        "twitter/bootstrap": "master",
+        "jquery/jquery":"master"
     },
     "scripts": {
         "post-install-cmd": [

@@ -1,0 +1,31 @@
+client:
+    pattern:  /
+    defaults: { _controller: "CaravaneOrganicBundle:Client:index" }
+
+client_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "CaravaneOrganicBundle:Client:show" }
+
+client_new:
+    pattern:  /new
+    defaults: { _controller: "CaravaneOrganicBundle:Client:new" }
+
+
+client_create:
+    pattern:  /create
+    defaults: { _controller: "CaravaneOrganicBundle:Client:create" }
+    requirements: { _method: post }
+
+client_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "CaravaneOrganicBundle:Client:edit" }
+
+client_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "CaravaneOrganicBundle:Client:update" }
+    requirements: { _method: post }
+
+client_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "CaravaneOrganicBundle:Client:delete" }
+    requirements: { _method: post }

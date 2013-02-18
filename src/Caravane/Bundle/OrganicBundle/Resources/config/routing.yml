@@ -1,3 +1,23 @@
-caravane_organic_homepage:
-    pattern:  /hello/{name}
+CaravaneOrganicBundle_homepage:
+    pattern:  /
     defaults: { _controller: CaravaneOrganicBundle:Default:index }
+
+CaravaneOrganicBundle_client:
+    resource: "@CaravaneOrganicBundle/Resources/config/routing/client.yml"
+    prefix:   /client
+
+CaravaneOrganicBundle_tent:
+    resource: "@CaravaneOrganicBundle/Resources/config/routing/tent.yml"
+    prefix:   /tent
+
+CaravaneOrganicBundle_offre:
+    resource: "@CaravaneOrganicBundle/Resources/config/routing/offre.yml"
+    prefix:   /offre
+
+CaravaneOrganicBundle_invoice:
+    resource: "@CaravaneOrganicBundle/Resources/config/routing/invoice.yml"
+    prefix:   /invoice
+
+CaravaneOrganicBundle_job:
+    resource: "@CaravaneOrganicBundle/Resources/config/routing/job.yml"
+    prefix:   /job

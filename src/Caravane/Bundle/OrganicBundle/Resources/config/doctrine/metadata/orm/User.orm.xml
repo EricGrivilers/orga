@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="User" table="user">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="firstname" type="string" column="firstname" length="120" nullable="false"/>
+    <field name="lastname" type="string" column="lastname" length="120" nullable="false"/>
+    <field name="email" type="string" column="email" length="150" nullable="false"/>
+    <field name="password" type="string" column="password" length="128" nullable="false"/>
+    <field name="iso" type="string" column="iso" length="3" nullable="false"/>
+    <field name="title" type="string" column="title" length="10" nullable="false"/>
+    <field name="address" type="string" column="address" length="100" nullable="false"/>
+    <field name="phone" type="string" column="phone" length="30" nullable="false"/>
+    <field name="phone2" type="string" column="phone2" length="30" nullable="false"/>
+    <field name="mobile" type="string" column="mobile" length="30" nullable="false"/>
+    <field name="fax" type="string" column="fax" length="30" nullable="false"/>
+    <field name="status" type="string" column="status" length="50" nullable="false"/>
+    <field name="insertdate" type="datetime" column="insertDate" nullable="false"/>
+    <field name="public" type="boolean" column="public" nullable="false"/>
+    <field name="lastlog" type="datetime" column="lastLog" nullable="false"/>
+    <field name="browser" type="text" column="browser" nullable="false"/>
+  </entity>
+</doctrine-mapping>

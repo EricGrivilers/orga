@@ -1,0 +1,109 @@
+<h1>Offre list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Insertdate</th>
+            <th>Updatedate</th>
+            <th>Reference</th>
+            <th>Offretype</th>
+            <th>Planningcomments</th>
+            <th>Offrecomments</th>
+            <th>Surface</th>
+            <th>Startbuild</th>
+            <th>Endbuild</th>
+            <th>Requestdate</th>
+            <th>Status</th>
+            <th>Pricetype</th>
+            <th>Price</th>
+            <th>Pricecomments</th>
+            <th>Conditions</th>
+            <th>Conditionsslices</th>
+            <th>Tents</th>
+            <th>Tentscomments</th>
+            <th>Address</th>
+            <th>Number</th>
+            <th>Zip</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Contact</th>
+            <th>Phone</th>
+            <th>Phone2</th>
+            <th>Mobile</th>
+            <th>Fax</th>
+            <th>Email</th>
+            <th>Url</th>
+            <th>Comments</th>
+            <th>Introtext</th>
+            <th>Issue</th>
+            <th>Deleted</th>
+            <th>Public</th>
+            <th>Language</th>
+            <th>Copyid</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('offre_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{% if entity.insertdate %}{{ entity.insertdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.updatedate %}{{ entity.updatedate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.reference }}</td>
+            <td>{{ entity.offretype }}</td>
+            <td>{{ entity.planningcomments }}</td>
+            <td>{{ entity.offrecomments }}</td>
+            <td>{{ entity.surface }}</td>
+            <td>{% if entity.startbuild %}{{ entity.startbuild|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.endbuild %}{{ entity.endbuild|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.requestdate %}{{ entity.requestdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.status }}</td>
+            <td>{{ entity.pricetype }}</td>
+            <td>{{ entity.price }}</td>
+            <td>{{ entity.pricecomments }}</td>
+            <td>{{ entity.conditions }}</td>
+            <td>{{ entity.conditionsslices }}</td>
+            <td>{{ entity.tents }}</td>
+            <td>{{ entity.tentscomments }}</td>
+            <td>{{ entity.address }}</td>
+            <td>{{ entity.number }}</td>
+            <td>{{ entity.zip }}</td>
+            <td>{{ entity.city }}</td>
+            <td>{{ entity.country }}</td>
+            <td>{{ entity.contact }}</td>
+            <td>{{ entity.phone }}</td>
+            <td>{{ entity.phone2 }}</td>
+            <td>{{ entity.mobile }}</td>
+            <td>{{ entity.fax }}</td>
+            <td>{{ entity.email }}</td>
+            <td>{{ entity.url }}</td>
+            <td>{{ entity.comments }}</td>
+            <td>{{ entity.introtext }}</td>
+            <td>{{ entity.issue }}</td>
+            <td>{{ entity.deleted }}</td>
+            <td>{{ entity.public }}</td>
+            <td>{{ entity.language }}</td>
+            <td>{{ entity.copyid }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('offre_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('offre_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('offre_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>

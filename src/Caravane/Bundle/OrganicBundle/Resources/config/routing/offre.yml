@@ -1,0 +1,34 @@
+offre:
+    pattern:  /
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:index" }
+
+offre_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:show" }
+
+offre_new:
+    pattern:  /new
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:new" }
+
+offre_new_from_client:
+    pattern:  /new/{clientId}
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:newFromClient" }
+
+offre_create:
+    pattern:  /create
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:create" }
+    requirements: { _method: post }
+
+offre_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:edit" }
+
+offre_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:update" }
+    requirements: { _method: post }
+
+offre_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:delete" }
+    requirements: { _method: post }

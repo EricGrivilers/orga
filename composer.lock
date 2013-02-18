@@ -1,5 +1,5 @@
 {
-    "hash": "f47863d737b13ad05eb8ed9137643c89",
+    "hash": "2eef37e468bc08e9c5285c0df06f4399",
     "packages": [
         {
             "name": "adesigns/calendar-bundle",
@@ -1029,6 +1029,17 @@
             ]
         },
         {
+            "name": "jquery/jquery",
+            "version": "master",
+            "dist": {
+                "type": "file",
+                "url": "http://code.jquery.com/jquery-1.8.3.js",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
+        },
+        {
             "name": "kriswallsmith/assetic",
             "version": "dev-master",
             "source": {
@@ -1449,13 +1460,13 @@
             "target-dir": "Symfony/Bundle/AsseticBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/AsseticBundle",
-                "reference": "v2.1.1"
+                "url": "https://github.com/symfony/AsseticBundle.git",
+                "reference": "16cb279ea283ce3fb30b8284a391a82512263d8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/v2.1.1",
-                "reference": "v2.1.1",
+                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/16cb279ea283ce3fb30b8284a391a82512263d8b",
+                "reference": "16cb279ea283ce3fb30b8284a391a82512263d8b",
                 "shasum": ""
             },
             "require": {
@@ -1475,7 +1486,7 @@
             "suggest": {
                 "symfony/twig-bundle": ">=2.1.0,<2.3-dev"
             },
-            "time": "2013-01-31 17:56:17",
+            "time": "2013-02-17 21:36:13",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1625,13 +1636,13 @@
             "version": "2.1.x-dev",
             "source": {
                 "type": "git",
-                "url": "git://github.com/symfony/symfony.git",
-                "reference": "7d143aac423111b271b1f6aeff069a1015bc087b"
+                "url": "https://github.com/symfony/symfony.git",
+                "reference": "75c61944a3e43b9efb5a195fd79416ff43ca09e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/7d143aac423111b271b1f6aeff069a1015bc087b",
-                "reference": "7d143aac423111b271b1f6aeff069a1015bc087b",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/75c61944a3e43b9efb5a195fd79416ff43ca09e7",
+                "reference": "75c61944a3e43b9efb5a195fd79416ff43ca09e7",
                 "shasum": ""
             },
             "require": {
@@ -1680,7 +1691,7 @@
                 "monolog/monolog": ">=1.0,<1.3-dev",
                 "propel/propel1": "dev-master"
             },
-            "time": "2013-02-14 11:20:33",
+            "time": "2013-02-17 12:59:26",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -1760,19 +1771,19 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git://github.com/fabpot/Twig.git",
-                "reference": "72c8bb73e90cf6d2e992b01ab508f7fc13e38c8f"
+                "url": "https://github.com/fabpot/Twig.git",
+                "reference": "ac86c6368c8b1ed27adb436af54d0398b64cab1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/72c8bb73e90cf6d2e992b01ab508f7fc13e38c8f",
-                "reference": "72c8bb73e90cf6d2e992b01ab508f7fc13e38c8f",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/ac86c6368c8b1ed27adb436af54d0398b64cab1f",
+                "reference": "ac86c6368c8b1ed27adb436af54d0398b64cab1f",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "2013-02-09 18:37:02",
+            "time": "2013-02-17 19:51:08",
             "type": "library",
             "extra": {
                 "branch-alias": {
