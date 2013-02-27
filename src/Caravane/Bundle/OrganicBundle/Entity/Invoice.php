@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Invoice
  *
  * @ORM\Table(name="invoice")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Caravane\Bundle\OrganicBundle\Entity\InvoiceRepository"))
  */
 class Invoice
 {
@@ -300,14 +300,14 @@ class Invoice
             return $this->reference;
         }
         return "temp-".$this->id;
-        
+
     }
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -323,14 +323,14 @@ class Invoice
     public function setReference($reference)
     {
         $this->reference = $reference;
-    
+
         return $this;
     }
 
     /**
      * Get reference
      *
-     * @return string 
+     * @return string
      */
     public function getReference()
     {
@@ -346,14 +346,14 @@ class Invoice
     public function setYear($year)
     {
         $this->year = $year;
-    
+
         return $this;
     }
 
     /**
      * Get year
      *
-     * @return string 
+     * @return string
      */
     public function getYear()
     {
@@ -369,14 +369,14 @@ class Invoice
     public function setOffretype($offretype)
     {
         $this->offretype = $offretype;
-    
+
         return $this;
     }
 
     /**
      * Get offretype
      *
-     * @return string 
+     * @return string
      */
     public function getOffretype()
     {
@@ -392,14 +392,14 @@ class Invoice
     public function setSlice($slice)
     {
         $this->slice = $slice;
-    
+
         return $this;
     }
 
     /**
      * Get slice
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getSlice()
     {
@@ -415,14 +415,14 @@ class Invoice
     public function setCslice($cslice)
     {
         $this->cslice = $cslice;
-    
+
         return $this;
     }
 
     /**
      * Get cslice
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getCslice()
     {
@@ -438,14 +438,14 @@ class Invoice
     public function setNbslices($nbslices)
     {
         $this->nbslices = $nbslices;
-    
+
         return $this;
     }
 
     /**
      * Get nbslices
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getNbslices()
     {
@@ -461,14 +461,14 @@ class Invoice
     public function setInsertdate($insertdate)
     {
         $this->insertdate = $insertdate;
-    
+
         return $this;
     }
 
     /**
      * Get insertdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertdate()
     {
@@ -484,14 +484,14 @@ class Invoice
     public function setPaymentdate($paymentdate)
     {
         $this->paymentdate = $paymentdate;
-    
+
         return $this;
     }
 
     /**
      * Get paymentdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getPaymentdate()
     {
@@ -507,14 +507,14 @@ class Invoice
     public function setPriceht($priceht)
     {
         $this->priceht = $priceht;
-    
+
         return $this;
     }
 
     /**
      * Get priceht
      *
-     * @return float 
+     * @return float
      */
     public function getPriceht()
     {
@@ -530,14 +530,14 @@ class Invoice
     public function setPricetype($pricetype)
     {
         $this->pricetype = $pricetype;
-    
+
         return $this;
     }
 
     /**
      * Get pricetype
      *
-     * @return string 
+     * @return string
      */
     public function getPricetype()
     {
@@ -553,14 +553,14 @@ class Invoice
     public function setCreditnote($creditnote)
     {
         $this->creditnote = $creditnote;
-    
+
         return $this;
     }
 
     /**
      * Get creditnote
      *
-     * @return string 
+     * @return string
      */
     public function getCreditnote()
     {
@@ -576,14 +576,14 @@ class Invoice
     public function setComments($comments)
     {
         $this->comments = $comments;
-    
+
         return $this;
     }
 
     /**
      * Get comments
      *
-     * @return string 
+     * @return string
      */
     public function getComments()
     {
@@ -599,14 +599,14 @@ class Invoice
     public function setConditions($conditions)
     {
         $this->conditions = $conditions;
-    
+
         return $this;
     }
 
     /**
      * Get conditions
      *
-     * @return string 
+     * @return string
      */
     public function getConditions()
     {
@@ -622,14 +622,14 @@ class Invoice
     public function setConditions1($conditions1)
     {
         $this->conditions1 = $conditions1;
-    
+
         return $this;
     }
 
     /**
      * Get conditions1
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getConditions1()
     {
@@ -645,14 +645,14 @@ class Invoice
     public function setConditions2($conditions2)
     {
         $this->conditions2 = $conditions2;
-    
+
         return $this;
     }
 
     /**
      * Get conditions2
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getConditions2()
     {
@@ -668,14 +668,14 @@ class Invoice
     public function setContent($content)
     {
         $this->content = $content;
-    
+
         return $this;
     }
 
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {
@@ -691,14 +691,14 @@ class Invoice
     public function setCietype($cietype)
     {
         $this->cietype = $cietype;
-    
+
         return $this;
     }
 
     /**
      * Get cietype
      *
-     * @return string 
+     * @return string
      */
     public function getCietype()
     {
@@ -714,14 +714,14 @@ class Invoice
     public function setClienttype($clienttype)
     {
         $this->clienttype = $clienttype;
-    
+
         return $this;
     }
 
     /**
      * Get clienttype
      *
-     * @return string 
+     * @return string
      */
     public function getClienttype()
     {
@@ -737,14 +737,14 @@ class Invoice
     public function setClienttitle($clienttitle)
     {
         $this->clienttitle = $clienttitle;
-    
+
         return $this;
     }
 
     /**
      * Get clienttitle
      *
-     * @return string 
+     * @return string
      */
     public function getClienttitle()
     {
@@ -760,14 +760,14 @@ class Invoice
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -783,14 +783,14 @@ class Invoice
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
-    
+
         return $this;
     }
 
     /**
      * Get lastname
      *
-     * @return string 
+     * @return string
      */
     public function getLastname()
     {
@@ -806,14 +806,14 @@ class Invoice
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
-    
+
         return $this;
     }
 
     /**
      * Get firstname
      *
-     * @return string 
+     * @return string
      */
     public function getFirstname()
     {
@@ -829,14 +829,14 @@ class Invoice
     public function setVat($vat)
     {
         $this->vat = $vat;
-    
+
         return $this;
     }
 
     /**
      * Get vat
      *
-     * @return string 
+     * @return string
      */
     public function getVat()
     {
@@ -852,14 +852,14 @@ class Invoice
     public function setAddress($address)
     {
         $this->address = $address;
-    
+
         return $this;
     }
 
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -875,14 +875,14 @@ class Invoice
     public function setNumber($number)
     {
         $this->number = $number;
-    
+
         return $this;
     }
 
     /**
      * Get number
      *
-     * @return string 
+     * @return string
      */
     public function getNumber()
     {
@@ -898,14 +898,14 @@ class Invoice
     public function setZip($zip)
     {
         $this->zip = $zip;
-    
+
         return $this;
     }
 
     /**
      * Get zip
      *
-     * @return string 
+     * @return string
      */
     public function getZip()
     {
@@ -921,14 +921,14 @@ class Invoice
     public function setCity($city)
     {
         $this->city = $city;
-    
+
         return $this;
     }
 
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -944,14 +944,14 @@ class Invoice
     public function setCountry($country)
     {
         $this->country = $country;
-    
+
         return $this;
     }
 
     /**
      * Get country
      *
-     * @return string 
+     * @return string
      */
     public function getCountry()
     {
@@ -967,14 +967,14 @@ class Invoice
     public function setStatus($status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -990,14 +990,14 @@ class Invoice
     public function setR1($r1)
     {
         $this->r1 = $r1;
-    
+
         return $this;
     }
 
     /**
      * Get r1
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getR1()
     {
@@ -1013,14 +1013,14 @@ class Invoice
     public function setR1date($r1date)
     {
         $this->r1date = $r1date;
-    
+
         return $this;
     }
 
     /**
      * Get r1date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getR1date()
     {
@@ -1036,14 +1036,14 @@ class Invoice
     public function setR2($r2)
     {
         $this->r2 = $r2;
-    
+
         return $this;
     }
 
     /**
      * Get r2
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getR2()
     {
@@ -1059,14 +1059,14 @@ class Invoice
     public function setR2date($r2date)
     {
         $this->r2date = $r2date;
-    
+
         return $this;
     }
 
     /**
      * Get r2date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getR2date()
     {
@@ -1082,14 +1082,14 @@ class Invoice
     public function setMed($med)
     {
         $this->med = $med;
-    
+
         return $this;
     }
 
     /**
      * Get med
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getMed()
     {
@@ -1105,14 +1105,14 @@ class Invoice
     public function setMeddate($meddate)
     {
         $this->meddate = $meddate;
-    
+
         return $this;
     }
 
     /**
      * Get meddate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getMeddate()
     {
@@ -1128,14 +1128,14 @@ class Invoice
     public function setLanguage($language)
     {
         $this->language = $language;
-    
+
         return $this;
     }
 
     /**
      * Get language
      *
-     * @return string 
+     * @return string
      */
     public function getLanguage()
     {
@@ -1151,14 +1151,14 @@ class Invoice
     public function setJobid(\Caravane\Bundle\OrganicBundle\Entity\Job $jobid = null)
     {
         $this->jobid = $jobid;
-    
+
         return $this;
     }
 
     /**
      * Get jobid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Job 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Job
      */
     public function getJobid()
     {
@@ -1174,17 +1174,23 @@ class Invoice
     public function setClientid(\Caravane\Bundle\OrganicBundle\Entity\Client $clientid = null)
     {
         $this->clientid = $clientid;
-    
+
         return $this;
     }
 
     /**
      * Get clientid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Client 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Client
      */
     public function getClientid()
     {
         return $this->clientid;
+    }
+
+
+
+    public function getPriceTTC() {
+        return $this->priceht+round($this->priceht*21/100,2);
     }
 }

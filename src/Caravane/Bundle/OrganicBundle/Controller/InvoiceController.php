@@ -18,14 +18,31 @@ class InvoiceController extends Controller
      * Lists all Invoice entities.
      *
      */
-    public function indexAction()
+     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CaravaneOrganicBundle:Invoice')->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $request=$this->get('request');
+        if(!$type=$request->query->get('type')) {
+            $type='';
+        }
+        if(!$ob=$request->query->get('ob')) {
+            $ob='reference desc';
+        }
+         if(!$page=$request->query->get('page')) {
+            $page=1;
+        }
+       // $entities = $em->getRepository('CaravaneOrganicBundle:Client')->listAll();
+        $entities=$em->getRepository('CaravaneOrganicBundle:Invoice')->listAll($type,$ob,$page);
+        $nbpages=(Integer)(count($entities)/25)+1;
+
 
         return $this->render('CaravaneOrganicBundle:Invoice:index.html.twig', array(
             'entities' => $entities,
+            'type'=>$type,
+            'ob'=>$ob,
+            'page'=>$page,
+            "nbpages"=>$nbpages
         ));
     }
 

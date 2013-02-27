@@ -94,12 +94,26 @@
             <td><a href="{{ path('offre_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
             <td>{% if entity.clientid %} <a href="{{ path('client_edit', { 'id': entity.clientid.id }) }}">{{ entity.clientid.name }}</a> {% endif %}</td>
             <td>{{ entity.offretype }}</td>
-            <td>{{ entity.price }}</td>
+            <td>{{ entity.price|number_format(2,',',' ') }}</td>
              <td>{% if entity.status=='ok' %}Sent to client{% elseif entity.status=='ANNULÉ' or entity.status=='cancel' %} Canceled {% elseif entity.status=='draft' or entity.status=='' %}Draft {% elseif entity.jobid %}Job: <a href="{{path('job',{'id':entity.jobid.id})}}" class="red">{{entity.jobid.reference}}</a>{% elseif entity.status=='CONFIRMÉ' %}Confirmed{% else %}{{entity.status}}{% endif %}</td>
              <td>{% if entity.clientid %}{{entity.clientid.country}}{% endif %}</td>
              <td>{{entity.country}}</td>
              <td>{{ entity.insertDate|date('d/m/Y') }}</td>
-             <td>{% for lg in ['en','fr','nl'] %} <a href=""><img src="/images/icons/pdf.png">{{lg}}</a> {% endfor %}</td>
+
+             <td>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>
+                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+                        {% for lg in ['en','fr','nl'] %}
+                            <li role="presentation">
+                                <a role="menuitem" href=""><img src="/images/icons/pdf.png"> Offre {{lg}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </td>
+
+
              <td>{% if entity.issue %}<span class="label label-important">{{ entity.issue }}</span>{% endif %}</td>
               <td>
                 <a href="{{ path('offre_edit', { 'id': entity.id }) }}"><i class="icon icon-edit"></i></a>

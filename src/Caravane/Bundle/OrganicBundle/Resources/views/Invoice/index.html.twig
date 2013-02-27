@@ -1,107 +1,165 @@
-<h1>Invoice list</h1>
+{% extends "::base.html.twig" %}
 
-<table class="records_list">
+{% block body %}
+
+<div class="row-fluid">
+    <div class="tools">
+        <div class="span10">
+        <ul class="nav nav-pills">
+
+          <li {% if type=='owner' %}class="active" {% endif %} ><a href="{{path('job',{'type': 'owner','ob':ob,'page':1} )}}">Running</a></li>
+          <li {% if type=='cie' %}class="active" {% endif %} ><a href="{{path('job',{'type':'cie','ob':ob,'page':1})}}">Confirmed</a></li>
+          <li {% if type=='renter' %}class="active" {% endif %} ><a href="{{path('job',{'type':'renter','ob':ob,'page':1})}}">Canceled</a></li>
+          <li {% if type=='' %}class="active" {% endif %} >
+            <a href="{{path('job',{'ob':ob})}}">All</a>
+          </li>
+
+        </ul>
+</div>
+
+<div class="span2">
+     <a href="{{ path('offre_new') }}" class="btn btn-inverse ">
+            New job
+        </a>
+    </div>
+    </div>
+</div>
+<div class="row-fluid">
+
+
+
+
+<table class="table table-bordered table-condensed table-striped">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Reference</th>
-            <th>Year</th>
-            <th>Offretype</th>
+            <th>Client</th>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Amm. VAT Excl.</th>
+            <th>Amm. VAT Incl..</th>
             <th>Slice</th>
-            <th>Cslice</th>
-            <th>Nbslices</th>
-            <th>Insertdate</th>
-            <th>Paymentdate</th>
-            <th>Priceht</th>
-            <th>Pricetype</th>
-            <th>Creditnote</th>
-            <th>Comments</th>
-            <th>Conditions</th>
-            <th>Conditions1</th>
-            <th>Conditions2</th>
-            <th>Content</th>
-            <th>Cietype</th>
-            <th>Clienttype</th>
-            <th>Clienttitle</th>
-            <th>Name</th>
-            <th>Lastname</th>
-            <th>Firstname</th>
-            <th>Vat</th>
-            <th>Address</th>
-            <th>Number</th>
-            <th>Zip</th>
-            <th>City</th>
-            <th>Country</th>
-            <th>Status</th>
-            <th>R1</th>
-            <th>R1date</th>
-            <th>R2</th>
-            <th>R2date</th>
-            <th>Med</th>
-            <th>Meddate</th>
-            <th>Language</th>
-            <th>Actions</th>
+
+
+
+
+             <th>Job</th>
+             <th>Status</th>
+             <th>Country</th>
+             <th>Account</th>
+             <th>PDF</th>
+             <th>R1</th>
+             <th>R2</th>
+             <th>MD</th>
+
+             <th>Ed</th>
+            <th>Del</th>
+
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('invoice_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.reference }}</td>
-            <td>{{ entity.year }}</td>
+            <td><a href="{{ path('job_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
+            <td>{% if entity.clientid %} <a href="{{ path('client_edit', { 'id': entity.clientid.id }) }}">{{ entity.clientid.name }}</a> {% endif %}</td>
             <td>{{ entity.offretype }}</td>
-            <td>{{ entity.slice }}</td>
-            <td>{{ entity.cslice }}</td>
-            <td>{{ entity.nbslices }}</td>
-            <td>{% if entity.insertdate %}{{ entity.insertdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{% if entity.paymentdate %}{{ entity.paymentdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{{ entity.priceht }}</td>
-            <td>{{ entity.pricetype }}</td>
-            <td>{{ entity.creditnote }}</td>
-            <td>{{ entity.comments }}</td>
-            <td>{{ entity.conditions }}</td>
-            <td>{{ entity.conditions1 }}</td>
-            <td>{{ entity.conditions2 }}</td>
-            <td>{{ entity.content }}</td>
-            <td>{{ entity.cietype }}</td>
-            <td>{{ entity.clienttype }}</td>
-            <td>{{ entity.clienttitle }}</td>
-            <td>{{ entity.name }}</td>
-            <td>{{ entity.lastname }}</td>
-            <td>{{ entity.firstname }}</td>
-            <td>{{ entity.vat }}</td>
-            <td>{{ entity.address }}</td>
-            <td>{{ entity.number }}</td>
-            <td>{{ entity.zip }}</td>
-            <td>{{ entity.city }}</td>
-            <td>{{ entity.country }}</td>
-            <td>{{ entity.status }}</td>
-            <td>{{ entity.r1 }}</td>
-            <td>{% if entity.r1date %}{{ entity.r1date|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{{ entity.r2 }}</td>
-            <td>{% if entity.r2date %}{{ entity.r2date|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{{ entity.med }}</td>
-            <td>{% if entity.meddate %}{{ entity.meddate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{{ entity.language }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('invoice_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('invoice_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+            <td>{{ entity.insertDate|date('d/m/Y') }}</td>
+
+            <td>{{entity.priceHT|number_format(2,',',' ')}}</td>
+            <td>{% if entity.priceType=='intra' %}<i>intra</i>{% else %} {{entity.priceTTC|number_format(2,',',' ')}}{% endif %}</td>
+
+            <td>{{entity.cSlice}}/</td>
+            <td><a href="path('job_edit',{'id':entity.jobid.id})" class='red' >{{entity.jobid}}</a></td>
+            <td>{{entity.status}}</td>
+            <td>{{entity.country}}</td>
+
+
+             <td>{% if entity.jobid %}<a href="mailto:{{entity.jobid.userid.email}}">{{entity.jobid.userid.name}}</a>{% endif %}</td>
+
+
+
+
+
+
+
+
+
+
+             <td>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>
+                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+                        {% for lg in ['en','fr','nl'] %}
+                            <li role="presentation">
+                                <a role="menuitem" href=""><img src="/images/icons/pdf.png"> Invoice {{lg}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
             </td>
+             <td>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>
+                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+                        {% for lg in ['en','fr','nl'] %}
+                            <li role="presentation">
+                                <a role="menuitem" href=""><img src="/images/icons/pdf.png"> Reminder 1 {{lg}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </td>
+            <td>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>
+                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+                        {% for lg in ['en','fr','nl'] %}
+                            <li role="presentation">
+                                <a role="menuitem" href=""><img src="/images/icons/pdf.png"> Reminder 2  {{lg}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </td>
+            <td>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>
+                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+                        {% for lg in ['en','fr','nl'] %}
+                            <li role="presentation">
+                                <a role="menuitem" href=""><img src="/images/icons/pdf.png"> Ultimatum {{lg}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </td>
+
+              <td>
+                <a href="{{ path('job_edit', { 'id': entity.id }) }}"><i class="icon icon-edit"></i></a>
+
+            </td>
+             <td>
+
+                        <a href="{{ path('job_show', { 'id': entity.id }) }}"><i class="icon icon-trash"></i></a>
+
+
+            </td>
+
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
-<ul>
-    <li>
-        <a href="{{ path('invoice_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+</div>
+<div class="row-fluid">
+    <div class="pagination">
+  <ul>
+    <li {% if page<=1 %} class="disabled" {% endif %} ><a href="{{path('job',{'type': type,'ob':ob,'page':page-1} )}}" >Prev</a></li>
+    {% for p in 1..nbpages %}
+    <li {% if page==p %} class="active" {% endif %} ><a href="{{path('job',{'type': type,'ob':ob,'page':p} )}}">{{p}}</a></li>
+    {% endfor %}
+    <li {% if page>=nbpages %} class="disabled" {% endif %}><a href="{{path('job',{'type': type,'ob':ob,'page':page+1} )}}">Next</a></li>
+  </ul>
+</div>
+</div>
+{% endblock body %}
