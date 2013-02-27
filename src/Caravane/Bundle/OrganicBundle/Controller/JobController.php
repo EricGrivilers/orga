@@ -22,10 +22,29 @@ class JobController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CaravaneOrganicBundle:Job')->findAll();
+
+
+
+        $request=$this->get('request');
+        if(!$type=$request->query->get('type')) {
+            $type='';
+        }
+        if(!$ob=$request->query->get('ob')) {
+            $ob='reference desc';
+        }
+         if(!$page=$request->query->get('page')) {
+            $page=1;
+        }
+
+        $entities=$em->getRepository('CaravaneOrganicBundle:Job')->listAll($type,$ob,$page);
+        $nbpages=(Integer)(count($entities)/25)+1;
 
         return $this->render('CaravaneOrganicBundle:Job:index.html.twig', array(
             'entities' => $entities,
+            'type'=>$type,
+            'ob'=>$ob,
+            'page'=>$page,
+            "nbpages"=>$nbpages
         ));
     }
 

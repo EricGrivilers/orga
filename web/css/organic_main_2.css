@@ -1,3 +1,20 @@
 body, p, a, td { font-size:12px; }
+.well {
+  padding:10px;
+  font-size:12px;
+}
+.navbar { margin-bottom:10px; }
 .navbar-inverse .navbar-inner { border-radius:0; }
+.tools {
+  margin:10px 0;
+  text-align:right;
+}
+.actions {
+  margin:10px 0;
+  text-align:left;
+}
 table.table-condensed tr td { padding:2px; }
+table.table-condensed tr td a { color:#333; }
+table.table-condensed tr td a.red { color:#e1001a; }
+tr.error { border:1px dashed red; }
+a.red { color:#e1001a; }

@@ -6,14 +6,14 @@
     <div class="tools">
         <div class="span10">
         <ul class="nav nav-pills">
-          
+
           <li {% if type=='owner' %}class="active" {% endif %} ><a href="{{path('offre',{'type': 'owner','ob':ob,'page':1} )}}">Running</a></li>
           <li {% if type=='cie' %}class="active" {% endif %} ><a href="{{path('offre',{'type':'cie','ob':ob,'page':1})}}">Confirmed</a></li>
           <li {% if type=='renter' %}class="active" {% endif %} ><a href="{{path('offre',{'type':'renter','ob':ob,'page':1})}}">Canceled</a></li>
           <li {% if type=='' %}class="active" {% endif %} >
             <a href="{{path('offre',{'ob':ob})}}">All</a>
           </li>
-          
+
         </ul>
 </div>
 
@@ -102,14 +102,14 @@
              <td>{% for lg in ['en','fr','nl'] %} <a href=""><img src="/images/icons/pdf.png">{{lg}}</a> {% endfor %}</td>
              <td>{% if entity.issue %}<span class="label label-important">{{ entity.issue }}</span>{% endif %}</td>
               <td>
-                <a href="{{ path('tent_edit', { 'id': entity.id }) }}"><i class="icon icon-edit"></i></a>
-                
+                <a href="{{ path('offre_edit', { 'id': entity.id }) }}"><i class="icon icon-edit"></i></a>
+
             </td>
              <td>
-                
-                        <a href="{{ path('tent_show', { 'id': entity.id }) }}"><i class="icon icon-trash"></i></a>
-                   
-                   
+
+                        <a href="{{ path('offre_show', { 'id': entity.id }) }}"><i class="icon icon-trash"></i></a>
+
+
             </td>
 
 {#}

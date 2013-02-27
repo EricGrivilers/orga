@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Job
  *
  * @ORM\Table(name="job")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Caravane\Bundle\OrganicBundle\Entity\JobRepository"))
  */
 class Job
 {
@@ -335,7 +335,7 @@ class Job
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -351,14 +351,14 @@ class Job
     public function setInsertdate($insertdate)
     {
         $this->insertdate = $insertdate;
-    
+
         return $this;
     }
 
     /**
      * Get insertdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertdate()
     {
@@ -374,14 +374,14 @@ class Job
     public function setUpdatedate($updatedate)
     {
         $this->updatedate = $updatedate;
-    
+
         return $this;
     }
 
     /**
      * Get updatedate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedate()
     {
@@ -397,14 +397,14 @@ class Job
     public function setReference($reference)
     {
         $this->reference = $reference;
-    
+
         return $this;
     }
 
     /**
      * Get reference
      *
-     * @return string 
+     * @return string
      */
     public function getReference()
     {
@@ -420,14 +420,14 @@ class Job
     public function setOffretype($offretype)
     {
         $this->offretype = $offretype;
-    
+
         return $this;
     }
 
     /**
      * Get offretype
      *
-     * @return string 
+     * @return string
      */
     public function getOffretype()
     {
@@ -443,14 +443,14 @@ class Job
     public function setPlanningcomments($planningcomments)
     {
         $this->planningcomments = $planningcomments;
-    
+
         return $this;
     }
 
     /**
      * Get planningcomments
      *
-     * @return string 
+     * @return string
      */
     public function getPlanningcomments()
     {
@@ -466,14 +466,14 @@ class Job
     public function setOffrecomments($offrecomments)
     {
         $this->offrecomments = $offrecomments;
-    
+
         return $this;
     }
 
     /**
      * Get offrecomments
      *
-     * @return string 
+     * @return string
      */
     public function getOffrecomments()
     {
@@ -489,14 +489,14 @@ class Job
     public function setSurface($surface)
     {
         $this->surface = $surface;
-    
+
         return $this;
     }
 
     /**
      * Get surface
      *
-     * @return string 
+     * @return string
      */
     public function getSurface()
     {
@@ -512,14 +512,14 @@ class Job
     public function setStartbuild($startbuild)
     {
         $this->startbuild = $startbuild;
-    
+
         return $this;
     }
 
     /**
      * Get startbuild
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getStartbuild()
     {
@@ -535,14 +535,14 @@ class Job
     public function setEndbuild($endbuild)
     {
         $this->endbuild = $endbuild;
-    
+
         return $this;
     }
 
     /**
      * Get endbuild
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getEndbuild()
     {
@@ -558,14 +558,14 @@ class Job
     public function setBuildnotes($buildnotes)
     {
         $this->buildnotes = $buildnotes;
-    
+
         return $this;
     }
 
     /**
      * Get buildnotes
      *
-     * @return string 
+     * @return string
      */
     public function getBuildnotes()
     {
@@ -581,14 +581,14 @@ class Job
     public function setUnbuildnotes($unbuildnotes)
     {
         $this->unbuildnotes = $unbuildnotes;
-    
+
         return $this;
     }
 
     /**
      * Get unbuildnotes
      *
-     * @return string 
+     * @return string
      */
     public function getUnbuildnotes()
     {
@@ -604,14 +604,14 @@ class Job
     public function setRequestdate($requestdate)
     {
         $this->requestdate = $requestdate;
-    
+
         return $this;
     }
 
     /**
      * Get requestdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getRequestdate()
     {
@@ -627,14 +627,14 @@ class Job
     public function setStatus($status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -650,14 +650,14 @@ class Job
     public function setPricetype($pricetype)
     {
         $this->pricetype = $pricetype;
-    
+
         return $this;
     }
 
     /**
      * Get pricetype
      *
-     * @return string 
+     * @return string
      */
     public function getPricetype()
     {
@@ -673,14 +673,14 @@ class Job
     public function setPrice($price)
     {
         $this->price = $price;
-    
+
         return $this;
     }
 
     /**
      * Get price
      *
-     * @return string 
+     * @return string
      */
     public function getPrice()
     {
@@ -696,14 +696,14 @@ class Job
     public function setPricecomments($pricecomments)
     {
         $this->pricecomments = $pricecomments;
-    
+
         return $this;
     }
 
     /**
      * Get pricecomments
      *
-     * @return string 
+     * @return string
      */
     public function getPricecomments()
     {
@@ -719,14 +719,14 @@ class Job
     public function setConditions($conditions)
     {
         $this->conditions = $conditions;
-    
+
         return $this;
     }
 
     /**
      * Get conditions
      *
-     * @return string 
+     * @return string
      */
     public function getConditions()
     {
@@ -742,14 +742,14 @@ class Job
     public function setConditionsslices($conditionsslices)
     {
         $this->conditionsslices = $conditionsslices;
-    
+
         return $this;
     }
 
     /**
      * Get conditionsslices
      *
-     * @return string 
+     * @return string
      */
     public function getConditionsslices()
     {
@@ -765,14 +765,14 @@ class Job
     public function setTents($tents)
     {
         $this->tents = $tents;
-    
+
         return $this;
     }
 
     /**
      * Get tents
      *
-     * @return string 
+     * @return string
      */
     public function getTents()
     {
@@ -788,14 +788,14 @@ class Job
     public function setTentscomments($tentscomments)
     {
         $this->tentscomments = $tentscomments;
-    
+
         return $this;
     }
 
     /**
      * Get tentscomments
      *
-     * @return string 
+     * @return string
      */
     public function getTentscomments()
     {
@@ -811,14 +811,14 @@ class Job
     public function setAddress($address)
     {
         $this->address = $address;
-    
+
         return $this;
     }
 
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -834,14 +834,14 @@ class Job
     public function setNumber($number)
     {
         $this->number = $number;
-    
+
         return $this;
     }
 
     /**
      * Get number
      *
-     * @return string 
+     * @return string
      */
     public function getNumber()
     {
@@ -857,14 +857,14 @@ class Job
     public function setZip($zip)
     {
         $this->zip = $zip;
-    
+
         return $this;
     }
 
     /**
      * Get zip
      *
-     * @return string 
+     * @return string
      */
     public function getZip()
     {
@@ -880,14 +880,14 @@ class Job
     public function setCity($city)
     {
         $this->city = $city;
-    
+
         return $this;
     }
 
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -903,14 +903,14 @@ class Job
     public function setCountry($country)
     {
         $this->country = $country;
-    
+
         return $this;
     }
 
     /**
      * Get country
      *
-     * @return string 
+     * @return string
      */
     public function getCountry()
     {
@@ -926,14 +926,14 @@ class Job
     public function setContact($contact)
     {
         $this->contact = $contact;
-    
+
         return $this;
     }
 
     /**
      * Get contact
      *
-     * @return string 
+     * @return string
      */
     public function getContact()
     {
@@ -949,14 +949,14 @@ class Job
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    
+
         return $this;
     }
 
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -972,14 +972,14 @@ class Job
     public function setPhone2($phone2)
     {
         $this->phone2 = $phone2;
-    
+
         return $this;
     }
 
     /**
      * Get phone2
      *
-     * @return string 
+     * @return string
      */
     public function getPhone2()
     {
@@ -995,14 +995,14 @@ class Job
     public function setMobile($mobile)
     {
         $this->mobile = $mobile;
-    
+
         return $this;
     }
 
     /**
      * Get mobile
      *
-     * @return string 
+     * @return string
      */
     public function getMobile()
     {
@@ -1018,14 +1018,14 @@ class Job
     public function setFax($fax)
     {
         $this->fax = $fax;
-    
+
         return $this;
     }
 
     /**
      * Get fax
      *
-     * @return string 
+     * @return string
      */
     public function getFax()
     {
@@ -1041,14 +1041,14 @@ class Job
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -1064,14 +1064,14 @@ class Job
     public function setUrl($url)
     {
         $this->url = $url;
-    
+
         return $this;
     }
 
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
     public function getUrl()
     {
@@ -1087,14 +1087,14 @@ class Job
     public function setComments($comments)
     {
         $this->comments = $comments;
-    
+
         return $this;
     }
 
     /**
      * Get comments
      *
-     * @return string 
+     * @return string
      */
     public function getComments()
     {
@@ -1110,14 +1110,14 @@ class Job
     public function setPublic($public)
     {
         $this->public = $public;
-    
+
         return $this;
     }
 
     /**
      * Get public
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPublic()
     {
@@ -1133,14 +1133,14 @@ class Job
     public function setIssue($issue)
     {
         $this->issue = $issue;
-    
+
         return $this;
     }
 
     /**
      * Get issue
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIssue()
     {
@@ -1156,14 +1156,14 @@ class Job
     public function setJobreference($jobreference)
     {
         $this->jobreference = $jobreference;
-    
+
         return $this;
     }
 
     /**
      * Get jobreference
      *
-     * @return string 
+     * @return string
      */
     public function getJobreference()
     {
@@ -1179,14 +1179,14 @@ class Job
     public function setLanguage($language)
     {
         $this->language = $language;
-    
+
         return $this;
     }
 
     /**
      * Get language
      *
-     * @return string 
+     * @return string
      */
     public function getLanguage()
     {
@@ -1202,14 +1202,14 @@ class Job
     public function setCopyid($copyid)
     {
         $this->copyid = $copyid;
-    
+
         return $this;
     }
 
     /**
      * Get copyid
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getCopyid()
     {
@@ -1225,14 +1225,14 @@ class Job
     public function setUserid(\Caravane\Bundle\OrganicBundle\Entity\User $userid = null)
     {
         $this->userid = $userid;
-    
+
         return $this;
     }
 
     /**
      * Get userid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\User 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\User
      */
     public function getUserid()
     {
@@ -1248,14 +1248,14 @@ class Job
     public function setOffreid(\Caravane\Bundle\OrganicBundle\Entity\Offre $offreid = null)
     {
         $this->offreid = $offreid;
-    
+
         return $this;
     }
 
     /**
      * Get offreid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Offre 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Offre
      */
     public function getOffreid()
     {
@@ -1271,14 +1271,14 @@ class Job
     public function setClientid(\Caravane\Bundle\OrganicBundle\Entity\Client $clientid = null)
     {
         $this->clientid = $clientid;
-    
+
         return $this;
     }
 
     /**
      * Get clientid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Client 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Client
      */
     public function getClientid()
     {
@@ -1291,7 +1291,7 @@ class Job
     {
         $this->invoiceid = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add invoiceid
      *
@@ -1301,7 +1301,7 @@ class Job
     public function addInvoiceid(\Caravane\Bundle\OrganicBundle\Entity\Invoice $invoiceid)
     {
         $this->invoiceid[] = $invoiceid;
-    
+
         return $this;
     }
 
@@ -1318,7 +1318,7 @@ class Job
     /**
      * Get invoiceid
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getInvoiceid()
     {

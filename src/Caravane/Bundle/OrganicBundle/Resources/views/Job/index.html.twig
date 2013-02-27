@@ -1,8 +1,54 @@
-<h1>Job list</h1>
+{% extends "::base.html.twig" %}
 
-<table class="records_list">
+{% block body %}
+
+<div class="row-fluid">
+    <div class="tools">
+        <div class="span10">
+        <ul class="nav nav-pills">
+
+          <li {% if type=='owner' %}class="active" {% endif %} ><a href="{{path('job',{'type': 'owner','ob':ob,'page':1} )}}">Running</a></li>
+          <li {% if type=='cie' %}class="active" {% endif %} ><a href="{{path('job',{'type':'cie','ob':ob,'page':1})}}">Confirmed</a></li>
+          <li {% if type=='renter' %}class="active" {% endif %} ><a href="{{path('job',{'type':'renter','ob':ob,'page':1})}}">Canceled</a></li>
+          <li {% if type=='' %}class="active" {% endif %} >
+            <a href="{{path('job',{'ob':ob})}}">All</a>
+          </li>
+
+        </ul>
+</div>
+
+<div class="span2">
+     <a href="{{ path('offre_new') }}" class="btn btn-inverse ">
+            New job
+        </a>
+    </div>
+    </div>
+</div>
+<div class="row-fluid">
+
+
+
+
+<table class="table table-bordered table-condensed table-striped">
     <thead>
         <tr>
+            <th>Reference</th>
+            <th>Client</th>
+            <th>Type</th>
+             <th>Invoice</th>
+             <th>Delivery</th>
+             <th>From</th>
+             <th>To</th>
+             <th>Status</th>
+             <th>Invoice</th>
+             <th>Account</th>
+             <th>Offre</th>
+             <th>PDF</th>
+             <th>Issues</th>
+             <th>Ed</th>
+            <th>Del</th>
+{#
+
             <th>Id</th>
             <th>Insertdate</th>
             <th>Updatedate</th>
@@ -13,8 +59,6 @@
             <th>Surface</th>
             <th>Startbuild</th>
             <th>Endbuild</th>
-            <th>Buildnotes</th>
-            <th>Unbuildnotes</th>
             <th>Requestdate</th>
             <th>Status</th>
             <th>Pricetype</th>
@@ -37,18 +81,47 @@
             <th>Email</th>
             <th>Url</th>
             <th>Comments</th>
-            <th>Public</th>
+            <th>Introtext</th>
             <th>Issue</th>
-            <th>Jobreference</th>
+            <th>Deleted</th>
+            <th>Public</th>
             <th>Language</th>
             <th>Copyid</th>
             <th>Actions</th>
+            #}
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('job_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+        <tr {% if entity.issue>0 %} class="error" {% endif %}>
+            <td><a href="{{ path('job_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
+            <td>{% if entity.clientid %} <a href="{{ path('client_edit', { 'id': entity.clientid.id }) }}">{{ entity.clientid.name }}</a> {% endif %}</td>
+            <td>{{ entity.offretype }}</td>
+             <td>{% if entity.clientid %}{{entity.clientid.country}}{% endif %}</td>
+             <td>{{entity.country}}</td>
+             <td>{{ entity.startBuild|date('d/m/Y H:i') }}</td>
+             <td>{{ entity.endBuild|date('d/m/Y H:i') }}</td>
+             <td>{{entity.status}}</td>
+
+             <td>{% for invoice in entity.invoiceid %} <li><a href="path('invoice_edit',{'id':invoice.id})" class='red' >{{invoice}}</a></li>{% endfor %}</td>
+             <td>{% if entity.userid %}<a href="mailto:{{entity.userid.email}}">{{entity.userid.name}}</a>{% endif %}</td>
+             <td><a href="{{path('offre',{'id':entity.offreid.id} )}}" class="red">{{entity.offreid}}</a></td>
+
+             <td>{% for lg in ['en','fr','nl'] %} <a href=""><img src="/images/icons/pdf.png">{{lg}}</a> {% endfor %}</td>
+             <td>{% if entity.issue %}<span class="label label-important">{{ entity.issue }}</span>{% endif %}</td>
+              <td>
+                <a href="{{ path('job_edit', { 'id': entity.id }) }}"><i class="icon icon-edit"></i></a>
+
+            </td>
+             <td>
+
+                        <a href="{{ path('job_show', { 'id': entity.id }) }}"><i class="icon icon-trash"></i></a>
+
+
+            </td>
+
+{#}
+            <td><a href="{{ path('offre_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
             <td>{% if entity.insertdate %}{{ entity.insertdate|date('Y-m-d H:i:s') }}{% endif %}</td>
             <td>{% if entity.updatedate %}{{ entity.updatedate|date('Y-m-d H:i:s') }}{% endif %}</td>
             <td>{{ entity.reference }}</td>
@@ -58,8 +131,6 @@
             <td>{{ entity.surface }}</td>
             <td>{% if entity.startbuild %}{{ entity.startbuild|date('Y-m-d H:i:s') }}{% endif %}</td>
             <td>{% if entity.endbuild %}{{ entity.endbuild|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{{ entity.buildnotes }}</td>
-            <td>{{ entity.unbuildnotes }}</td>
             <td>{% if entity.requestdate %}{{ entity.requestdate|date('Y-m-d H:i:s') }}{% endif %}</td>
             <td>{{ entity.status }}</td>
             <td>{{ entity.pricetype }}</td>
@@ -82,30 +153,37 @@
             <td>{{ entity.email }}</td>
             <td>{{ entity.url }}</td>
             <td>{{ entity.comments }}</td>
-            <td>{{ entity.public }}</td>
+            <td>{{ entity.introtext }}</td>
             <td>{{ entity.issue }}</td>
-            <td>{{ entity.jobreference }}</td>
+            <td>{{ entity.deleted }}</td>
+            <td>{{ entity.public }}</td>
             <td>{{ entity.language }}</td>
             <td>{{ entity.copyid }}</td>
             <td>
                 <ul>
                     <li>
-                        <a href="{{ path('job_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('offre_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('job_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('offre_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
-            </td>
+            </td>#}
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
-<ul>
-    <li>
-        <a href="{{ path('job_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+</div>
+<div class="row-fluid">
+    <div class="pagination">
+  <ul>
+    <li {% if page<=1 %} class="disabled" {% endif %} ><a href="{{path('job',{'type': type,'ob':ob,'page':page-1} )}}" >Prev</a></li>
+    {% for p in 1..nbpages %}
+    <li {% if page==p %} class="active" {% endif %} ><a href="{{path('job',{'type': type,'ob':ob,'page':p} )}}">{{p}}</a></li>
+    {% endfor %}
+    <li {% if page>=nbpages %} class="disabled" {% endif %}><a href="{{path('job',{'type': type,'ob':ob,'page':page+1} )}}">Next</a></li>
+  </ul>
+</div>
+</div>
+{% endblock body %}
