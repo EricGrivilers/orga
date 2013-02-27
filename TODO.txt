@@ -63,3 +63,224 @@ UPDATE `extra_tents` SET winterOffreId=NULL WHERE winterOffreId NOT IN (SELECT o
 UPDATE `slice2offre` SET offreId=NULL WHERE offreId NOT IN (SELECT offreId FROM offre)
 UPDATE `slice2offre` SET jobId=NULL WHERE jobId NOT IN (SELECT jobId FROM job)
 UPDATE `slice2offre` SET invoiceId=NULL WHERE invoiceId NOT IN (SELECT invoiceId FROM invoice)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ALTER TABLE  `address` ENGINE = INNODB;
+ALTER TABLE  `chat` ENGINE = INNODB;
+ALTER TABLE  `client` ENGINE = INNODB;
+ALTER TABLE  `document` ENGINE = INNODB;
+ALTER TABLE  `invoice` ENGINE = INNODB;
+ALTER TABLE  `job` ENGINE = INNODB;
+ALTER TABLE  `offre` ENGINE = INNODB;
+ALTER TABLE  `planning` ENGINE = INNODB;
+ALTER TABLE  `planning2job` ENGINE = INNODB;
+ALTER TABLE  `planning2offre` ENGINE = INNODB;
+ALTER TABLE  `planning_logs` ENGINE = INNODB;
+ALTER TABLE  `product2invoice` ENGINE = INNODB;
+ALTER TABLE  `product2job` ENGINE = INNODB;
+ALTER TABLE  `product2offre` ENGINE = INNODB;
+ALTER TABLE  `slice` ENGINE = INNODB;
+ALTER TABLE  `slice2job` ENGINE = INNODB;
+ALTER TABLE  `slice2offre` ENGINE = INNODB;
+ALTER TABLE  `tent` ENGINE = INNODB;
+ALTER TABLE  `tent2job` ENGINE = INNODB;
+ALTER TABLE  `tent2offre` ENGINE = INNODB;
+ALTER TABLE  `tents_colors` ENGINE = INNODB;
+ALTER TABLE  `user` ENGINE = INNODB;
+
+
+ALTER TABLE  `tent` CHANGE  `tentId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT
+
+ALTER TABLE  `user` CHANGE  `userId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE  `client` CHANGE  `clientId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE  `invoice` CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL;
+
+
+ALTER TABLE `product2offre` CHANGE `productId` `productId` INT(255) NULL, CHANGE `offreId` `offreId` INT(255) NULL, CHANGE `jobId` `jobId` INT(255) NULL;
+
+ALTER TABLE  `product2invoice` CHANGE  `productId`  `productId` INT( 255 ) NULL ,
+CHANGE  `invoiceId`  `invoiceId` INT( 255 ) NULL;
+
+ALTER TABLE  `tent2job` CHANGE  `offreId`  `offreId` INT( 255 ) NULL ,
+CHANGE  `tentId`  `tentId` INT( 255 ) NULL;
+
+ALTER TABLE  `tent2offre` CHANGE  `offreId`  `offreId` INT( 255 ) NULL ,
+CHANGE  `tentId`  `tentId` INT( 255 ) NULL;
+
+ALTER TABLE  `product2job` CHANGE  `productId`  `productId` INT( 255 ) NULL ,
+CHANGE  `offreId`  `offreId` INT( 255 ) NULL ,
+CHANGE  `jobId`  `jobId` INT( 255 ) NULL;
+
+
+ALTER TABLE  `planning2job` CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `userId`  `userId` INT( 11 ) NOT NULL;
+
+ALTER TABLE  `planning2offre` CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `userId`  `userId` INT( 11 ) NOT NULL;
+
+
+ALTER TABLE  `planning2job` CHANGE  `userId`  `userId` INT( 11 ) NULL;
+
+ALTER TABLE  `planning2offre` CHANGE  `userId`  `userId` INT( 11 ) NULL;
+
+ALTER TABLE  `planning_logs` CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL;
+
+ALTER TABLE  `slice` CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `invoiceId`  `invoiceId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `sliceId`  `sliceId` INT( 11 ) NULL DEFAULT NULL;
+
+ALTER TABLE  `slice2job` CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `invoiceId`  `invoiceId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `sliceId`  `sliceId` INT( 11 ) NULL DEFAULT NULL;
+
+
+ALTER TABLE  `slice2offre` CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `invoiceId`  `invoiceId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `sliceId`  `sliceId` INT( 11 ) NULL DEFAULT NULL;
+
+ALTER TABLE  `tent2offre` CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `tentId`  `tentId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL;
+
+
+UPDATE `product2offre` SET offreId=null WHERE offreId NOT IN (SELECT id FROM offre);
+UPDATE `product2invoice` SET invoiceId=null WHERE invoiceId NOT IN (SELECT id FROM invoice);
+
+UPDATE `product2job` SET jobId=null WHERE jobId NOT IN (SELECT id FROM job);
+
+UPDATE `product2job` SET offreId=null WHERE offreId NOT IN (SELECT id FROM offre);
+
+UPDATE `product2offre` SET jobId=NULL WHERE jobId NOT IN(SELECT id FROM job);
+
+UPDATE `product2offre` SET offreId=NULL WHERE offreId NOT IN(SELECT id FROM offre);
+
+UPDATE `tent2job` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
+
+UPDATE `tent2job` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
+
+UPDATE `tent2job` SET tentId=NULL WHERE tentId NOT IN (SELECT id FROM tent);
+
+UPDATE `tent2offre` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
+
+UPDATE `tent2offre` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
+
+UPDATE `tent2offre` SET tentId=NULL WHERE tentId NOT IN (SELECT id FROM tent);
+
+
+
+UPDATE `address` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
+UPDATE `address` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
+UPDATE `address` SET clientId=NULL WHERE clientId NOT IN (SELECT id FROM client);
+UPDATE `address` SET invoiceId=NULL WHERE invoiceId NOT IN (SELECT id FROM invoice);
+
+UPDATE `chat` SET userId=NULL WHERE userId NOT IN (SELECT id FROM user);
+
+
+UPDATE `client` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
+UPDATE `client` SET userId=NULL WHERE userId NOT IN (SELECT id FROM user);
+
+
+
+
+UPDATE `job` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
+UPDATE `job` SET clientId=NULL WHERE clientId NOT IN (SELECT id FROM client);
+UPDATE `job` SET userId=NULL WHERE userId NOT IN (SELECT id FROM user);
+
+
+
+UPDATE `offre` SET clientId=NULL WHERE clientId NOT IN (SELECT id FROM client);
+UPDATE `offre` SET userId=NULL WHERE userId NOT IN (SELECT id FROM user);
+
+UPDATE `planning` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
+UPDATE `planning` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
+UPDATE `planning` SET userId=NULL WHERE userId NOT IN (SELECT id FROM user);
+
+
+
+UPDATE `planning2job` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
+UPDATE `planning2job` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
+UPDATE `planning2job` SET userId=NULL WHERE userId NOT IN (SELECT id FROM user);
+
+UPDATE `planning2offre` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
+UPDATE `planning2offre` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
+UPDATE `planning2offre` SET userId=NULL WHERE userId NOT IN (SELECT id FROM user);
+
+UPDATE `planning_logs` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
+UPDATE `planning_logs` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
+UPDATE `planning_logs` SET userId=NULL WHERE userId NOT IN (SELECT id FROM user);
+
+
+
+UPDATE `invoice` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
+UPDATE `invoice` SET clientId=NULL WHERE clientId NOT IN (SELECT id FROM client);
+
+
+UPDATE `slice` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
+UPDATE `slice` SET invoiceId=NULL WHERE invoiceId NOT IN (SELECT id FROM invoice);
+UPDATE `slice` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
+
+
+
+UPDATE `tent` SET ownerId=NULL WHERE ownerId NOT IN (SELECT id FROM client);
+UPDATE `tent` SET winterOffreId=NULL WHERE winterOffreId NOT IN (SELECT id FROM offre);
+
+
+UPDATE `slice2job` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
+UPDATE `slice2job` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
+UPDATE `slice2job` SET invoiceId=NULL WHERE invoiceId NOT IN (SELECT id FROM invoice);
+
+
+UPDATE `slice2offre` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
+UPDATE `slice2offre` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
+UPDATE `slice2offre` SET invoiceId=NULL WHERE invoiceId NOT IN (SELECT id FROM invoice);
