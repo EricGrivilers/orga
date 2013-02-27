@@ -141,7 +141,7 @@ class User
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -157,14 +157,14 @@ class User
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
-    
+
         return $this;
     }
 
     /**
      * Get firstname
      *
-     * @return string 
+     * @return string
      */
     public function getFirstname()
     {
@@ -180,14 +180,14 @@ class User
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
-    
+
         return $this;
     }
 
     /**
      * Get lastname
      *
-     * @return string 
+     * @return string
      */
     public function getLastname()
     {
@@ -203,14 +203,14 @@ class User
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -226,14 +226,14 @@ class User
     public function setPassword($password)
     {
         $this->password = $password;
-    
+
         return $this;
     }
 
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -249,14 +249,14 @@ class User
     public function setIso($iso)
     {
         $this->iso = $iso;
-    
+
         return $this;
     }
 
     /**
      * Get iso
      *
-     * @return string 
+     * @return string
      */
     public function getIso()
     {
@@ -272,14 +272,14 @@ class User
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -295,14 +295,14 @@ class User
     public function setAddress($address)
     {
         $this->address = $address;
-    
+
         return $this;
     }
 
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -318,14 +318,14 @@ class User
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    
+
         return $this;
     }
 
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -341,14 +341,14 @@ class User
     public function setPhone2($phone2)
     {
         $this->phone2 = $phone2;
-    
+
         return $this;
     }
 
     /**
      * Get phone2
      *
-     * @return string 
+     * @return string
      */
     public function getPhone2()
     {
@@ -364,14 +364,14 @@ class User
     public function setMobile($mobile)
     {
         $this->mobile = $mobile;
-    
+
         return $this;
     }
 
     /**
      * Get mobile
      *
-     * @return string 
+     * @return string
      */
     public function getMobile()
     {
@@ -387,14 +387,14 @@ class User
     public function setFax($fax)
     {
         $this->fax = $fax;
-    
+
         return $this;
     }
 
     /**
      * Get fax
      *
-     * @return string 
+     * @return string
      */
     public function getFax()
     {
@@ -410,14 +410,14 @@ class User
     public function setStatus($status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -433,14 +433,14 @@ class User
     public function setInsertdate($insertdate)
     {
         $this->insertdate = $insertdate;
-    
+
         return $this;
     }
 
     /**
      * Get insertdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertdate()
     {
@@ -456,14 +456,14 @@ class User
     public function setPublic($public)
     {
         $this->public = $public;
-    
+
         return $this;
     }
 
     /**
      * Get public
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPublic()
     {
@@ -479,14 +479,14 @@ class User
     public function setLastlog($lastlog)
     {
         $this->lastlog = $lastlog;
-    
+
         return $this;
     }
 
     /**
      * Get lastlog
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLastlog()
     {
@@ -502,17 +502,22 @@ class User
     public function setBrowser($browser)
     {
         $this->browser = $browser;
-    
+
         return $this;
     }
 
     /**
      * Get browser
      *
-     * @return string 
+     * @return string
      */
     public function getBrowser()
     {
         return $this->browser;
+    }
+
+
+    public function getName() {
+        return $this->firstname." ".$this->lastname;
     }
 }

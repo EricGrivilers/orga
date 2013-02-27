@@ -15,11 +15,11 @@ class Document
     /**
      * @var integer
      *
-     * @ORM\Column(name="documentId", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $documentid;
+    private $id;
 
     /**
      * @var string
@@ -52,13 +52,13 @@ class Document
 
 
     /**
-     * Get documentid
+     * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getDocumentid()
+    public function getId()
     {
-        return $this->documentid;
+        return $this->id;
     }
 
     /**
@@ -70,14 +70,14 @@ class Document
     public function setLinkto($linkto)
     {
         $this->linkto = $linkto;
-    
+
         return $this;
     }
 
     /**
      * Get linkto
      *
-     * @return string 
+     * @return string
      */
     public function getLinkto()
     {
@@ -93,14 +93,14 @@ class Document
     public function setLinkid($linkid)
     {
         $this->linkid = $linkid;
-    
+
         return $this;
     }
 
     /**
      * Get linkid
      *
-     * @return integer 
+     * @return integer
      */
     public function getLinkid()
     {
@@ -116,14 +116,14 @@ class Document
     public function setType($type)
     {
         $this->type = $type;
-    
+
         return $this;
     }
 
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -139,14 +139,14 @@ class Document
     public function setUrl($url)
     {
         $this->url = $url;
-    
+
         return $this;
     }
 
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
     public function getUrl()
     {
