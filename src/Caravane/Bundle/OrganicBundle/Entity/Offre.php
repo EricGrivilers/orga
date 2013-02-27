@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Offre
  *
  * @ORM\Table(name="offre")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Caravane\Bundle\OrganicBundle\Entity\OffreRepository")
  */
 class Offre
 {
@@ -108,7 +108,7 @@ class Offre
     /**
      * @var string
      *
-     * @ORM\Column(name="price", type="string", length=50, nullable=false)
+     * @ORM\Column(name="price", type="decimal", length=50, nullable=false, scale=2 )
      */
     private $price;
 

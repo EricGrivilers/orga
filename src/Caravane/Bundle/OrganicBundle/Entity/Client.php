@@ -33,47 +33,47 @@ class Client
      *
      * @ORM\Column(name="clientType", type="string", length=20, nullable=false)
      */
-    private $clienttype;
+    private $clienttype="cie";
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="isOwner", type="boolean", nullable=false)
+     * @ORM\Column(name="isOwner", type="boolean", nullable=true)
      */
     private $isowner;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=50, nullable=false)
+     * @ORM\Column(name="name", type="string", length=50, nullable=true)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="firstname", type="string", length=50, nullable=false)
+     * @ORM\Column(name="firstname", type="string", length=50, nullable=true)
      */
     private $firstname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lastname", type="string", length=50, nullable=false)
+     * @ORM\Column(name="lastname", type="string", length=50, nullable=true)
      */
     private $lastname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="clientTitle", type="string", length=20, nullable=false)
+     * @ORM\Column(name="clientTitle", type="string", length=20, nullable=true)
      */
     private $clienttitle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="cieType", type="string", length=10, nullable=false)
+     * @ORM\Column(name="cieType", type="string", length=10, nullable=true)
      */
     private $cietype;
 
@@ -87,98 +87,98 @@ class Client
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=255, nullable=false)
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="number", type="string", length=10, nullable=false)
+     * @ORM\Column(name="number", type="string", length=10, nullable=true)
      */
     private $number;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="zip", type="string", length=10, nullable=false)
+     * @ORM\Column(name="zip", type="string", length=10, nullable=true)
      */
     private $zip;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=120, nullable=false)
+     * @ORM\Column(name="city", type="string", length=120, nullable=true)
      */
     private $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=120, nullable=false)
+     * @ORM\Column(name="country", type="string", length=120, nullable=true)
      */
     private $country;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="phone", type="string", length=30, nullable=false)
+     * @ORM\Column(name="phone", type="string", length=30, nullable=true)
      */
     private $phone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="phone2", type="string", length=30, nullable=false)
+     * @ORM\Column(name="phone2", type="string", length=30, nullable=true)
      */
     private $phone2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mobile", type="string", length=30, nullable=false)
+     * @ORM\Column(name="mobile", type="string", length=30, nullable=true)
      */
     private $mobile;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fax", type="string", length=30, nullable=false)
+     * @ORM\Column(name="fax", type="string", length=30, nullable=true)
      */
     private $fax;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=120, nullable=false)
+     * @ORM\Column(name="email", type="string", length=120, nullable=true)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="url", type="string", length=255, nullable=false)
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
      */
     private $url;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="language", type="string", length=2, nullable=false)
+     * @ORM\Column(name="language", type="string", length=2, nullable=true)
      */
     private $language;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="origin", type="string", length=255, nullable=false)
+     * @ORM\Column(name="origin", type="string", length=255, nullable=true)
      */
     private $origin;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="insertDate", type="datetime", nullable=false)
+     * @ORM\Column(name="insertDate", type="datetime", nullable=true)
      */
     private $insertdate;
 
@@ -192,7 +192,7 @@ class Client
     /**
      * @var boolean
      *
-     * @ORM\Column(name="public", type="boolean", nullable=false)
+     * @ORM\Column(name="public", type="boolean", nullable=true)
      */
     private $public;
 
@@ -348,7 +348,7 @@ class Client
     public function getName()
     {
         if($this->clienttype=='part') {
-            return $this->firstname." ".$this->lastname;
+            return $this->lastname." ".$this->firstname;
         }
         return $this->name;
     }

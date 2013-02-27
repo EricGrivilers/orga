@@ -8,10 +8,10 @@
           <li {% if type=='' %}class="active" {% endif %} >
             <a href="{{path('client',{'ob':ob})}}">All</a>
           </li>
-          <li {% if type=='owner' %}class="active" {% endif %} ><a href="{{path('client',{'type': 'owner','ob':ob} )}}">Owners</a></li>
-          <li {% if type=='renter' %}class="active" {% endif %} ><a href="{{path('client',{'type':'renter','ob':ob})}}">Renters</a></li>
-          <li {% if type=='cie' %}class="active" {% endif %} ><a href="{{path('client',{'type':'cie','ob':ob})}}">Companies</a></li>
-          <li {% if type=='part' %}class="active" {% endif %} ><a href="{{path('client',{'type':'part','ob':ob})}}">Private</a></li>
+          <li {% if type=='owner' %}class="active" {% endif %} ><a href="{{path('client',{'type': 'owner','ob':ob,'page':1} )}}">Owners</a></li>
+          <li {% if type=='renter' %}class="active" {% endif %} ><a href="{{path('client',{'type':'renter','ob':ob,'page':1})}}">Renters</a></li>
+          <li {% if type=='cie' %}class="active" {% endif %} ><a href="{{path('client',{'type':'cie','ob':ob,'page':1})}}">Companies</a></li>
+          <li {% if type=='part' %}class="active" {% endif %} ><a href="{{path('client',{'type':'part','ob':ob,'page':1})}}">Private</a></li>
         </ul>
 </div>
 <div class="span2">
@@ -122,13 +122,11 @@
 <div class="row-fluid">
     <div class="pagination">
   <ul>
-    <li><a href="#">Prev</a></li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li><a href="#">Next</a></li>
+    <li {% if page<=1 %} class="disabled" {% endif %} ><a href="{{path('client',{'type': type,'ob':ob,'page':page-1} )}}" >Prev</a></li>
+    {% for p in 1..nbpages %}
+    <li {% if page==p %} class="active" {% endif %} ><a href="{{path('client',{'type': type,'ob':ob,'page':p} )}}">{{p}}</a></li>
+    {% endfor %}
+    <li {% if page>=nbpages %} class="disabled" {% endif %}><a href="{{path('client',{'type': type,'ob':ob,'page':page+1} )}}">Next</a></li>
   </ul>
 </div>
 </div>

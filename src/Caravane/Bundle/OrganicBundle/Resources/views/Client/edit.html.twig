@@ -4,13 +4,25 @@
 {% block body %}
 
 <div class="row-fluid">
+
 <form action="{{ path('client_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+
+    <div class="row-fluid">
+        <div class="actions">
+            <button type="submit" class="btn btn-inverse">Save</button>
+            <a href="{{ path('client') }}" class="btn">
+                    Back to the list
+            </a>
+        </div>
+    </div>
 
     <div class="well">
         <div class="row-fluid">
             <div class="span4">
-                Reference: <b>{{entity.reference}}</b>
-                <br/>
+                <div>
+                    <label>Reference</label> <label><b>{{entity.reference}}</b></label>
+                </div>
+                
                 {{ form_row(edit_form.origin)}}
             </div>
 
@@ -25,6 +37,73 @@
             </div>
         </div>
     </div>
+
+     <div class="well">
+        <div class="btn-group" data-toggle="buttons-radio">
+          <button type="button" class="btn {% if entity.clienttype=='part' %} active {% endif %}" data-toggle="button" data-target="#{{edit_form.clienttype.vars.id}}" rel="part" >Private</button>
+          <button type="button" class="btn {% if entity.clienttype=='cie' %} active {% endif %}" data-toggle="button" data-target="#{{edit_form.clienttype.vars.id}}" rel="cie" >Company</button>
+          {{form_row(edit_form.clienttype)}}
+        </div>
+        <div class="row-fluid" id="cieonly">
+            <div class="span4">
+                {{form_row(edit_form.name)}}
+                
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.vat)}}
+                
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.cietype)}}
+
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span4">     
+                {{form_row(edit_form.clienttitle)}}
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.lastname)}}
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.firstname)}}
+
+            </div>
+        </div>
+    </div>
+
+     <div class="well">
+        <div class="row-fluid">
+            <div class="span4">
+                {{form_row(edit_form.address)}}
+                {{form_row(edit_form.city)}}
+                {{form_row(edit_form.country)}}
+                {{form_row(edit_form.url)}}
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.number)}}
+                {{form_row(edit_form.zip)}}
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.email)}}
+                {{form_row(edit_form.mobile)}}
+                {{form_row(edit_form.phone)}}
+                {{form_row(edit_form.phone2)}}
+                {{form_row(edit_form.fax)}}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="actions">
+            <button type="submit" class="btn btn-inverse">Save</button>
+            <a href="{{ path('client') }}" class="btn">
+                    Back to the list
+            </a>
+        </div>
+    </div>
+
 
     {% if entity.tents %}
     <div class="row-fluid">
@@ -129,26 +208,12 @@
         </table>
     </div>
 
-
+  
 
     {{ form_rest(edit_form) }}
-    <p>
-        <button type="submit">Edit</button>
-    </p>
+
 </form>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('client') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('client_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+
 </div>
 {% endblock body %}

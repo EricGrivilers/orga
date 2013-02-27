@@ -1,16 +1,115 @@
-<h1>Client creation</h1>
+{% extends "::base.html.twig" %}
+
+
+{% block body %}
+
+<div class="row-fluid">
 
 <form action="{{ path('client_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
+
+    <div class="row-fluid">
+        <div class="actions">
+            <button type="submit" class="btn btn-inverse">Save</button>
+            <a href="{{ path('client') }}" class="btn">
+                    Back to the list
+            </a>
+        </div>
+    </div>
+
+    <div class="well">
+        <div class="row-fluid">
+            <div class="span4">
+               
+                
+                {{ form_row(form.origin)}}
+            </div>
+
+             <div class="span4">
+                {{ form_row(form.language)}}
+              
+                
+            </div>
+
+             <div class="span4">
+                    {{ form_row(form.userid)}}
+            </div>
+        </div>
+    </div>
+
+     <div class="well">
+        <div class="btn-group" data-toggle="buttons-radio">
+          <button type="button" class="btn {% if entity.clienttype=='part' %} active {% endif %}" data-toggle="button" data-target="#{{form.clienttype.vars.id}}" rel="part" >Private</button>
+          <button type="button" class="btn {% if entity.clienttype=='cie'  %} active {% endif %}" data-toggle="button" data-target="#{{form.clienttype.vars.id}}" rel="cie" >Company</button>
+          {{form_row(form.clienttype)}}
+        </div>
+        <div class="row-fluid" id="cieonly">
+            <div class="span4">
+                {{form_row(form.name)}}
+                
+            </div>
+             <div class="span4">
+                {{form_row(form.vat)}}
+                
+            </div>
+             <div class="span4">
+                {{form_row(form.cietype)}}
+
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span4">     
+                {{form_row(form.clienttitle)}}
+            </div>
+             <div class="span4">
+                {{form_row(form.lastname)}}
+            </div>
+             <div class="span4">
+                {{form_row(form.firstname)}}
+
+            </div>
+        </div>
+    </div>
+
+     <div class="well">
+        <div class="row-fluid">
+            <div class="span4">
+                {{form_row(form.address)}}
+                {{form_row(form.city)}}
+                {{form_row(form.country)}}
+                {{form_row(form.url)}}
+            </div>
+             <div class="span4">
+                {{form_row(form.number)}}
+                {{form_row(form.zip)}}
+            </div>
+             <div class="span4">
+                {{form_row(form.email)}}
+                {{form_row(form.mobile)}}
+                {{form_row(form.phone)}}
+                {{form_row(form.phone2)}}
+                {{form_row(form.fax)}}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="actions">
+            <button type="submit" class="btn btn-inverse">Save</button>
+            <a href="{{ path('client') }}" class="btn">
+                    Back to the list
+            </a>
+        </div>
+    </div>
+
+
+
+  
+
+    {{ form_rest(form) }}
+
 </form>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('client') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+
+</div>
+{% endblock body %}

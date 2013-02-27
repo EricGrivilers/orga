@@ -10,34 +10,134 @@ class ClientType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
-            ->add('reference')
-            ->add('clienttype')
-            ->add('isowner')
-            ->add('name')
-            ->add('firstname')
-            ->add('lastname')
-            ->add('clienttitle')
-            ->add('cietype')
-            ->add('vat')
-            ->add('address')
-            ->add('number')
-            ->add('zip')
-            ->add('city')
+            //->add('reference')
+            ->add('clienttype',"hidden")
+           // ->add('isowner')
+            ->add('name',"text",array(
+                "attr"=>array(
+                    "class"=>"span12"
+                )
+            ))
+            ->add('firstname',"text",array(
+                "attr"=>array(
+                    "class"=>"span12"
+                )
+            ))
+            ->add('lastname',"text",array(
+                "attr"=>array(
+                    "class"=>"span12"
+                )
+            ))
+            ->add('clienttitle','choice',array(
+                "choices"=>array("M."=>"M.","Mme"=>"Mme"),
+                "label"=>"Title",
+                "attr"=>array(
+                    "class"=>"span4"
+                )
+            ))
+            ->add('cietype','choice',array(
+                "choices"=>array(
+                    "/"=>"/",
+                    "ASBL"=>"ASBL",
+                    "BVBA"=>"BVBA",
+                    "Comm. V"=>"Comm. V",
+                    "EBVBA"=>"EBVBA",
+                    "INC"=>"INC",
+                    "NV"=>"NV",
+                    "S.P.R.L. "=>"S.P.R.L. ",
+                    "SA"=>"SA",
+                    "SARL"=>"SARL",
+                    "SCRL"=>"SCRL",
+                    "SCS"=>"SCS",
+                    "Sprl"=>"Sprl",
+                    "VOF"=>"VOF",
+                    "VZW"=>"VZW",
+                    "privé"=>"privé"
+                ),
+                "label"=>"Type"
+            ))
+            ->add('vat',"text",array(
+                "label"=>"VAT"
+            ))
+            ->add('address',"text",array(
+                "attr"=>array(
+                    "class"=>"span12"
+                )
+            ))
+            ->add('number',"text",array(
+                "label"=>"Number/Box",
+                "attr"=>array(
+                    "class"=>"span4"
+                )
+            ))
+            ->add('zip',"text",array(
+                "attr"=>array(
+                    "class"=>"span4"
+                )
+            ))
+            ->add('city',"text",array(
+                "attr"=>array(
+                    "class"=>"span12"
+                )
+            ))
             ->add('country')
-            ->add('phone')
-            ->add('phone2')
-            ->add('mobile')
-            ->add('fax')
-            ->add('email')
-            ->add('url')
-            ->add('language')
-            ->add('origin')
+            ->add('phone',"text",array(
+                "attr"=>array(
+                    "class"=>"span12"
+                )
+            ))
+            ->add('phone2',"text",array(
+                "attr"=>array(
+                    "class"=>"span12"
+                ),
+                "label"=>"Other"
+            ))
+            ->add('mobile',"text",array(
+                "attr"=>array(
+                    "class"=>"span12"
+                )
+            ))
+            ->add('fax',"text",array(
+                "attr"=>array(
+                    "class"=>"span12"
+                )
+            ))
+            ->add('email',"text",array(
+                "attr"=>array(
+                    "class"=>"span12"
+                )
+            ))
+            ->add('url',"text",array(
+                "label"=>"Website",
+                "attr"=>array(
+                    "class"=>"span12"
+                )
+            ))
+            ->add('language','choice',array(
+                "choices"=>array('en'=>'en','fr'=>'fr','nl'=>'nl'),
+                "attr"=>array(
+                    "class"=>"span6"
+                )
+            ))
+            ->add('origin',"textarea",array(
+                "attr"=>array(
+                    "class"=>"span12"
+                )
+            ))
             //->add('insertdate')
             //->add('updatedate')
-            ->add('public')
+         //   ->add('public')
             //->add('jobid')
-            ->add('userid')
+            ->add('userid','entity',array(
+                "class"=>"CaravaneOrganicBundle:User",
+                "label"=>"Account manager",
+                "attr"=>array(
+                    "class"=>"span12"
+                ),
+                "required"=>false
+            ))
         ;
     }
 

@@ -26,15 +26,23 @@ class ClientController extends Controller
         if(!$type=$request->query->get('type')) {
             $type='';
         }
-         if(!$ob=$request->query->get('ob')) {
+        if(!$ob=$request->query->get('ob')) {
             $ob='name asc';
         }
+         if(!$page=$request->query->get('page')) {
+            $page=1;
+        }
        // $entities = $em->getRepository('CaravaneOrganicBundle:Client')->listAll();
-        $entities=$em->getRepository('CaravaneOrganicBundle:Client')->listAll($type,$ob);
+        $entities=$em->getRepository('CaravaneOrganicBundle:Client')->listAll($type,$ob,$page);
+        $nbpages=(Integer)(count($entities)/25)+1;
+
+
         return $this->render('CaravaneOrganicBundle:Client:index.html.twig', array(
             'entities' => $entities,
             'type'=>$type,
-            'ob'=>$ob
+            'ob'=>$ob,
+            'page'=>$page,
+            "nbpages"=>$nbpages
         ));
     }
 
@@ -85,7 +93,13 @@ class ClientController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
+            $entity->setReference(strtoupper(substr($entity->getClientType(),0,1))."-".strtoupper(substr($entity->getName(),0,5))."-".$entity->getId());
+            $entity->setInsertDate(new \Datetime("now"));
+            $entity->setUpdateDate(new \Datetime("now"));
             $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+            $entity->setReference(strtoupper(substr($entity->getClientType(),0,1))."-".strtoupper(substr($entity->getName(),0,5))."-".$entity->getId());
             $em->persist($entity);
             $em->flush();
 
@@ -141,6 +155,7 @@ class ClientController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
+            $entity->setUpdateDate(new \Datetime("now"));
             $em->persist($entity);
             $em->flush();
 
