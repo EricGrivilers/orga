@@ -7,11 +7,11 @@
         <div class="span10">
         <ul class="nav nav-pills">
 
-          <li {% if type=='owner' %}class="active" {% endif %} ><a href="{{path('job',{'type': 'owner','ob':ob,'page':1} )}}">Running</a></li>
-          <li {% if type=='cie' %}class="active" {% endif %} ><a href="{{path('job',{'type':'cie','ob':ob,'page':1})}}">Confirmed</a></li>
-          <li {% if type=='renter' %}class="active" {% endif %} ><a href="{{path('job',{'type':'renter','ob':ob,'page':1})}}">Canceled</a></li>
+          <li {% if type=='owner' %}class="active" {% endif %} ><a href="{{path('invoice',{'type': 'owner','ob':ob,'page':1} )}}">Running</a></li>
+          <li {% if type=='cie' %}class="active" {% endif %} ><a href="{{path('invoice',{'type':'cie','ob':ob,'page':1})}}">Confirmed</a></li>
+          <li {% if type=='renter' %}class="active" {% endif %} ><a href="{{path('invoice',{'type':'renter','ob':ob,'page':1})}}">Canceled</a></li>
           <li {% if type=='' %}class="active" {% endif %} >
-            <a href="{{path('job',{'ob':ob})}}">All</a>
+            <a href="{{path('invoice',{'ob':ob})}}">All</a>
           </li>
 
         </ul>
@@ -19,7 +19,7 @@
 
 <div class="span2">
      <a href="{{ path('offre_new') }}" class="btn btn-inverse ">
-            New job
+            New invoice
         </a>
     </div>
     </div>
@@ -135,12 +135,12 @@
             </td>
 
               <td>
-                <a href="{{ path('job_edit', { 'id': entity.id }) }}"><i class="icon icon-edit"></i></a>
+                <a href="{{ path('invoice_edit', { 'id': entity.id }) }}"><i class="icon icon-edit"></i></a>
 
             </td>
              <td>
 
-                        <a href="{{ path('job_show', { 'id': entity.id }) }}"><i class="icon icon-trash"></i></a>
+                        <a href="{{ path('invoice_show', { 'id': entity.id }) }}"><i class="icon icon-trash"></i></a>
 
 
             </td>
@@ -154,11 +154,11 @@
 <div class="row-fluid">
     <div class="pagination">
   <ul>
-    <li {% if page<=1 %} class="disabled" {% endif %} ><a href="{{path('job',{'type': type,'ob':ob,'page':page-1} )}}" >Prev</a></li>
+    <li {% if page<=1 %} class="disabled" {% endif %} ><a href="{{path('invoice',{'type': type,'ob':ob,'page':page-1} )}}" >Prev</a></li>
     {% for p in 1..nbpages %}
-    <li {% if page==p %} class="active" {% endif %} ><a href="{{path('job',{'type': type,'ob':ob,'page':p} )}}">{{p}}</a></li>
+    <li {% if page==p %} class="active" {% endif %} ><a href="{{path('invoice',{'type': type,'ob':ob,'page':p} )}}">{{p}}</a></li>
     {% endfor %}
-    <li {% if page>=nbpages %} class="disabled" {% endif %}><a href="{{path('job',{'type': type,'ob':ob,'page':page+1} )}}">Next</a></li>
+    <li {% if page>=nbpages %} class="disabled" {% endif %}><a href="{{path('invoice',{'type': type,'ob':ob,'page':page+1} )}}">Next</a></li>
   </ul>
 </div>
 </div>
