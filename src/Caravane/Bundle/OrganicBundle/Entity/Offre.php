@@ -304,10 +304,19 @@ class Offre
     /**
      * @var \Job
      *
-     * @ORM\OneToOne(targetEntity="Job", mappedBy="offreid")
-     * })
+     * @ORM\OneToOne(targetEntity="Job", inversedBy="offreid")
+     * @ORM\JoinColumn(name="jobId", referencedColumnName="id")
      */
     private $jobid;
+
+
+    /**
+     * @var \tents2offre
+     *
+     * @ORM\OneToMany(targetEntity="Tent2Offre", mappedBy="offreid")
+     * 
+     */
+    private $tents2offre;
 
 
     public function __toString() {
@@ -1254,5 +1263,38 @@ class Offre
     public function getJobid()
     {
         return $this->jobid;
+    }
+
+    /**
+     * Add tents2offre
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre
+     * @return Offre
+     */
+    public function addTents2offre(\Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre)
+    {
+        $this->tents2offre[] = $tents2offre;
+    
+        return $this;
+    }
+
+    /**
+     * Remove tents2offre
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre
+     */
+    public function removeTents2offre(\Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre)
+    {
+        $this->tents2offre->removeElement($tents2offre);
+    }
+
+    /**
+     * Get tents2offre
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTents2offre()
+    {
+        return $this->tents2offre;
     }
 }

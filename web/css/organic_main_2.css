@@ -16,5 +16,6 @@ body, p, a, td { font-size:12px; }
 table.table-condensed tr td { padding:2px; }
 table.table-condensed tr td a { color:#333; }
 table.table-condensed tr td a.red { color:#e1001a; }
+table.table-condensed tr td li { list-style:none; }
 tr.error { border:1px dashed red; }
 a.red { color:#e1001a; }

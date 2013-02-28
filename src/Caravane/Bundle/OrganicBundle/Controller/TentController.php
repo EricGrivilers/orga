@@ -22,10 +22,52 @@ class TentController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CaravaneOrganicBundle:Tent')->findAll();
+
+        
+
+        $request=$this->get('request');
+        if(!$type=$request->query->get('type')) {
+            $type='';
+        }
+        if(!$ob=$request->query->get('ob')) {
+            $ob='reference desc';
+        }
+         if(!$page=$request->query->get('page')) {
+            $page=1;
+        }
+
+        
+        
+        $jobs=array();
+        $offres=array();
+        $startDate=new \Datetime();
+        $endDate=new \Datetime();
+        if($type=="reserved" ) {
+            $startDate=new \Datetime($request->query->get('startDate'));
+            $endDate=new \Datetime($request->query->get('endDate'));
+            if(is_null($startDate)) {
+                $startDate=new \Datetime();
+            }
+            if(is_null($endDate)) {
+                $endDate=$startDate;
+            }
+            $jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAllBetweenDates($startDate,$endDate);
+            $offres=$em->getRepository('CaravaneOrganicBundle:Offre')->findAllBetweenDates($startDate,$endDate);
+        }
+
+        $entities=$em->getRepository('CaravaneOrganicBundle:Tent')->listAll($type,$ob,$page);
+        $nbpages=(Integer)(count($entities)/25)+1;
 
         return $this->render('CaravaneOrganicBundle:Tent:index.html.twig', array(
             'entities' => $entities,
+            'type'=>$type,
+            'ob'=>$ob,
+            'page'=>$page,
+            "nbpages"=>$nbpages,
+            "jobs"=>$jobs,
+            "offres"=>$offres,
+            'startDate'=>$startDate,
+            "endDate"=>$endDate
         ));
     }
 

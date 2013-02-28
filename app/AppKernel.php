@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Caravane\Bundle\OrganicBundle\CaravaneOrganicBundle(),
+            new Caravane\DevBundle\CaravaneDevBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -7,10 +7,7 @@
         <div class="span10">
         <ul class="nav nav-pills">
 
-          <li {% if type=='owner' %}class="active" {% endif %} ><a href="{{path('job',{'type': 'owner','ob':ob,'page':1} )}}">Running</a></li>
-          <li {% if type=='cie' %}class="active" {% endif %} ><a href="{{path('job',{'type':'cie','ob':ob,'page':1})}}">Confirmed</a></li>
-          <li {% if type=='renter' %}class="active" {% endif %} ><a href="{{path('job',{'type':'renter','ob':ob,'page':1})}}">Canceled</a></li>
-          <li {% if type=='' %}class="active" {% endif %} >
+         <li {% if type=='' %}class="active" {% endif %} >
             <a href="{{path('job',{'ob':ob})}}">All</a>
           </li>
 

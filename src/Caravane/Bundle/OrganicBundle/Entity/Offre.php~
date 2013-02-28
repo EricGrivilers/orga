@@ -304,10 +304,19 @@ class Offre
     /**
      * @var \Job
      *
-     * @ORM\OneToOne(targetEntity="Job", mappedBy="offreid")
-     * })
+     * @ORM\OneToOne(targetEntity="Job", inversedBy="offreid")
+     * @ORM\JoinColumn(name="jobId", referencedColumnName="id")
      */
     private $jobid;
+
+
+    /**
+     * @var \tents2offre
+     *
+     * @ORM\OneToMany(targetEntity="Tent2Offre", mappedBy="offreid")
+     * 
+     */
+    private $tents2offre;
 
 
     public function __toString() {

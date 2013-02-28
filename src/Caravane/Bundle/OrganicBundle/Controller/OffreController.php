@@ -27,7 +27,7 @@ class OffreController extends Controller
 
         $request=$this->get('request');
         if(!$type=$request->query->get('type')) {
-            $type='';
+            $type='running';
         }
         if(!$ob=$request->query->get('ob')) {
             $ob='reference desc';

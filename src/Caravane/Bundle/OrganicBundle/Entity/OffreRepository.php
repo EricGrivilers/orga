@@ -14,26 +14,29 @@ class OffreRepository extends EntityRepository
 {
 
 	public function listAll($type=null,$ob=null,$page=1) {
-		$dql = "SELECT C FROM CaravaneOrganicBundle:Offre C ";
-		$dql.=" WHERE C.public=1 ";
-		/*if($type) {
+		$dql = "SELECT O FROM CaravaneOrganicBundle:Offre O ";
+		
+		$dql.=" WHERE O.public=1 ";
+		if($type) {
 			switch($type) {
-				case 'owner':
-					$dql.=" AND SIZE(C.tents) > 0 ";
+				case 'canceled':
+					$dql.=" AND (O.status='cancel' OR O.status='ANNULÉ') ";
 				break;
-				case 'renter':
-					$dql.=" AND SIZE(C.tents) = 0 ";
+				case 'confirmed':
+					$dql.=" AND O.jobid IS NOT NULL ";
 				break;
+				case 'running':
+					$dql.=" AND (O.status!='ok' OR O.status!='draft' OR O.status='') AND O.jobid IS NULL ";
+				break;
+				
 
-				default:
-					$dql.=" AND C.clienttype='".$type."' ";
-				break;
+				
 			}
 			
 		}
-		*/
+		
 		if($ob) {
-			$dql.=" ORDER BY C.".$ob." ";
+			$dql.=" ORDER BY O.".$ob." ";
 		}
 
 		$query = $this->getEntityManager()->createQuery($dql)
@@ -45,5 +48,20 @@ class OffreRepository extends EntityRepository
 
 		//return array('entities'=>$paginator);
 		return $entities;
+	}
+
+
+	public function findAllBetweenDates(\Datetime $startDate=null,\Datetime $endDate=null) {
+		
+		$em=$this->getEntityManager();
+
+		$dql="SELECT O FROM CaravaneOrganicBundle:Offre O ";
+		$dql.=" WHERE O.public=1 ";
+		$dql.=" AND O.startbuild BETWEEN '".$startDate->format('Y-m-d H:i:s')."' AND '".$endDate->format('Y-m-d H:i:s')."' ";
+		$dql.=" OR O.endbuild BETWEEN '".$startDate->format('Y-m-d H:i:s')."' AND '".$endDate->format('Y-m-d H:i:s')."' ";
+		$dql.=" OR O.startbuild <= '".$startDate->format('Y-m-d H:i:s')."' AND O.endbuild >= '".$endDate->format('Y-m-d H:i:s')."' ";
+		$query = $this->getEntityManager()->createQuery($dql);
+		$offres=$query->getResult();
+		return $offres;
 	}
 }

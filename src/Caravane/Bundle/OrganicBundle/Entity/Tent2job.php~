@@ -66,7 +66,7 @@ class Tent2job
     /**
      * @var \Job
      *
-     * @ORM\ManyToOne(targetEntity="Job")
+     * @ORM\ManyToOne(targetEntity="Job",inversedBy="tents2job")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="jobId", referencedColumnName="id")
      * })
@@ -86,7 +86,7 @@ class Tent2job
     /**
      * @var \Tent
      *
-     * @ORM\ManyToOne(targetEntity="Tent")
+     * @ORM\ManyToOne(targetEntity="Tent",inversedBy="tents2job")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="tentId", referencedColumnName="id")
      * })

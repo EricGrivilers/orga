@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Tent
  *
  * @ORM\Table(name="tent")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Caravane\Bundle\OrganicBundle\Entity\TentRepository")
  */
 class Tent
 {
@@ -166,6 +166,24 @@ class Tent
      * })
      */
     private $ownerid;
+
+
+    /**
+     * @var \tents2job
+     *
+     * @ORM\OneToMany(targetEntity="Tent2Job", mappedBy="tentid")
+     * 
+     */
+    private $tents2job;
+
+
+    /**
+     * @var \tents2job
+     *
+     * @ORM\OneToMany(targetEntity="Tent2Offre", mappedBy="tentid")
+     * 
+     */
+    private $tents2offre;
 
 
 
@@ -640,5 +658,78 @@ class Tent
     public function getOwnerid()
     {
         return $this->ownerid;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tents2job = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add tents2job
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Tent2Job $tents2job
+     * @return Tent
+     */
+    public function addTents2job(\Caravane\Bundle\OrganicBundle\Entity\Tent2Job $tents2job)
+    {
+        $this->tents2job[] = $tents2job;
+    
+        return $this;
+    }
+
+    /**
+     * Remove tents2job
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Tent2Job $tents2job
+     */
+    public function removeTents2job(\Caravane\Bundle\OrganicBundle\Entity\Tent2Job $tents2job)
+    {
+        $this->tents2job->removeElement($tents2job);
+    }
+
+    /**
+     * Get tents2job
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTents2job()
+    {
+        return $this->tents2job;
+    }
+
+    /**
+     * Add tents2offre
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre
+     * @return Tent
+     */
+    public function addTents2offre(\Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre)
+    {
+        $this->tents2offre[] = $tents2offre;
+    
+        return $this;
+    }
+
+    /**
+     * Remove tents2offre
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre
+     */
+    public function removeTents2offre(\Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre)
+    {
+        $this->tents2offre->removeElement($tents2offre);
+    }
+
+    /**
+     * Get tents2offre
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTents2offre()
+    {
+        return $this->tents2offre;
     }
 }

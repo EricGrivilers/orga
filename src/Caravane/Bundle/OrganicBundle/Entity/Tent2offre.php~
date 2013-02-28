@@ -83,10 +83,10 @@ class Tent2offre
      */
     private $offreid;
 
-    /**
+     /**
      * @var \Tent
      *
-     * @ORM\ManyToOne(targetEntity="Tent")
+     * @ORM\ManyToOne(targetEntity="Tent",inversedBy="tents2job")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="tentId", referencedColumnName="id")
      * })

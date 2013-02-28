@@ -206,7 +206,7 @@ class Client
      */
     private $jobid;
 
-    
+
 
     /**
      * @var \User
@@ -251,7 +251,7 @@ class Client
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -267,14 +267,14 @@ class Client
     public function setReference($reference)
     {
         $this->reference = $reference;
-    
+
         return $this;
     }
 
     /**
      * Get reference
      *
-     * @return string 
+     * @return string
      */
     public function getReference()
     {
@@ -290,14 +290,14 @@ class Client
     public function setClienttype($clienttype)
     {
         $this->clienttype = $clienttype;
-    
+
         return $this;
     }
 
     /**
      * Get clienttype
      *
-     * @return string 
+     * @return string
      */
     public function getClienttype()
     {
@@ -313,14 +313,14 @@ class Client
     public function setIsowner($isowner)
     {
         $this->isowner = $isowner;
-    
+
         return $this;
     }
 
     /**
      * Get isowner
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsowner()
     {
@@ -336,14 +336,14 @@ class Client
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -362,14 +362,14 @@ class Client
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
-    
+
         return $this;
     }
 
     /**
      * Get firstname
      *
-     * @return string 
+     * @return string
      */
     public function getFirstname()
     {
@@ -385,14 +385,14 @@ class Client
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
-    
+
         return $this;
     }
 
     /**
      * Get lastname
      *
-     * @return string 
+     * @return string
      */
     public function getLastname()
     {
@@ -408,14 +408,14 @@ class Client
     public function setClienttitle($clienttitle)
     {
         $this->clienttitle = $clienttitle;
-    
+
         return $this;
     }
 
     /**
      * Get clienttitle
      *
-     * @return string 
+     * @return string
      */
     public function getClienttitle()
     {
@@ -431,14 +431,14 @@ class Client
     public function setCietype($cietype)
     {
         $this->cietype = $cietype;
-    
+
         return $this;
     }
 
     /**
      * Get cietype
      *
-     * @return string 
+     * @return string
      */
     public function getCietype()
     {
@@ -454,14 +454,14 @@ class Client
     public function setVat($vat)
     {
         $this->vat = $vat;
-    
+
         return $this;
     }
 
     /**
      * Get vat
      *
-     * @return string 
+     * @return string
      */
     public function getVat()
     {
@@ -477,14 +477,14 @@ class Client
     public function setAddress($address)
     {
         $this->address = $address;
-    
+
         return $this;
     }
 
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -500,14 +500,14 @@ class Client
     public function setNumber($number)
     {
         $this->number = $number;
-    
+
         return $this;
     }
 
     /**
      * Get number
      *
-     * @return string 
+     * @return string
      */
     public function getNumber()
     {
@@ -523,14 +523,14 @@ class Client
     public function setZip($zip)
     {
         $this->zip = $zip;
-    
+
         return $this;
     }
 
     /**
      * Get zip
      *
-     * @return string 
+     * @return string
      */
     public function getZip()
     {
@@ -546,14 +546,14 @@ class Client
     public function setCity($city)
     {
         $this->city = $city;
-    
+
         return $this;
     }
 
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -569,14 +569,14 @@ class Client
     public function setCountry($country)
     {
         $this->country = $country;
-    
+
         return $this;
     }
 
     /**
      * Get country
      *
-     * @return string 
+     * @return string
      */
     public function getCountry()
     {
@@ -592,14 +592,14 @@ class Client
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    
+
         return $this;
     }
 
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -615,14 +615,14 @@ class Client
     public function setPhone2($phone2)
     {
         $this->phone2 = $phone2;
-    
+
         return $this;
     }
 
     /**
      * Get phone2
      *
-     * @return string 
+     * @return string
      */
     public function getPhone2()
     {
@@ -638,14 +638,14 @@ class Client
     public function setMobile($mobile)
     {
         $this->mobile = $mobile;
-    
+
         return $this;
     }
 
     /**
      * Get mobile
      *
-     * @return string 
+     * @return string
      */
     public function getMobile()
     {
@@ -661,14 +661,14 @@ class Client
     public function setFax($fax)
     {
         $this->fax = $fax;
-    
+
         return $this;
     }
 
     /**
      * Get fax
      *
-     * @return string 
+     * @return string
      */
     public function getFax()
     {
@@ -684,14 +684,14 @@ class Client
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -707,14 +707,14 @@ class Client
     public function setUrl($url)
     {
         $this->url = $url;
-    
+
         return $this;
     }
 
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
     public function getUrl()
     {
@@ -730,14 +730,14 @@ class Client
     public function setLanguage($language)
     {
         $this->language = $language;
-    
+
         return $this;
     }
 
     /**
      * Get language
      *
-     * @return string 
+     * @return string
      */
     public function getLanguage()
     {
@@ -753,14 +753,14 @@ class Client
     public function setOrigin($origin)
     {
         $this->origin = $origin;
-    
+
         return $this;
     }
 
     /**
      * Get origin
      *
-     * @return string 
+     * @return string
      */
     public function getOrigin()
     {
@@ -776,14 +776,14 @@ class Client
     public function setInsertdate($insertdate)
     {
         $this->insertdate = $insertdate;
-    
+
         return $this;
     }
 
     /**
      * Get insertdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertdate()
     {
@@ -799,14 +799,14 @@ class Client
     public function setUpdatedate($updatedate)
     {
         $this->updatedate = $updatedate;
-    
+
         return $this;
     }
 
     /**
      * Get updatedate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedate()
     {
@@ -822,14 +822,14 @@ class Client
     public function setPublic($public)
     {
         $this->public = $public;
-    
+
         return $this;
     }
 
     /**
      * Get public
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPublic()
     {
@@ -845,14 +845,14 @@ class Client
     public function setJobid(\Caravane\Bundle\OrganicBundle\Entity\Job $jobid = null)
     {
         $this->jobid = $jobid;
-    
+
         return $this;
     }
 
     /**
      * Get jobid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Job 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Job
      */
     public function getJobid()
     {
@@ -868,14 +868,14 @@ class Client
     public function setUserid(\Caravane\Bundle\OrganicBundle\Entity\User $userid = null)
     {
         $this->userid = $userid;
-    
+
         return $this;
     }
 
     /**
      * Get userid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\User 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\User
      */
     public function getUserid()
     {
@@ -888,7 +888,7 @@ class Client
     {
         $this->tents = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add tents
      *
@@ -898,7 +898,7 @@ class Client
     public function addTent(\Caravane\Bundle\OrganicBundle\Entity\tent $tents)
     {
         $this->tents[] = $tents;
-    
+
         return $this;
     }
 
@@ -915,7 +915,7 @@ class Client
     /**
      * Get tents
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTents()
     {
@@ -931,7 +931,7 @@ class Client
     public function addJob(\Caravane\Bundle\OrganicBundle\Entity\job $jobs)
     {
         $this->jobs[] = $jobs;
-    
+
         return $this;
     }
 
@@ -948,7 +948,7 @@ class Client
     /**
      * Get jobs
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getJobs()
     {
@@ -964,7 +964,7 @@ class Client
     public function addOffre(\Caravane\Bundle\OrganicBundle\Entity\offre $offres)
     {
         $this->offres[] = $offres;
-    
+
         return $this;
     }
 
@@ -981,7 +981,7 @@ class Client
     /**
      * Get offres
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getOffres()
     {
@@ -997,7 +997,7 @@ class Client
     public function addInvoice(\Caravane\Bundle\OrganicBundle\Entity\invoice $invoices)
     {
         $this->invoices[] = $invoices;
-    
+
         return $this;
     }
 
@@ -1014,7 +1014,7 @@ class Client
     /**
      * Get invoices
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getInvoices()
     {

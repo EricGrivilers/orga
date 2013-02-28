@@ -1,71 +1,154 @@
-<h1>Tent list</h1>
+{% extends "::base.html.twig" %}
 
-<table class="records_list">
+{% block body %}
+<div class="row-fluid">
+    <div class="tools">
+        <div class="span10">
+        <ul class="nav nav-pills pull-left">
+          <li {% if type=='' %}class="active" {% endif %} >
+            <a href="{{path('tent',{'ob':ob})}}">All</a>
+          </li>
+          <li {% if type=='reserved' %}class="active" {% endif %} ><a href="{{path('tent',{'type': 'reserved','ob':ob,'page':1,'startdate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')} )}}">Reserved</a></li>
+          <li {% if type=='free' %}class="active" {% endif %} ><a href="{{path('tent',{'type':'free','ob':ob,'page':1,'startdate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')})}}">Free</a></li>
+          <li {% if type=='winter' %}class="active" {% endif %} ><a href="{{path('tent',{'type':'winter','ob':ob,'page':1})}}">Winter stock</a></li>
+
+        </ul>
+        {% if type=="reserved" or type=="free" %}
+         {#<form action="{{path('tent',{'type': type,'ob':ob,'page':1} )}}" method="get"  class='form-inline'>
+            <label>Between</label> <div id="startDate" name="startDate" class="input-append date">
+            <input data-format="dd/MM/yyyy hh:mm:ss" type="text" value="{{startDate|date('d/m/Y H:i:s')}}" />
+            <span class="add-on">
+              <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+              </i>
+            </span>
+          </div> <label>and</label> 
+          <div id="endDate" name="endDate" class="input-append date">
+            <input data-format="dd/MM/yyyy hh:mm:ss" type="text" value="{{endDate|date('d/m/Y H:i:s')}}" />
+            <span class="add-on">
+              <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+              </i>
+            </span>
+          </div>
+          <input type="submit" value="ok" class="btn btn-inverse" />
+        </form>#}
+        <form action="{{path('tent',{'type': type,'ob':ob,'page':1} )}}" method="get" id="rangeDateForm"  class='form-inline'>
+            <input type='hidden' name='type' value='{{type}}' />
+            <input type='hidden' name='ob' value='{{ob}}' />
+
+         <input id="startDate" name="startDate" data-format="dd/MM/yyyy hh:mm:ss" type="hidden" value="{{startDate|date('Y-m-d H:i:s')}}" />
+        <input id="endDate" name="endDate" data-format="dd/MM/yyyy hh:mm:ss" type="hidden" value="{{endDate|date('Y-m-d H:i:s')}}" />
+        <div id="reportrange" >
+            <i class="icon-calendar icon-large"></i>
+            <span>{{startDate|date('d/m/Y H:i:s')}} - {{endDate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
+        </div>
+    </form>
+        
+        {% endif %}
+</div>
+<div class="span2">
+     <a href="{{ path('tent_new') }}" class="btn btn-inverse ">
+            New tent
+        </a>
+    </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+
+
+
+<table class="table table-bordered table-condensed table-striped">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Name</th>
             <th>Reference</th>
+            <th>Name</th>
+            
             <th>Kit</th>
             <th>Owner</th>
             <th>Color</th>
             <th>Length</th>
             <th>Width</th>
-            <th>M2</th>
-            <th>Weight</th>
-            <th>Piquets</th>
-            <th>Status</th>
+            <th>Area</th>
+
+
             <th>Etat</th>
-            <th>Comments</th>
-            <th>Winter</th>
+            {% if type=='reserved' %}
+                <th>Jobs</th>
+                <th>Offres</th>
+            {% endif %}
+            <th>PDF</th>
             <th>Issue</th>
-            <th>Insertdate</th>
-            <th>Updatedate</th>
-            <th>Public</th>
-            <th>Actions</th>
+
+            <th>Ed</th>
+            <th>Del</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('tent_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.name }}</td>
-            <td>{{ entity.reference }}</td>
+            <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
+            <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+            
             <td>{{ entity.kit }}</td>
-            <td>{{ entity.owner }}</td>
+            <td>{% if entity.ownerid %}<a href="{{path('client',{'id':entity.ownerid.id})}}">{{ entity.ownerid.name }}</a>{% endif %}</td>
             <td>{{ entity.color }}</td>
             <td>{{ entity.length }}</td>
             <td>{{ entity.width }}</td>
             <td>{{ entity.m2 }}</td>
-            <td>{{ entity.weight }}</td>
-            <td>{{ entity.piquets }}</td>
-            <td>{{ entity.status }}</td>
+
+
             <td>{{ entity.etat }}</td>
-            <td>{{ entity.comments }}</td>
-            <td>{{ entity.winter }}</td>
-            <td>{{ entity.issue }}</td>
-            <td>{% if entity.insertdate %}{{ entity.insertdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{% if entity.updatedate %}{{ entity.updatedate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{{ entity.public }}</td>
+            {% if type=='reserved' %}
+                <td>{% for job in entity.Tents2Job %}
+                    {% if job.jobid in jobs %}
+                        <li>{{job.jobid}}</li>
+                    {% endif %}
+                {% endfor %}</td>
+                <td>{% for offre in entity.Tents2Offre %}
+                    {% if offre.offreid in offres %}
+                        <li>{{offre.offreid}}</li>
+                    {% endif %}
+                {% endfor %}</td>
+            {% endif %}
+             <td>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>
+                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+                        {% for lg in ['en','fr','nl'] %}
+                            <li role="presentation">
+                                <a role="menuitem" href=""><img src="/images/icons/pdf.png"> Offre {{lg}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </td>
+
+           <td>{% if entity.issue %}<span class="label label-important">{{ entity.issue }}</span>{% endif %}</td>
+
             <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('tent_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('tent_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                <a href="{{ path('tent_edit', { 'id': entity.id }) }}"><i class="icon icon-edit"></i></a>
+                
+            </td>
+             <td>
+                <a href="{{ path('tent_show', { 'id': entity.id }) }}"><i class="icon icon-trash"></i></a>
             </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
-<ul>
-    <li>
-        <a href="{{ path('tent_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+
+</div>
+<div class="row-fluid">
+    <div class="pagination">
+  <ul>
+    <li {% if page<=1 %} class="disabled" {% endif %} ><a href="{{path('tent',{'type': type,'ob':ob,'page':page-1} )}}" >Prev</a></li>
+    {% for p in 1..nbpages %}
+    <li {% if page==p %} class="active" {% endif %} ><a href="{{path('tent',{'type': type,'ob':ob,'page':p} )}}">{{p}}</a></li>
+    {% endfor %}
+    <li {% if page>=nbpages %} class="disabled" {% endif %}><a href="{{path('tent',{'type': type,'ob':ob,'page':page+1} )}}">Next</a></li>
+  </ul>
+</div>
+</div>
+{% endblock body %}
+

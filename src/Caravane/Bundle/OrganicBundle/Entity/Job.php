@@ -297,13 +297,10 @@ class Job
      */
     private $userid;
 
+
     /**
-     * @var \Offre
-     *
-     * @ORM\ManyToOne(targetEntity="Offre")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="offreId", referencedColumnName="id")
-     * })
+    * @var \Offre
+    * @ORM\OneToOne(targetEntity="Offre", mappedBy="jobid")
      */
     private $offreid;
 
@@ -321,11 +318,26 @@ class Job
      * @var \Invoice
      *
      * @ORM\OneToMany(targetEntity="Invoice", mappedBy="jobid")
-     * })
+     * 
      */
     private $invoiceid;
 
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="toffreid", type="integer", nullable=true)
+     */
+    private $toffreid;
+
+
+    /**
+     * @var \tents2job
+     *
+     * @ORM\OneToMany(targetEntity="Tent2Job", mappedBy="jobid")
+     * 
+     */
+    private $tents2job;
 
 
     public function __toString() {
@@ -1239,28 +1251,7 @@ class Job
         return $this->userid;
     }
 
-    /**
-     * Set offreid
-     *
-     * @param \Caravane\Bundle\OrganicBundle\Entity\Offre $offreid
-     * @return Job
-     */
-    public function setOffreid(\Caravane\Bundle\OrganicBundle\Entity\Offre $offreid = null)
-    {
-        $this->offreid = $offreid;
-
-        return $this;
-    }
-
-    /**
-     * Get offreid
-     *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Offre
-     */
-    public function getOffreid()
-    {
-        return $this->offreid;
-    }
+    
 
     /**
      * Set clientid
@@ -1323,5 +1314,84 @@ class Job
     public function getInvoiceid()
     {
         return $this->invoiceid;
+    }
+
+    /**
+     * Set offreid
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Offre $offreid
+     * @return Job
+     */
+    public function setOffreid(\Caravane\Bundle\OrganicBundle\Entity\Offre $offreid = null)
+    {
+        $this->offreid = $offreid;
+    
+        return $this;
+    }
+
+    /**
+     * Get offreid
+     *
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Offre 
+     */
+    public function getOffreid()
+    {
+        return $this->offreid;
+    }
+
+    /**
+     * Set toffreid
+     *
+     * @param integer $toffreid
+     * @return Job
+     */
+    public function setToffreid($toffreid)
+    {
+        $this->toffreid = $toffreid;
+    
+        return $this;
+    }
+
+    /**
+     * Get toffreid
+     *
+     * @return integer 
+     */
+    public function getToffreid()
+    {
+        return $this->toffreid;
+    }
+
+    /**
+     * Add tents2job
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Tent2Job $tents2job
+     * @return Job
+     */
+    public function addTents2job(\Caravane\Bundle\OrganicBundle\Entity\Tent2Job $tents2job)
+    {
+        $this->tents2job[] = $tents2job;
+    
+        return $this;
+    }
+
+    /**
+     * Remove tents2job
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Tent2Job $tents2job
+     */
+    public function removeTents2job(\Caravane\Bundle\OrganicBundle\Entity\Tent2Job $tents2job)
+    {
+        $this->tents2job->removeElement($tents2job);
+    }
+
+    /**
+     * Get tents2job
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTents2job()
+    {
+        return $this->tents2job;
     }
 }
