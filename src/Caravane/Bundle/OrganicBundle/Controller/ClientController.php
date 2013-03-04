@@ -3,6 +3,7 @@
 namespace Caravane\Bundle\OrganicBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Caravane\Bundle\OrganicBundle\Entity\Client;
@@ -191,6 +192,14 @@ class ClientController extends Controller
         }
 
         return $this->redirect($this->generateUrl('client'));
+    }
+
+    public function autocompleteAction() {
+        $keyword=$this->get('request')->query->get('query');
+        $em = $this->getDoctrine()->getManager();
+        $clients = $em->getRepository('CaravaneOrganicBundle:Client')->autocomplete($keyword,'json');
+        return new Response($clients);
+
     }
 
     private function createDeleteForm($id)

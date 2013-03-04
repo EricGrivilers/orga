@@ -29,3 +29,10 @@ client_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "CaravaneOrganicBundle:Client:delete" }
     requirements: { _method: post }
+
+client_autocomplete:
+    pattern:  /autocomplete
+    defaults: { _controller: "CaravaneOrganicBundle:Client:autocomplete",_format: json }
+    requirements: { _method: get }
+    options:
+        expose: true

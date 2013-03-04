@@ -133,5 +133,18 @@ class TentRepository extends EntityRepository
 			return $usedInJob;
 	}
 
+	public function getEtats() {
+		$em=$this->getEntityManager();
+		$dql="SELECT T FROM CaravaneOrganicBundle:Tent T ";
+		$dql.=" WHERE T.public=1 GROUP BY T.etat ORDER BY T.etat";
+		$query = $this->getEntityManager()->createQuery($dql);
+		$tents=$query->getResult();
+		$etats=array();
+		foreach($tents as $tent) {
+			$etats[]=$tent->getEtat();
+		}
+		return $etats;
+	}
+
 	
 }

@@ -1,0 +1,5 @@
+twig:
+    form:
+        resources:
+            - 'CaravaneUIBundle:Form:bootstrap.html.twig'
+            - 'CaravaneUIBundle:Form:fuelux.html.twig'

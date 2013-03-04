@@ -1264,4 +1264,37 @@ class Offre
     {
         return $this->jobid;
     }
+
+    /**
+     * Add tents2offre
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre
+     * @return Offre
+     */
+    public function addTents2offre(\Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre)
+    {
+        $this->tents2offre[] = $tents2offre;
+    
+        return $this;
+    }
+
+    /**
+     * Remove tents2offre
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre
+     */
+    public function removeTents2offre(\Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre)
+    {
+        $this->tents2offre->removeElement($tents2offre);
+    }
+
+    /**
+     * Get tents2offre
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTents2offre()
+    {
+        return $this->tents2offre;
+    }
 }

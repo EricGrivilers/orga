@@ -1,6 +1,5 @@
 {% block bodyscripts %}
     {% javascripts output="js/organic-body.js"
-    "../vendor/jquery/jquery/jquery-1.8.3.js"
     "../vendor/twitter/bootstrap/js/bootstrap-affix.js"
     "../vendor/twitter/bootstrap/js/bootstrap-transition.js"
     "../vendor/twitter/bootstrap/js/bootstrap-modal.js"
@@ -14,12 +13,12 @@
     "../vendor/twitter/bootstrap/js/bootstrap-collapse.js"
     "../vendor/twitter/bootstrap/js/bootstrap-carousel.js"
     "../vendor/twitter/bootstrap/js/bootstrap-typeahead.js"
-    "@CaravaneOrganicBundle/Resources/public/js/date.js"
-    "@CaravaneOrganicBundle/Resources/public/js/daterangepicker.js"
+    "@CaravaneUIBundle/Resources/public/js/date/date.js"
+    "@CaravaneUIBundle/Resources/public/js/date/daterangepicker.js"
+    
     "@CaravaneOrganicBundle/Resources/public/js/main.js"
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-<script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
 {% endblock bodyscripts %}

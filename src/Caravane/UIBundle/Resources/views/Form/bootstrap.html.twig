@@ -1,0 +1,38 @@
+{% block CaravaneUIBootstrapTypeahead_widget %}
+
+	<input class="{{form.vars.attr.class}} typeahead" type="text" name="{{form.vars.full_name}}" id="{{form.vars.id}}" value="{{form.vars.value}}" data-provide="typeahead" >
+		
+		
+<script type="text/javascript">
+	$(document).ready(function() {
+			$('#{{form.vars.id}}').typeahead({
+				minLength:3,
+				source: function (query, process) {
+				    $.getJSON(
+				    	Routing.generate('{{form.vars.attr.source_route}}'),
+				        { query: query },
+				        function (data) {
+					        labels=[]
+					        ids={}
+					        mapped={}
+
+					        $.each(data, function (i, item) {
+								mapped[item.label] = item.label;
+								labels.push(item.label);
+								ids[item.label]=item.value;
+							})
+
+							process(labels)
+				            	
+				    	}
+				    );
+				},
+				updater: function (item) {
+					
+					return mapped[item]
+				},
+
+	        });
+		});
+</script>
+{% endblock %}

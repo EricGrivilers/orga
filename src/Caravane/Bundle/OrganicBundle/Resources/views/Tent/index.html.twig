@@ -89,7 +89,7 @@
             <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
             <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
             
-            <td>{{ entity.kit }}</td>
+            <td>{% if entity.kit %} Yes {% else %} No {% endif %}</td>
             <td>{% if entity.ownerid %}<a href="{{path('client',{'id':entity.ownerid.id})}}">{{ entity.ownerid.name }}</a>{% endif %}</td>
             <td>{{ entity.color }}</td>
             <td>{{ entity.length }}</td>

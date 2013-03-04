@@ -38,98 +38,105 @@ class Tent
     /**
      * @var boolean
      *
-     * @ORM\Column(name="kit", type="boolean", nullable=false)
+     * @ORM\Column(name="kit", type="boolean", nullable=true)
      */
     private $kit;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="owner", type="string", length=100, nullable=false)
+     * @ORM\Column(name="owner", type="string", length=100, nullable=true)
      */
     private $owner;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="color", type="string", length=50, nullable=false)
+     * @ORM\Column(name="color", type="string", length=50, nullable=true)
      */
     private $color;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="length", type="string", length=10, nullable=false)
+     * @ORM\Column(name="length", type="string", length=10, nullable=true)
      */
     private $length;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="width", type="string", length=10, nullable=false)
+     * @ORM\Column(name="width", type="string", length=10, nullable=true)
      */
     private $width;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="m2", type="string", length=15, nullable=false)
+     * @ORM\Column(name="m2", type="string", length=15, nullable=true)
      */
     private $m2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="weight", type="string", length=50, nullable=false)
+     * @ORM\Column(name="weight", type="string", length=50, nullable=true)
      */
     private $weight;
 
     /**
+     * @var height
+     *
+     * @ORM\Column(name="height", type="string", length=50, nullable=true)
+     */
+    private $height;
+
+    /**
      * @var integer
      *
-     * @ORM\Column(name="piquets", type="integer", nullable=false)
+     * @ORM\Column(name="piquets", type="integer", nullable=true)
      */
     private $piquets;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=50, nullable=false)
+     * @ORM\Column(name="status", type="string", length=50, nullable=true)
      */
     private $status;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="etat", type="string", length=50, nullable=false)
+     * @ORM\Column(name="etat", type="string", length=50, nullable=true)
      */
     private $etat;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="comments", type="text", nullable=false)
+     * @ORM\Column(name="comments", type="text", nullable=true)
      */
     private $comments;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="winter", type="boolean", nullable=false)
+     * @ORM\Column(name="winter", type="boolean", nullable=true)
      */
     private $winter;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="issue", type="integer", nullable=false)
+     * @ORM\Column(name="issue", type="integer", nullable=true)
      */
     private $issue;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="insertDate", type="datetime", nullable=false)
+     * @ORM\Column(name="insertDate", type="datetime", nullable=true)
      */
     private $insertdate;
 
@@ -143,7 +150,7 @@ class Tent
     /**
      * @var boolean
      *
-     * @ORM\Column(name="public", type="boolean", nullable=false)
+     * @ORM\Column(name="public", type="boolean", nullable=true)
      */
     private $public;
 
@@ -178,7 +185,7 @@ class Tent
 
 
     /**
-     * @var \tents2job
+     * @var \tents2offre
      *
      * @ORM\OneToMany(targetEntity="Tent2Offre", mappedBy="tentid")
      * 
@@ -731,5 +738,33 @@ class Tent
     public function getTents2offre()
     {
         return $this->tents2offre;
+    }
+
+    /**
+     * Set height
+     *
+     * @param string $height
+     * @return Tent
+     */
+    public function setHeight($height)
+    {
+        $this->height = $height;
+    
+        return $this;
+    }
+
+    /**
+     * Get height
+     *
+     * @return string 
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+
+    public function getFormField() {
+        return $this;
     }
 }

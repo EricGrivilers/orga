@@ -45,4 +45,26 @@ class ClientRepository extends EntityRepository
 		//return array('entities'=>$paginator);
 		return $entities;
 	}
+
+	public function autocomplete($keyword,$type="json") {
+
+		$query = $this->getEntityManager()->createQuery("SELECT C FROM CaravaneOrganicBundle:Client C WHERE C.name LIKE ?1 OR C.firstname LIKE ?1 OR C.lastname LIKE ?1");
+		$query->setParameter(1,  '%'.strtolower($keyword).'%');
+			
+		$result=$query->getResult();
+		$clients=array();
+		foreach($result as $client) {
+			if(!$name=$client->getName()) {
+				$name=$client->getFirstname()." ".$client->getLastname();
+			}
+			$clients[]=array('value'=>$client->getId(),"label"=>$name);
+		}
+		switch($type) {
+			default:
+			case 'json':
+				return json_encode($clients);
+			break;
+		}
+		
+	}
 }

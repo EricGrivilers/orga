@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Caravane\Bundle\OrganicBundle\CaravaneOrganicBundle(),
             new Caravane\DevBundle\CaravaneDevBundle(),
+            new Caravane\UIBundle\CaravaneUIBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

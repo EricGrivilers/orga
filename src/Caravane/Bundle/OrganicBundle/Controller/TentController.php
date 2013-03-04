@@ -5,6 +5,7 @@ namespace Caravane\Bundle\OrganicBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Caravane\Bundle\OrganicBundle\Entity\Client;
 use Caravane\Bundle\OrganicBundle\Entity\Tent;
 use Caravane\Bundle\OrganicBundle\Form\TentType;
 
@@ -98,8 +99,12 @@ class TentController extends Controller
      */
     public function newAction()
     {
+        $owner=new Client();
+        $etats=$this->getEtats();
         $entity = new Tent();
-        $form   = $this->createForm(new TentType(), $entity);
+        $form   = $this->createForm(new TentType($etats), $entity,array(
+            'em' => $this->getDoctrine()->getEntityManager(),
+        ));
 
         return $this->render('CaravaneOrganicBundle:Tent:new.html.twig', array(
             'entity' => $entity,
@@ -113,12 +118,17 @@ class TentController extends Controller
      */
     public function createAction(Request $request)
     {
+        $etats=$this->getEtats();
         $entity  = new Tent();
-        $form = $this->createForm(new TentType(), $entity);
+        $form = $this->createForm(new TentType($etats), $entity,array(
+            'em' => $this->getDoctrine()->getEntityManager(),
+        ));
         $form->bind($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setInsertdate(new \Datetime("now"));
+            $entity->setUpdatedate(new \Datetime("now"));
             $em->persist($entity);
             $em->flush();
 
@@ -137,6 +147,7 @@ class TentController extends Controller
      */
     public function editAction($id)
     {
+        $etats=$this->getEtats();
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CaravaneOrganicBundle:Tent')->find($id);
@@ -145,7 +156,9 @@ class TentController extends Controller
             throw $this->createNotFoundException('Unable to find Tent entity.');
         }
 
-        $editForm = $this->createForm(new TentType(), $entity);
+        $editForm = $this->createForm(new TentType($etats), $entity,array(
+            'em' => $this->getDoctrine()->getEntityManager(),
+        ));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('CaravaneOrganicBundle:Tent:edit.html.twig', array(
@@ -161,6 +174,7 @@ class TentController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        $etats=$this->getEtats();
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CaravaneOrganicBundle:Tent')->find($id);
@@ -170,10 +184,13 @@ class TentController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new TentType(), $entity);
+        $editForm = $this->createForm(new TentType($etats), $entity,array(
+            'em' => $this->getDoctrine()->getEntityManager(),
+        ));
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
+            $entity->setUpdatedate(new \Datetime("now"));
             $em->persist($entity);
             $em->flush();
 
@@ -209,6 +226,12 @@ class TentController extends Controller
         }
 
         return $this->redirect($this->generateUrl('tent'));
+    }
+
+    private function getEtats() {
+        $em = $this->getDoctrine()->getManager();
+        $etats=$em->getRepository('CaravaneOrganicBundle:Tent')->getEtats();
+        return $etats;
     }
 
     private function createDeleteForm($id)
