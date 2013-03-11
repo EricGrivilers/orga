@@ -5,7 +5,7 @@ $(function() {
 	})
 });
 
- 
+
 
 $('#reportrange').daterangepicker(
     {
@@ -37,6 +37,13 @@ $('#reportrange').daterangepicker(
 
 $(document).ready(function() {
 	initClient();
+
+            $('a.delete_row').click(function() {
+                var link=$(this);
+                $.post(Routing.generate($(this).attr('data-type')+'_remove_product',{'id':$(this).attr('data-rel'),'productid':$(this).attr('data-target')}),function(data) {
+                        link.closest('tr').remove();
+                });
+            });
 });
 
 
@@ -61,29 +68,31 @@ function initClient() {
 var collectionHolder = $('table tbody.products');
 
 // setup an "add a tag" link
-var $addProductLink = $('<a href="#" class="add_product_link">Add a row</a>');
-var $newLinkLi = $('<tr></tr>').append($addProductLink);
+
 
 jQuery(document).ready(function() {
+
     // add the "add a tag" anchor and li to the tags ul
-    collectionHolder.append($newLinkLi);
+    //collectionHolder.append($newLinkLi);
 
     // count the current form inputs we have (e.g. 2), use that as the new
     // index when inserting a new item (e.g. 2)
     collectionHolder.data('index', collectionHolder.find(':input').length);
 
-    $addProductLink.on('click', function(e) {
+    $('#add_product_link').on('click', function(e) {
+
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
 
         // add a new tag form (see next code block)
-        addProductForm(collectionHolder, $newLinkLi);
+        addProductForm(collectionHolder);
     });
 });
 
 
 
-function addProductForm(collectionHolder, $newLinkLi) {
+function addProductForm(collectionHolder) {
+
     // Get the data-prototype explained earlier
     var prototype = collectionHolder.data('prototype');
 
@@ -99,5 +108,15 @@ function addProductForm(collectionHolder, $newLinkLi) {
 
     // Display the form in the page in an li, before the "Add a tag" link li
     var $newFormLi = $('<tr></tr>').append(newForm);
-    $newLinkLi.before($newFormLi);
+
+    collectionHolder.append($newFormLi);
+
+    $('a.delete_new_row').click(function() {
+        $(this).closest('tr').remove();
+    });
+
+
 }
+
+
+

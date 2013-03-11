@@ -59,19 +59,20 @@ class InvoiceType extends AbstractType
             ->add('status','choice',array(
                 'choices'=>array('draft'=>"Draft",'ok'=>"Sent to client",'paid'=>"Paid")
             ))
-            ->add('r1')
+     /*       ->add('r1')
             ->add('r1date')
             ->add('r2')
             ->add('r2date')
             ->add('med')
             ->add('meddate')
+            */
               ->add('language','choice',array(
                 "choices"=>array('en'=>'en','fr'=>'fr','nl'=>'nl'),
                 "attr"=>array(
                     "class"=>"span6"
                 )
             ))
-            ->add('jobid')
+            //->add('jobid')
             ->add($builder->create('clientid', 'CaravaneUIBootstrapTypeahead',array(
                 "label"=>"Client",
                 "attr"=>array(
@@ -84,13 +85,14 @@ class InvoiceType extends AbstractType
             )
         ;
             $builder->add('products', 'collection', array(
-                'type' => new ProductType('invoice'),
+                'type' => new Product2InvoiceType(),
                 'allow_add'    => true,
+                'allow_delete' => true,
                 'by_reference' => false,
-                'data_class'=> null                
+                'data_class'=> null
                 )
             );
-           
+
           //  $builder->add('products');
     }
 

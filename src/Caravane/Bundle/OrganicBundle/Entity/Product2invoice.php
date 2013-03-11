@@ -24,7 +24,7 @@ class Product2invoice
     /**
      * @var integer
      *
-     * @ORM\Column(name="productId", type="integer", nullable=false)
+     * @ORM\Column(name="productId", type="integer", nullable=true)
      */
     private $productid;
 
@@ -45,42 +45,34 @@ class Product2invoice
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="insertDate", type="datetime", nullable=false)
+     * @ORM\Column(name="insertDate", type="datetime", nullable=true)
      */
     private $insertdate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updateDate", type="datetime", nullable=false)
+     * @ORM\Column(name="updateDate", type="datetime", nullable=true)
      */
     private $updatedate;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="rank", type="integer", nullable=false)
+     * @ORM\Column(name="rank", type="integer", nullable=true)
      */
     private $rank;
 
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="isFromOffre", type="boolean", nullable=false)
-     */
+
     private $isfromoffre;
 
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="isFromJob", type="boolean", nullable=false)
-     */
+
     private $isfromjob;
 
     /**
      * @var \Invoice
      *
-     * @ORM\ManyToOne(targetEntity="Invoice",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Invoice")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="invoiceId", referencedColumnName="id")
      * })
@@ -94,7 +86,7 @@ class Product2invoice
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -110,14 +102,14 @@ class Product2invoice
     public function setProductid($productid)
     {
         $this->productid = $productid;
-    
+
         return $this;
     }
 
     /**
      * Get productid
      *
-     * @return integer 
+     * @return integer
      */
     public function getProductid()
     {
@@ -133,14 +125,14 @@ class Product2invoice
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -156,14 +148,14 @@ class Product2invoice
     public function setPrice($price)
     {
         $this->price = $price;
-    
+
         return $this;
     }
 
     /**
      * Get price
      *
-     * @return float 
+     * @return float
      */
     public function getPrice()
     {
@@ -176,20 +168,25 @@ class Product2invoice
      * @param \DateTime $insertdate
      * @return Product2invoice
      */
-    public function setInsertdate($insertdate)
+    public function setInsertdate($insertdate=null)
     {
-        $this->insertdate = $insertdate;
-    
+         if(is_null($this->insertdate)) {
+            $this->insertdate=new \Datetime('now');
+        }
+
         return $this;
     }
 
     /**
      * Get insertdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertdate()
     {
+        if(is_null($this->insertdate)) {
+            $this->insertdate=new \Datetime('now');
+        }
         return $this->insertdate;
     }
 
@@ -199,20 +196,25 @@ class Product2invoice
      * @param \DateTime $updatedate
      * @return Product2invoice
      */
-    public function setUpdatedate($updatedate)
+    public function setUpdatedate($updatedate=null)
     {
-        $this->updatedate = $updatedate;
-    
+         if(is_null($this->updatedate)) {
+            $this->updatedate=new \Datetime('now');
+        }
+
         return $this;
     }
 
     /**
      * Get updatedate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedate()
     {
+        if(is_null($this->updatedate)) {
+            $this->updatedate=new \Datetime('now');
+        }
         return $this->updatedate;
     }
 
@@ -225,14 +227,14 @@ class Product2invoice
     public function setRank($rank)
     {
         $this->rank = $rank;
-    
+
         return $this;
     }
 
     /**
      * Get rank
      *
-     * @return integer 
+     * @return integer
      */
     public function getRank()
     {
@@ -248,14 +250,14 @@ class Product2invoice
     public function setIsfromoffre($isfromoffre)
     {
         $this->isfromoffre = $isfromoffre;
-    
+
         return $this;
     }
 
     /**
      * Get isfromoffre
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsfromoffre()
     {
@@ -271,14 +273,14 @@ class Product2invoice
     public function setIsfromjob($isfromjob)
     {
         $this->isfromjob = $isfromjob;
-    
+
         return $this;
     }
 
     /**
      * Get isfromjob
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsfromjob()
     {
@@ -293,15 +295,16 @@ class Product2invoice
      */
     public function setInvoiceid(\Caravane\Bundle\OrganicBundle\Entity\Invoice $invoiceid = null)
     {
+
         $this->invoiceid = $invoiceid;
-    
+
         return $this;
     }
 
     /**
      * Get invoiceid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Invoice 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Invoice
      */
     public function getInvoiceid()
     {

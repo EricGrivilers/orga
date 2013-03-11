@@ -3,6 +3,7 @@
 namespace Caravane\Bundle\OrganicBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Caravane\Bundle\OrganicBundle\Entity\Invoice;
@@ -142,6 +143,10 @@ class InvoiceController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+
+
+
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CaravaneOrganicBundle:Invoice')->find($id);
@@ -150,6 +155,14 @@ class InvoiceController extends Controller
             throw $this->createNotFoundException('Unable to find Invoice entity.');
         }
 
+        $originalProducts = array();
+
+
+        foreach ($entity->getProducts() as $product) {
+            $originalProducts[] = $product;
+        }
+
+
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new InvoiceType(), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
@@ -157,9 +170,27 @@ class InvoiceController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
+/*
+
+             foreach($entity->getProducts() as $product) {
+                foreach ($originalProducts as $key => $toDel) {
+                    if ($toDel->getId() === $product->getId()) {
+                        $em->remove($originalProducts[$key]);
+                        unset($originalProducts[$key]);
+                    }
+                }
+            }
+
+*/
+
+
+            foreach($entity->getProducts() as $product) {
+                $product->setInvoiceid($entity);
+                $em->persist($product);
+
+            }
             $em->persist($entity);
             $em->flush();
-
             return $this->redirect($this->generateUrl('invoice_edit', array('id' => $id)));
         }
 
@@ -202,5 +233,16 @@ class InvoiceController extends Controller
         ;
     }
 
-    
+    public function removeProductAction($id,$productid) {
+        $em = $this->getDoctrine()->getManager();
+        $invoice=$em->getRepository('CaravaneOrganicBundle:Invoice')->find($id);
+        $product=$em->getRepository('CaravaneOrganicBundle:Product2invoice')->find($productid);
+        $invoice->removeProduct($product);
+        $em->remove($product);
+        $em->persist($invoice);
+        $em->flush();
+        return new Response('ok');
+    }
+
+
 }

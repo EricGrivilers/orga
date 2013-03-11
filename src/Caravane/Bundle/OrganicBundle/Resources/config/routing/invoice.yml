@@ -28,3 +28,10 @@ invoice_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "CaravaneOrganicBundle:Invoice:delete" }
     requirements: { _method: post }
+
+invoice_remove_product:
+    pattern:  /{id}/remove_product/{productid}
+    defaults: { _controller: "CaravaneOrganicBundle:Invoice:removeProduct" }
+    requirements: { _method: post }
+    options:
+        expose: true

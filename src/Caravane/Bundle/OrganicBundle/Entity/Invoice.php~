@@ -296,7 +296,7 @@ class Invoice
      /**
      * @var \Client
      *
-     * @ORM\OneTomany(targetEntity="Product2invoice",mappedBy="invoiceid")
+     * @ORM\OneTomany(targetEntity="Product2invoice",mappedBy="invoiceid",cascade={"persist"})
      */
 
     private $products;
@@ -1206,37 +1206,8 @@ class Invoice
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
-    /**
-     * Add products
-     *
-     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2invoice $products
-     * @return Invoice
-     */
-    public function addProduct(\Caravane\Bundle\OrganicBundle\Entity\Product2invoice $products)
-    {
-        $this->products[] = $products;
-    
-        return $this;
-    }
 
-    /**
-     * Remove products
-     *
-     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2invoice $products
-     */
-    public function removeProduct(\Caravane\Bundle\OrganicBundle\Entity\Product2invoice $products)
-    {
-        $this->products->removeElement($products);
-    }
 
-    /**
-     * Get products
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getProducts()
-    {
-        return $this->products;
-    }
+
+
 }

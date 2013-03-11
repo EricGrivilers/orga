@@ -296,7 +296,7 @@ class Invoice
      /**
      * @var \Client
      *
-     * @ORM\OneTomany(targetEntity="Product2invoice",mappedBy="invoiceid")
+     * @ORM\OneTomany(targetEntity="Product2invoice",mappedBy="invoiceid",cascade={"persist"})
      */
 
     private $products;
@@ -1206,7 +1206,11 @@ class Invoice
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
+
+
+
+
     /**
      * Add products
      *
