@@ -8,4 +8,6 @@ composer.phar
 www/docs/*
 www/cache/*
 www/app
+www/js/*
+www/css/*
 .DS_Store
