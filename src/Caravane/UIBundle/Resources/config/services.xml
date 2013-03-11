@@ -26,5 +26,9 @@
         <service id="caravane_ui_bundle.fuelux_dropdown_type" class="Caravane\UIBundle\Form\Type\FueluxDropdownType">
             <tag name="form.type" alias="CaravaneUIFueluxComboBox" />
         </service>
+
+         <service id="caravane_ui_bundle.date_picker_type" class="Caravane\UIBundle\Form\Type\DatePickerType">
+            <tag name="form.type" alias="CaravaneUIDatePicker" />
+        </service>
     </services>
 </container>

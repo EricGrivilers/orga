@@ -74,7 +74,9 @@ class InvoiceController extends Controller
     public function newAction()
     {
         $entity = new Invoice();
-        $form   = $this->createForm(new InvoiceType(), $entity);
+        $form   = $this->createForm(new InvoiceType(), $entity,array(
+            'em' => $this->getDoctrine()->getEntityManager(),
+        ));
 
         return $this->render('CaravaneOrganicBundle:Invoice:new.html.twig', array(
             'entity' => $entity,
@@ -89,7 +91,9 @@ class InvoiceController extends Controller
     public function createAction(Request $request)
     {
         $entity  = new Invoice();
-        $form = $this->createForm(new InvoiceType(), $entity);
+        $form = $this->createForm(new InvoiceType(), $entity,array(
+            'em' => $this->getDoctrine()->getEntityManager(),
+        ));
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -120,7 +124,9 @@ class InvoiceController extends Controller
             throw $this->createNotFoundException('Unable to find Invoice entity.');
         }
 
-        $editForm = $this->createForm(new InvoiceType(), $entity);
+        $editForm = $this->createForm(new InvoiceType(), $entity,array(
+            'em' => $this->getDoctrine()->getEntityManager(),
+        ));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('CaravaneOrganicBundle:Invoice:edit.html.twig', array(
@@ -145,7 +151,9 @@ class InvoiceController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new InvoiceType(), $entity);
+        $editForm = $this->createForm(new InvoiceType(), $entity,array(
+            'em' => $this->getDoctrine()->getEntityManager(),
+        ));
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
@@ -193,4 +201,6 @@ class InvoiceController extends Controller
             ->getForm()
         ;
     }
+
+    
 }

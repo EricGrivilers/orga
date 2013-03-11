@@ -1,22 +1,190 @@
-<h1>Invoice edit</h1>
+{% extends "::base.html.twig" %}
+
+
+{% block body %}
+
+<div class="row-fluid">
 
 <form action="{{ path('invoice_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+
+    <div class="row-fluid">
+        <div class="actions">
+            <button type="submit" class="btn btn-inverse">Save</button>
+            <a href="{{ path('invoice') }}" class="btn">
+                    Back to the list
+            </a>
+        </div>
+    </div>
+    <div class="well">
+        <div class="row-fluid">
+            <div class="span4">
+                <div>
+                    <label>Reference</label> <label><b>{{entity.reference}}</b></label>
+                </div>
+                <div>
+                    <label>Date</label> <label><b>{{entity.insertDate|date('d/m/Y')}}</b></label>
+                </div>
+                {% if entity.jobid %}
+                <div>
+                    <label>Job</label> <label><b>{{entity.jobid.reference}}</b></label>
+                </div>
+               {% endif %}
+            </div>
+            <div class="span4">
+               {{ form_row(edit_form.language)}}
+               {{ form_row(edit_form.offretype)}}
+            </div>
+            <div class="span4">
+               {{ form_row(edit_form.status)}}
+
+                {{ form_row(edit_form.paymentdate)}}
+            </div>
+        </div>
+    </div>
+
+     <div class="well">
+        {{form_row(edit_form.clientid)}}
+        <div class="btn-group" data-toggle="buttons-radio">
+          <button type="button" class="btn {% if entity.clienttype=='part' %} active {% endif %}" data-toggle="button" data-target="#{{edit_form.clienttype.vars.id}}" rel="part" >Private</button>
+          <button type="button" class="btn {% if entity.clienttype=='cie' %} active {% endif %}" data-toggle="button" data-target="#{{edit_form.clienttype.vars.id}}" rel="cie" >Company</button>
+          {{form_row(edit_form.clienttype)}}
+        </div>
+        <div class="row-fluid" id="cieonly">
+            <div class="span4">
+                {{form_row(edit_form.name)}}
+
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.vat)}}
+
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.cietype)}}
+
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span4">
+                {{form_row(edit_form.clienttitle)}}
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.lastname)}}
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.firstname)}}
+
+            </div>
+        </div>
+    </div>
+
+     <div class="well">
+        <div class="row-fluid">
+            <div class="span4">
+                {{form_row(edit_form.address)}}
+                {{form_row(edit_form.city)}}
+                
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.number)}}
+                {{form_row(edit_form.zip)}}
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.country)}}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <table class="table table-bordered table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Price in &euro; VAT excl.
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="products" data-prototype="{{('
+                        <td class="span9">'~form_widget(edit_form.products.vars.prototype.description)~'</td>
+                        <td class="span3">'~form_widget(edit_form.products.vars.prototype.price)~'</td>
+                    ')|e}}">
+
+                {% for product in edit_form.products %}
+
+                    <tr>
+                        <td class="span9">
+                            {{form_widget(product.description)}}
+                        </td>
+                        <td class="span3">
+                            {{form_widget(product.price)}}
+                        </td>
+                    </tr>
+                {% endfor %}
+
+
+            </tbody>
+             <tfoot>
+                    <tr>
+                    <th>
+                        Total VAT excl.
+                    </th>
+                    <th>
+                        {% set total=0 %}
+                        {% for p in entity.products %}
+                            {% set total=total + p.price %}
+                        {% endfor %}
+                        {{total|number_format(2,',',' ')}}
+                    </th>
+                </tr>
+         
+                {% if entity.pricetype=='intra'%}
+                    <tr>
+                        <th>
+                            Total VAT excl.
+                        </th>
+                        <th>
+                            intra
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            Total VAT incl.
+                        </th>
+                        <th>
+                             {{total|number_format(2,',',' ')}}
+                        </th>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <th>
+                            Total VAT excl.
+                        </th>
+                        <th>
+                            {{entity.priceht|number_format(2,',',' ')}}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            Total VAT incl.
+                        </th>
+                        <th>
+                            {{(total+0.21*total)|number_format(2,',',' ')}}
+                        </th>
+                    </tr>
+                {% endif %}
+            </tfoot>
+        </table>
+    </div>
+
+
     {{ form_widget(edit_form) }}
     <p>
-        <button type="submit">Edit</button>
+        <button type="submit">Save</button>
     </p>
 </form>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('invoice') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('invoice_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+</div>
+{% endblock body %}

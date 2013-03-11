@@ -1,5 +1,6 @@
 {% block CaravaneUIFueluxComboBox_widget %}
 
+
 {#{dump(form)}#}
 	<div class="input-append dropdown combobox">
 		<input class="{{form.vars.attr.class}}" type="text" name="{{form.vars.full_name}}" id="{{form.vars.id}}" value="{{form.vars.value}}" ><button class="btn dropdown-toggle" data-toggle="dropdown"><i class="caret"></i></button>
@@ -9,6 +10,4 @@
 			{% endfor %}
 		</ul>
 	</div>
-
-	
 {% endblock %}

@@ -45,7 +45,7 @@ class Tent
     /**
      * @var string
      *
-     * @ORM\Column(name="owner", type="string", length=100, nullable=false)
+     * @ORM\Column(name="owner", type="string", length=100, nullable=true)
      */
     private $owner;
 
@@ -185,7 +185,7 @@ class Tent
 
 
     /**
-     * @var \tents2job
+     * @var \tents2offre
      *
      * @ORM\OneToMany(targetEntity="Tent2Offre", mappedBy="tentid")
      * 
@@ -761,5 +761,10 @@ class Tent
     public function getHeight()
     {
         return $this->height;
+    }
+
+
+    public function getFormField() {
+        return $this;
     }
 }

@@ -80,7 +80,7 @@ class Product2invoice
     /**
      * @var \Invoice
      *
-     * @ORM\ManyToOne(targetEntity="Invoice")
+     * @ORM\ManyToOne(targetEntity="Invoice",cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="invoiceId", referencedColumnName="id")
      * })
@@ -88,7 +88,9 @@ class Product2invoice
     private $invoiceid;
 
 
-
+    public function __toString() {
+        return $this->description;
+    }
     /**
      * Get id
      *

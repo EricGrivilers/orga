@@ -3,3 +3,4 @@ twig:
         resources:
             - 'CaravaneUIBundle:Form:bootstrap.html.twig'
             - 'CaravaneUIBundle:Form:fuelux.html.twig'
+            - 'CaravaneUIBundle:Form:datepicker.html.twig'
