@@ -10,4 +10,6 @@ www/cache/*
 www/app
 www/js/*
 www/css/*
+web/js/*
+web/css/*
 .DS_Store
