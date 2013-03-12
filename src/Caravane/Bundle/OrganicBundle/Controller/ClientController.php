@@ -218,6 +218,9 @@ class ClientController extends Controller
             $datas['lastname']=$client->getLastname();
             $datas['firstname']=$client->getFirstname();
             $datas['clienttitle']=$client->getClienttitle();
+            $datas['clienttype']=$client->getClienttype();
+            $datas['vat']=$client->getVat();
+            $datas['cietype']=$client->getCietype();
             return new Response(json_encode($datas));
         }
         return new Response('ok');

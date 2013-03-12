@@ -146,5 +146,8 @@ function fillClient2invoice(clientid) {
         $('#caravane_bundle_organicbundle_invoicetype_lastname').val(data.lastname);
         $('#caravane_bundle_organicbundle_invoicetype_firstname').val(data.firstname);
         $('#caravane_bundle_organicbundle_invoicetype_clienttitle').val(data.clienttitle);
+        $('#caravane_bundle_organicbundle_invoicetype_clientype').val(data.clienttype);
+        $('#caravane_bundle_organicbundle_invoicetype_cietype').val(data.cietype);
+        $('#caravane_bundle_organicbundle_invoicetype_vat').val(data.vat);
     })
 }
