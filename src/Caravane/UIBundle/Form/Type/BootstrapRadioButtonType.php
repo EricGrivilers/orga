@@ -9,21 +9,23 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 
-class DatePickerType extends AbstractType
+class BootstrapRadioButtonType extends AbstractType
 {
 
 	
-     public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'widget' => 'single_text'
+            'widget' => 'single_text',
+            'expanded'=>true,
+                'multiple'=>false,
         ));
     }
 	 /**
      * {@inheritdoc}
      */
 	public function getParent() {
-		return 'date';
+		return 'choice';
 	}
 
     /**
@@ -33,7 +35,7 @@ class DatePickerType extends AbstractType
      */
     public function getName()
     {
-        return 'CaravaneUIDatePicker';
+        return 'CaravaneUIBootstrapRadioButton';
     }
 
 

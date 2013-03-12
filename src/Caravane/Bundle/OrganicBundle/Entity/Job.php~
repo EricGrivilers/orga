@@ -339,6 +339,14 @@ class Job
      */
     private $tents2job;
 
+    /**
+     * @var \slices
+     *
+     * @ORM\OneToMany(targetEntity="Slice2Job", mappedBy="jobid")
+     * 
+     */
+    private $slices;
+
 
     public function __toString() {
         return $this->reference;
@@ -1393,5 +1401,38 @@ class Job
     public function getTents2job()
     {
         return $this->tents2job;
+    }
+
+    /**
+     * Add slices
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Slice2Job $slices
+     * @return Job
+     */
+    public function addSlice(\Caravane\Bundle\OrganicBundle\Entity\Slice2Job $slices)
+    {
+        $this->slices[] = $slices;
+    
+        return $this;
+    }
+
+    /**
+     * Remove slices
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Slice2Job $slices
+     */
+    public function removeSlice(\Caravane\Bundle\OrganicBundle\Entity\Slice2Job $slices)
+    {
+        $this->slices->removeElement($slices);
+    }
+
+    /**
+     * Get slices
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSlices()
+    {
+        return $this->slices;
     }
 }

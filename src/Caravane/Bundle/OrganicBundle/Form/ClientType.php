@@ -13,7 +13,10 @@ class ClientType extends AbstractType
 
         $builder
             //->add('reference')
-            ->add('clienttype',"hidden")
+             ->add('clienttype','CaravaneUIBootstrapRadioButton',array(
+                "label"=>"Client type",
+                'choices'=>array('cie'=>'Company','part'=>'Private')
+            ))
            // ->add('isowner')
             ->add('name',"text",array(
                 "attr"=>array(

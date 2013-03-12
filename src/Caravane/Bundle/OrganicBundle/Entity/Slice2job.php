@@ -79,12 +79,14 @@ class Slice2job
     /**
      * @var \Job
      *
-     * @ORM\ManyToOne(targetEntity="Job")
+     * @ORM\ManyToOne(targetEntity="Job",inversedBy="slices")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="jobId", referencedColumnName="id")
      * })
      */
     private $jobid;
+
+
 
 
 

@@ -5,8 +5,9 @@
 
 <div class="row-fluid">
 
-<form action="{{ path('invoice_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} >
-
+{% block form_header %}
+<form action="{{ path('invoice_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="{{entity.status}}">
+{% endblock form_header %}
     <div class="row-fluid">
         <div class="actions">
             <button type="submit" class="btn btn-inverse">Save</button>
@@ -44,12 +45,8 @@
 
      <div class="well">
         {{form_row(edit_form.clientid)}}
-        <div class="btn-group" data-toggle="buttons-radio">
-          <button type="button" class="btn {% if entity.clienttype=='part' %} active {% endif %}" data-toggle="button" data-target="#{{edit_form.clienttype.vars.id}}" rel="part" >Private</button>
-          <button type="button" class="btn {% if entity.clienttype=='cie' %} active {% endif %}" data-toggle="button" data-target="#{{edit_form.clienttype.vars.id}}" rel="cie" >Company</button>
-          {{form_row(edit_form.clienttype)}}
-        </div>
-        <div class="row-fluid" id="cieonly">
+        {{form_row(edit_form.clienttype)}}
+        <div class="row-fluid" id="cieonly" {% if entity.clienttype=='part' %} style="display:none" {% endif %}>
             <div class="span4">
                 {{form_row(edit_form.name)}}
 
@@ -96,11 +93,12 @@
     </div>
 
     <div class="row-fluid">
+       
         <table class="table table-bordered table-condensed table-striped">
             <thead>
                 <tr>
                     <th>
-                        Description
+                        Product
                     </th>
                     <th>
                         Price in &euro; VAT excl.
@@ -154,48 +152,112 @@
                         <th class="tiny"></th>
                 </tr>
 
-                {% if entity.pricetype=='intra'%}
+               
                     <tr>
                         <th class="right">
-                            VAT
+                             {{form_widget(edit_form.pricetype)}}
                         </th>
                         <th>
-                            intra
+                            {% if entity.pricetype!='intra'%} {{(0.21*total)|number_format(2,',',' ')}} {% endif %}
                         </th>
+                        <th class="tiny"></th>
                     </tr>
                     <tr>
                         <th class="right">
-                            Total VAT incl.
+                            Total {% if entity.pricetype!='intra'%} VAT incl. {% endif %}
                         </th>
                         <th>
-                             {{total|number_format(2,',',' ')}}
+                            {% if entity.pricetype=='intra'%}
+                                {{total|number_format(2,'.',' ')}}
+                            {% else %}
+                                {{(total+0.21*total)|number_format(2,'.',' ')}}
+                            {% endif %}
                         </th>
                         <th></th>
                     </tr>
-                {% else %}
-                    <tr>
-                        <th class="right">
-                            VAT
-                        </th>
-                        <th>
-                            {{(0.21*total)|number_format(2,',',' ')}}
-                        </th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <th class="right">
-                            Total VAT incl.
-                        </th>
-                        <th>
-                            {{(total+0.21*total)|number_format(2,',',' ')}}
-                        </th>
-                        <th></th>
-                    </tr>
-                {% endif %}
+            
             </tfoot>
         </table>
     </div>
-
+    
+         
+            <div class="row-fluid">
+                {% set alreadyInvoicedPriceHt=0 %}
+                {% if entity.jobid %}
+                    <div class="alert alert-info">
+                        <i class="icon  icon-info-sign"></i> Already invoiced: 
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Reference</th>
+                                        <th>Ammount VAT excl.</th>
+                                    </tr>
+                                </thead>
+                                <tbody> 
+                                    
+                                    {% for invoice in entity.jobid.invoiceid %} {% if invoice!=entity %}
+                                    <tr>
+                                        <td>{{invoice.reference }}</td>
+                                        <td>{{invoice.priceht}}</td>
+                                    </tr>
+                                    {% set alreadyInvoicedPriceHt=alreadyInvoicedPriceHt+invoice.priceht %}
+                                    {% endif %}{% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td class='right'>Total</td>
+                                        <td>{{alreadyInvoicedPriceHt|number_format(2,',',' ')}}</td>
+                                    </tr>
+                                
+                                    <tr>
+                                        <td class='right'>Balance</td>
+                                        <td>{{(alreadyInvoicedPriceHt-total)|number_format(2,',',' ')}}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                    </div>
+                {% endif %}
+                 <table class="table table-bordered table-condensed table-striped">
+                    <thead>
+                        <tr>
+                            <th class="span9">Description</th>
+                            <th class="span1">Slice</th>
+                            <th class='span1'></th>
+                            <th class='span1'>Ammount in &euro;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{form_widget(edit_form.sliceDescription)}}</td>
+                            <td>{{form_widget(edit_form.slice)}}%</td>
+                            <td class='right'>Total VAT excl.</td>
+                            <td>{% set TotalHT=entity.priceHt %} {{form_widget(edit_form.priceht)}}<br/>
+                             {% if entity.jobid %}<a class="btn balance" rel='{{total-alreadyInvoicedPriceHt}}'>Balance</a>{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td class='right'>VAT</td>
+                            <td>
+                                {% if entity.pricetype=='intra'%}<i>intra</i> {% set VAT=0 %}{% else %} 
+                                 {% set VAT= entity.priceHt*0.21 %} {{VAT|number_format(2,',',' ')}}
+                                {% endif %}
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            
+    
+    <div class="well">
+        {% set ToPay = entity.priceHT %}
+        {% if entity.pricetype!='intra'%}
+            {% set ToPay = entity.priceHT+(entity.priceHT*0.21) %}
+        {% endif %}
+       <h4 style="text-align:center">Total ammount to pay {{ToPay|number_format(2,',',' ')}} {% if entity.pricetype!='intra'%}VAT incl.{% endif %}</h4>
+    </div>
 
     {{ form_widget(edit_form) }}
     <div class="row-fluid">

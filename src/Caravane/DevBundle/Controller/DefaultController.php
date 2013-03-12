@@ -32,4 +32,29 @@ class DefaultController extends Controller
 		//$result = $conn->query($sql);
 		return array();
     }
+
+
+     /**
+     * @Route("fill_slice2invoice")
+     * @Template()
+     */
+    public function fillSlice2InvoiceAction() {
+        $em = $this -> getDoctrine() -> getEntityManager();
+        $invoices=$em->getRepository('CaravaneOrganicBundle:Invoice')->findAll();
+
+        foreach($invoices as $invoice) {
+           
+                if($slice=$em->getRepository('CaravaneOrganicBundle:Slice2job')->findOneby(array('invoiceid'=>$invoice->getId(),'sliceid'=>$invoice->getCslice()))) {
+                    echo "yes ".$slice->getId()."<br/>";
+                    $invoice->setSliceid($slice);
+                    $invoice->setSliceDescription($slice->getComments());
+                    $em->persist($slice);
+                }
+                
+            
+        }
+        $em->flush();
+        return array();
+        
+    }
 }

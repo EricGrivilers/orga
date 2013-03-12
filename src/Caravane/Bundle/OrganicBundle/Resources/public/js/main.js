@@ -1,9 +1,4 @@
-$(function() {
-	$('div.btn-group button').click(function(){
-		target=$(this).attr('data-target');
-		$(target).attr('value', $(this).attr('rel'));
-	})
-});
+
 
 
 
@@ -37,13 +32,12 @@ $('#reportrange').daterangepicker(
 
 $(document).ready(function() {
 	initClient();
-
-            $('a.delete_row').click(function() {
-                var link=$(this);
-                $.post(Routing.generate($(this).attr('data-type')+'_remove_product',{'id':$(this).attr('data-rel'),'productid':$(this).attr('data-target')}),function(data) {
-                        link.closest('tr').remove();
-                });
-            });
+    initProduct();
+    initSlice();
+    $('select.status').change(function() {
+        $(this).closest('form').submit();
+    });
+   
 });
 
 
@@ -55,13 +49,23 @@ function initClient() {
 		$('#cieonly').hide();
 	}
 	$('div.btn-group button').click(function(){
-		target=$(this).attr('data-target');
-		if($(this).attr('rel')=='part') {
+		//target=$(this).attr('data-target');
+		if($(this).attr('data-value')=='part') {
 			$('#cieonly').hide();
 		}else {
 			$('#cieonly').show();
 		}
 	})
+}
+
+
+function initProduct() {
+     $('a.delete_row').click(function() {
+        var link=$(this);
+        $.post(Routing.generate($(this).attr('data-type')+'_remove_product',{'id':$(this).attr('data-rel'),'productid':$(this).attr('data-target')}),function(data) {
+            link.closest('tr').remove();
+        });
+    });
 }
 
 
@@ -119,4 +123,17 @@ function addProductForm(collectionHolder) {
 }
 
 
+function initSlice() {
+    $('.slice').change(function() {
+        $(this).closest('tr').find('.price').val('');
+    });
+    $('.price').change(function() {
+        $(this).closest('tr').find('.slice').val('');
+    });
+    $('.balance').click(function() {
+        $(this).closest('tr').find('.slice').val('');
+        $(this).closest('tr').find('.price').val($(this).attr('rel'));
+        $(this).closest('form').submit();
+    });
+}
 

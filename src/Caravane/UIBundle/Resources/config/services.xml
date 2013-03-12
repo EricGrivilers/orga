@@ -19,8 +19,19 @@
     -->
 
     <services>
+
+        
+        <service id="caravane.twig.access_twig_extension" class="Caravane\UIBundle\Twig\AccessTwigExtension">
+            <tag name="twig.extension" />
+        </service>
+
+
         <service id="caravane_ui_bundle.bootstrap_typeahead_type" class="Caravane\UIBundle\Form\Type\BootstrapTypeaheadType">
             <tag name="form.type" alias="CaravaneUIBootstrapTypeahead" />
+        </service>
+
+        <service id="caravane_ui_bundle.bootstrap_radiobutton_type" class="Caravane\UIBundle\Form\Type\BootstrapRadioButtonType">
+            <tag name="form.type" alias="CaravaneUIBootstrapRadioButton" />
         </service>
 
         <service id="caravane_ui_bundle.fuelux_dropdown_type" class="Caravane\UIBundle\Form\Type\FueluxDropdownType">
@@ -30,5 +41,7 @@
          <service id="caravane_ui_bundle.date_picker_type" class="Caravane\UIBundle\Form\Type\DatePickerType">
             <tag name="form.type" alias="CaravaneUIDatePicker" />
         </service>
+
+
     </services>
 </container>

@@ -1,16 +1,5 @@
-<h1>Invoice creation</h1>
+{% extends "CaravaneOrganicBundle:Invoice:edit.html.twig" %}
 
-<form action="{{ path('invoice_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
-
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('invoice') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+{% block form_header %}
+<form action="{{ path('invoice_create') }}" method="post" {{ form_enctype(edit_form) }} >
+{% endblock form_header %}

@@ -6,21 +6,21 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use Caravane\Bundle\OrganicBundle\Form\DataTransformer\ClientToNameTransformer;
+use Caravane\Bundle\OrganicBundle\Form\DataTransformer\ClientToIdTransformer;
 
 class InvoiceType extends AbstractType
 {
-    private $status;
+    private $statusChoices;
 
-    public function __construct() {
-
+    public function __construct($statusChoices) {
+        $this->statusChoices=$statusChoices;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
         $entityManager = $options['em'];
-        $transformer = new ClientToNameTransformer($entityManager);
+        $transformer = new ClientToIdTransformer($entityManager);
 
         $builder
            // ->add('reference')
@@ -28,16 +28,31 @@ class InvoiceType extends AbstractType
             ->add('offretype','choice',array(
                 'choices'=>array('sell'=>"Sell",'rent'=>"Rent",'winter'=>"Winter storage")
             ))
-            ->add('slice')
-            ->add('cslice')
-            ->add('nbslices')
+            ->add('slice','number',array(
+                "attr"=>array(
+                    'class'=>'slice'
+                )
+            ))
+            ->add('sliceDescription','textarea',array(
+                "attr"=>array(
+                    'class'=>'span12'
+                )
+            ))
+            //->add('cslice')
+            //->add('nbslices')
             //->add('insertdate')
             ->add('paymentdate','CaravaneUIDatePicker',array(
-                'widget' => 'single_text',
                 "label"=>"Payment date"
             ))
-            ->add('priceht')
-            ->add('pricetype')
+           ->add('priceht','number',array(
+                'precision' => 2,
+                "attr"=>array(
+                    "class"=>"span12 price"
+                )
+            ))
+            ->add('pricetype','choice',array(
+                'choices'=>array('intra'=>"Intracomm.",'htva'=>"TVA (21%)")
+            ))
             ->add('creditnote')
             ->add('comments')
             ->add('conditions')
@@ -45,8 +60,17 @@ class InvoiceType extends AbstractType
             ->add('conditions2')
             ->add('content')
             ->add('cietype')
-             ->add('clienttype',"hidden")
-            ->add('clienttitle')
+            ->add('clienttype','CaravaneUIBootstrapRadioButton',array(
+                "label"=>"Client type",
+                'choices'=>array('cie'=>'Company','part'=>'Private')
+            ))
+             ->add('clienttitle','choice',array(
+                "choices"=>array("M."=>"M.","Mme"=>"Mme"),
+                "label"=>"Title",
+                "attr"=>array(
+                    "class"=>"span4"
+                )
+            ))
             ->add('name')
             ->add('lastname')
             ->add('firstname')
@@ -57,7 +81,10 @@ class InvoiceType extends AbstractType
             ->add('city')
             ->add('country')
             ->add('status','choice',array(
-                'choices'=>array('draft'=>"Draft",'ok'=>"Sent to client",'paid'=>"Paid")
+                'choices'=> $this->statusChoices,
+                'attr'=>array(
+                    'class='=>'status'
+                )
             ))
      /*       ->add('r1')
             ->add('r1date')
@@ -75,14 +102,18 @@ class InvoiceType extends AbstractType
             //->add('jobid')
             ->add($builder->create('clientid', 'CaravaneUIBootstrapTypeahead',array(
                 "label"=>"Client",
+                "property"=>"name",
+                'class'=>'Caravane\Bundle\OrganicBundle\Entity\Client',
                 "attr"=>array(
                     "class"=>"span12",
                     //"data"=>$owner->getName(),
-                    "source_route"=>"client_autocomplete"
+                    "source_route"=>"client_autocomplete",
+                    "label_field"=>"name"
                 )
             ))
                 ->addModelTransformer($transformer)
             )
+
         ;
             $builder->add('products', 'collection', array(
                 'type' => new Product2InvoiceType(),

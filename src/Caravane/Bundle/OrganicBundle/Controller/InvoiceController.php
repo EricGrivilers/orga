@@ -74,14 +74,16 @@ class InvoiceController extends Controller
      */
     public function newAction()
     {
+        $statusChoices=array('draft'=>"Draft");
         $entity = new Invoice();
-        $form   = $this->createForm(new InvoiceType(), $entity,array(
+        
+        $form   = $this->createForm(new InvoiceType($statusChoices), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
 
         return $this->render('CaravaneOrganicBundle:Invoice:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'edit_form'   => $form->createView(),
         ));
     }
 
@@ -91,23 +93,29 @@ class InvoiceController extends Controller
      */
     public function createAction(Request $request)
     {
+        $statusChoices=array('draft'=>"Draft",'ok'=>"Sent to client");
         $entity  = new Invoice();
-        $form = $this->createForm(new InvoiceType(), $entity,array(
+        $entity->setYear(date('Y'));
+        $entity->setInsertdate(new \Datetime('now'));
+
+
+        $form = $this->createForm(new InvoiceType($statusChoices), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
         $form->bind($request);
+
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('invoice_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('invoice_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('CaravaneOrganicBundle:Invoice:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'edit_form'   => $form->createView(),
         ));
     }
 
@@ -117,6 +125,7 @@ class InvoiceController extends Controller
      */
     public function editAction($id)
     {
+        $statusChoices=array('draft'=>"Draft",'ok'=>"Sent to client",'paid'=>"Paid");
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CaravaneOrganicBundle:Invoice')->find($id);
@@ -125,7 +134,7 @@ class InvoiceController extends Controller
             throw $this->createNotFoundException('Unable to find Invoice entity.');
         }
 
-        $editForm = $this->createForm(new InvoiceType(), $entity,array(
+        $editForm = $this->createForm(new InvoiceType($statusChoices), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
         $deleteForm = $this->createDeleteForm($id);
@@ -144,7 +153,7 @@ class InvoiceController extends Controller
     public function updateAction(Request $request, $id)
     {
 
-
+        $statusChoices=array('draft'=>"Draft",'ok'=>"Sent to client",'paid'=>"Paid");
 
 
         $em = $this->getDoctrine()->getManager();
@@ -164,31 +173,31 @@ class InvoiceController extends Controller
 
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new InvoiceType(), $entity,array(
+        $editForm = $this->createForm(new InvoiceType($statusChoices), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-/*
-
-             foreach($entity->getProducts() as $product) {
-                foreach ($originalProducts as $key => $toDel) {
-                    if ($toDel->getId() === $product->getId()) {
-                        $em->remove($originalProducts[$key]);
-                        unset($originalProducts[$key]);
-                    }
-                }
-            }
-
-*/
-
-
+            $priceHt=0;
             foreach($entity->getProducts() as $product) {
                 $product->setInvoiceid($entity);
+                $priceHt+=$product->getPrice();
                 $em->persist($product);
-
             }
+            if($entity->getJobid()) {
+                if($entity->getPriceht()==0 && $entity->getSlice()>0) {
+                    $entity->setPriceht($priceHt*$entity->getSlice()/100);
+                }
+                else if($entity->getPriceht()>0 && $entity->getSlice()==0) {
+                    $entity->setSlice($entity->getPriceht()*100/$priceHt);
+                }
+            }
+            else if($entity->getPriceht()==0) {
+                $entity->setPriceht($priceHt);
+                $entity->setSlice(100);
+            }
+
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('invoice_edit', array('id' => $id)));

@@ -18,7 +18,7 @@
 </div>
 
 <div class="span2">
-     <a href="{{ path('offre_new') }}" class="btn btn-inverse ">
+     <a href="{{ path('invoice_new') }}" class="btn btn-inverse ">
             New invoice
         </a>
     </div>
@@ -60,7 +60,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('job_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
+            <td><a href="{{ path('invoice_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
             <td>{% if entity.clientid %} <a href="{{ path('client_edit', { 'id': entity.clientid.id }) }}">{{ entity.clientid.name }}</a> {% endif %}</td>
             <td>{{ entity.offretype }}</td>
             <td>{{ entity.insertDate|date('d/m/Y') }}</td>
@@ -68,8 +68,8 @@
             <td>{{entity.priceHT|number_format(2,',',' ')}}</td>
             <td>{% if entity.priceType=='intra' %}<i>intra</i>{% else %} {{entity.priceTTC|number_format(2,',',' ')}}{% endif %}</td>
 
-            <td>{{entity.cSlice}}/</td>
-            <td><a href="path('job_edit',{'id':entity.jobid.id})" class='red' >{{entity.jobid}}</a></td>
+            <td> {% if entity.jobid %}{{entity.cSlice}}/{{entity.jobid.slices|length()}}{% endif %}</td>
+            <td>{% if entity.jobid %} <a href="{{path('job_edit',{'id':entity.jobid.id})}}" class='red' >{{entity.jobid}}</a>{% endif %}</td>
             <td>{{entity.status}}</td>
             <td>{{entity.country}}</td>
 

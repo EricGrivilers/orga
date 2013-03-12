@@ -45,14 +45,21 @@ class Invoice
     /**
      * @var boolean
      *
-     * @ORM\Column(name="slice", type="boolean", nullable=false)
+     * @ORM\Column(name="slice", type="integer", nullable=true)
      */
     private $slice;
+
+     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="sliceDescription", type="text", nullable=true)
+     */
+    private $sliceDescription;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="cSlice", type="boolean", nullable=false)
+     * @ORM\Column(name="cSlice", type="integer", nullable=false)
      */
     private $cslice;
 
@@ -273,6 +280,18 @@ class Invoice
      */
     private $language;
 
+
+    /**
+     * @var boolean
+     *
+     * @ORM\ManyToOne(targetEntity="Slice2job",inversedBy="invoiceid")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="sliceid", referencedColumnName="id")
+     * })
+     */
+    private $sliceid;
+
+
     /**
      * @var \Job
      *
@@ -296,7 +315,7 @@ class Invoice
      /**
      * @var \Client
      *
-     * @ORM\OneTomany(targetEntity="Product2invoice",mappedBy="invoiceid",cascade={"persist"})
+     * @ORM\OneTomany(targetEntity="Product2invoice",mappedBy="invoiceid")
      */
 
     private $products;
@@ -1206,8 +1225,85 @@ class Invoice
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    
+    /**
+     * Add products
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2invoice $products
+     * @return Invoice
+     */
+    public function addProduct(\Caravane\Bundle\OrganicBundle\Entity\Product2invoice $products)
+    {
+        $this->products[] = $products;
+    
+        return $this;
+    }
 
+    /**
+     * Remove products
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2invoice $products
+     */
+    public function removeProduct(\Caravane\Bundle\OrganicBundle\Entity\Product2invoice $products)
+    {
+        $this->products->removeElement($products);
+    }
 
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
 
+   
 
+    /**
+     * Set sliceid
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Slice2job $sliceid
+     * @return Invoice
+     */
+    public function setSliceid(\Caravane\Bundle\OrganicBundle\Entity\Slice2job $sliceid = null)
+    {
+        $this->sliceid = $sliceid;
+    
+        return $this;
+    }
+
+    /**
+     * Get sliceid
+     *
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Slice2job 
+     */
+    public function getSliceid()
+    {
+        return $this->sliceid;
+    }
+
+    /**
+     * Set sliceDescription
+     *
+     * @param string $sliceDescription
+     * @return Invoice
+     */
+    public function setSliceDescription($sliceDescription)
+    {
+        $this->sliceDescription = $sliceDescription;
+    
+        return $this;
+    }
+
+    /**
+     * Get sliceDescription
+     *
+     * @return string 
+     */
+    public function getSliceDescription()
+    {
+        return $this->sliceDescription;
+    }
 }

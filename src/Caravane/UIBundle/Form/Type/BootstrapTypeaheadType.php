@@ -12,13 +12,21 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class BootstrapTypeaheadType extends AbstractType
 {
 
-	
+	 public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'widget' => 'single_text',
+            'attr'=>array(
+                "on_select"=>"submit"
+            )
+        ));
+    }
 
 	 /**
      * {@inheritdoc}
      */
 	public function getParent() {
-		return 'text';
+		return 'entity';
 	}
 
     /**

@@ -1,6 +1,8 @@
 <?php
 
 namespace Caravane\Bundle\OrganicBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContext;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -9,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="invoice")
  * @ORM\Entity(repositoryClass="Caravane\Bundle\OrganicBundle\Entity\InvoiceRepository"))
+ * @Assert\Callback(methods={"validateClientType"})
  */
 class Invoice
 {
@@ -45,21 +48,28 @@ class Invoice
     /**
      * @var boolean
      *
-     * @ORM\Column(name="slice", type="boolean", nullable=false)
+     * @ORM\Column(name="slice", type="integer", nullable=true)
      */
     private $slice;
+
+     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="sliceDescription", type="text", nullable=true)
+     */
+    private $sliceDescription;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="cSlice", type="boolean", nullable=false)
+     * @ORM\Column(name="cSlice", type="integer", nullable=true)
      */
     private $cslice;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="nbSlices", type="boolean", nullable=false)
+     * @ORM\Column(name="nbSlices", type="boolean", nullable=true)
      */
     private $nbslices;
 
@@ -73,14 +83,14 @@ class Invoice
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="paymentDate", type="date", nullable=false)
+     * @ORM\Column(name="paymentDate", type="date", nullable=true)
      */
     private $paymentdate;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="priceHT", type="decimal", nullable=false, scale=2)
+     * @ORM\Column(name="priceHT", type="decimal", nullable=true, scale=2)
      */
     private $priceht;
 
@@ -94,49 +104,49 @@ class Invoice
     /**
      * @var string
      *
-     * @ORM\Column(name="creditNote", type="string", length=120, nullable=false)
+     * @ORM\Column(name="creditNote", type="string", length=120, nullable=true)
      */
     private $creditnote;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="comments", type="text", nullable=false)
+     * @ORM\Column(name="comments", type="text", nullable=true)
      */
     private $comments;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="conditions", type="text", nullable=false)
+     * @ORM\Column(name="conditions", type="text", nullable=true)
      */
     private $conditions;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="conditions1", type="boolean", nullable=false)
+     * @ORM\Column(name="conditions1", type="boolean", nullable=true)
      */
     private $conditions1;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="conditions2", type="boolean", nullable=false)
+     * @ORM\Column(name="conditions2", type="boolean", nullable=true)
      */
     private $conditions2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text", nullable=false)
+     * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="cieType", type="string", length=15, nullable=false)
+     * @ORM\Column(name="cieType", type="string", length=15, nullable=true)
      */
     private $cietype;
 
@@ -144,13 +154,14 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="clientType", type="string", length=5, nullable=false)
+     * @Assert\NotBlank()
      */
     private $clienttype;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="clientTitle", type="string", length=5, nullable=false)
+     * @ORM\Column(name="clientTitle", type="string", length=5, nullable=true)
      */
     private $clienttitle;
 
@@ -158,27 +169,30 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(groups="is_cie_group")
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lastname", type="string", length=255, nullable=false)
+     * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(groups="is_part_group")
      */
     private $lastname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="firstname", type="string", length=255, nullable=false)
+     * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
      */
     private $firstname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="vat", type="string", length=30, nullable=false)
+     * @ORM\Column(name="vat", type="string", length=30, nullable=true)
+     * @Assert\NotBlank(groups="is_cie_group") 
      */
     private $vat;
 
@@ -273,6 +287,18 @@ class Invoice
      */
     private $language;
 
+
+    /**
+     * @var boolean
+     *
+     * @ORM\ManyToOne(targetEntity="Slice2job",inversedBy="invoiceid")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="sliceid", referencedColumnName="id")
+     * })
+     */
+    private $sliceid;
+
+
     /**
      * @var \Job
      *
@@ -296,7 +322,7 @@ class Invoice
      /**
      * @var \Client
      *
-     * @ORM\OneTomany(targetEntity="Product2invoice",mappedBy="invoiceid",cascade={"persist"})
+     * @ORM\OneTomany(targetEntity="Product2invoice",mappedBy="invoiceid")
      */
 
     private $products;
@@ -1206,11 +1232,7 @@ class Invoice
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
-
-
-
-
+    
     /**
      * Add products
      *
@@ -1243,4 +1265,65 @@ class Invoice
     {
         return $this->products;
     }
+
+   
+
+    /**
+     * Set sliceid
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Slice2job $sliceid
+     * @return Invoice
+     */
+    public function setSliceid(\Caravane\Bundle\OrganicBundle\Entity\Slice2job $sliceid = null)
+    {
+        $this->sliceid = $sliceid;
+    
+        return $this;
+    }
+
+    /**
+     * Get sliceid
+     *
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Slice2job 
+     */
+    public function getSliceid()
+    {
+        return $this->sliceid;
+    }
+
+    /**
+     * Set sliceDescription
+     *
+     * @param string $sliceDescription
+     * @return Invoice
+     */
+    public function setSliceDescription($sliceDescription)
+    {
+        $this->sliceDescription = $sliceDescription;
+    
+        return $this;
+    }
+
+    /**
+     * Get sliceDescription
+     *
+     * @return string 
+     */
+    public function getSliceDescription()
+    {
+        return $this->sliceDescription;
+    }
+
+
+
+    public function validateClientType(ExecutionContext $ec)
+  {
+    if ($this->clienttype=='cie') 
+    {
+      $ec->getGraphWalker()->walkReference($this, 'is_cie_group', $ec->getPropertyPath(), true);
+    }
+    else {
+        $ec->getGraphWalker()->walkReference($this, 'is_part_group', $ec->getPropertyPath(), true);
+    }
+  }
 }

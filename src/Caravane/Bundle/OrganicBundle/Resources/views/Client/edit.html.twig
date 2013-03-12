@@ -39,11 +39,9 @@
     </div>
 
      <div class="well">
-        <div class="btn-group" data-toggle="buttons-radio">
-          <button type="button" class="btn {% if entity.clienttype=='part' %} active {% endif %}" data-toggle="button" data-target="#{{edit_form.clienttype.vars.id}}" rel="part" >Private</button>
-          <button type="button" class="btn {% if entity.clienttype=='cie' %} active {% endif %}" data-toggle="button" data-target="#{{edit_form.clienttype.vars.id}}" rel="cie" >Company</button>
+       
           {{form_row(edit_form.clienttype)}}
-        </div>
+
         <div class="row-fluid" id="cieonly">
             <div class="span4">
                 {{form_row(edit_form.name)}}
