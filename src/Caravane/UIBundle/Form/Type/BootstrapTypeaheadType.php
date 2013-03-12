@@ -16,9 +16,7 @@ class BootstrapTypeaheadType extends AbstractType
     {
         $resolver->setDefaults(array(
             'widget' => 'single_text',
-            'attr'=>array(
-                "on_select"=>"submit"
-            )
+            'updater'=>false
         ));
     }
 
@@ -26,7 +24,7 @@ class BootstrapTypeaheadType extends AbstractType
      * {@inheritdoc}
      */
 	public function getParent() {
-		return 'entity';
+		return 'text';
 	}
 
     /**

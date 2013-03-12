@@ -37,7 +37,7 @@ $(document).ready(function() {
     $('select.status').change(function() {
         $(this).closest('form').submit();
     });
-   
+
 });
 
 
@@ -137,3 +137,14 @@ function initSlice() {
     });
 }
 
+
+function fillClient2invoice(clientid) {
+
+    $.post(Routing.generate('client_get_data',{'id':clientid}),function(data) {
+        data=$.parseJSON(data);
+        $('#caravane_bundle_organicbundle_invoicetype_name').val(data.name);
+        $('#caravane_bundle_organicbundle_invoicetype_lastname').val(data.lastname);
+        $('#caravane_bundle_organicbundle_invoicetype_firstname').val(data.firstname);
+        $('#caravane_bundle_organicbundle_invoicetype_clienttitle').val(data.clienttitle);
+    })
+}

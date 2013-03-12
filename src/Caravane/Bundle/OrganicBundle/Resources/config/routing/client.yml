@@ -36,3 +36,10 @@ client_autocomplete:
     requirements: { _method: get }
     options:
         expose: true
+
+client_get_data:
+    pattern:  /{id}/get_data
+    defaults: { _controller: "CaravaneOrganicBundle:Client:getData" }
+    requirements: { _method: post }
+    options:
+        expose: true

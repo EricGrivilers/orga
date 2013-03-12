@@ -76,7 +76,7 @@ class InvoiceController extends Controller
     {
         $statusChoices=array('draft'=>"Draft");
         $entity = new Invoice();
-        
+
         $form   = $this->createForm(new InvoiceType($statusChoices), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
@@ -172,6 +172,18 @@ class InvoiceController extends Controller
         }
 
 
+
+        if($clientid=$request->request->get('clientid')) {
+            if($client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientid)) {
+                $entity->setClientid($client);
+                $entity->setName($client->getName());
+                $entity->setFirstname($client->getFirstname());
+                $entity->setLastname($client->getLastname());
+                $entity->setClienttitle($client->getClienttitle());
+
+            }
+        }
+
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new InvoiceType($statusChoices), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
@@ -252,6 +264,7 @@ class InvoiceController extends Controller
         $em->flush();
         return new Response('ok');
     }
+
 
 
 }

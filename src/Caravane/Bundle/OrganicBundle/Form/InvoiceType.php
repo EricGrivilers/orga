@@ -102,13 +102,12 @@ class InvoiceType extends AbstractType
             //->add('jobid')
             ->add($builder->create('clientid', 'CaravaneUIBootstrapTypeahead',array(
                 "label"=>"Client",
-                "property"=>"name",
-                'class'=>'Caravane\Bundle\OrganicBundle\Entity\Client',
                 "attr"=>array(
                     "class"=>"span12",
                     //"data"=>$owner->getName(),
                     "source_route"=>"client_autocomplete",
-                    "label_field"=>"name"
+                    "label_field"=>"name",
+                    "updater"=>"fillClient2invoice"
                 )
             ))
                 ->addModelTransformer($transformer)

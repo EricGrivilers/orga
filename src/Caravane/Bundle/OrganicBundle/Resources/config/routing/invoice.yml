@@ -35,3 +35,5 @@ invoice_remove_product:
     requirements: { _method: post }
     options:
         expose: true
+
+

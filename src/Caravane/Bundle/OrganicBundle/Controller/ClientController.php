@@ -21,7 +21,7 @@ class ClientController extends Controller
      */
     public function indexAction()
     {
-        
+
         $em = $this->getDoctrine()->getManager();
         $request=$this->get('request');
         if(!$type=$request->query->get('type')) {
@@ -208,5 +208,19 @@ class ClientController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+
+    public function getDataAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $datas=array();
+        if($client=$em->getRepository('CaravaneOrganicBundle:Client')->find($id)) {
+            $datas['name']=$client->getName();
+            $datas['lastname']=$client->getLastname();
+            $datas['firstname']=$client->getFirstname();
+            $datas['clienttitle']=$client->getClienttitle();
+            return new Response(json_encode($datas));
+        }
+        return new Response('ok');
+
     }
 }
