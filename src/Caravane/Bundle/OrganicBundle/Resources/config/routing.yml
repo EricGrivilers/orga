@@ -21,3 +21,8 @@ CaravaneOrganicBundle_invoice:
 CaravaneOrganicBundle_job:
     resource: "@CaravaneOrganicBundle/Resources/config/routing/job.yml"
     prefix:   /job
+
+CaravaneOrganicBundle_planning:
+    resource: "@CaravaneOrganicBundle/Resources/config/routing/planning.yml"
+    prefix:   /planning
+

@@ -19,6 +19,7 @@ class ClientType extends AbstractType
             ))
            // ->add('isowner')
             ->add('name',"text",array(
+                'label'=>"Company name",
                 "attr"=>array(
                     "class"=>"span12"
                 )

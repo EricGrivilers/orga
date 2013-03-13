@@ -200,13 +200,14 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255, nullable=false)
+     * @Assert\NotBlank()
      */
     private $address;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="number", type="string", length=20, nullable=false)
+     * @ORM\Column(name="number", type="string", length=20, nullable=true)
      */
     private $number;
 
@@ -214,6 +215,7 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="zip", type="string", length=20, nullable=false)
+     * @Assert\NotBlank()
      */
     private $zip;
 
@@ -221,6 +223,7 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=120, nullable=false)
+     * @Assert\NotBlank()
      */
     private $city;
 
@@ -228,6 +231,7 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=120, nullable=false)
+     * @Assert\NotBlank()
      */
     private $country;
 
@@ -241,42 +245,42 @@ class Invoice
     /**
      * @var boolean
      *
-     * @ORM\Column(name="r1", type="boolean", nullable=false)
+     * @ORM\Column(name="r1", type="boolean", nullable=true)
      */
     private $r1;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="r1Date", type="date", nullable=false)
+     * @ORM\Column(name="r1Date", type="date", nullable=true)
      */
     private $r1date;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="r2", type="boolean", nullable=false)
+     * @ORM\Column(name="r2", type="boolean", nullable=true)
      */
     private $r2;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="r2Date", type="date", nullable=false)
+     * @ORM\Column(name="r2Date", type="date", nullable=true)
      */
     private $r2date;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="med", type="boolean", nullable=false)
+     * @ORM\Column(name="med", type="boolean", nullable=true)
      */
     private $med;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="medDate", type="date", nullable=false)
+     * @ORM\Column(name="medDate", type="date", nullable=true)
      */
     private $meddate;
 

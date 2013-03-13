@@ -1,0 +1,18 @@
+parameters:
+#    caravane_user.example.class: Caravane\UserBundle\Example
+
+services:
+#    caravane_user.example:
+#        class: %caravane_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    security.role_hierarchy:
+        class: Caravane\UserBundle\Security\Role\RoleHierarchy
+        arguments: [ %security.role_hierarchy.roles%, @doctrine.orm.entity_manager ]
+
+
+#<services>
+#    <service id="security.role_hierarchy" class="Acme\UserBundle\Security\Role\RoleHierarchy" public="false">
+#        <argument>%security.role_hierarchy.roles%</argument>
+#        <argument type="service" id="doctrine.orm.default_entity_manager"/>
+#    </service>
+#</services>

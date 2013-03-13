@@ -1,0 +1,3 @@
+CaravaneUserBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: CaravaneUserBundle:Default:index }

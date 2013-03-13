@@ -1,6 +1,8 @@
 <?php
 
 namespace Caravane\Bundle\OrganicBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContext;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -9,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="invoice")
  * @ORM\Entity(repositoryClass="Caravane\Bundle\OrganicBundle\Entity\InvoiceRepository"))
+ * @Assert\Callback(methods={"validateClientType"})
  */
 class Invoice
 {
@@ -59,14 +62,14 @@ class Invoice
     /**
      * @var boolean
      *
-     * @ORM\Column(name="cSlice", type="integer", nullable=false)
+     * @ORM\Column(name="cSlice", type="integer", nullable=true)
      */
     private $cslice;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="nbSlices", type="boolean", nullable=false)
+     * @ORM\Column(name="nbSlices", type="boolean", nullable=true)
      */
     private $nbslices;
 
@@ -80,14 +83,14 @@ class Invoice
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="paymentDate", type="date", nullable=false)
+     * @ORM\Column(name="paymentDate", type="date", nullable=true)
      */
     private $paymentdate;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="priceHT", type="decimal", nullable=false, scale=2)
+     * @ORM\Column(name="priceHT", type="decimal", nullable=true, scale=2)
      */
     private $priceht;
 
@@ -101,49 +104,49 @@ class Invoice
     /**
      * @var string
      *
-     * @ORM\Column(name="creditNote", type="string", length=120, nullable=false)
+     * @ORM\Column(name="creditNote", type="string", length=120, nullable=true)
      */
     private $creditnote;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="comments", type="text", nullable=false)
+     * @ORM\Column(name="comments", type="text", nullable=true)
      */
     private $comments;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="conditions", type="text", nullable=false)
+     * @ORM\Column(name="conditions", type="text", nullable=true)
      */
     private $conditions;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="conditions1", type="boolean", nullable=false)
+     * @ORM\Column(name="conditions1", type="boolean", nullable=true)
      */
     private $conditions1;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="conditions2", type="boolean", nullable=false)
+     * @ORM\Column(name="conditions2", type="boolean", nullable=true)
      */
     private $conditions2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text", nullable=false)
+     * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="cieType", type="string", length=15, nullable=false)
+     * @ORM\Column(name="cieType", type="string", length=15, nullable=true)
      */
     private $cietype;
 
@@ -151,13 +154,14 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="clientType", type="string", length=5, nullable=false)
+     * @Assert\NotBlank()
      */
     private $clienttype;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="clientTitle", type="string", length=5, nullable=false)
+     * @ORM\Column(name="clientTitle", type="string", length=5, nullable=true)
      */
     private $clienttitle;
 
@@ -165,27 +169,30 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(groups="is_cie_group")
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lastname", type="string", length=255, nullable=false)
+     * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(groups="is_part_group")
      */
     private $lastname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="firstname", type="string", length=255, nullable=false)
+     * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
      */
     private $firstname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="vat", type="string", length=30, nullable=false)
+     * @ORM\Column(name="vat", type="string", length=30, nullable=true)
+     * @Assert\NotBlank(groups="is_cie_group") 
      */
     private $vat;
 
@@ -193,13 +200,14 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255, nullable=false)
+     * @Assert\NotBlank()
      */
     private $address;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="number", type="string", length=20, nullable=false)
+     * @ORM\Column(name="number", type="string", length=20, nullable=true)
      */
     private $number;
 
@@ -207,6 +215,7 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="zip", type="string", length=20, nullable=false)
+     * @Assert\NotBlank()
      */
     private $zip;
 
@@ -214,6 +223,7 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=120, nullable=false)
+     * @Assert\NotBlank()
      */
     private $city;
 
@@ -221,6 +231,7 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=120, nullable=false)
+     * @Assert\NotBlank()
      */
     private $country;
 
@@ -234,42 +245,42 @@ class Invoice
     /**
      * @var boolean
      *
-     * @ORM\Column(name="r1", type="boolean", nullable=false)
+     * @ORM\Column(name="r1", type="boolean", nullable=true)
      */
     private $r1;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="r1Date", type="date", nullable=false)
+     * @ORM\Column(name="r1Date", type="date", nullable=true)
      */
     private $r1date;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="r2", type="boolean", nullable=false)
+     * @ORM\Column(name="r2", type="boolean", nullable=true)
      */
     private $r2;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="r2Date", type="date", nullable=false)
+     * @ORM\Column(name="r2Date", type="date", nullable=true)
      */
     private $r2date;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="med", type="boolean", nullable=false)
+     * @ORM\Column(name="med", type="boolean", nullable=true)
      */
     private $med;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="medDate", type="date", nullable=false)
+     * @ORM\Column(name="medDate", type="date", nullable=true)
      */
     private $meddate;
 
@@ -1306,4 +1317,17 @@ class Invoice
     {
         return $this->sliceDescription;
     }
+
+
+
+    public function validateClientType(ExecutionContext $ec)
+  {
+    if ($this->clienttype=='cie') 
+    {
+      $ec->getGraphWalker()->walkReference($this, 'is_cie_group', $ec->getPropertyPath(), true);
+    }
+    else {
+        $ec->getGraphWalker()->walkReference($this, 'is_part_group', $ec->getPropertyPath(), true);
+    }
+  }
 }

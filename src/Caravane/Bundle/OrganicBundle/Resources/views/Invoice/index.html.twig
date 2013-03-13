@@ -12,7 +12,7 @@
           <li {% if type=='open' %}class="active" {% endif %} ><a href="{{path('invoice',{'type': 'open','ob':ob,'page':1} )}}">Open</a></li>
           <li {% if type=='paid' %}class="active" {% endif %} ><a href="{{path('invoice',{'type':'paid','ob':ob,'page':1})}}">Paid</a></li>
           <li {% if type=='todo' %}class="active" {% endif %} ><a href="{{path('invoice',{'type':'todo','ob':ob,'page':1})}}">To do</a></li>
-          
+          <li {% if type=='draft' %}class="active" {% endif %} ><a href="{{path('invoice',{'type':'draft','ob':ob,'page':1})}}">Draft</a></li>
 
         </ul>
 </div>

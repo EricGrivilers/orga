@@ -29,6 +29,26 @@ $('#reportrange').daterangepicker(
 );
 
 
+$('.reportrange').daterangepicker(
+    {
+        buttonClasses:"btn-inverse",
+        startDate:$(this).closest('.widget').find('input.startDate').val(),
+        endDate:$(this).closest('.widget').find('input.endDate').val(),
+        minDate:Date.today(),
+        locale: {
+            customRangeLabel:"Custom dates"
+        }
+    },
+    function(start, end) {
+        startDateField=this.element.closest('.widget').find('input.startDate');
+        endDateField=this.element.closest('.widget').find('input.endDate');
+
+        startDateField.val(start.toString('yyyy-MM-dd hh:mm:ss'));
+        endDateField.val(end.toString('yyyy-MM-dd hh:mm:ss'));
+        this.element.find('span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
+        //$('#rangeDateForm').submit();
+    }
+);
 
 $(document).ready(function() {
 	initClient();
@@ -139,9 +159,15 @@ function initSlice() {
 
 
 function fillClient2invoice(clientid) {
-
+    fields=new Array()
     $.post(Routing.generate('client_get_data',{'id':clientid}),function(data) {
         data=$.parseJSON(data);
+        $.each(data, function(i, item) {
+           
+            $('#caravane_bundle_organicbundle_invoicetype_'+i).val(data[i]);
+        });
+
+     /*  
         $('#caravane_bundle_organicbundle_invoicetype_name').val(data.name);
         $('#caravane_bundle_organicbundle_invoicetype_lastname').val(data.lastname);
         $('#caravane_bundle_organicbundle_invoicetype_firstname').val(data.firstname);
@@ -149,5 +175,12 @@ function fillClient2invoice(clientid) {
         $('#caravane_bundle_organicbundle_invoicetype_clientype').val(data.clienttype);
         $('#caravane_bundle_organicbundle_invoicetype_cietype').val(data.cietype);
         $('#caravane_bundle_organicbundle_invoicetype_vat').val(data.vat);
+
+        $('#caravane_bundle_organicbundle_invoicetype_address').val(data.vat);
+        $('#caravane_bundle_organicbundle_invoicetype_vat').val(data.vat);
+        $('#caravane_bundle_organicbundle_invoicetype_vat').val(data.vat);
+        $('#caravane_bundle_organicbundle_invoicetype_vat').val(data.vat);
+        $('#caravane_bundle_organicbundle_invoicetype_vat').val(data.vat);
+        */
     })
 }

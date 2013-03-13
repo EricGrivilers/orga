@@ -221,6 +221,13 @@ class ClientController extends Controller
             $datas['clienttype']=$client->getClienttype();
             $datas['vat']=$client->getVat();
             $datas['cietype']=$client->getCietype();
+
+            $datas['address']=$client->getAddress();
+            $datas['number']=$client->getNumber();
+            $datas['zip']=$client->getZip();
+            $datas['city']=$client->getCity();
+            $datas['country']=$client->getCountry();
+            
             return new Response(json_encode($datas));
         }
         return new Response('ok');

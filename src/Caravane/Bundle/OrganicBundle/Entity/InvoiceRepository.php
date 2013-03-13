@@ -19,9 +19,12 @@ class InvoiceRepository extends EntityRepository
 				case 'paid':
 					$dql.=" AND I.status='paid' ";
 				break;
+				case 'draft':
+					$dql.=" AND I.status='draft' ";
+				break;
 
 				default:
-					$dql.=" AND I.status='draft' ";
+					$dql.="  ";
 				break;
 			}
 
@@ -39,5 +42,24 @@ class InvoiceRepository extends EntityRepository
 
 		//return array('entities'=>$paginator);
 		return $entities;
+	}
+
+
+	public function getNewReference($year) {
+		if(is_null($year)) {
+			$year=date('Y');
+		}
+
+
+		$dql = "SELECT I.reference FROM CaravaneOrganicBundle:Invoice I ";
+		$dql.=" WHERE I.year='".$year."' AND I.reference IS NOT NULL AND I.reference!='' GROUP BY I.reference ";
+		
+		$query = $this->getEntityManager()->createQuery($dql);
+		$invoices=$query->getResult();
+		
+		$reference=$year."-".str_pad(count($invoices)+1, 4, "0", STR_PAD_LEFT);
+		
+		return $reference;
+		
 	}
 }

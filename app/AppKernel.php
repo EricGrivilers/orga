@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Caravane\Bundle\OrganicBundle\CaravaneOrganicBundle(),
             new Caravane\DevBundle\CaravaneDevBundle(),
             new Caravane\UIBundle\CaravaneUIBundle(),
+            new Caravane\CKEditorBundle\CaravaneCKEditorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

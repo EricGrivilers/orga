@@ -98,7 +98,7 @@ class OffreController extends Controller
 
         return $this->render('CaravaneOrganicBundle:Offre:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'edit_form'   => $form->createView(),
         ));
     }
 
@@ -123,7 +123,7 @@ class OffreController extends Controller
 
         return $this->render('CaravaneOrganicBundle:Offre:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'edit_form'   => $form->createView(),
         ));
     }
 

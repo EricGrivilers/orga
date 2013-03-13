@@ -173,16 +173,7 @@ class InvoiceController extends Controller
 
 
 
-        if($clientid=$request->request->get('clientid')) {
-            if($client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientid)) {
-                $entity->setClientid($client);
-                $entity->setName($client->getName());
-                $entity->setFirstname($client->getFirstname());
-                $entity->setLastname($client->getLastname());
-                $entity->setClienttitle($client->getClienttitle());
-
-            }
-        }
+        
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new InvoiceType($statusChoices), $entity,array(
@@ -191,6 +182,15 @@ class InvoiceController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
+            if($entity->getStatus()=='ok' && $entity->getReference()=='') {
+                $entity->setYear(date('Y'));
+                $reference=$em->getRepository('CaravaneOrganicBundle:Invoice')->getNewReference($entity->getYear());
+                $entity->setReference($reference);
+                $entity->setInsertDate(new \Datetime('now'));
+            }
+            if($entity->getStatus()=='paid' && is_null($entity->getPaymentDate())) {
+                $entity->setPaymentDate(new \Datetime('now'));
+            }
             $priceHt=0;
             foreach($entity->getProducts() as $product) {
                 $product->setInvoiceid($entity);

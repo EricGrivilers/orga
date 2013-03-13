@@ -26,6 +26,7 @@ class InvoiceType extends AbstractType
            // ->add('reference')
            // ->add('year')
             ->add('offretype','choice',array(
+                "label"=>"Type",
                 'choices'=>array('sell'=>"Sell",'rent'=>"Rent",'winter'=>"Winter storage")
             ))
             ->add('slice','number',array(
@@ -75,10 +76,27 @@ class InvoiceType extends AbstractType
             ->add('lastname')
             ->add('firstname')
             ->add('vat')
-            ->add('address')
-            ->add('number')
-            ->add('zip')
-            ->add('city')
+            ->add('address',"text",array(
+                "attr"=>array(
+                    "class"=>"span12"
+                )
+            ))
+            ->add('number',"text",array(
+                "label"=>"Number/Box",
+                "attr"=>array(
+                    "class"=>"span4"
+                )
+            ))
+            ->add('zip',"text",array(
+                "attr"=>array(
+                    "class"=>"span4"
+                )
+            ))
+            ->add('city',"text",array(
+                "attr"=>array(
+                    "class"=>"span12"
+                )
+            ))
             ->add('country')
             ->add('status','choice',array(
                 'choices'=> $this->statusChoices,
