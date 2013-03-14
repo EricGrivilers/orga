@@ -192,6 +192,14 @@ class Tent
      */
     private $tents2offre;
 
+    /**
+     * @var \tents2offre
+     *
+     * @ORM\ManyToOne(targetEntity="ProductCategory")
+     * 
+     */
+    private $productCategory;
+
 
 
     public function __toString() {

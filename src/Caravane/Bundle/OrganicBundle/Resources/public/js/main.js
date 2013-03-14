@@ -43,9 +43,11 @@ $('.reportrange').daterangepicker(
         startDateField=this.element.closest('.widget').find('input.startDate');
         endDateField=this.element.closest('.widget').find('input.endDate');
 
-        startDateField.val(start.toString('yyyy-MM-dd hh:mm:ss'));
-        endDateField.val(end.toString('yyyy-MM-dd hh:mm:ss'));
-        this.element.find('span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
+        startDateField.val(start.toString('dd/MM/yyyy hh:mm:ss'));
+        endDateField.val(end.toString('dd/MM/yyyy hh:mm:ss'));
+        //this.element.css('color','1px solid blue');
+        //this.element.find(" ~ .reportrange").css('color','1px solid red');
+        this.element.find('span.display').html("<span class='static'>From</span> "+start.toString('dd/MM/yyyy hh:mm:ss') + " <span class='static'>to</span> " + end.toString('dd/MM/yyyy hh:mm:ss'));
         //$('#rangeDateForm').submit();
     }
 );
@@ -53,6 +55,7 @@ $('.reportrange').daterangepicker(
 $(document).ready(function() {
 	initClient();
     initProduct();
+    initOffre();
     initSlice();
     $('select.status').change(function() {
         $(this).closest('form').submit();
@@ -183,4 +186,14 @@ function fillClient2invoice(clientid) {
         $('#caravane_bundle_organicbundle_invoicetype_vat').val(data.vat);
         */
     })
+}
+
+
+function initOffre() {
+    $('#products .pagination a').click(function(e) {
+        e.preventDefault();
+        $(this).closest('.tab-pane').find('.tableContainer').load($(this).attr('href')+" .content",function(data) {
+            initOffre();
+        })
+    });
 }

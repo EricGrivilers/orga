@@ -45,7 +45,9 @@ class TentType extends AbstractType
                 "attr"=>array(
                     "class"=>"span12",
                     //"data"=>$owner->getName(),
-                    "source_route"=>"client_autocomplete"
+                    "source_route"=>"client_autocomplete",
+                    "label_field"=>"ownerid",
+                    "updater"=>"fillClient2invoice"
                 )
             ))
                 ->addModelTransformer($transformer)
@@ -91,7 +93,7 @@ class TentType extends AbstractType
                 )
             ))
             
-            ->add('comments','textarea',array(
+            ->add('comments','ckeditor',array(
                 "attr"=>array(
                     "class"=>"span12"
                 )
@@ -102,6 +104,7 @@ class TentType extends AbstractType
             //->add('updatedate')
            // ->add('public')
             ->add('winteroffreid')
+            ->add('productCategory')
           //  ->add('ownerid')
         ;
     }

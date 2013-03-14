@@ -3,6 +3,7 @@
 namespace Caravane\Bundle\OrganicBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use \Caravane\Bundle\OrganicBundle\Entity\Planning;
 
 /**
  * Planning2offre
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="planning2offre")
  * @ORM\Entity
  */
-class Planning2offre
+class Planning2offre 
 {
     /**
      * @var integer
@@ -31,21 +32,21 @@ class Planning2offre
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="startDate", type="datetime", nullable=false)
+     * @ORM\Column(name="startDate", type="datetime", nullable=true)
      */
     private $startdate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="endDate", type="datetime", nullable=false)
+     * @ORM\Column(name="endDate", type="datetime", nullable=true)
      */
     private $enddate;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="etat", type="string", length=50, nullable=false)
+     * @ORM\Column(name="etat", type="string", length=50, nullable=true)
      */
     private $etat;
 
@@ -59,15 +60,6 @@ class Planning2offre
      */
     private $userid;
 
-    /**
-     * @var \Job
-     *
-     * @ORM\ManyToOne(targetEntity="Job")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="jobId", referencedColumnName="id")
-     * })
-     */
-    private $jobid;
 
     /**
      * @var \Offre
@@ -206,28 +198,7 @@ class Planning2offre
         return $this->userid;
     }
 
-    /**
-     * Set jobid
-     *
-     * @param \Caravane\Bundle\OrganicBundle\Entity\Job $jobid
-     * @return Planning2offre
-     */
-    public function setJobid(\Caravane\Bundle\OrganicBundle\Entity\Job $jobid = null)
-    {
-        $this->jobid = $jobid;
-
-        return $this;
-    }
-
-    /**
-     * Get jobid
-     *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Job
-     */
-    public function getJobid()
-    {
-        return $this->jobid;
-    }
+  
 
     /**
      * Set offreid

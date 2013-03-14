@@ -29,9 +29,11 @@
             </div>
             <div class="span4">
                {{ form_row(edit_form.offretype)}}
+               {{ form_row(edit_form.userid)}}
             </div>
             <div class="span4">
                {{ form_row(edit_form.status)}}
+
             </div>
         </div>
     </div>
@@ -145,15 +147,29 @@
     <div class="well">
         <div class="row-fluid">
             <table class="table">
+                <thead>
+                    <tr>
+                        <th>#
+                        </th>
+                        <th>From
+                        </th>
+                        <th>To
+                        </th>
+                        <th>
+                        </th>
+                        <th>In charge
+                        </th>
+                    </tr>
+                </thead>
                 <tbody >
                 {% for planning in edit_form.plannings %}
                     <tr class='widget'>
-                        <td>{{planning.vars.value.planningtype}}</td>
+                        <td><label><b>{{planning.vars.value.planningtype}}</b></label></td>
                         <td>{{form_widget(planning.startdate)}}</td>
                         <td>{{form_widget(planning.enddate)}}</td>
                         <td><div class="reportrange" >
             <i class="icon-calendar icon-large"></i>
-            <span>{{planning.vars.value.startdate|date('d/m/Y H:i:s')}} - {{planning.vars.value.enddate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
+            <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i:s')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
         </div>
         {#{dump(planning)}#}</td>
                         <td>{{form_widget(planning.userid)}}</td>
@@ -165,6 +181,23 @@
     </div>
 
     <h4>Products</h4>
+    <div class='row-fluid' id="products">
+        <ul class="nav nav-tabs" id="myTab">
+            {% for category in productCategories %}
+                 <li {% if loop.index==1%} class='active' {% endif %}><a href="#cat{{category.id}}" data-toggle="tab" >{{category}}</a></li>
+            {% endfor %}
+        </ul>
+         
+        <div class="tab-content">
+            {% for category in productCategories %}
+           
+                 <div class="tab-pane {% if loop.index==1 %} active {% endif %}" id="cat{{category.id}}" >
+                    {% render "CaravaneOrganicBundle:Tent:getAvailable" with { 'entity':entity,'categoryId':category.id, 'startDate' : edit_form.plannings[1].vars.value.startDate ,'endDate': edit_form.plannings[3].vars.value.endDate} %}
+                 </div>
+            {% endfor %}
+          
+        </div>
+    </div>
 
 {#
     <div class="well">

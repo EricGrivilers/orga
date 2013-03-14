@@ -192,6 +192,14 @@ class Tent
      */
     private $tents2offre;
 
+    /**
+     * @var \tents2offre
+     *
+     * @ORM\ManyToOne(targetEntity="ProductCategory")
+     * 
+     */
+    private $productCategory;
+
 
 
     public function __toString() {
@@ -766,5 +774,28 @@ class Tent
 
     public function getFormField() {
         return $this;
+    }
+
+    /**
+     * Set productCategory
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\ProductCategory $productCategory
+     * @return Tent
+     */
+    public function setProductCategory(\Caravane\Bundle\OrganicBundle\Entity\ProductCategory $productCategory = null)
+    {
+        $this->productCategory = $productCategory;
+    
+        return $this;
+    }
+
+    /**
+     * Get productCategory
+     *
+     * @return \Caravane\Bundle\OrganicBundle\Entity\ProductCategory 
+     */
+    public function getProductCategory()
+    {
+        return $this->productCategory;
     }
 }

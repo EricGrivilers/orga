@@ -31,7 +31,7 @@ class TentController extends Controller
             $type='';
         }
         if(!$ob=$request->query->get('ob')) {
-            $ob='reference desc';
+            $ob='reference asc';
         }
          if(!$page=$request->query->get('page')) {
             $page=1;
@@ -43,7 +43,7 @@ class TentController extends Controller
         $offres=array();
         $startDate=new \Datetime();
         $endDate=new \Datetime();
-        if($type=="reserved" ) {
+        //if($type=="reserved" ) {
             $startDate=new \Datetime($request->query->get('startDate'));
             $endDate=new \Datetime($request->query->get('endDate'));
             if(is_null($startDate)) {
@@ -54,9 +54,9 @@ class TentController extends Controller
             }
             $jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAllBetweenDates($startDate,$endDate);
             $offres=$em->getRepository('CaravaneOrganicBundle:Offre')->findAllBetweenDates($startDate,$endDate);
-        }
+        //}
 
-        $entities=$em->getRepository('CaravaneOrganicBundle:Tent')->listAll($type,$ob,$page);
+        $entities=$em->getRepository('CaravaneOrganicBundle:Tent')->listAll($type,$ob,$page,$startDate,$endDate,$jobs,$offres);
         $nbpages=(Integer)(count($entities)/25)+1;
 
         return $this->render('CaravaneOrganicBundle:Tent:index.html.twig', array(
@@ -240,5 +240,79 @@ class TentController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+
+    public function getAvailableFromRouteAction() {
+        $request=$this->get('request');
+
+        
+        if($request->query->get('categoryId')) {
+            $categoryId=$request->query->get('categoryId');
+        }
+        if($request->query->get('startDate')) {
+            $startDate= new \Datetime($request->query->get('startDate'));
+        }
+        if($request->query->get('endDate')) {
+            $endDate= new \Datetime($request->query->get('endDate'));
+        }
+        if($request->query->get('entityId')) {
+            $em = $this->getDoctrine()->getManager();
+            $entity=$em->getRepository('CaravaneOrganicBundle:Offre')->find($request->query->get('entityId'));
+        }
+        return $this->getAvailableAction($entity,$categoryId,$startDate,$endDate);
+    }
+
+    public function getAvailableAction($entity,$categoryId,$startDate,$endDate) {
+
+        $request=$this->get('request');
+
+        
+        if($request->query->get('categoryId')) {
+            $categoryId=$request->query->get('categoryId');
+        }
+        if($request->query->get('startDate')) {
+            $startDate= new \Datetime($request->query->get('startDate'));
+        }
+        if($request->query->get('endDate')) {
+            $endDate= new \Datetime($request->query->get('endDate'));
+        }
+        if(!$type=$request->query->get('type')) {
+            $type='';
+        }
+        if(!$ob=$request->query->get('ob')) {
+            $ob='reference asc';
+        }
+         if(!$page=$request->query->get('page')) {
+            $page=1;
+        }
+
+       
+        $exclude=array();
+        foreach($entity->getTents2offre() as $prod) {
+            $exclude[]=$prod->getTentid()->getId();
+        }
+        
+        $em = $this->getDoctrine()->getManager();
+        $category=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->find($categoryId);
+        $jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAllBetweenDates($startDate,$endDate);
+        $offres=$em->getRepository('CaravaneOrganicBundle:Offre')->findAllBetweenDates($startDate,$endDate);
+        $options=array('ownerid'=>0,'job'=>true,'offre'=>false,'jobs'=>$jobs,'offres'=>$offres,'category'=>$category,'page'=>$page,'exclude'=>$exclude);
+        $entities=$em->getRepository('CaravaneOrganicBundle:Tent')->getFree(false,$startDate,$endDate,$options);
+        $nbpages=(Integer)(count($entities)/25)+1;
+       
+        return $this->render('CaravaneOrganicBundle:Tent:available.html.twig', array(
+            'entities'      => $entities,
+            'offres'=>$offres,
+            'jobs'=>$jobs,
+            'type'=>$type,
+            'ob'=>$ob,
+            'page'=>$page,
+            'nbpages'=>$nbpages,
+            'startDate'=>$startDate,
+            'endDate'=>$endDate,
+            'categoryId'=>$categoryId,
+            'entityId'=>$entity->getId(),
+            'entity'=>$entity
+        ));
     }
 }

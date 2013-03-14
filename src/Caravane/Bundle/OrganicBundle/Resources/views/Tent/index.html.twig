@@ -1,6 +1,10 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
+
+{% for offre in offres %}
+    {{offre.reference}} - 
+{% endfor %}
 <div class="row-fluid">
     <div class="tools">
         <div class="span10">
@@ -8,12 +12,13 @@
           <li {% if type=='' %}class="active" {% endif %} >
             <a href="{{path('tent',{'ob':ob})}}">All</a>
           </li>
-          <li {% if type=='reserved' %}class="active" {% endif %} ><a href="{{path('tent',{'type': 'reserved','ob':ob,'page':1,'startdate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')} )}}">Reserved</a></li>
-          <li {% if type=='free' %}class="active" {% endif %} ><a href="{{path('tent',{'type':'free','ob':ob,'page':1,'startdate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')})}}">Free</a></li>
+          <li {% if type=='reserved' %}class="active" {% endif %} ><a href="{{path('tent',{'type': 'reserved','ob':ob,'page':1,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')} )}}">Booked</a></li>
+          <li {% if type=='option' %}class="active" {% endif %} ><a href="{{path('tent',{'type': 'option','ob':ob,'page':1,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')} )}}">Option</a></li>
+          <li {% if type=='free' %}class="active" {% endif %} ><a href="{{path('tent',{'type':'free','ob':ob,'page':1,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')})}}">Free</a></li>
           <li {% if type=='winter' %}class="active" {% endif %} ><a href="{{path('tent',{'type':'winter','ob':ob,'page':1})}}">Winter stock</a></li>
 
         </ul>
-        {% if type=="reserved" or type=="free" %}
+        {% if type=="reserved" or type=="free" or type=="option" %}
          {#<form action="{{path('tent',{'type': type,'ob':ob,'page':1} )}}" method="get"  class='form-inline'>
             <label>Between</label> <div id="startDate" name="startDate" class="input-append date">
             <input data-format="dd/MM/yyyy hh:mm:ss" type="text" value="{{startDate|date('d/m/Y H:i:s')}}" />
@@ -61,6 +66,7 @@
     <thead>
         <tr>
             <th>Reference</th>
+            <th>Category</th>
             <th>Name</th>
             
             <th>Kit</th>
@@ -74,6 +80,8 @@
             <th>Etat</th>
             {% if type=='reserved' %}
                 <th>Jobs</th>
+            {% endif %}
+             {% if type=='option' %}
                 <th>Offres</th>
             {% endif %}
             <th>PDF</th>
@@ -87,6 +95,7 @@
     {% for entity in entities %}
         <tr>
             <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
+            <td>{{ entity.productCategory }}</td>
             <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
             
             <td>{% if entity.kit %} Yes {% else %} No {% endif %}</td>
@@ -100,11 +109,15 @@
             <td>{{ entity.etat }}</td>
             {% if type=='reserved' %}
                 <td>{% for job in entity.Tents2Job %}
+                    
                     {% if job.jobid in jobs %}
                         <li>{{job.jobid}}</li>
                     {% endif %}
                 {% endfor %}</td>
+            {% endif %}
+            {% if type=='option' %}
                 <td>{% for offre in entity.Tents2Offre %}
+                   
                     {% if offre.offreid in offres %}
                         <li>{{offre.offreid}}</li>
                     {% endif %}
@@ -142,11 +155,11 @@
 <div class="row-fluid">
     <div class="pagination">
   <ul>
-    <li {% if page<=1 %} class="disabled" {% endif %} ><a href="{{path('tent',{'type': type,'ob':ob,'page':page-1} )}}" >Prev</a></li>
+    <li {% if page<=1 %} class="disabled" {% endif %} ><a href="{{path('tent',{'type': type,'ob':ob,'page':page-1,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')} )}}" >Prev</a></li>
     {% for p in 1..nbpages %}
-    <li {% if page==p %} class="active" {% endif %} ><a href="{{path('tent',{'type': type,'ob':ob,'page':p} )}}">{{p}}</a></li>
+    <li {% if page==p %} class="active" {% endif %} ><a href="{{path('tent',{'type': type,'ob':ob,'page':p,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')} )}}">{{p}}</a></li>
     {% endfor %}
-    <li {% if page>=nbpages %} class="disabled" {% endif %}><a href="{{path('tent',{'type': type,'ob':ob,'page':page+1} )}}">Next</a></li>
+    <li {% if page>=nbpages %} class="disabled" {% endif %}><a href="{{path('tent',{'type': type,'ob':ob,'page':page+1,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')} )}}">Next</a></li>
   </ul>
 </div>
 </div>

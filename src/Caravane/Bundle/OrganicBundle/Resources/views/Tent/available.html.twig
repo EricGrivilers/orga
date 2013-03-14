@@ -1,0 +1,92 @@
+
+
+<div class="row-fluid tableContainer">
+
+    <div class='content'>
+{% for tent in entity.tents2offre %}
+{{tent.tentid.reference}}
+
+{% endfor %}
+        <table class="table table-bordered table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th>Reference</th>
+                   
+                    <th>Name</th>
+                    
+                    <th>Kit</th>
+                    <th>Owner</th>
+                    <th>Color</th>
+                    <th>Length</th>
+                    <th>Width</th>
+                    <th>Area</th>
+
+
+                    <th>Etat</th>
+               
+                        <th>Jobs</th>
+                  
+                        <th>Offres</th>
+                   
+                 
+                    <th>Issue</th>
+
+                    
+                </tr>
+            </thead>
+
+            <tbody>
+                {% set offreEntity=entity %}
+            {% for entity in entities %}
+
+                <tr {% if entity in offreEntity.tents2offre  %} class="active success"  {% endif %}>
+                    <td>{% if offreEntity in entity.Tents2Offre %}-------{% endif %}<a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
+                   
+                    <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                    
+                    <td>{% if entity.kit %} Yes {% else %} No {% endif %}</td>
+                    <td>{% if entity.ownerid %}<a href="{{path('client',{'id':entity.ownerid.id})}}">{{ entity.ownerid.name }}</a>{% endif %}</td>
+                    <td>{{ entity.color }}</td>
+                    <td>{{ entity.length }}</td>
+                    <td>{{ entity.width }}</td>
+                    <td>{{ entity.m2 }}</td>
+
+
+                    <td>{{ entity.etat }}</td>
+                   
+                        <td>{% for job in entity.Tents2Job %}
+                           
+                            {% if job.jobid in jobs %}
+                                <li>{{job.jobid}}</li>
+                            {% endif %}
+                        {% endfor %}</td>
+                   
+                        <td>{% for offre in entity.Tents2Offre %}
+                           
+                            {% if offre.offreid in offres %}
+                                <li>{{offre.offreid}}</li>
+                            {% endif %}
+                        {% endfor %}</td>
+                   
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+
+
+        <div class="row-fluid">
+            <div class="pagination">
+                  <ul>
+                   
+                    {% for p in 1..nbpages %}
+                    <li {% if page==p %} class="active" {% endif %} ><a href="{{path('tent_get_available',{'type': type,'ob':ob,'page':p,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s'),'entityId':entityId,'categoryId':categoryId} )}}">{{p}}</a></li>
+                    {% endfor %}
+                    
+                  </ul>
+            </div>
+        </div>
+</div>
+
+</div>

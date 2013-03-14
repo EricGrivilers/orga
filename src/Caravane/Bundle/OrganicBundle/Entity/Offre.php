@@ -1345,4 +1345,9 @@ class Offre
     {
         return $this->plannings;
     }
+
+
+
+
+
 }

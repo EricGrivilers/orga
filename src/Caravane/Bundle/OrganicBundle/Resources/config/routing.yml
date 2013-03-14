@@ -8,7 +8,7 @@ CaravaneOrganicBundle_client:
 
 CaravaneOrganicBundle_tent:
     resource: "@CaravaneOrganicBundle/Resources/config/routing/tent.yml"
-    prefix:   /tent
+    prefix:   /stock
 
 CaravaneOrganicBundle_offre:
     resource: "@CaravaneOrganicBundle/Resources/config/routing/offre.yml"

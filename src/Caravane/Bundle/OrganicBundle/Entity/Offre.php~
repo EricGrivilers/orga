@@ -1312,4 +1312,42 @@ class Offre
     }
 
     
+
+    /**
+     * Add plannings
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Planning2offre $plannings
+     * @return Offre
+     */
+    public function addPlanning(\Caravane\Bundle\OrganicBundle\Entity\Planning2offre $plannings)
+    {
+        $this->plannings[] = $plannings;
+    
+        return $this;
+    }
+
+    /**
+     * Remove plannings
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Planning2offre $plannings
+     */
+    public function removePlanning(\Caravane\Bundle\OrganicBundle\Entity\Planning2offre $plannings)
+    {
+        $this->plannings->removeElement($plannings);
+    }
+
+    /**
+     * Get plannings
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPlannings()
+    {
+        return $this->plannings;
+    }
+
+
+
+
+
 }

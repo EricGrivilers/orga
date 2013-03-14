@@ -12,15 +12,15 @@ class Planning2offreType extends AbstractType
     {
         $builder
            // ->add('planningtype')
-            ->add('startdate','date',array(
+            ->add('startdate','datetime',array(
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
+                'format' => 'dd/MM/yyyy HH:mm:ss',
                 'attr' => array('class' => 'startDate')
 
             ))
-             ->add('enddate','date',array(
+             ->add('enddate','datetime',array(
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
+                'format' => 'dd/MM/yyyy HH:mm:ss',
                 'attr' => array('class' => 'endDate')
 
             ))
@@ -38,10 +38,10 @@ class Planning2offreType extends AbstractType
                 )
             ))
             */
-            ->add('etat')
+            //->add('etat')
             ->add('userid')
             //->add('jobid')
-            ->add('offreid')
+            //->add('offreid')
         ;
     }
 

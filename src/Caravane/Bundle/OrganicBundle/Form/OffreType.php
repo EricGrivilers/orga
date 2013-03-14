@@ -25,7 +25,12 @@ class OffreType extends AbstractType
                 "label"=>"Type",
                 'choices'=>array('sell'=>"Sell",'rent'=>"Rent",'winter'=>"Winter storage")
             ))
-            ->add('planningcomments')
+            ->add('planningcomments','ckeditor',array(
+                'label'=>"comments",
+                'attr'=>array(
+                    'class'=>'span12'
+                )
+            ))
             ->add('offrecomments','ckeditor',array(
                 'label'=>"comments",
                 'attr'=>array(
@@ -127,8 +132,11 @@ class OffreType extends AbstractType
             ))
             */
             ->add('copyid')
-            ->add('userid')
-            ->add('clientid',new ClientType())
+            ->add('userid','entity',array(
+                'label'=>"Account",
+                'class'=>'Caravane\Bundle\OrganicBundle\Entity\User'
+            ))
+            ->add('clientid',new ClientEmbededType())
         ;
         $builder->add('plannings', 'collection', array(
                 'type' => new Planning2offreType(),

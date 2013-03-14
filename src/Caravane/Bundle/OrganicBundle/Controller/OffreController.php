@@ -91,6 +91,7 @@ class OffreController extends Controller
     public function newFromClientAction($clientId)
     {
         $em = $this->getDoctrine()->getManager();
+        $productCategories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
         $entity = new Offre();
         $client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientId);
         $entity->setClientId($client);
@@ -99,6 +100,7 @@ class OffreController extends Controller
         return $this->render('CaravaneOrganicBundle:Offre:new.html.twig', array(
             'entity' => $entity,
             'edit_form'   => $form->createView(),
+            'productCategories' =>$productCategories
         ));
     }
 
@@ -109,12 +111,14 @@ class OffreController extends Controller
      */
     public function createAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $productCategories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
         $entity  = new Offre();
         $form = $this->createForm(new OffreType(), $entity);
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            
             $em->persist($entity);
             $em->flush();
 
@@ -124,6 +128,7 @@ class OffreController extends Controller
         return $this->render('CaravaneOrganicBundle:Offre:new.html.twig', array(
             'entity' => $entity,
             'edit_form'   => $form->createView(),
+            'productCategories' =>$productCategories
         ));
     }
 
@@ -134,7 +139,7 @@ class OffreController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $productCategories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
         $entity = $em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
 
         if (!$entity) {
@@ -148,6 +153,7 @@ class OffreController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'productCategories' =>$productCategories
         ));
     }
 
@@ -158,6 +164,7 @@ class OffreController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        $productCategories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
 
         $entity = $em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
 
@@ -180,6 +187,7 @@ class OffreController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'productCategories' =>$productCategories
         ));
     }
 

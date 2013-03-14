@@ -60,6 +60,9 @@ class OffreRepository extends EntityRepository
 		$dql.=" AND O.startbuild BETWEEN '".$startDate->format('Y-m-d H:i:s')."' AND '".$endDate->format('Y-m-d H:i:s')."' ";
 		$dql.=" OR O.endbuild BETWEEN '".$startDate->format('Y-m-d H:i:s')."' AND '".$endDate->format('Y-m-d H:i:s')."' ";
 		$dql.=" OR O.startbuild <= '".$startDate->format('Y-m-d H:i:s')."' AND O.endbuild >= '".$endDate->format('Y-m-d H:i:s')."' ";
+		
+		
+
 		$query = $this->getEntityManager()->createQuery($dql);
 		$offres=$query->getResult();
 		return $offres;

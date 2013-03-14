@@ -28,3 +28,12 @@ tent_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "CaravaneOrganicBundle:Tent:delete" }
     requirements: { _method: post }
+
+tent_get_available:
+    pattern: /get_available
+    defaults: { _controller: "CaravaneOrganicBundle:Tent:getAvailableFromRoute" }
+    requirements: { _method: get }
+    options:
+        expose: true
+
+

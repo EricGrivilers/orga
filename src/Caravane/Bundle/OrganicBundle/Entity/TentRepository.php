@@ -17,17 +17,20 @@ class TentRepository extends EntityRepository
 	private $page;
 
 
-	public function listAll($type=null,$ob=null,$page=1) {
+	public function listAll($type=null,$ob=null,$page=1,$startDate,$endDate,$jobs=null,$offres=null) {
 		$this->type=$type;
 		$this->ob=$ob;
 		$this->page=$page;
 
 
 		if($type=='free') {
-			return $this->getFree(true);
+			return $this->getFree(false,$startDate,$endDate,array('offre'=>true,'job'=>true,'offres'=>$offres,'jobs'=>$jobs,'page'=>$page));
 		}
 		if($type=='reserved') {
-			return $this->getFree(false);
+			return $this->getFree(true,$startDate,$endDate,array('offre'=>false,'job'=>true,'offres'=>$offres,'jobs'=>$jobs,'page'=>$page));
+		}
+		if($type=='option') {
+			return $this->getFree(true,$startDate,$endDate,array('offre'=>true,'job'=>false,'offres'=>$offres,'jobs'=>$jobs,'page'=>$page));
 		}
 		$dql = "SELECT T FROM CaravaneOrganicBundle:Tent T ";
 		$dql.=" WHERE T.public=1 ";
@@ -60,7 +63,16 @@ class TentRepository extends EntityRepository
 
 
 
-	public function getFree($free=true, \Datetime $startDate=null,\Datetime $endDate=null) {
+	public function getFree($in=true, \Datetime $startDate=null,\Datetime $endDate=null,$options=array('job'=>true,'offre'=>true,'jobs'=>null,'offres'=>null)) {
+		
+			if(isset($options['page'])) {
+				$page=$options['page'];
+			}
+			else {
+				$page=$this->page;
+			}
+			
+		
 		if(is_null($startDate) && is_null($endDate)) {
 			$startDate=new \Datetime();
 			$endDate=new \Datetime();
@@ -72,45 +84,70 @@ class TentRepository extends EntityRepository
 		$dql.=" WHERE T.public=1 ";
 
 		//if($jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAllBetweenDates($startDate,$endDate)) {
-		$jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAllBetweenDates($startDate,$endDate);
-		$offres=$em->getRepository('CaravaneOrganicBundle:Offre')->findAllBetweenDates($startDate,$endDate);
+		
+		
 			$usedTents=array();
-			foreach($jobs as $job) {
-				foreach($job->getTents2job() as $tent2job) {
-					if($tent2job->getTentid()) {
-						$usedTents[]=$tent2job->getTentid()->getId();
+			if(isset($options['exclude'])) {
+				$usedTents=$options['exclude'];
+			}
+			if($options['job']==true) {
+				
+				foreach($options['jobs'] as $job) {
+					foreach($job->getTents2job() as $tent2job) {
+						if($tent2job->getTentid()) {
+							$usedTents[]=$tent2job->getTentid()->getId();
+						}
+						
 					}
 					
 				}
-				
 			}
-			foreach($offres as $offre) {
-				foreach($offre->getTents2offre() as $tent2offre) {
-					if($tent2offre->getTentid()) {
-						$usedTents[]=$tent2offre->getTentid()->getId();
+			if($options['offre']==true) {
+				
+				foreach($options['offres'] as $offre) {
+					foreach($offre->getTents2offre() as $tent2offre) {
+						if($tent2offre->getTentid()) {
+							$usedTents[]=$tent2offre->getTentid()->getId();
+						}
+						
 					}
 					
 				}
-				
 			}
+			
 			$usedTents=array_unique($usedTents);
 			if($usedTents) {
-				if($free==true) {
-					$dql.=" AND T.id NOT IN (".implode(",",$usedTents).") ";
+				if($in==true) {
+					$dql.=" AND T.id IN (".implode(",",$usedTents).") ";
 				}
 				else {
-					$dql.=" AND T.id IN (".implode(",",$usedTents).") ";
+					
+					$dql.=" AND T.id NOT IN (".implode(",",$usedTents).") ";
 				}
 			}
 			
 			
+			if(isset($options['category'])) {
+				$dql.=" AND T.productCategory='".$options['category']->getId()."' ";
+			}
+			if(isset($options['ownerid'])) {
+				if($options['ownerid']==0) {
+					$dql.=" AND T.ownerid IS NULL ";
+				}
+				
+			}
 		//}
 		if($this->ob) {
 			$dql.=" ORDER BY T.".$this->ob." ";
 		}
-		$query = $this->getEntityManager()->createQuery($dql)
-                       ->setFirstResult(($this->page-1)*25)
+
+
+
+		$query = $this->getEntityManager()->createQuery($dql);
+		
+			$query->setFirstResult(($page-1)*25)
                        ->setMaxResults(25);
+       
 
 		$tents = new Paginator($query, $fetchJoinCollection = true);
 
