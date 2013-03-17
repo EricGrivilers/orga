@@ -25,7 +25,7 @@
                 <div>
                     <label>Date</label> <label><b>{{entity.insertDate|date('d/m/Y')}}</b></label>
                 </div>
-                
+
             </div>
             <div class="span4">
                {{ form_row(edit_form.offretype)}}
@@ -125,8 +125,8 @@
                 {{form_row(edit_form.zip)}}
                 {{form_row(edit_form.country)}}
                 {{form_row(edit_form.url)}}
-                
-                
+
+
             </div>
             <div class="span4">
                 {{form_row(edit_form.email)}}
@@ -137,10 +137,10 @@
 
             </div>
              <div class="span4">
-               
+
                 {{form_row(edit_form.offrecomments)}}
             </div>
-             
+
         </div>
     </div>
     <h4>Planning</h4>
@@ -181,23 +181,228 @@
     </div>
 
     <h4>Products</h4>
-    <div class='row-fluid' id="products">
-        <ul class="nav nav-tabs" id="myTab">
-            {% for category in productCategories %}
-                 <li {% if loop.index==1%} class='active' {% endif %}><a href="#cat{{category.id}}" data-toggle="tab" >{{category}}</a></li>
-            {% endfor %}
-        </ul>
-         
-        <div class="tab-content">
-            {% for category in productCategories %}
-           
-                 <div class="tab-pane {% if loop.index==1 %} active {% endif %}" id="cat{{category.id}}" >
-                    {% render "CaravaneOrganicBundle:Tent:getAvailable" with { 'entity':entity,'categoryId':category.id, 'startDate' : edit_form.plannings[1].vars.value.startDate ,'endDate': edit_form.plannings[3].vars.value.endDate} %}
-                 </div>
-            {% endfor %}
-          
-        </div>
+    <div class="row-fluid">
+          {{form_row(edit_form.tentscomments)}}
     </div>
+    <div class="row-fluid">
+
+        <table class="table table-bordered table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Product
+                    </th>
+                    <th>
+                        Price in &euro; VAT excl.
+                    </th>
+                    <th class="tiny"></th>
+                </tr>
+            </thead>
+            <tbody class="products" id="products"  data-prototype="{{('
+                        <td class="span9">'~form_widget(edit_form.products.vars.prototype.description)~'</td>
+                        <td class="span3">'~form_widget(edit_form.products.vars.prototype.price)~'</td>
+                        <td>'~form_widget(edit_form.products.vars.prototype.isoption)~'<a class="delete_new_row" ><i class="icon icon-trash"></i></a></td>
+                    ')|e}}">
+
+                {% for product in edit_form.products  %}
+
+                    {% if product.isoption.vars.data!=true %}
+                    <tr>
+                        <td class="span9">
+                            {{form_widget(product.description)}}
+                        </td>
+                        <td class="span3">
+                            {{form_widget(product.price)}}
+                        </td>
+                        <td>{{form_widget(product.isoption)}}<a class="delete_row" data-rel="{{entity.id}}" data-type="invoice" data-target="{{product.vars.value.id}}"><i class="icon icon-trash"></i></a></td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+
+
+            </tbody>
+             <tfoot>
+                <tr>
+                        <th class="right">
+
+                            <a id="add_product_link" class="add_product_link btn" data-isoption='0'>Add free row</a>
+                            <a href="#stockModal"  class="btn" data-toggle="modal" data-isoption='0'>Add from stock</a>
+                        </th>
+                        <th>
+
+                        </th>
+                        <th class="tiny"></th>
+                </tr>
+                    <tr>
+                        <th class="right">
+                            Total VAT excl.
+                        </th>
+                        <th>
+                            {% set total=0 %}
+                            {% for p in entity.products %}
+                                {% if p.isoption!=true %}
+                                    {% set total=total + p.price %}
+                                {% endif %}
+                            {% endfor %}
+                            {{total|number_format(2,',',' ')}}
+                        </th>
+                        <th class="tiny"></th>
+                </tr>
+
+
+                    <tr>
+                        <th class="right">
+                             {{form_widget(edit_form.pricetype)}}
+                        </th>
+                        <th>
+                            {% if entity.pricetype!='intra'%} {{(0.21*total)|number_format(2,',',' ')}} {% endif %}
+                        </th>
+                        <th class="tiny"></th>
+                    </tr>
+                    <tr>
+                        <th class="right">
+                            Total {% if entity.pricetype!='intra'%} VAT incl. {% endif %}
+                        </th>
+                        <th>
+                            {% if entity.pricetype=='intra'%}
+                                {{total|number_format(2,'.',' ')}}
+                            {% else %}
+                                {{(total+0.21*total)|number_format(2,'.',' ')}}
+                            {% endif %}
+                        </th>
+                        <th></th>
+                    </tr>
+
+            </tfoot>
+        </table>
+    </div>
+
+
+    <h4>Options</h4>
+    <div class="row-fluid">
+          {{form_row(edit_form.tentscomments)}}
+    </div>
+    <div class="row-fluid">
+
+        <table class="table table-bordered table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Product
+                    </th>
+                    <th>
+                        Price in &euro; VAT excl.
+                    </th>
+                    <th class="tiny"></th>
+                </tr>
+            </thead>
+            <tbody class="products" >
+
+                {% for product in edit_form.products  %}
+                       {% if product.isoption.vars.data==true %}
+                    <tr>
+                        <td class="span9">
+
+                            {{form_widget(product.description)}}
+                        </td>
+                        <td class="span3">
+                            {{form_widget(product.price)}}
+                        </td>
+                        <td>{{form_widget(product.isoption)}}<a class="delete_row" data-rel="{{entity.id}}" data-type="invoice" data-target="{{product.vars.value.id}}"><i class="icon icon-trash"></i></a></td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+
+
+            </tbody>
+             <tfoot>
+                <tr>
+                        <th class="right">
+
+                            <a id="add_option_link" class="add_product_link btn" data-isoption='1'>Add free row</a>
+                            <a href="#stockModal"  class="btn" data-toggle="modal" data-isoption='1'>Add from stock</a>
+                        </th>
+                        <th>
+
+                        </th>
+                        <th class="tiny"></th>
+                </tr>
+                    <tr>
+                        <th class="right">
+                            Total VAT excl.
+                        </th>
+                        <th>
+                            {% set total=0 %}
+                            {% for p in entity.products %}
+                                 {% if p.isoption==true %}
+                                    {% set total=total + p.price %}
+                                {% endif %}
+                            {% endfor %}
+                            {{total|number_format(2,',',' ')}}
+                        </th>
+                        <th class="tiny"></th>
+                </tr>
+
+
+                    <tr>
+                        <th class="right">
+                            {% if entity.pricetype!='intra'%} VAT {% endif %}
+                        </th>
+                        <th>
+                            {% if entity.pricetype!='intra'%} {{(0.21*total)|number_format(2,',',' ')}} {% endif %}
+                        </th>
+                        <th class="tiny"></th>
+                    </tr>
+                    <tr>
+                        <th class="right">
+                            Total {% if entity.pricetype!='intra'%} VAT incl. {% endif %}
+                        </th>
+                        <th>
+                            {% if entity.pricetype=='intra'%}
+                                {{total|number_format(2,'.',' ')}}
+                            {% else %}
+                                {{(total+0.21*total)|number_format(2,'.',' ')}}
+                            {% endif %}
+                        </th>
+                        <th></th>
+                    </tr>
+
+            </tfoot>
+        </table>
+    </div>
+
+<div id="stockModal" class="modal hide fade largeModal" tabindex="-1" role="dialog" aria-labelledby="stockModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Stock</h3>
+      </div>
+      <div class="modal-body">
+            <div class='row-fluid' id="products">
+                <ul class="nav nav-tabs" id="myTab">
+                    {% for category in productCategories %}
+                         <li {% if loop.index==1%} class='active' {% endif %}><a href="#cat{{category.id}}" data-toggle="tab" >{{category}}</a></li>
+                    {% endfor %}
+                </ul>
+
+                <div class="tab-content">
+                    {% for category in productCategories %}
+
+                         <div class="tab-pane {% if loop.index==1 %} active {% endif %}" id="cat{{category.id}}" >
+                            {% render "CaravaneOrganicBundle:Tent:getAvailable" with { 'entity':entity,'categoryId':category.id, 'startDate' : edit_form.plannings[1].vars.value.startDate ,'endDate': edit_form.plannings[3].vars.value.endDate} %}
+                         </div>
+                    {% endfor %}
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+
+
+      </div>
+</div>
+
+
+
+
 
 {#
     <div class="well">
@@ -249,6 +454,13 @@
         </div>
     </div>
 #}
+
+
+
+
+
+
+
     {{ form_widget(edit_form) }}
     <p>
         <button type="submit">Edit</button>

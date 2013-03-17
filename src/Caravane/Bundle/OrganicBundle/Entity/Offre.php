@@ -319,7 +319,7 @@ class Offre
      * @var \tents2offre
      *
      * @ORM\OneToMany(targetEntity="Tent2Offre", mappedBy="offreid")
-     * 
+     *
      */
     private $tents2offre;
 
@@ -327,9 +327,18 @@ class Offre
      * @var \tents2offre
      *
      * @ORM\OneTomany(targetEntity="Planning2offre",mappedBy="offreid")
-     * 
+     *
      */
     private $plannings;
+
+
+    /**
+     * @var \Client
+     *
+     * @ORM\OneTomany(targetEntity="Product2offre",mappedBy="offreid")
+     */
+
+    private $products;
 
 
     public function __toString() {
@@ -340,7 +349,7 @@ class Offre
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -356,14 +365,14 @@ class Offre
     public function setInsertdate($insertdate)
     {
         $this->insertdate = $insertdate;
-    
+
         return $this;
     }
 
     /**
      * Get insertdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertdate()
     {
@@ -379,14 +388,14 @@ class Offre
     public function setUpdatedate($updatedate)
     {
         $this->updatedate = $updatedate;
-    
+
         return $this;
     }
 
     /**
      * Get updatedate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedate()
     {
@@ -402,14 +411,14 @@ class Offre
     public function setReference($reference)
     {
         $this->reference = $reference;
-    
+
         return $this;
     }
 
     /**
      * Get reference
      *
-     * @return string 
+     * @return string
      */
     public function getReference()
     {
@@ -425,14 +434,14 @@ class Offre
     public function setOffretype($offretype)
     {
         $this->offretype = $offretype;
-    
+
         return $this;
     }
 
     /**
      * Get offretype
      *
-     * @return string 
+     * @return string
      */
     public function getOffretype()
     {
@@ -448,14 +457,14 @@ class Offre
     public function setPlanningcomments($planningcomments)
     {
         $this->planningcomments = $planningcomments;
-    
+
         return $this;
     }
 
     /**
      * Get planningcomments
      *
-     * @return string 
+     * @return string
      */
     public function getPlanningcomments()
     {
@@ -471,14 +480,14 @@ class Offre
     public function setOffrecomments($offrecomments)
     {
         $this->offrecomments = $offrecomments;
-    
+
         return $this;
     }
 
     /**
      * Get offrecomments
      *
-     * @return string 
+     * @return string
      */
     public function getOffrecomments()
     {
@@ -494,14 +503,14 @@ class Offre
     public function setSurface($surface)
     {
         $this->surface = $surface;
-    
+
         return $this;
     }
 
     /**
      * Get surface
      *
-     * @return string 
+     * @return string
      */
     public function getSurface()
     {
@@ -517,14 +526,14 @@ class Offre
     public function setStartbuild($startbuild)
     {
         $this->startbuild = $startbuild;
-    
+
         return $this;
     }
 
     /**
      * Get startbuild
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getStartbuild()
     {
@@ -540,14 +549,14 @@ class Offre
     public function setEndbuild($endbuild)
     {
         $this->endbuild = $endbuild;
-    
+
         return $this;
     }
 
     /**
      * Get endbuild
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getEndbuild()
     {
@@ -563,14 +572,14 @@ class Offre
     public function setRequestdate($requestdate)
     {
         $this->requestdate = $requestdate;
-    
+
         return $this;
     }
 
     /**
      * Get requestdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getRequestdate()
     {
@@ -586,14 +595,14 @@ class Offre
     public function setStatus($status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -609,14 +618,14 @@ class Offre
     public function setPricetype($pricetype)
     {
         $this->pricetype = $pricetype;
-    
+
         return $this;
     }
 
     /**
      * Get pricetype
      *
-     * @return string 
+     * @return string
      */
     public function getPricetype()
     {
@@ -632,14 +641,14 @@ class Offre
     public function setPrice($price)
     {
         $this->price = $price;
-    
+
         return $this;
     }
 
     /**
      * Get price
      *
-     * @return string 
+     * @return string
      */
     public function getPrice()
     {
@@ -655,14 +664,14 @@ class Offre
     public function setPricecomments($pricecomments)
     {
         $this->pricecomments = $pricecomments;
-    
+
         return $this;
     }
 
     /**
      * Get pricecomments
      *
-     * @return string 
+     * @return string
      */
     public function getPricecomments()
     {
@@ -678,14 +687,14 @@ class Offre
     public function setConditions($conditions)
     {
         $this->conditions = $conditions;
-    
+
         return $this;
     }
 
     /**
      * Get conditions
      *
-     * @return string 
+     * @return string
      */
     public function getConditions()
     {
@@ -701,14 +710,14 @@ class Offre
     public function setConditionsslices($conditionsslices)
     {
         $this->conditionsslices = $conditionsslices;
-    
+
         return $this;
     }
 
     /**
      * Get conditionsslices
      *
-     * @return string 
+     * @return string
      */
     public function getConditionsslices()
     {
@@ -724,14 +733,14 @@ class Offre
     public function setTents($tents)
     {
         $this->tents = $tents;
-    
+
         return $this;
     }
 
     /**
      * Get tents
      *
-     * @return string 
+     * @return string
      */
     public function getTents()
     {
@@ -747,14 +756,14 @@ class Offre
     public function setTentscomments($tentscomments)
     {
         $this->tentscomments = $tentscomments;
-    
+
         return $this;
     }
 
     /**
      * Get tentscomments
      *
-     * @return string 
+     * @return string
      */
     public function getTentscomments()
     {
@@ -770,14 +779,14 @@ class Offre
     public function setAddress($address)
     {
         $this->address = $address;
-    
+
         return $this;
     }
 
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -793,14 +802,14 @@ class Offre
     public function setNumber($number)
     {
         $this->number = $number;
-    
+
         return $this;
     }
 
     /**
      * Get number
      *
-     * @return string 
+     * @return string
      */
     public function getNumber()
     {
@@ -816,14 +825,14 @@ class Offre
     public function setZip($zip)
     {
         $this->zip = $zip;
-    
+
         return $this;
     }
 
     /**
      * Get zip
      *
-     * @return string 
+     * @return string
      */
     public function getZip()
     {
@@ -839,14 +848,14 @@ class Offre
     public function setCity($city)
     {
         $this->city = $city;
-    
+
         return $this;
     }
 
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -862,14 +871,14 @@ class Offre
     public function setCountry($country)
     {
         $this->country = $country;
-    
+
         return $this;
     }
 
     /**
      * Get country
      *
-     * @return string 
+     * @return string
      */
     public function getCountry()
     {
@@ -885,14 +894,14 @@ class Offre
     public function setContact($contact)
     {
         $this->contact = $contact;
-    
+
         return $this;
     }
 
     /**
      * Get contact
      *
-     * @return string 
+     * @return string
      */
     public function getContact()
     {
@@ -908,14 +917,14 @@ class Offre
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    
+
         return $this;
     }
 
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -931,14 +940,14 @@ class Offre
     public function setPhone2($phone2)
     {
         $this->phone2 = $phone2;
-    
+
         return $this;
     }
 
     /**
      * Get phone2
      *
-     * @return string 
+     * @return string
      */
     public function getPhone2()
     {
@@ -954,14 +963,14 @@ class Offre
     public function setMobile($mobile)
     {
         $this->mobile = $mobile;
-    
+
         return $this;
     }
 
     /**
      * Get mobile
      *
-     * @return string 
+     * @return string
      */
     public function getMobile()
     {
@@ -977,14 +986,14 @@ class Offre
     public function setFax($fax)
     {
         $this->fax = $fax;
-    
+
         return $this;
     }
 
     /**
      * Get fax
      *
-     * @return string 
+     * @return string
      */
     public function getFax()
     {
@@ -1000,14 +1009,14 @@ class Offre
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -1023,14 +1032,14 @@ class Offre
     public function setUrl($url)
     {
         $this->url = $url;
-    
+
         return $this;
     }
 
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
     public function getUrl()
     {
@@ -1046,14 +1055,14 @@ class Offre
     public function setComments($comments)
     {
         $this->comments = $comments;
-    
+
         return $this;
     }
 
     /**
      * Get comments
      *
-     * @return string 
+     * @return string
      */
     public function getComments()
     {
@@ -1069,14 +1078,14 @@ class Offre
     public function setIntrotext($introtext)
     {
         $this->introtext = $introtext;
-    
+
         return $this;
     }
 
     /**
      * Get introtext
      *
-     * @return string 
+     * @return string
      */
     public function getIntrotext()
     {
@@ -1092,14 +1101,14 @@ class Offre
     public function setIssue($issue)
     {
         $this->issue = $issue;
-    
+
         return $this;
     }
 
     /**
      * Get issue
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIssue()
     {
@@ -1115,14 +1124,14 @@ class Offre
     public function setDeleted($deleted)
     {
         $this->deleted = $deleted;
-    
+
         return $this;
     }
 
     /**
      * Get deleted
      *
-     * @return string 
+     * @return string
      */
     public function getDeleted()
     {
@@ -1138,14 +1147,14 @@ class Offre
     public function setPublic($public)
     {
         $this->public = $public;
-    
+
         return $this;
     }
 
     /**
      * Get public
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPublic()
     {
@@ -1161,14 +1170,14 @@ class Offre
     public function setLanguage($language)
     {
         $this->language = $language;
-    
+
         return $this;
     }
 
     /**
      * Get language
      *
-     * @return string 
+     * @return string
      */
     public function getLanguage()
     {
@@ -1184,14 +1193,14 @@ class Offre
     public function setCopyid($copyid)
     {
         $this->copyid = $copyid;
-    
+
         return $this;
     }
 
     /**
      * Get copyid
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getCopyid()
     {
@@ -1207,14 +1216,14 @@ class Offre
     public function setUserid(\Caravane\Bundle\OrganicBundle\Entity\User $userid = null)
     {
         $this->userid = $userid;
-    
+
         return $this;
     }
 
     /**
      * Get userid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\User 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\User
      */
     public function getUserid()
     {
@@ -1230,14 +1239,14 @@ class Offre
     public function setClientid(\Caravane\Bundle\OrganicBundle\Entity\Client $clientid = null)
     {
         $this->clientid = $clientid;
-    
+
         return $this;
     }
 
     /**
      * Get clientid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Client 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Client
      */
     public function getClientid()
     {
@@ -1250,10 +1259,10 @@ class Offre
     {
         $this->jobid = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
-    
 
-    
+
+
+
 
     /**
      * Set jobid
@@ -1264,14 +1273,14 @@ class Offre
     public function setJobid(\Caravane\Bundle\OrganicBundle\Entity\Job $jobid = null)
     {
         $this->jobid = $jobid;
-    
+
         return $this;
     }
 
     /**
      * Get jobid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Job 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Job
      */
     public function getJobid()
     {
@@ -1287,7 +1296,7 @@ class Offre
     public function addTents2offre(\Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre)
     {
         $this->tents2offre[] = $tents2offre;
-    
+
         return $this;
     }
 
@@ -1304,14 +1313,14 @@ class Offre
     /**
      * Get tents2offre
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTents2offre()
     {
         return $this->tents2offre;
     }
 
-    
+
 
     /**
      * Add plannings
@@ -1322,7 +1331,7 @@ class Offre
     public function addPlanning(\Caravane\Bundle\OrganicBundle\Entity\Planning2offre $plannings)
     {
         $this->plannings[] = $plannings;
-    
+
         return $this;
     }
 
@@ -1339,7 +1348,7 @@ class Offre
     /**
      * Get plannings
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPlannings()
     {
@@ -1350,4 +1359,37 @@ class Offre
 
 
 
+
+    /**
+     * Add products
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2offre $products
+     * @return Offre
+     */
+    public function addProduct(\Caravane\Bundle\OrganicBundle\Entity\Product2offre $products)
+    {
+        $this->products[] = $products;
+    
+        return $this;
+    }
+
+    /**
+     * Remove products
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2offre $products
+     */
+    public function removeProduct(\Caravane\Bundle\OrganicBundle\Entity\Product2offre $products)
+    {
+        $this->products->removeElement($products);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
 }

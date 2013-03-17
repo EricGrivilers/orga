@@ -24,7 +24,7 @@ class TentController extends Controller
         $em = $this->getDoctrine()->getManager();
 
 
-        
+
 
         $request=$this->get('request');
         if(!$type=$request->query->get('type')) {
@@ -37,8 +37,8 @@ class TentController extends Controller
             $page=1;
         }
 
-        
-        
+
+
         $jobs=array();
         $offres=array();
         $startDate=new \Datetime();
@@ -245,7 +245,7 @@ class TentController extends Controller
     public function getAvailableFromRouteAction() {
         $request=$this->get('request');
 
-        
+
         if($request->query->get('categoryId')) {
             $categoryId=$request->query->get('categoryId');
         }
@@ -266,7 +266,7 @@ class TentController extends Controller
 
         $request=$this->get('request');
 
-        
+
         if($request->query->get('categoryId')) {
             $categoryId=$request->query->get('categoryId');
         }
@@ -286,12 +286,12 @@ class TentController extends Controller
             $page=1;
         }
 
-       
+
         $exclude=array();
         foreach($entity->getTents2offre() as $prod) {
             $exclude[]=$prod->getTentid()->getId();
         }
-        
+
         $em = $this->getDoctrine()->getManager();
         $category=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->find($categoryId);
         $jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAllBetweenDates($startDate,$endDate);
@@ -299,7 +299,7 @@ class TentController extends Controller
         $options=array('ownerid'=>0,'job'=>true,'offre'=>false,'jobs'=>$jobs,'offres'=>$offres,'category'=>$category,'page'=>$page,'exclude'=>$exclude);
         $entities=$em->getRepository('CaravaneOrganicBundle:Tent')->getFree(false,$startDate,$endDate,$options);
         $nbpages=(Integer)(count($entities)/25)+1;
-       
+
         return $this->render('CaravaneOrganicBundle:Tent:available.html.twig', array(
             'entities'      => $entities,
             'offres'=>$offres,

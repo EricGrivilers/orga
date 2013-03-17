@@ -53,7 +53,7 @@ $('.reportrange').daterangepicker(
 );
 
 $(document).ready(function() {
-	initClient();
+    initClient();
     initProduct();
     initOffre();
     initSlice();
@@ -89,6 +89,26 @@ function initProduct() {
             link.closest('tr').remove();
         });
     });
+
+    $('.add_product_link').click(function(e) {
+         e.preventDefault();
+         target=$(this).closest('table').find('tbody');
+       /* if($(this).data('isoption')) {
+            target=$('tbody#options');
+        }
+        else (
+            target=$('tbody#products');
+        )*/
+        var prototype =$('table tbody#products').data('prototype');
+        var index=target.find(':input').length;
+        var newForm = prototype.replace(/__name__/g, index);
+         target.data('index', index + 1);
+         var $newFormLi = $('<tr></tr>').append(newForm);
+         target.append($newFormLi);
+         $('a.delete_new_row').click(function() {
+            $(this).closest('tr').remove();
+        });
+    });
 }
 
 
@@ -96,7 +116,7 @@ var collectionHolder = $('table tbody.products');
 
 // setup an "add a tag" link
 
-
+/*
 jQuery(document).ready(function() {
 
     // add the "add a tag" anchor and li to the tags ul
@@ -121,7 +141,7 @@ jQuery(document).ready(function() {
 function addProductForm(collectionHolder) {
 
     // Get the data-prototype explained earlier
-    var prototype = collectionHolder.data('prototype');
+    var prototype =$('table tbody#products').data('prototype');
 
     // get the new index
     var index = collectionHolder.data('index');
@@ -145,7 +165,7 @@ function addProductForm(collectionHolder) {
 
 }
 
-
+*/
 function initSlice() {
     $('.slice').change(function() {
         $(this).closest('tr').find('.price').val('');
@@ -166,11 +186,11 @@ function fillClient2invoice(clientid) {
     $.post(Routing.generate('client_get_data',{'id':clientid}),function(data) {
         data=$.parseJSON(data);
         $.each(data, function(i, item) {
-           
+
             $('#caravane_bundle_organicbundle_invoicetype_'+i).val(data[i]);
         });
 
-     /*  
+     /*
         $('#caravane_bundle_organicbundle_invoicetype_name').val(data.name);
         $('#caravane_bundle_organicbundle_invoicetype_lastname').val(data.lastname);
         $('#caravane_bundle_organicbundle_invoicetype_firstname').val(data.firstname);
@@ -190,10 +210,15 @@ function fillClient2invoice(clientid) {
 
 
 function initOffre() {
+    $('table.stock tbody tr, table.stock tbody a').click(function(e) {
+        e.stopPropagation();
+        alert($(this).data('productid'));
+    });
     $('#products .pagination a').click(function(e) {
         e.preventDefault();
         $(this).closest('.tab-pane').find('.tableContainer').load($(this).attr('href')+" .content",function(data) {
             initOffre();
         })
     });
+
 }

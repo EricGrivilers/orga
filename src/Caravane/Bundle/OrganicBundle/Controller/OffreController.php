@@ -23,7 +23,7 @@ class OffreController extends Controller
         $em = $this->getDoctrine()->getManager();
 
 
-        
+
 
         $request=$this->get('request');
         if(!$type=$request->query->get('type')) {
@@ -38,7 +38,7 @@ class OffreController extends Controller
 
         $entities=$em->getRepository('CaravaneOrganicBundle:Offre')->listAll($type,$ob,$page);
         $nbpages=(Integer)(count($entities)/25)+1;
-        
+
         return $this->render('CaravaneOrganicBundle:Offre:index.html.twig', array(
             'entities' => $entities,
             'type'=>$type,
@@ -118,7 +118,7 @@ class OffreController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            
+
             $em->persist($entity);
             $em->flush();
 
@@ -172,11 +172,29 @@ class OffreController extends Controller
             throw $this->createNotFoundException('Unable to find Offre entity.');
         }
 
+        $originalProducts = array();
+
+
+        foreach ($entity->getProducts() as $product) {
+            $originalProducts[] = $product;
+        }
+
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new OffreType(), $entity);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
+            $priceHt=0;
+            foreach($entity->getProducts() as $product) {
+                $product->setOffreid($entity);
+                $product->setUpdatedate(new \Datetime('now'));
+                if($product->getIsoption()==false) {
+                    $priceHt+=$product->getPrice();
+                }
+                $em->persist($product);
+            }
+            $entity->setPrice($priceHt);
+
             $em->persist($entity);
             $em->flush();
 

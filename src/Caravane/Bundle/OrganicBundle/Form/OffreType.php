@@ -64,7 +64,12 @@ class OffreType extends AbstractType
             ->add('conditions')
             ->add('conditionsslices')
             ->add('tents')
-            ->add('tentscomments')
+            ->add('tentscomments','ckeditor',array(
+                'label'=>"Additionnal comments",
+                'attr'=>array(
+                    'class'=>"span12"
+                )
+            ))
             ->add('address',"text",array(
                 "attr"=>array(
                     "class"=>"span12"
@@ -120,7 +125,12 @@ class OffreType extends AbstractType
                 )
             ))
             ->add('comments')
-            ->add('introtext')
+            ->add('introtext','ckeditor',array(
+                'label'=>"Quotre introducting text",
+                'attr'=>array(
+                    'class'=>"span12"
+                )
+            ))
             ->add('issue')
             ->add('deleted')
             ->add('public')
@@ -142,6 +152,15 @@ class OffreType extends AbstractType
                 'type' => new Planning2offreType(),
                 'allow_add'    => false,
                 'allow_delete' => false,
+                'by_reference' => false,
+                'data_class'=> null
+                )
+            );
+
+        $builder->add('products', 'collection', array(
+                'type' => new Product2OffreType(),
+                'allow_add'    => true,
+                'allow_delete' => true,
                 'by_reference' => false,
                 'data_class'=> null
                 )
