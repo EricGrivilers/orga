@@ -105,6 +105,9 @@ function initProduct() {
          target.data('index', index + 1);
          var $newFormLi = $('<tr></tr>').append(newForm);
          target.append($newFormLi);
+         target.find('input:hidden').val($(this).data('isoption'));
+
+         
          $('a.delete_new_row').click(function() {
             $(this).closest('tr').remove();
         });
@@ -114,58 +117,7 @@ function initProduct() {
 
 var collectionHolder = $('table tbody.products');
 
-// setup an "add a tag" link
 
-/*
-jQuery(document).ready(function() {
-
-    // add the "add a tag" anchor and li to the tags ul
-    //collectionHolder.append($newLinkLi);
-
-    // count the current form inputs we have (e.g. 2), use that as the new
-    // index when inserting a new item (e.g. 2)
-    collectionHolder.data('index', collectionHolder.find(':input').length);
-
-    $('#add_product_link').on('click', function(e) {
-
-        // prevent the link from creating a "#" on the URL
-        e.preventDefault();
-
-        // add a new tag form (see next code block)
-        addProductForm(collectionHolder);
-    });
-});
-
-
-
-function addProductForm(collectionHolder) {
-
-    // Get the data-prototype explained earlier
-    var prototype =$('table tbody#products').data('prototype');
-
-    // get the new index
-    var index = collectionHolder.data('index');
-
-    // Replace '__name__' in the prototype's HTML to
-    // instead be a number based on how many items we have
-    var newForm = prototype.replace(/__name__/g, index);
-
-    // increase the index with one for the next item
-    collectionHolder.data('index', index + 1);
-
-    // Display the form in the page in an li, before the "Add a tag" link li
-    var $newFormLi = $('<tr></tr>').append(newForm);
-
-    collectionHolder.append($newFormLi);
-
-    $('a.delete_new_row').click(function() {
-        $(this).closest('tr').remove();
-    });
-
-
-}
-
-*/
 function initSlice() {
     $('.slice').change(function() {
         $(this).closest('tr').find('.price').val('');
@@ -189,31 +141,57 @@ function fillClient2invoice(clientid) {
 
             $('#caravane_bundle_organicbundle_invoicetype_'+i).val(data[i]);
         });
-
-     /*
-        $('#caravane_bundle_organicbundle_invoicetype_name').val(data.name);
-        $('#caravane_bundle_organicbundle_invoicetype_lastname').val(data.lastname);
-        $('#caravane_bundle_organicbundle_invoicetype_firstname').val(data.firstname);
-        $('#caravane_bundle_organicbundle_invoicetype_clienttitle').val(data.clienttitle);
-        $('#caravane_bundle_organicbundle_invoicetype_clientype').val(data.clienttype);
-        $('#caravane_bundle_organicbundle_invoicetype_cietype').val(data.cietype);
-        $('#caravane_bundle_organicbundle_invoicetype_vat').val(data.vat);
-
-        $('#caravane_bundle_organicbundle_invoicetype_address').val(data.vat);
-        $('#caravane_bundle_organicbundle_invoicetype_vat').val(data.vat);
-        $('#caravane_bundle_organicbundle_invoicetype_vat').val(data.vat);
-        $('#caravane_bundle_organicbundle_invoicetype_vat').val(data.vat);
-        $('#caravane_bundle_organicbundle_invoicetype_vat').val(data.vat);
-        */
     })
 }
 
 
 function initOffre() {
-    $('table.stock tbody tr, table.stock tbody a').click(function(e) {
-        e.stopPropagation();
-        alert($(this).data('productid'));
+    $('.openStockModal').click(function() {
+        target=$(this).closest('table').find('.products');
+        $('#stockModal').modal('show');
+        $('table.stock tbody tr, table.stock tbody a').click(function(e) {
+            e.stopPropagation();
+            tentid=$(this).data('productid');
+            offreId=$(this).closest('.modal').data('target');
+             $.post(Routing.generate('offre_add_tent',{'id':offreId,'tentid':tentid}),function(data) {
+                //alert(data);
+                $('form').submit();
+            })
+        });
+
     });
+    $('#mainForm').submit(function() {
+        $('tbody.products tr').each(function() {
+            c=$(this).data('productid');
+           //  console.log('rr');
+            additionalDatas=$(this).find('.additionalData');
+            datas=new Object();
+            additionalDatas.each(function() {
+                //console.log('rr'+$(this).attr("data-attribute")+"//"+$(this).val()  );
+                //datas.push({$(this).attr("data-attribute"): $(this).val()});
+                if($(this).attr('type')=='checkbox') {
+                    //console.log('check');
+                    if($(this).is(':checked')) {
+                         //console.log('checked');
+                        datas[$(this).attr("data-attribute")]='1';
+                    }
+                    else {
+                        datas[$(this).attr("data-attribute")]='0';
+                    }
+                }
+                else {
+                    datas[$(this).attr("data-attribute")]=$(this).val();
+                }
+                
+            });
+            //console.log('c:'+c);
+            //console.log(JSON.stringify(datas));
+            $('#caravane_bundle_organicbundle_offretype_products_'+c+'_datas').val(JSON.stringify(datas));
+        });
+        
+        return true;
+    });
+   
     $('#products .pagination a').click(function(e) {
         e.preventDefault();
         $(this).closest('.tab-pane').find('.tableContainer').load($(this).attr('href')+" .content",function(data) {

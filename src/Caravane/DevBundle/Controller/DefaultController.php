@@ -2,6 +2,7 @@
 
 namespace Caravane\DevBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -55,6 +56,48 @@ class DefaultController extends Controller
         }
         $em->flush();
         return array();
+        
+    }
+
+
+     /**
+     * @Route("fill_product2offre")
+     * @Template()
+     */
+    public function fillProduct2offreAction() {
+        $em = $this -> getDoctrine() -> getEntityManager();
+        $tent2offre=$em->getRepository('CaravaneOrganicBundle:Tent2offre')->findAll();
+
+        foreach($tent2offre as $tent) {
+            if($offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($tent->getOffreid())) {
+                if($tent->getTentid()) {
+                    $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
+                    $product->setOffreid($offre);
+                    $product->setInsertdate(new \Datetime('now'));
+                    $product->setUpdatedate(new \Datetime('now'));  
+                    $product->setIsoption(false);
+                
+                    $product->setDescription($tent->getTentid()->getName()."(".$tent->getTentid()->getReference().")");
+                    $product->setTentid($tent->getTentid());
+                    $datas=array();
+                    $datas['etat']=$tent->getEtat();
+                    $datas['plancher']=$tent->getPlancher();
+                    $datas['surfaceplancher']=$tent->getSurfaceplancher();
+                    $datas['sol']=$tent->getSol();
+                    $datas['canalisation']=$tent->getCanalisation();
+                    $datas['other']=$tent->getOther();
+                    $product->setDatas(json_encode($datas));
+
+                    $product->setPrice(0);
+
+                    $em->persist($product);
+                }
+                
+                
+            }
+        }
+        $em->flush();
+        return new Response('ok');
         
     }
 }

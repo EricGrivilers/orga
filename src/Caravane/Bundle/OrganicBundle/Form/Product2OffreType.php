@@ -27,6 +27,7 @@ class Product2OffreType extends AbstractType
                 )
             ))
             ->add('isoption','hidden')
+            ->add('datas','hidden')
             //->add('invoiceid')
 
         ;

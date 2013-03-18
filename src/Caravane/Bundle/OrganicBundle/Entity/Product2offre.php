@@ -71,22 +71,15 @@ class Product2offre
     private $isoption;
 
     /**
-     * @var boolean
+     * @var string
      *
-     * @ORM\Column(name="isFromOffre", type="boolean", nullable=true)
+     * @ORM\Column(name="datas", type="text", nullable=true)
      */
-    private $isfromoffre;
+    private $datas;
+    
 
-    /**
-     * @var \Job
-     *
-     * @ORM\ManyToOne(targetEntity="Job")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="jobId", referencedColumnName="id")
-     * })
-     */
-    private $jobid;
-
+    private $datasAsObject;
+    
     /**
      * @var \Offre
      *
@@ -96,6 +89,16 @@ class Product2offre
      * })
      */
     private $offreid;
+
+     /**
+     * @var \Tent
+     *
+     * @ORM\ManyToOne(targetEntity="Tent")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tentId", referencedColumnName="id")
+     * })
+     */
+    private $tentid;
 
 
 
@@ -270,51 +273,7 @@ class Product2offre
         return $this->isoption;
     }
 
-    /**
-     * Set isfromoffre
-     *
-     * @param boolean $isfromoffre
-     * @return Product2offre
-     */
-    public function setIsfromoffre($isfromoffre)
-    {
-        $this->isfromoffre = $isfromoffre;
-
-        return $this;
-    }
-
-    /**
-     * Get isfromoffre
-     *
-     * @return boolean
-     */
-    public function getIsfromoffre()
-    {
-        return $this->isfromoffre;
-    }
-
-    /**
-     * Set jobid
-     *
-     * @param \Caravane\Bundle\OrganicBundle\Entity\Job $jobid
-     * @return Product2offre
-     */
-    public function setJobid(\Caravane\Bundle\OrganicBundle\Entity\Job $jobid = null)
-    {
-        $this->jobid = $jobid;
-
-        return $this;
-    }
-
-    /**
-     * Get jobid
-     *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Job
-     */
-    public function getJobid()
-    {
-        return $this->jobid;
-    }
+   
 
     /**
      * Set offreid
@@ -337,5 +296,58 @@ class Product2offre
     public function getOffreid()
     {
         return $this->offreid;
+    }
+
+    /**
+     * Set datas
+     *
+     * @param string $datas
+     * @return Product2offre
+     */
+    public function setDatas($datas)
+    {
+        $this->datas = $datas;
+    
+        return $this;
+    }
+
+    /**
+     * Get datas
+     *
+     * @return string 
+     */
+    public function getDatas()
+    {
+        
+        return $this->datas;
+    }
+
+    public function getDatasAsObject()
+    {
+        
+        return json_decode($this->datas);
+    }
+
+    /**
+     * Set tentid
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Tent $tentid
+     * @return Product2offre
+     */
+    public function setTentid(\Caravane\Bundle\OrganicBundle\Entity\Tent $tentid = null)
+    {
+        $this->tentid = $tentid;
+    
+        return $this;
+    }
+
+    /**
+     * Get tentid
+     *
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Tent 
+     */
+    public function getTentid()
+    {
+        return $this->tentid;
     }
 }

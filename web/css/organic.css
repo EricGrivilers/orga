@@ -4040,3 +4040,7 @@ a.red, .red { color:#e1001a; }
 .reportrange span { font-size:13px; }
 .reportrange span.static { color:#bbb; }
 form div.error .btn-group, form div.error select, form div.error textarea, form div.error input { border:1px solid red; }
+.largeModal {
+  width:800px;
+  margin-left:-400px;
+}

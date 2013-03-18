@@ -1359,4 +1359,37 @@ class Offre
 
 
 
+
+    /**
+     * Add products
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2offre $products
+     * @return Offre
+     */
+    public function addProduct(\Caravane\Bundle\OrganicBundle\Entity\Product2offre $products)
+    {
+        $this->products[] = $products;
+    
+        return $this;
+    }
+
+    /**
+     * Remove products
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2offre $products
+     */
+    public function removeProduct(\Caravane\Bundle\OrganicBundle\Entity\Product2offre $products)
+    {
+        $this->products->removeElement($products);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
 }

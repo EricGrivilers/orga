@@ -63,7 +63,7 @@ class OffreType extends AbstractType
             ))
             ->add('conditions')
             ->add('conditionsslices')
-            ->add('tents')
+          //  ->add('tents')
             ->add('tentscomments','ckeditor',array(
                 'label'=>"Additionnal comments",
                 'attr'=>array(
@@ -131,9 +131,9 @@ class OffreType extends AbstractType
                     'class'=>"span12"
                 )
             ))
-            ->add('issue')
-            ->add('deleted')
-            ->add('public')
+            //->add('issue')
+           // ->add('deleted')
+           // ->add('public')
            /*  ->add('language','choice',array(
                 "choices"=>array('en'=>'en','fr'=>'fr','nl'=>'nl'),
                 "attr"=>array(
@@ -141,7 +141,7 @@ class OffreType extends AbstractType
                 )
             ))
             */
-            ->add('copyid')
+         //   ->add('copyid')
             ->add('userid','entity',array(
                 'label'=>"Account",
                 'class'=>'Caravane\Bundle\OrganicBundle\Entity\User'

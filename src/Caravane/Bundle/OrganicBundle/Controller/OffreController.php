@@ -3,6 +3,7 @@
 namespace Caravane\Bundle\OrganicBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Caravane\Bundle\OrganicBundle\Entity\Offre;
@@ -239,5 +240,48 @@ class OffreController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+
+    public function removeProductAction($id,$productid) {
+        $em = $this->getDoctrine()->getManager();
+        $offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
+        $product=$em->getRepository('CaravaneOrganicBundle:Product2offre')->find($productid);
+        $offre->removeProduct($product);
+        $em->remove($product);
+        $em->persist($offre);
+        $em->flush();
+        return new Response('ok');
+    }
+
+    public function addStockProductAction($id,$tentid) {
+        $em = $this->getDoctrine()->getManager();
+        $offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
+        $tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($tentid);
+        if($tent) {
+            $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
+            $product->setOffreid($offre);
+            $product->setInsertdate(new \Datetime('now'));
+            $product->setUpdatedate(new \Datetime('now'));  
+            $product->setIsoption(false);
+                    
+            $product->setDescription($tent->getName()."(".$tent->getReference().")");
+            $product->setTentid($tent);
+            $datas=array();
+            //$datas['etat']=$tent->getEtat();
+            $datas['plancher']='0';
+            $datas['surfaceplancher']='';
+            $datas['sol']='';
+            $datas['canalisation']='0';
+            $datas['other']='';
+
+            $product->setDatas(json_encode($datas));
+            $product->setPrice(0);
+
+            $em->persist($product);
+            $em->persist($offre);
+            $em->flush();
+        }
+        
+        return new Response('ok');
     }
 }
