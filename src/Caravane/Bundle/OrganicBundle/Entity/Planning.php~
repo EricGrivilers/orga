@@ -84,7 +84,7 @@ class Planning
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -100,14 +100,14 @@ class Planning
     public function setPlanningtype($planningtype)
     {
         $this->planningtype = $planningtype;
-    
+
         return $this;
     }
 
     /**
      * Get planningtype
      *
-     * @return string 
+     * @return string
      */
     public function getPlanningtype()
     {
@@ -123,14 +123,14 @@ class Planning
     public function setStartdate($startdate)
     {
         $this->startdate = $startdate;
-    
+
         return $this;
     }
 
     /**
      * Get startdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getStartdate()
     {
@@ -146,14 +146,14 @@ class Planning
     public function setEnddate($enddate)
     {
         $this->enddate = $enddate;
-    
+
         return $this;
     }
 
     /**
      * Get enddate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getEnddate()
     {
@@ -169,14 +169,14 @@ class Planning
     public function setEtat($etat)
     {
         $this->etat = $etat;
-    
+
         return $this;
     }
 
     /**
      * Get etat
      *
-     * @return string 
+     * @return string
      */
     public function getEtat()
     {
@@ -186,20 +186,20 @@ class Planning
     /**
      * Set userid
      *
-     * @param \Caravane\Bundle\OrganicBundle\Entity\User $userid
+     * @param \Caravane\UserBundle\Entity\User $userid
      * @return Planning
      */
-    public function setUserid(\Caravane\Bundle\OrganicBundle\Entity\User $userid = null)
+    public function setUserid(\Caravane\UserBundle\Entity\User $userid = null)
     {
         $this->userid = $userid;
-    
+
         return $this;
     }
 
     /**
      * Get userid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\User 
+     * @return \Caravane\UserBundle\Entity\User
      */
     public function getUserid()
     {
@@ -215,14 +215,14 @@ class Planning
     public function setJobid(\Caravane\Bundle\OrganicBundle\Entity\Job $jobid = null)
     {
         $this->jobid = $jobid;
-    
+
         return $this;
     }
 
     /**
      * Get jobid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Job 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Job
      */
     public function getJobid()
     {
@@ -238,14 +238,14 @@ class Planning
     public function setOffreid(\Caravane\Bundle\OrganicBundle\Entity\Offre $offreid = null)
     {
         $this->offreid = $offreid;
-    
+
         return $this;
     }
 
     /**
      * Get offreid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Offre 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Offre
      */
     public function getOffreid()
     {

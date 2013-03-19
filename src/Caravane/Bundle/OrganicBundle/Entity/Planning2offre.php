@@ -11,7 +11,7 @@ use \Caravane\Bundle\OrganicBundle\Entity\Planning;
  * @ORM\Table(name="planning2offre")
  * @ORM\Entity
  */
-class Planning2offre 
+class Planning2offre
 {
     /**
      * @var integer
@@ -53,7 +53,7 @@ class Planning2offre
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="userId", referencedColumnName="id")
      * })
@@ -64,7 +64,7 @@ class Planning2offre
     /**
      * @var \Offre
      *
-     * @ORM\ManyToOne(targetEntity="Offre")
+     * @ORM\ManyToOne(targetEntity="Offre", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="offreId", referencedColumnName="id")
      * })
@@ -72,7 +72,9 @@ class Planning2offre
     private $offreid;
 
 
-
+    public function __toString() {
+        return $this->planningtype;
+    }
     /**
      * Get planningid
      *
@@ -178,10 +180,10 @@ class Planning2offre
     /**
      * Set userid
      *
-     * @param \Caravane\Bundle\OrganicBundle\Entity\User $userid
+     * @param \Caravane\UserBundle\Entity\User $userid
      * @return Planning2offre
      */
-    public function setUserid(\Caravane\Bundle\OrganicBundle\Entity\User $userid = null)
+    public function setUserid(\Caravane\UserBundle\Entity\User $userid = null)
     {
         $this->userid = $userid;
 
@@ -191,14 +193,14 @@ class Planning2offre
     /**
      * Get userid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\User
+     * @return \Caravane\UserBundle\Entity\User
      */
     public function getUserid()
     {
         return $this->userid;
     }
 
-  
+
 
     /**
      * Set offreid

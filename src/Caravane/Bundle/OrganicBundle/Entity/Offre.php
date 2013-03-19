@@ -285,7 +285,7 @@ class Offre
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="userId", referencedColumnName="id")
      * })
@@ -306,7 +306,7 @@ class Offre
     /**
      * @var \Job
      *
-     * @ORM\OneToOne(targetEntity="Job", inversedBy="offreid")
+     * @ORM\OneToOne(targetEntity="Job")
      * @ORM\JoinColumn(name="jobId", referencedColumnName="id")
      */
     private $jobid;
@@ -320,7 +320,7 @@ class Offre
      */
     private $tents2offre;
 
-   
+
 
     /**
      * @var \tents2offre
@@ -332,17 +332,17 @@ class Offre
 
 
     /**
-     * @var \Client
+     * @var \Products
      *
-     * @ORM\OneTomany(targetEntity="Product2offre",mappedBy="offreid")
+     * @ORM\OneToMany(targetEntity="Product2offre",mappedBy="offreid")
      */
 
     private $products;
 
      /**
-     * @var \Client
+     * @var \SLices
      *
-     * @ORM\OneTomany(targetEntity="Slice2offre",mappedBy="offreid")
+     * @ORM\OneToMany(targetEntity="Slice2offre",mappedBy="offreid")
      */
 
     private $slices;
@@ -1224,10 +1224,10 @@ class Offre
     /**
      * Set userid
      *
-     * @param \Caravane\Bundle\OrganicBundle\Entity\User $userid
+     * @param \Caravane\UserBundle\Entity\User $userid
      * @return Offre
      */
-    public function setUserid(\Caravane\Bundle\OrganicBundle\Entity\User $userid = null)
+    public function setUserid(\Caravane\UserBundle\Entity\User $userid = null)
     {
         $this->userid = $userid;
 
@@ -1237,7 +1237,7 @@ class Offre
     /**
      * Get userid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\User
+     * @return \Caravane\UserBundle\Entity\User
      */
     public function getUserid()
     {
@@ -1266,14 +1266,6 @@ class Offre
     {
         return $this->clientid;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->jobid = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
 
 
 
@@ -1284,7 +1276,7 @@ class Offre
      * @param \Caravane\Bundle\OrganicBundle\Entity\Job $jobid
      * @return Offre
      */
-    public function setJobid(\Caravane\Bundle\OrganicBundle\Entity\Job $jobid = null)
+    public function setJobid(\Caravane\Bundle\OrganicBundle\Entity\Job $jobid)
     {
         $this->jobid = $jobid;
 
@@ -1383,7 +1375,7 @@ class Offre
     public function addProduct(\Caravane\Bundle\OrganicBundle\Entity\Product2offre $products)
     {
         $this->products[] = $products;
-    
+
         return $this;
     }
 
@@ -1400,14 +1392,14 @@ class Offre
     /**
      * Get products
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProducts()
     {
         return $this->products;
     }
 
-   
+
 
     /**
      * Add slices
@@ -1418,7 +1410,7 @@ class Offre
     public function addSlice(\Caravane\Bundle\OrganicBundle\Entity\Slice2offre $slices)
     {
         $this->slices[] = $slices;
-    
+
         return $this;
     }
 
@@ -1435,7 +1427,7 @@ class Offre
     /**
      * Get slices
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSlices()
     {
@@ -1448,12 +1440,12 @@ class Offre
     }
     public function getTotalSlice() {
         $this->totalSlice=0;
-        
+
             foreach($this->slices as $slice) {
                 $this->totalSlice+=$slice->getSlice();
             }
-       
-        
+
+
         return $this->totalSlice;
     }
 
@@ -1470,5 +1462,16 @@ class Offre
     }
 
 
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tents2offre = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->plannings = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->slices = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 }

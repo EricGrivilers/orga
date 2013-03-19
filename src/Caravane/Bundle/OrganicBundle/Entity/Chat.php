@@ -45,7 +45,7 @@ class Chat
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="userId", referencedColumnName="id")
      * })
@@ -57,7 +57,7 @@ class Chat
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -73,14 +73,14 @@ class Chat
     public function setMessagedate($messagedate)
     {
         $this->messagedate = $messagedate;
-    
+
         return $this;
     }
 
     /**
      * Get messagedate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getMessagedate()
     {
@@ -96,14 +96,14 @@ class Chat
     public function setMessagetype($messagetype)
     {
         $this->messagetype = $messagetype;
-    
+
         return $this;
     }
 
     /**
      * Get messagetype
      *
-     * @return string 
+     * @return string
      */
     public function getMessagetype()
     {
@@ -119,14 +119,14 @@ class Chat
     public function setMessage($message)
     {
         $this->message = $message;
-    
+
         return $this;
     }
 
     /**
      * Get message
      *
-     * @return string 
+     * @return string
      */
     public function getMessage()
     {
@@ -136,20 +136,20 @@ class Chat
     /**
      * Set userid
      *
-     * @param \Caravane\Bundle\OrganicBundle\Entity\User $userid
+     * @param \Caravane\UserBundle\Entity\User $userid
      * @return Chat
      */
-    public function setUserid(\Caravane\Bundle\OrganicBundle\Entity\User $userid = null)
+    public function setUserid(\Caravane\UserBundle\Entity\User $userid = null)
     {
         $this->userid = $userid;
-    
+
         return $this;
     }
 
     /**
      * Get userid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\User 
+     * @return \Caravane\UserBundle\Entity\User
      */
     public function getUserid()
     {

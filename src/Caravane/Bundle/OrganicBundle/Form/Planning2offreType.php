@@ -15,13 +15,13 @@ class Planning2offreType extends AbstractType
             ->add('startdate','datetime',array(
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy HH:mm:ss',
-                'attr' => array('class' => 'startDate')
+                'attr' => array('class' => 'startDate span12')
 
             ))
              ->add('enddate','datetime',array(
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy HH:mm:ss',
-                'attr' => array('class' => 'endDate')
+                'attr' => array('class' => 'endDate span12')
 
             ))
             //->add('enddate')
@@ -38,8 +38,18 @@ class Planning2offreType extends AbstractType
                 )
             ))
             */
-            //->add('etat')
-            ->add('userid')
+            ->add('etat','choice',array(
+                'choices'=>array('TO DO','OK'),
+                'attr'=>array(
+                    'class'=>'span12'
+                    )
+            ))
+            ->add('userid','entity',array(
+                'class'=>'Caravane\UserBundle\Entity\User',
+                'attr'=>array(
+                    'class'=>'span12'
+                )
+            ))
             //->add('jobid')
             //->add('offreid')
         ;

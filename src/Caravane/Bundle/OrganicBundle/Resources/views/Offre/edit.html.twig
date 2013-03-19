@@ -8,6 +8,10 @@
 {% block form_header %}
 <form id='mainForm' action="{{ path('offre_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
 {% endblock form_header %}
+
+{% if form_errors(edit_form) %}
+{{ form_errors(edit_form) }}
+{% endif %}
  <div class="row-fluid">
         <div class="actions">
             <button type="submit" class="btn btn-inverse">Save</button>
@@ -32,6 +36,7 @@
                {{ form_row(edit_form.userid)}}
             </div>
             <div class="span4">
+                {#% if entity.jobid %}{{entity.jobid.reference}}{% endif %#}
                {{ form_row(edit_form.status)}}
 
             </div>
@@ -65,7 +70,7 @@
                 {{form_row(edit_form.clientid.language)}}
             </div>
          </div>
-        <div class="row-fluid" id="cieonly">
+        <div class="row-fluid" id="cieonly" {% if entity.clientid.clienttype!='cie' %} style='display:none' {% endif %}>
             <div class="span4">
                 {{form_row(edit_form.clientid.name)}}
 
@@ -167,6 +172,8 @@
                         </th>
                         <th>In charge
                         </th>
+                        <th>Status
+                        </th>
                     </tr>
                 </thead>
                 <tbody >
@@ -181,6 +188,7 @@
         </div>
         {#{dump(planning)}#}</td>
                         <td>{{form_widget(planning.userid)}}</td>
+                        <td>{{form_widget(planning.etat)}}</td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -223,7 +231,7 @@
                 {% for product in edit_form.products  %}
 
                     {% if product.isoption.vars.data!=true %}
-                    
+
                     <tr data-productid="{{c}}" >
                         <td class="span9">
                             {{form_widget(product.description)}}
@@ -238,11 +246,11 @@
                                             <br/>Owner <b>{{product.vars.value.tentid.ownerid.name}}</b>
                                         {% endif %}
                                         <br/>Width: <b>{{product.vars.value.tentid.width}}</b> m x length: <b>{{product.vars.value.tentid.length}}</b> m ( <b>{{product.vars.value.tentid.m2}}</b> m2)
-                                        
+
                                     </div>
-                                    
+
                                         <div class="span4">
-                                          
+
                                             Floor <input class="additionalData" type='checkbox' data-attribute="plancher" value='1' {% if product.vars.value.datasAsObject.plancher %} checked="checked"  {% endif %} />
                                               area <input data-attribute="surfaceplancher"  type='text' value="{{product.vars.value.datasAsObject.surfaceplancher}}" class="span10 additionalData"  />
                                        <br/>
@@ -253,10 +261,10 @@
                                         <div class="span4">
                                             Other<br/> <textarea data-attribute="other" class="span12 additionalData">{{product.vars.value.datasAsObject.other}}</textarea>
                                         </div>
-                                    
+
                                 </div>
-                               
-                               
+
+
                                {% endif %}
                             {% endif %}
                             {{form_widget(product.datas)}}
@@ -440,7 +448,7 @@
                         <tr>
                             <th class="span9">Description</th>
                             <th class="span1">Slice</th>
-                            
+
                             <th class='span1'>Amount in &euro;</th>
                             <th class='iiny'></th>
                         </tr>
@@ -456,13 +464,13 @@
                         <tr {% if slice.vars.value.slice>100 or slice.vars.value.slice<=0 %} class="error" {% endif %} >
                             <td>{{form_widget(slice.comments)}}</td>
                             <td>{{form_widget(slice.slice)}}%</td>
-                            
+
                             <td>{{form_widget(slice.priceht)}}<br/>
                              </td>
                              <td><a class="delete_row" data-rel="{{entity.id}}" data-type="offre_slice" data-target="{{slice.vars.value.id}}"><i class="icon icon-trash"></i></a></td>
                         </tr>
                         {% endfor %}
-                        
+
                     </tbody>
                      <tfoot>
                 <tr {% if entity.totalSlice!=100 or entity.totalSlicePriceht!=entity.price %} class="error" {% endif %}>
@@ -553,7 +561,7 @@
 
 
     {{ form_widget(edit_form) }}
-   
+
      <div class="row-fluid">
         <div class="actions">
             <button type="submit" class="btn btn-inverse">Save</button>

@@ -158,12 +158,12 @@ class OffreType extends AbstractType
             */
          //   ->add('copyid')
             ->add('userid','entity',array(
+                'required' => false,
                 'label'=>"Account",
-                'class'=>'Caravane\Bundle\OrganicBundle\Entity\User'
+
+                'class'=>'Caravane\UserBundle\Entity\User'
             ))
-            ->add('clientid',new ClientEmbededType(),array(
-               
-            ))
+            ->add('clientid',new ClientEmbededType())
         ;
 
 

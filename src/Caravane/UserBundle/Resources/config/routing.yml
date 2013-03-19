@@ -1,3 +1,4 @@
-CaravaneUserBundle_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: CaravaneUserBundle:Default:index }
+caravane_user_user:
+    resource: "@CaravaneUserBundle/Resources/config/routing/user.yml"
+    prefix:   /user
+

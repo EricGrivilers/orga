@@ -86,6 +86,7 @@ class OffreController extends Controller
 
         $entity = new Offre();
         $slice=new \Caravane\Bundle\OrganicBundle\Entity\Slice2offre();
+        $slice->setComments('');
         $entity->addSlice($slice);
 
 
@@ -94,13 +95,16 @@ class OffreController extends Controller
             $planning->setPlanningtype($planningType);
             $planning->setStartdate(new \Datetime('now'));
             $planning->setEnddate(new \Datetime('now'));
+            $planning->setEtat('TO DO');
             $entity->addPlanning($planning);
         }
-
+        $client=new \Caravane\Bundle\organicBundle\Entity\Client();
         if($clientId=$this->get('request')->query->get('clientId')) {
-            $client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientId);
-            $entity->setClientid($client);
+            if(!$client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientId)) {
+                $client=new \Caravane\Bundle\organicBundle\Entity\Client();
+            }
         }
+        $entity->setClientid($client);
         $form   = $this->createForm(new OffreType(), $entity);
 
         return $this->render('CaravaneOrganicBundle:Offre:new.html.twig', array(
@@ -110,7 +114,7 @@ class OffreController extends Controller
         ));
     }
 
-   
+
 
 
     /**
@@ -122,22 +126,81 @@ class OffreController extends Controller
         $em = $this->getDoctrine()->getManager();
         $productCategories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
         $entity  = new Offre();
+        if($clientId=$this->get('request')->request->get('clientId')) {
+            $client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientId);
+            $entity->setClientid($client);
+        }
+        else {
+            $client=$entity->getClientid();
+        }
 
-        
         $form = $this->createForm(new OffreType(), $entity);
         $form->bind($request);
-echo "<pre>";
-print_r($entity);
-echo "</pre>";
 
+        $issue=0;
         if ($form->isValid()) {
+            $iso="TMP";
 
+            if($this->get('security.context')->isGranted('ROLE_USER', $this->getUser())) {
+                $iso=$this->getUser()->getIso();
+            }
+            $entity->setLanguage($entity->getClientid()->getLanguage());
+            $entity->setReference(date('Ym')."-".$entity->getId()."-O-".$iso);
+            $entity->setInsertdate(new \Datetime('now'));
+            $entity->setUpdatedate(new \Datetime('now'));
+            $em->persist($client);
+            $entity->setClientid($client);
+            foreach($entity->getPlannings() as $planning) {
+                $planning->setOffreid($entity);
+                $em->persist($planning);
+            }
+
+            $priceHt=0;
+            foreach($entity->getProducts() as $product) {
+                $product->setOffreid($entity);
+                $product->setUpdatedate(new \Datetime('now'));
+                if($product->getIsoption()==false) {
+                    $priceHt+=$product->getPrice();
+                }
+                $em->persist($product);
+            }
+            $entity->setPrice($priceHt);
+            $totalSlice=0;
+            $totalSlicePriceHt=0;
+             foreach($entity->getSlices() as $slice) {
+                $slice->setOffreid($entity);
+                if($slice->getSlice()==0 && $slice->getPriceht()>0) {
+                    $slice->setSlice((100*$slice->getPriceht())/$entity->getPrice());
+                }
+                else if($slice->getSlice()>0 && $slice->getPriceht()==0) {
+                    $slice->setPriceht(($slice->getSlice()*$entity->getPrice())/100);
+                }
+                //$totalSlice+=$slice->getSlice();
+                //$totalSlicePriceHt+=$slice->getPriceht();
+                $em->persist($slice);
+            }
+            //$entity->setTotalSlice($totalSlice);
+            //$entity->setTotalSlicePriceht($totalSlicePriceHt);
+            if($entity->getTotalSlicePriceht()!=$entity->getPrice() || $entity->getTotalSlice()!=100 ) {
+                $issue++;
+            }
+
+            $entity->setIssue($issue);
+
+
+
+
+            $em->persist($entity);
+            $entity->setReference(date('Ym')."-".$entity->getId()."-O".strtoupper(substr($entity->getOffretype(),0,1))."-".$this->getUser()->getIso());
             $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('offre_edit', array('id' => $entity->getId())));
         }
-
+        else {
+           // print_r($form->getErrors());
+            print_r($form->getErrorsAsString()) ;
+        }
         //return new Response('nok');
         return $this->render('CaravaneOrganicBundle:Offre:new.html.twig', array(
             'entity' => $entity,
@@ -306,9 +369,9 @@ echo "</pre>";
             $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
             $product->setOffreid($offre);
             $product->setInsertdate(new \Datetime('now'));
-            $product->setUpdatedate(new \Datetime('now'));  
+            $product->setUpdatedate(new \Datetime('now'));
             $product->setIsoption(false);
-                    
+
             $product->setDescription($tent->getName()."(".$tent->getReference().")");
             $product->setTentid($tent);
             $datas=array();
@@ -326,7 +389,7 @@ echo "</pre>";
             $em->persist($offre);
             $em->flush();
         }
-        
+
         return new Response('ok');
     }
 }

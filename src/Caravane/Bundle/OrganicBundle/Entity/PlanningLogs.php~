@@ -256,10 +256,10 @@ class PlanningLogs
     /**
      * Set userid
      *
-     * @param \Caravane\Bundle\OrganicBundle\Entity\User $userid
+     * @param \Caravane\UserBundle\Entity\User $userid
      * @return PlanningLogs
      */
-    public function setUserid(\Caravane\Bundle\OrganicBundle\Entity\User $userid = null)
+    public function setUserid(\Caravane\UserBundle\Entity\User $userid = null)
     {
         $this->userid = $userid;
 
@@ -269,7 +269,7 @@ class PlanningLogs
     /**
      * Get userid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\User
+     * @return \Caravane\UserBundle\Entity\User
      */
     public function getUserid()
     {

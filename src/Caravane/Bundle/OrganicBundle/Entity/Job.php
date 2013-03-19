@@ -290,7 +290,7 @@ class Job
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="userId", referencedColumnName="id")
      * })
@@ -298,11 +298,6 @@ class Job
     private $userid;
 
 
-    /**
-    * @var \Offre
-    * @ORM\OneToOne(targetEntity="Offre", mappedBy="jobid")
-     */
-    private $offreid;
 
     /**
      * @var \Client
@@ -318,7 +313,7 @@ class Job
      * @var \Invoice
      *
      * @ORM\OneToMany(targetEntity="Invoice", mappedBy="jobid")
-     * 
+     *
      */
     private $invoiceid;
 
@@ -335,11 +330,11 @@ class Job
      * @var \tents2job
      *
      * @ORM\OneToMany(targetEntity="Tent2Job", mappedBy="jobid")
-     * 
+     *
      */
     private $tents2job;
 
-    
+
     /**
      * @var \Client
      *
@@ -353,7 +348,7 @@ class Job
      * @var \slices
      *
      * @ORM\OneToMany(targetEntity="Slice2Job", mappedBy="jobid")
-     * 
+     *
      */
     private $slices;
 
@@ -1249,10 +1244,10 @@ class Job
     /**
      * Set userid
      *
-     * @param \Caravane\Bundle\OrganicBundle\Entity\User $userid
+     * @param \Caravane\UserBundle\Entity\User $userid
      * @return Job
      */
-    public function setUserid(\Caravane\Bundle\OrganicBundle\Entity\User $userid = null)
+    public function setUserid(\Caravane\UserBundle\Entity\User $userid = null)
     {
         $this->userid = $userid;
 
@@ -1262,14 +1257,14 @@ class Job
     /**
      * Get userid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\User
+     * @return \Caravane\UserBundle\Entity\User
      */
     public function getUserid()
     {
         return $this->userid;
     }
 
-    
+
 
     /**
      * Set clientid
@@ -1334,28 +1329,7 @@ class Job
         return $this->invoiceid;
     }
 
-    /**
-     * Set offreid
-     *
-     * @param \Caravane\Bundle\OrganicBundle\Entity\Offre $offreid
-     * @return Job
-     */
-    public function setOffreid(\Caravane\Bundle\OrganicBundle\Entity\Offre $offreid = null)
-    {
-        $this->offreid = $offreid;
-    
-        return $this;
-    }
 
-    /**
-     * Get offreid
-     *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Offre 
-     */
-    public function getOffreid()
-    {
-        return $this->offreid;
-    }
 
     /**
      * Set toffreid
@@ -1366,14 +1340,14 @@ class Job
     public function setToffreid($toffreid)
     {
         $this->toffreid = $toffreid;
-    
+
         return $this;
     }
 
     /**
      * Get toffreid
      *
-     * @return integer 
+     * @return integer
      */
     public function getToffreid()
     {
@@ -1389,7 +1363,7 @@ class Job
     public function addTents2job(\Caravane\Bundle\OrganicBundle\Entity\Tent2Job $tents2job)
     {
         $this->tents2job[] = $tents2job;
-    
+
         return $this;
     }
 
@@ -1406,7 +1380,7 @@ class Job
     /**
      * Get tents2job
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTents2job()
     {
@@ -1422,7 +1396,7 @@ class Job
     public function addSlice(\Caravane\Bundle\OrganicBundle\Entity\Slice2Job $slices)
     {
         $this->slices[] = $slices;
-    
+
         return $this;
     }
 
@@ -1439,7 +1413,7 @@ class Job
     /**
      * Get slices
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSlices()
     {
@@ -1456,7 +1430,7 @@ class Job
     public function addProduct(\Caravane\Bundle\OrganicBundle\Entity\Product2job $products)
     {
         $this->products[] = $products;
-    
+
         return $this;
     }
 
@@ -1473,7 +1447,7 @@ class Job
     /**
      * Get products
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProducts()
     {

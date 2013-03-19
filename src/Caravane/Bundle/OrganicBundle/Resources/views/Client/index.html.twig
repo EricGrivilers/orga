@@ -29,7 +29,7 @@
 <table class="table table-bordered table-condensed table-striped">
     <thead>
         <tr>
-           
+
             <th>Reference</th>
             <th>Type</th>
 
@@ -40,9 +40,9 @@
             <th>Vat</th>
 
             <th>Tents</th>
-           
-           
-           
+
+
+
             <th>Email</th>
             <th>Phone</th>
             <th>Mobile</th>
@@ -52,9 +52,9 @@
             <th>Zip</th>
             <th>City</th>
             <th>Country</th>
-            
+
             <th>Phone2</th>
-            
+
             <th>Fax</th>
 
             <th>Url</th>
@@ -70,7 +70,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            
+
             <td><b><a href="{{ path('client_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></b></td>
             <td>{{ entity.clienttype }}</td>
 
@@ -81,21 +81,21 @@
             <td>{{ entity.vat }}</td>
 
             <td>{% for tent in entity.tents %}<a href="{{path('tent_edit',{'id':tent.id})}}">{{ tent }}</a>, {% endfor %}</td>
-            
+
             <td><a href="mailto:{{ entity.email }}">{{ entity.email }}</a></td>
              <td>{{ entity.phone }}</td>
              <td>{{ entity.mobile }}</td>
-            
+
           {#}  <td>{{ entity.address }}</td>
             <td>{{ entity.number }}</td>
             <td>{{ entity.zip }}</td>
             <td>{{ entity.city }}</td>
             <td>{{ entity.country }}</td>
-           
+
             <td>{{ entity.phone2 }}</td>
-            
+
             <td>{{ entity.fax }}</td>
-            
+
             <td>{{ entity.url }}</td>
             <td>{{ entity.language }}</td>
             <td>{{ entity.origin }}</td>
@@ -104,13 +104,13 @@
             <td>{{ entity.public }}</td>#}
             <td>
                 <a href="{{ path('client_edit', { 'id': entity.id }) }}"><i class="icon icon-edit"></i></a>
-                
+
             </td>
              <td>
-                
+
                         <a href="{{ path('client_show', { 'id': entity.id }) }}"><i class="icon icon-trash"></i></a>
-                   
-                   
+
+
             </td>
         </tr>
     {% endfor %}
