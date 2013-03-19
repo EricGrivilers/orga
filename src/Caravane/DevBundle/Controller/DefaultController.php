@@ -44,19 +44,19 @@ class DefaultController extends Controller
         $invoices=$em->getRepository('CaravaneOrganicBundle:Invoice')->findAll();
 
         foreach($invoices as $invoice) {
-           
+
                 if($slice=$em->getRepository('CaravaneOrganicBundle:Slice2job')->findOneby(array('invoiceid'=>$invoice->getId(),'sliceid'=>$invoice->getCslice()))) {
                     echo "yes ".$slice->getId()."<br/>";
                     $invoice->setSliceid($slice);
                     $invoice->setSliceDescription($slice->getComments());
                     $em->persist($slice);
                 }
-                
-            
+
+
         }
         $em->flush();
         return array();
-        
+
     }
 
 
@@ -70,13 +70,17 @@ class DefaultController extends Controller
 
         foreach($tent2offre as $tent) {
             if($offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($tent->getOffreid())) {
+                echo "offre: ".$offre->getId();
+                echo "<br/>";
                 if($tent->getTentid()) {
+                    echo "tent:".$tent->getTentid()->getId();
+                    echo "<br/>";
                     $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
                     $product->setOffreid($offre);
                     $product->setInsertdate(new \Datetime('now'));
-                    $product->setUpdatedate(new \Datetime('now'));  
+                    $product->setUpdatedate(new \Datetime('now'));
                     $product->setIsoption(false);
-                
+
                     $product->setDescription($tent->getTentid()->getName()."(".$tent->getTentid()->getReference().")");
                     $product->setTentid($tent->getTentid());
                     $datas=array();
@@ -90,14 +94,14 @@ class DefaultController extends Controller
 
                     $product->setPrice(0);
 
-                    $em->persist($product);
+                  //  $em->persist($product);
                 }
-                
-                
+
+
             }
         }
         $em->flush();
         return new Response('ok');
-        
+
     }
 }
