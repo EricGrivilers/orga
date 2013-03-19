@@ -10,9 +10,6 @@ offre_new:
     pattern:  /new
     defaults: { _controller: "CaravaneOrganicBundle:Offre:new" }
 
-offre_new_from_client:
-    pattern:  /new/{clientId}
-    defaults: { _controller: "CaravaneOrganicBundle:Offre:newFromClient" }
 
 offre_create:
     pattern:  /create
@@ -43,6 +40,13 @@ offre_remove_product:
 offre_add_tent:
     pattern:  /{id}/add_stock_product/{tentid}
     defaults: { _controller: "CaravaneOrganicBundle:Offre:addStockProduct" }
+    requirements: { _method: post }
+    options:
+        expose: true
+
+offre_slice_remove_product:
+    pattern:  /{id}/remove_slice/{productid}
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:removeSlice" }
     requirements: { _method: post }
     options:
         expose: true

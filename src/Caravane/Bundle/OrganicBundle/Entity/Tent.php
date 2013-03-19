@@ -201,6 +201,22 @@ class Tent
     private $productCategory;
 
 
+    /**
+     * @var \offres
+     *
+     * @ORM\OneToMany(targetEntity="Product2Offre", mappedBy="tentid")
+     * 
+     */
+    private $offres;
+
+    /**
+     * @var \jobs
+     *
+     * @ORM\OneToMany(targetEntity="Product2Job", mappedBy="tentid")
+     * 
+     */
+    private $jobs;
+    
 
     public function __toString() {
         return $this->reference;
@@ -797,5 +813,71 @@ class Tent
     public function getProductCategory()
     {
         return $this->productCategory;
+    }
+
+    /**
+     * Add offres
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2Offre $offres
+     * @return Tent
+     */
+    public function addOffre(\Caravane\Bundle\OrganicBundle\Entity\Product2Offre $offres)
+    {
+        $this->offres[] = $offres;
+    
+        return $this;
+    }
+
+    /**
+     * Remove offres
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2Offre $offres
+     */
+    public function removeOffre(\Caravane\Bundle\OrganicBundle\Entity\Product2Offre $offres)
+    {
+        $this->offres->removeElement($offres);
+    }
+
+    /**
+     * Get offres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOffres()
+    {
+        return $this->offres;
+    }
+
+    /**
+     * Add jobs
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2Job $jobs
+     * @return Tent
+     */
+    public function addJob(\Caravane\Bundle\OrganicBundle\Entity\Product2Job $jobs)
+    {
+        $this->jobs[] = $jobs;
+    
+        return $this;
+    }
+
+    /**
+     * Remove jobs
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2Job $jobs
+     */
+    public function removeJob(\Caravane\Bundle\OrganicBundle\Entity\Product2Job $jobs)
+    {
+        $this->jobs->removeElement($jobs);
+    }
+
+    /**
+     * Get jobs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getJobs()
+    {
+        return $this->jobs;
     }
 }

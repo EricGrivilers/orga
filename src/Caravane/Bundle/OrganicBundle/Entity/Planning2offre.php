@@ -46,7 +46,7 @@ class Planning2offre
     /**
      * @var string
      *
-     * @ORM\Column(name="etat", type="string", length=50, nullable=true)
+     * @ORM\Column(name="etat", type="string", length=50, nullable=false)
      */
     private $etat;
 

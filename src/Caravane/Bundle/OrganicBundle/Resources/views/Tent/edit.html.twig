@@ -76,15 +76,17 @@
                     <th>Invoice</th>
                 </tr>
             </thead>
-            {% for job in entity.tents2job %}
-            <tr>
-                <td><a href="{{path('job_edit',{'id':job.jobid.id})}}">{{job.jobid.reference}}</a></td>
-                <td>{{job.jobid.price|number_format(2,',',' ')}}</td>
-                <td>{{job.jobid.startBuild|date('d/m/Y H:i:s')}}</td>
-                <td>{{job.jobid.endBuild|date('d/m/Y H:i:s')}}</td>
-                <td>{{job.jobid.offreid}}</td>
-                <td>{% for invoice in job.jobid.invoiceid %}<li><a href="{{path('invoice_edit',{'id':invoice.id} )}}">{{invoice.reference}}</a></li>{% endfor %}</td>
-            </tr>
+            {% for job in entity.jobs %}
+                {% if job.tentid %}
+                <tr>
+                    <td><a href="{{path('job_edit',{'id':job.jobid.id})}}">{{job.jobid.reference}}</a></td>
+                    <td>{{job.jobid.price|number_format(2,',',' ')}}</td>
+                    <td>{{job.jobid.startBuild|date('d/m/Y H:i:s')}}</td>
+                    <td>{{job.jobid.endBuild|date('d/m/Y H:i:s')}}</td>
+                    <td>{{job.jobid.offreid}}</td>
+                    <td>{% for invoice in job.jobid.invoiceid %}<li><a href="{{path('invoice_edit',{'id':invoice.id} )}}">{{invoice.reference}}</a></li>{% endfor %}</td>
+                </tr>
+                {% endif %}
             {% endfor %}
         </table>
 </div>
@@ -100,15 +102,17 @@
                     <th>Status</th>
                 </tr>
             </thead>
-            {% for offre in entity.tents2offre %}
-            <tr>
-                <td><a href="{{path('offre_edit',{'id':offre.id})}}">{{offre.offreid.reference}}</a></td>
-                <td>{{offre.offreid.price|number_format(2,',',' ')}}</td>
-                <td>{{offre.offreid.startBuild|date('d/m/Y H:i:s')}}</td>
-                <td>{{offre.offreid.endBuild|date('d/m/Y H:i:s')}}</td>
-                <td>{% if offre.offreid.jobid %}Job: <a href="{{path('job_edit',{'id':offre.offreid.jobid.id})}}">{{offre.offreid.jobid}}</a> {% else %}{{offre.offreid.status}} {% endif %}</td>
+            {% for offre in entity.offres %}
+                {% if offre.tentid %}
+                <tr>
+                    <td><a href="{{path('offre_edit',{'id':offre.id})}}">{{offre.offreid.reference}}</a></td>
+                    <td>{{offre.offreid.price|number_format(2,',',' ')}}</td>
+                    <td>{{offre.offreid.startBuild|date('d/m/Y H:i:s')}}</td>
+                    <td>{{offre.offreid.endBuild|date('d/m/Y H:i:s')}}</td>
+                    <td>{% if offre.offreid.jobid %}Job: <a href="{{path('job_edit',{'id':offre.offreid.jobid.id})}}">{{offre.offreid.jobid}}</a> {% else %}{{offre.offreid.status}} {% endif %}</td>
 
-            </tr>
+                </tr>
+                {% endif %}
             {% endfor %}
         </table>
     </div>
