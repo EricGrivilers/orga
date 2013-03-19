@@ -26,18 +26,23 @@ class OffreType extends AbstractType
                 'choices'=>array('sell'=>"Sell",'rent'=>"Rent",'winter'=>"Winter storage")
             ))
             ->add('planningcomments','ckeditor',array(
-                'label'=>"comments",
+                'label'=>"Planning comments",
                 'attr'=>array(
                     'class'=>'span12'
                 )
             ))
             ->add('offrecomments','ckeditor',array(
-                'label'=>"comments",
+                'label'=>"Comments",
                 'attr'=>array(
                     'class'=>'span12'
                 )
             ))
-            ->add('surface')
+            ->add('surface','text',array(
+                'label'=>"Wished area",
+                'attr'=>array(
+                    'class'=>"span3"
+                )
+            ))
            // ->add('startbuild')
            // ->add('endbuild')
            // ->add('requestdate')
@@ -50,22 +55,27 @@ class OffreType extends AbstractType
              ->add('pricetype','choice',array(
                 'choices'=>array('intra'=>"Intracomm.",'htva'=>"TVA (21%)")
             ))
-            ->add('price','number',array(
+        /*    ->add('price','number',array(
                 'precision' => 2,
                 "attr"=>array(
                     "class"=>"span12 price"
                 )
-            ))
+            ))*/
             ->add('pricecomments','textarea',array(
                 'attr'=>array(
                     'class'=>"span12"
                 )
             ))
-            ->add('conditions')
-            ->add('conditionsslices')
+            ->add('conditions','ckeditor',array(
+                'label'=>"Conditions comments",
+                'attr'=>array(
+                    'class'=>'span12'
+                )
+            ))
+         //   ->add('conditionsslices')
           //  ->add('tents')
             ->add('tentscomments','ckeditor',array(
-                'label'=>"Additionnal comments",
+                'label'=>"Stock/products comments",
                 'attr'=>array(
                     'class'=>"span12"
                 )
@@ -124,7 +134,12 @@ class OffreType extends AbstractType
                     "class"=>"span12"
                 )
             ))
-            ->add('comments')
+            ->add('comments','ckeditor',array(
+                'label'=>"Notes",
+                'attr'=>array(
+                    'class'=>'span12'
+                )
+            ))
             ->add('introtext','ckeditor',array(
                 'label'=>"Quotre introducting text",
                 'attr'=>array(
@@ -146,12 +161,28 @@ class OffreType extends AbstractType
                 'label'=>"Account",
                 'class'=>'Caravane\Bundle\OrganicBundle\Entity\User'
             ))
-            ->add('clientid',new ClientEmbededType())
+            ->add('clientid',new ClientEmbededType(),array(
+               
+            ))
         ;
+
+
+
+
+
         $builder->add('plannings', 'collection', array(
                 'type' => new Planning2offreType(),
-                'allow_add'    => false,
+                'allow_add'    => true,
                 'allow_delete' => false,
+                'by_reference' => false,
+                'data_class'=> null
+                )
+            );
+
+        $builder->add('slices', 'collection', array(
+                'type' => new Slice2offreType(),
+                'allow_add'    => true,
+                'allow_delete' => true,
                 'by_reference' => false,
                 'data_class'=> null
                 )
@@ -170,7 +201,8 @@ class OffreType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Caravane\Bundle\OrganicBundle\Entity\Offre'
+            'data_class' => 'Caravane\Bundle\OrganicBundle\Entity\Offre',
+            'cascade_validation' => true,
         ));
     }
 

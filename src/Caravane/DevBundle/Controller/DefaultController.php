@@ -69,35 +69,77 @@ class DefaultController extends Controller
         $tent2offre=$em->getRepository('CaravaneOrganicBundle:Tent2offre')->findAll();
 
         foreach($tent2offre as $tent) {
-            if($offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($tent->getOffreid())) {
-                echo "offre: ".$offre->getId();
-                echo "<br/>";
-                if($tent->getTentid()) {
-                    echo "tent:".$tent->getTentid()->getId();
-                    echo "<br/>";
-                    $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
-                    $product->setOffreid($offre);
-                    $product->setInsertdate(new \Datetime('now'));
-                    $product->setUpdatedate(new \Datetime('now'));
-                    $product->setIsoption(false);
+            if($tent->getOffreid()) {
+                if($offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($tent->getOffreid())) {
+                    if($tent->getTentid()) {
+                        $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
+                        $product->setOffreid($offre);
+                        $product->setInsertdate(new \Datetime('now'));
+                        $product->setUpdatedate(new \Datetime('now'));
+                        $product->setIsoption(false);
 
-                    $product->setDescription($tent->getTentid()->getName()."(".$tent->getTentid()->getReference().")");
-                    $product->setTentid($tent->getTentid());
-                    $datas=array();
-                    $datas['etat']=$tent->getEtat();
-                    $datas['plancher']=$tent->getPlancher();
-                    $datas['surfaceplancher']=$tent->getSurfaceplancher();
-                    $datas['sol']=$tent->getSol();
-                    $datas['canalisation']=$tent->getCanalisation();
-                    $datas['other']=$tent->getOther();
-                    $product->setDatas(json_encode($datas));
+                        $product->setDescription($tent->getTentid()->getName()."(".$tent->getTentid()->getReference().")");
+                        $product->setTentid($tent->getTentid());
+                        $datas=array();
+                        $datas['etat']=$tent->getEtat();
+                        $datas['plancher']=$tent->getPlancher();
+                        $datas['surfaceplancher']=$tent->getSurfaceplancher();
+                        $datas['sol']=$tent->getSol();
+                        $datas['canalisation']=$tent->getCanalisation();
+                        $datas['other']=$tent->getOther();
+                        $product->setDatas(json_encode($datas));
 
-                    $product->setPrice(0);
+                        $product->setPrice(0);
 
-                  //  $em->persist($product);
+                        $em->persist($product);
+                    }
+
+
                 }
+            }
+        }
+        $em->flush();
+        return new Response('ok');
+
+    }
 
 
+    /**
+     * @Route("fill_product2job")
+     * @Template()
+     */
+    public function fillProduct2jobAction() {
+        $em = $this -> getDoctrine() -> getEntityManager();
+        $tent2job=$em->getRepository('CaravaneOrganicBundle:Tent2job')->findAll();
+
+        foreach($tent2job as $tent) {
+            if($tent->getJobid()) {
+                if($job=$em->getRepository('CaravaneOrganicBundle:Job')->find($tent->getJobid())) {
+                    if($tent->getTentid()) {
+                        $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2job();
+                        $product->setJobid($job);
+                        $product->setInsertdate(new \Datetime('now'));
+                        $product->setUpdatedate(new \Datetime('now'));
+                        $product->setIsoption(false);
+
+                        $product->setDescription($tent->getTentid()->getName()."(".$tent->getTentid()->getReference().")");
+                        $product->setTentid($tent->getTentid());
+                        $datas=array();
+                        $datas['etat']=$tent->getEtat();
+                        $datas['plancher']=$tent->getPlancher();
+                        $datas['surfaceplancher']=$tent->getSurfaceplancher();
+                        $datas['sol']=$tent->getSol();
+                        $datas['canalisation']=$tent->getCanalisation();
+                        $datas['other']=$tent->getOther();
+                        $product->setDatas(json_encode($datas));
+
+                        $product->setPrice(0);
+
+                        $em->persist($product);
+                    }
+
+
+                }
             }
         }
         $em->flush();

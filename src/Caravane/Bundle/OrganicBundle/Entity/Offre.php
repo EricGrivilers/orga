@@ -75,24 +75,21 @@ class Offre
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="startBuild", type="datetime", nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="startBuild", type="datetime", nullable=true)
      */
     private $startbuild;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="endBuild", type="datetime", nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="endBuild", type="datetime", nullable=true)
      */
     private $endbuild;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="requestDate", type="datetime", nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="requestDate", type="datetime", nullable=true)
      */
     private $requestdate;
 
@@ -323,6 +320,8 @@ class Offre
      */
     private $tents2offre;
 
+   
+
     /**
      * @var \tents2offre
      *
@@ -339,6 +338,19 @@ class Offre
      */
 
     private $products;
+
+     /**
+     * @var \Client
+     *
+     * @ORM\OneTomany(targetEntity="Slice2offre",mappedBy="offreid")
+     */
+
+    private $slices;
+
+
+
+    private $totalSlice;
+    private $totalSlicePriceht;
 
 
     public function __toString() {
@@ -525,7 +537,7 @@ class Offre
      */
     public function setStartbuild($startbuild)
     {
-        $this->startbuild = $startbuild;
+        $this->startbuild = $this->plannings[1]->getStartdate();
 
         return $this;
     }
@@ -537,6 +549,7 @@ class Offre
      */
     public function getStartbuild()
     {
+        $this->startbuild = $this->plannings[1]->getStartdate();
         return $this->startbuild;
     }
 
@@ -548,7 +561,7 @@ class Offre
      */
     public function setEndbuild($endbuild)
     {
-        $this->endbuild = $endbuild;
+        $this->endbuild = $this->plannings[3]->getEnddate();
 
         return $this;
     }
@@ -560,6 +573,7 @@ class Offre
      */
     public function getEndbuild()
     {
+        $this->endbuild = $this->plannings[3]->getEnddate();
         return $this->endbuild;
     }
 
@@ -1392,4 +1406,69 @@ class Offre
     {
         return $this->products;
     }
+
+   
+
+    /**
+     * Add slices
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Slice2offre $slices
+     * @return Offre
+     */
+    public function addSlice(\Caravane\Bundle\OrganicBundle\Entity\Slice2offre $slices)
+    {
+        $this->slices[] = $slices;
+    
+        return $this;
+    }
+
+    /**
+     * Remove slices
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Slice2offre $slices
+     */
+    public function removeSlice(\Caravane\Bundle\OrganicBundle\Entity\Slice2offre $slices)
+    {
+        $this->slices->removeElement($slices);
+    }
+
+    /**
+     * Get slices
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSlices()
+    {
+        return $this->slices;
+    }
+
+
+    public function setTotalSlice($totalSlice) {
+        $this->totalSlice=$totalSlice;
+    }
+    public function getTotalSlice() {
+        $this->totalSlice=0;
+        
+            foreach($this->slices as $slice) {
+                $this->totalSlice+=$slice->getSlice();
+            }
+       
+        
+        return $this->totalSlice;
+    }
+
+     public function setTotalSlicePriceht($totalSlicePriceht) {
+        $this->totalSlicePriceht=$totalSlicePriceht;
+    }
+    public function getTotalSlicePriceht() {
+        $this->totalSlicePriceht=0;
+
+        foreach($this->slices as $slice) {
+            $this->totalSlicePriceht+=$slice->getPriceht();
+        }
+        return $this->totalSlicePriceht;
+    }
+
+
+
 }

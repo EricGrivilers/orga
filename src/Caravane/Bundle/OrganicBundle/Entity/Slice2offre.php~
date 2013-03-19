@@ -1,6 +1,8 @@
 <?php
 
 namespace Caravane\Bundle\OrganicBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContext;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,40 +33,32 @@ class Slice2offre
     /**
      * @var float
      *
-     * @ORM\Column(name="slice", type="float", nullable=false)
+     * @ORM\Column(name="slice", type="decimal", nullable=true, scale=2)
      */
     private $slice;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="priceHT", type="float", nullable=false)
+     * @ORM\Column(name="priceHT", type="decimal", nullable=true, scale=2)
      */
     private $priceht;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="comments", type="text", nullable=false)
+     * @ORM\Column(name="comments", type="text", nullable=true)
+     * @Assert\NotBlank()
      */
     private $comments;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=20, nullable=false)
+     * @ORM\Column(name="status", type="string", length=20, nullable=true)
      */
     private $status;
 
-    /**
-     * @var \Invoice
-     *
-     * @ORM\ManyToOne(targetEntity="Invoice")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="invoiceId", referencedColumnName="id")
-     * })
-     */
-    private $invoiceid;
 
     /**
      * @var \Offre
@@ -76,15 +70,7 @@ class Slice2offre
      */
     private $offreid;
 
-    /**
-     * @var \Job
-     *
-     * @ORM\ManyToOne(targetEntity="Job")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="jobId", referencedColumnName="id")
-     * })
-     */
-    private $jobid;
+  
 
 
 
@@ -213,28 +199,6 @@ class Slice2offre
         return $this->status;
     }
 
-    /**
-     * Set invoiceid
-     *
-     * @param \Caravane\Bundle\OrganicBundle\Entity\Invoice $invoiceid
-     * @return Slice2offre
-     */
-    public function setInvoiceid(\Caravane\Bundle\OrganicBundle\Entity\Invoice $invoiceid = null)
-    {
-        $this->invoiceid = $invoiceid;
-    
-        return $this;
-    }
-
-    /**
-     * Get invoiceid
-     *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Invoice 
-     */
-    public function getInvoiceid()
-    {
-        return $this->invoiceid;
-    }
 
     /**
      * Set offreid
@@ -259,26 +223,5 @@ class Slice2offre
         return $this->offreid;
     }
 
-    /**
-     * Set jobid
-     *
-     * @param \Caravane\Bundle\OrganicBundle\Entity\Job $jobid
-     * @return Slice2offre
-     */
-    public function setJobid(\Caravane\Bundle\OrganicBundle\Entity\Job $jobid = null)
-    {
-        $this->jobid = $jobid;
-    
-        return $this;
-    }
-
-    /**
-     * Get jobid
-     *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Job 
-     */
-    public function getJobid()
-    {
-        return $this->jobid;
-    }
+   
 }

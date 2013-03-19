@@ -146,6 +146,29 @@ function fillClient2invoice(clientid) {
 
 
 function initOffre() {
+    $('.add_slice_link').click(function(e) {
+         e.preventDefault();
+         target=$(this).closest('table').find('tbody');
+       /* if($(this).data('isoption')) {
+            target=$('tbody#options');
+        }
+        else (
+            target=$('tbody#products');
+        )*/
+        var prototype =$('table tbody.slices').data('prototype');
+        var index=target.find(':input').length;
+        var newForm = prototype.replace(/__name__/g, index);
+         target.data('index', index + 1);
+         var $newFormLi = $('<tr></tr>').append(newForm);
+         target.append($newFormLi);
+         target.find('input:hidden').val($(this).data('isoption'));
+
+         
+         $('a.delete_new_row').click(function() {
+            $(this).closest('tr').remove();
+        });
+    });
+
     $('.openStockModal').click(function() {
         target=$(this).closest('table').find('.products');
         $('#stockModal').modal('show');

@@ -191,7 +191,8 @@ UPDATE `slice2offre` SET invoiceId=NULL WHERE invoiceId NOT IN (SELECT id FROM i
 
 
 
-
+UPDATE product2job SET tentId=null WHERE tentId NOT IN (SELECT id FROM tent);
+UPDATE product2offre SET tentId=null WHERE tentId NOT IN (SELECT id FROM tent);
 
 
 #######

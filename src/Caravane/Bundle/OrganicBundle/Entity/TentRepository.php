@@ -93,7 +93,7 @@ class TentRepository extends EntityRepository
 			if($options['job']==true) {
 				
 				foreach($options['jobs'] as $job) {
-					foreach($job->getTents2job() as $tent2job) {
+					foreach($job->getProducts() as $tent2job) {
 						if($tent2job->getTentid()) {
 							$usedTents[]=$tent2job->getTentid()->getId();
 						}
@@ -105,7 +105,7 @@ class TentRepository extends EntityRepository
 			if($options['offre']==true) {
 				
 				foreach($options['offres'] as $offre) {
-					foreach($offre->getTents2offre() as $tent2offre) {
+					foreach($offre->getProducts() as $tent2offre) {
 						if($tent2offre->getTentid()) {
 							$usedTents[]=$tent2offre->getTentid()->getId();
 						}
@@ -159,7 +159,7 @@ class TentRepository extends EntityRepository
 		$jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAllBetweenDates($startDate,$endDate);
 		$usedInJob=array();
 		foreach($jobs as $job) {
-				foreach($job->getTents2job() as $tent2job) {
+				foreach($job->getProducts() as $tent2job) {
 					if($tent2job->getTentid()==$tent->getId()) {
 						$usedInJob[]=$job;
 					}

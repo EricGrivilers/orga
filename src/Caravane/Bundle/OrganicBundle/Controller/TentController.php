@@ -288,9 +288,15 @@ class TentController extends Controller
 
 
         $exclude=array();
-        foreach($entity->getTents2offre() as $prod) {
-            $exclude[]=$prod->getTentid()->getId();
+        if($entity->getProducts()) {
+            foreach($entity->getProducts() as $prod) {
+                if($prod->getTentid()) {
+                    $exclude[]=$prod->getTentid()->getId();
+                }
+                
+            }
         }
+        
 
         $em = $this->getDoctrine()->getManager();
         $category=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->find($categoryId);

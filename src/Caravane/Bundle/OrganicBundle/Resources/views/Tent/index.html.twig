@@ -2,9 +2,7 @@
 
 {% block body %}
 
-{% for offre in offres %}
-    {{offre.reference}} - 
-{% endfor %}
+
 <div class="row-fluid">
     <div class="tools">
         <div class="span10">
@@ -108,7 +106,7 @@
 
             <td>{{ entity.etat }}</td>
             {% if type=='reserved' %}
-                <td>{% for job in entity.Tents2Job %}
+                <td>{% for job in entity.jobs %}
                     
                     {% if job.jobid in jobs %}
                         <li>{{job.jobid}}</li>
@@ -116,7 +114,7 @@
                 {% endfor %}</td>
             {% endif %}
             {% if type=='option' %}
-                <td>{% for offre in entity.Tents2Offre %}
+                <td>{% for offre in entity.offres %}
                    
                     {% if offre.offreid in offres %}
                         <li>{{offre.offreid}}</li>

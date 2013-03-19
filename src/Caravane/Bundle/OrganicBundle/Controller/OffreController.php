@@ -15,6 +15,11 @@ use Caravane\Bundle\OrganicBundle\Form\OffreType;
  */
 class OffreController extends Controller
 {
+    private $planningTypes;
+
+    public function __construct() {
+        $this->planningTypes=array('preview','build','inplace','unbuild');
+    }
     /**
      * Lists all Offre entities.
      *
@@ -76,26 +81,26 @@ class OffreController extends Controller
      */
     public function newAction()
     {
-        $entity = new Offre();
-        $form   = $this->createForm(new OffreType(), $entity);
-
-        return $this->render('CaravaneOrganicBundle:Offre:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
-    }
-
-    /**
-     * Displays a form to create a new Offre entity.
-     *
-     */
-    public function newFromClientAction($clientId)
-    {
         $em = $this->getDoctrine()->getManager();
         $productCategories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
+
         $entity = new Offre();
-        $client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientId);
-        $entity->setClientId($client);
+        $slice=new \Caravane\Bundle\OrganicBundle\Entity\Slice2offre();
+        $entity->addSlice($slice);
+
+
+        foreach($this->planningTypes as $planningType) {
+            $planning=new \Caravane\Bundle\OrganicBundle\Entity\Planning2offre();
+            $planning->setPlanningtype($planningType);
+            $planning->setStartdate(new \Datetime('now'));
+            $planning->setEnddate(new \Datetime('now'));
+            $entity->addPlanning($planning);
+        }
+
+        if($clientId=$this->get('request')->query->get('clientId')) {
+            $client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientId);
+            $entity->setClientid($client);
+        }
         $form   = $this->createForm(new OffreType(), $entity);
 
         return $this->render('CaravaneOrganicBundle:Offre:new.html.twig', array(
@@ -104,6 +109,8 @@ class OffreController extends Controller
             'productCategories' =>$productCategories
         ));
     }
+
+   
 
 
     /**
@@ -115,17 +122,23 @@ class OffreController extends Controller
         $em = $this->getDoctrine()->getManager();
         $productCategories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
         $entity  = new Offre();
+
+        
         $form = $this->createForm(new OffreType(), $entity);
         $form->bind($request);
+echo "<pre>";
+print_r($entity);
+echo "</pre>";
 
         if ($form->isValid()) {
 
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('offre_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('offre_edit', array('id' => $entity->getId())));
         }
 
+        //return new Response('nok');
         return $this->render('CaravaneOrganicBundle:Offre:new.html.twig', array(
             'entity' => $entity,
             'edit_form'   => $form->createView(),
@@ -184,6 +197,7 @@ class OffreController extends Controller
         $editForm = $this->createForm(new OffreType(), $entity);
         $editForm->bind($request);
 
+        $issue=0;
         if ($editForm->isValid()) {
             $priceHt=0;
             foreach($entity->getProducts() as $product) {
@@ -195,7 +209,27 @@ class OffreController extends Controller
                 $em->persist($product);
             }
             $entity->setPrice($priceHt);
+            $totalSlice=0;
+            $totalSlicePriceHt=0;
+             foreach($entity->getSlices() as $slice) {
+                $slice->setOffreid($entity);
+                if($slice->getSlice()==0 && $slice->getPriceht()>0) {
+                    $slice->setSlice((100*$slice->getPriceht())/$entity->getPrice());
+                }
+                else if($slice->getSlice()>0 && $slice->getPriceht()==0) {
+                    $slice->setPriceht(($slice->getSlice()*$entity->getPrice())/100);
+                }
+                //$totalSlice+=$slice->getSlice();
+                //$totalSlicePriceHt+=$slice->getPriceht();
+                $em->persist($slice);
+            }
+            //$entity->setTotalSlice($totalSlice);
+            //$entity->setTotalSlicePriceht($totalSlicePriceHt);
+            if($entity->getTotalSlicePriceht()!=$entity->getPrice() || $entity->getTotalSlice()!=100 ) {
+                $issue++;
+            }
 
+            $entity->setIssue($issue);
             $em->persist($entity);
             $em->flush();
 
@@ -248,6 +282,17 @@ class OffreController extends Controller
         $product=$em->getRepository('CaravaneOrganicBundle:Product2offre')->find($productid);
         $offre->removeProduct($product);
         $em->remove($product);
+        $em->persist($offre);
+        $em->flush();
+        return new Response('ok');
+    }
+
+     public function removeSliceAction($id,$productid) {
+        $em = $this->getDoctrine()->getManager();
+        $offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
+        $slice=$em->getRepository('CaravaneOrganicBundle:Slice2offre')->find($productid);
+        $offre->removeSlice($slice);
+        $em->remove($slice);
         $em->persist($offre);
         $em->flush();
         return new Response('ok');

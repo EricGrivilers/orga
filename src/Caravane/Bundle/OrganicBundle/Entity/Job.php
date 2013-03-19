@@ -339,6 +339,16 @@ class Job
      */
     private $tents2job;
 
+    
+    /**
+     * @var \Client
+     *
+     * @ORM\OneTomany(targetEntity="Product2job",mappedBy="jobid")
+     */
+
+    private $products;
+
+
     /**
      * @var \slices
      *
@@ -1434,5 +1444,39 @@ class Job
     public function getSlices()
     {
         return $this->slices;
+    }
+
+
+    /**
+     * Add products
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2job $products
+     * @return Job
+     */
+    public function addProduct(\Caravane\Bundle\OrganicBundle\Entity\Product2job $products)
+    {
+        $this->products[] = $products;
+    
+        return $this;
+    }
+
+    /**
+     * Remove products
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2job $products
+     */
+    public function removeProduct(\Caravane\Bundle\OrganicBundle\Entity\Product2job $products)
+    {
+        $this->products->removeElement($products);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProducts()
+    {
+        return $this->products;
     }
 }

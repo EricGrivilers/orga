@@ -44,6 +44,6 @@ class Product2OffreType extends AbstractType
 
     public function getName()
     {
-        return 'caravane_bundle_organicbundle_producttype';
+        return 'caravane_bundle_organicbundle_product2offretype';
     }
 }

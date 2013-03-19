@@ -11,7 +11,7 @@ class Planning2offreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-           // ->add('planningtype')
+            ->add('planningtype','hidden')
             ->add('startdate','datetime',array(
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy HH:mm:ss',

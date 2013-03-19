@@ -78,6 +78,8 @@ class Product2offre
     private $datas;
     
 
+    private $datasAsObject;
+    
     /**
      * @var \Offre
      *
@@ -316,7 +318,14 @@ class Product2offre
      */
     public function getDatas()
     {
+        
         return $this->datas;
+    }
+
+    public function getDatasAsObject()
+    {
+        
+        return json_decode($this->datas);
     }
 
     /**
