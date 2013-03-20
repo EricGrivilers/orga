@@ -100,7 +100,7 @@ function initProduct() {
             target=$('tbody#products');
         )*/
         var prototype =$('table tbody#products').data('prototype');
-        var index=target.find(':input').length;
+        var index=target.find('tr').length;
         var newForm = prototype.replace(/__name__/g, index);
          target.data('index', index + 1);
          var $newFormLi = $('<tr></tr>').append(newForm);
@@ -171,19 +171,21 @@ function initOffre() {
 
     $('.openStockModal').click(function() {
         target=$(this).closest('table').find('.products');
+        entity=$('#mainForm').data('entity');
         $('#stockModal').modal('show');
         $('table.stock tbody tr, table.stock tbody a').click(function(e) {
             e.stopPropagation();
             tentid=$(this).data('productid');
-            offreId=$(this).closest('.modal').data('target');
-             $.post(Routing.generate('offre_add_tent',{'id':offreId,'tentid':tentid}),function(data) {
-                //alert(data);
+            entityId=$(this).closest('.modal').data('target');
+             $.post(Routing.generate(entity+'_add_tent',{'id':entityId,'tentid':tentid}),function(data) {
+                alert(data);
                 $('form').submit();
             })
         });
 
     });
     $('#mainForm').submit(function() {
+        entity=$('#mainForm').data('entity');
         $('tbody.products tr').each(function() {
             c=$(this).data('productid');
            //  console.log('rr');
@@ -209,7 +211,7 @@ function initOffre() {
             });
             //console.log('c:'+c);
             //console.log(JSON.stringify(datas));
-            $('#caravane_bundle_organicbundle_offretype_products_'+c+'_datas').val(JSON.stringify(datas));
+            $('#caravane_bundle_organicbundle_'+entity+'type_products_'+c+'_datas').val(JSON.stringify(datas));
         });
         
         return true;

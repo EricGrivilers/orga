@@ -28,3 +28,24 @@ job_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "CaravaneOrganicBundle:Job:delete" }
     requirements: { _method: post }
+
+job_remove_product:
+    pattern:  /{id}/remove_product/{productid}
+    defaults: { _controller: "CaravaneOrganicBundle:Job:removeProduct" }
+    requirements: { _method: post }
+    options:
+        expose: true
+
+job_add_tent:
+    pattern:  /{id}/add_stock_product/{tentid}
+    defaults: { _controller: "CaravaneOrganicBundle:Job:addStockProduct" }
+    requirements: { _method: post }
+    options:
+        expose: true
+
+job_slice_remove_product:
+    pattern:  /{id}/remove_slice/{productid}
+    defaults: { _controller: "CaravaneOrganicBundle:Job:removeSlice" }
+    requirements: { _method: post }
+    options:
+        expose: true

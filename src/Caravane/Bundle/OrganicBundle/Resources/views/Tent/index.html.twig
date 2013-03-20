@@ -109,7 +109,7 @@
                 <td>{% for job in entity.jobs %}
                     
                     {% if job.jobid in jobs %}
-                        <li>{{job.jobid}}</li>
+                        <li><a href='{{path('job_edit',{'id':job.jobid.id})}}'>{{job.jobid}}</a></li>
                     {% endif %}
                 {% endfor %}</td>
             {% endif %}
@@ -117,7 +117,7 @@
                 <td>{% for offre in entity.offres %}
                    
                     {% if offre.offreid in offres %}
-                        <li>{{offre.offreid}}</li>
+                        <li><a href='{{path('offre_edit',{'id':offre.offreid.id})}}'>{{offre.offreid}}</a></li>
                     {% endif %}
                 {% endfor %}</td>
             {% endif %}

@@ -169,12 +169,17 @@ class OffreController extends Controller
             $totalSlicePriceHt=0;
              foreach($entity->getSlices() as $slice) {
                 $slice->setOffreid($entity);
-                if($slice->getSlice()==0 && $slice->getPriceht()>0) {
-                    $slice->setSlice((100*$slice->getPriceht())/$entity->getPrice());
-                }
-                else if($slice->getSlice()>0 && $slice->getPriceht()==0) {
+                if($slice->getSlice()>0 ) {
                     $slice->setPriceht(($slice->getSlice()*$entity->getPrice())/100);
                 }
+                else if($slice->getPriceht()>0) {
+                    $slice->setSlice((100*$slice->getPriceht())/$entity->getPrice());
+                }
+                else {
+                    $slice->setSlice(100/count($entity.getSlices()));
+                    $slice->setPriceht(($slice->getSlice()*$entity->getPrice())/100);
+                }
+               
                 //$totalSlice+=$slice->getSlice();
                 //$totalSlicePriceHt+=$slice->getPriceht();
                 $em->persist($slice);
@@ -240,6 +245,10 @@ class OffreController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        /*echo "<pre>";
+        print_r($_POST);
+        echo "</pre>";
+        die();*/
         $em = $this->getDoctrine()->getManager();
         $productCategories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
 

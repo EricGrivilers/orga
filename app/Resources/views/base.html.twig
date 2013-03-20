@@ -11,6 +11,9 @@
 
         <div class="row-fluid">
             <img src="{{asset('bundles/caravaneorganic/images/logo.png')}}">
+            <div class="pull-right" style="margin-right:10px">
+              {% if is_granted('ROLE_USER') %}Logged as <b>{{app.user.email}}</b> | <a href='{{path('fos_user_profile_edit')}}'>my profile</a> | <a href='{{path('fos_user_security_logout')}}'>Logout</a> {% endif %}
+            </div>
         </div>
         <div class="navbar navbar-inverse" style="position: static;">
               <div class="navbar-inner">

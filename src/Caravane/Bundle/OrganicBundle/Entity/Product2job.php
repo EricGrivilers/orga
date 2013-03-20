@@ -45,7 +45,7 @@ class Product2job
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="insertDate", type="datetime", nullable=false)
+     * @ORM\Column(name="insertDate", type="datetime", nullable=true)
      */
     private $insertdate;
 
@@ -62,16 +62,6 @@ class Product2job
      * @ORM\Column(name="rank", type="smallint", nullable=true)
      */
     private $rank;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="isOption", type="boolean", nullable=true)
-     */
-    private $isoption;
-
-
-
 
 
 
@@ -114,6 +104,25 @@ class Product2job
     {
         return $this->id;
     }
+
+    
+
+
+    public function getDatasAsObject()
+    {
+        $default=array('plancher'=>0,'surfaceplancher'=>'','sol'=>'','canalisation'=>0,'other'=>'');
+        if($array=json_decode($this->datas)) {
+            foreach($default as $k=>$v) {
+                if(!isset($array->$k)) {
+                   $array->$k=$v; 
+                }
+            }
+            return $array;
+        }
+        return $default;
+    }
+
+
 
     /**
      * Set productid
@@ -254,28 +263,27 @@ class Product2job
     }
 
     /**
-     * Set isoption
+     * Set datas
      *
-     * @param boolean $isoption
+     * @param string $datas
      * @return Product2job
      */
-    public function setIsoption($isoption)
+    public function setDatas($datas)
     {
-        $this->isoption = $isoption;
+        $this->datas = $datas;
     
         return $this;
     }
 
     /**
-     * Get isoption
+     * Get datas
      *
-     * @return boolean 
+     * @return string 
      */
-    public function getIsoption()
+    public function getDatas()
     {
-        return $this->isoption;
+        return $this->datas;
     }
-
 
     /**
      * Set jobid
@@ -298,36 +306,6 @@ class Product2job
     public function getJobid()
     {
         return $this->jobid;
-    }
-
-
-    public function getDatasAsObject()
-    {
-        
-        return json_decode($this->datas);
-    }
-
-    /**
-     * Set datas
-     *
-     * @param string $datas
-     * @return Product2job
-     */
-    public function setDatas($datas)
-    {
-        $this->datas = $datas;
-    
-        return $this;
-    }
-
-    /**
-     * Get datas
-     *
-     * @return string 
-     */
-    public function getDatas()
-    {
-        return $this->datas;
     }
 
     /**

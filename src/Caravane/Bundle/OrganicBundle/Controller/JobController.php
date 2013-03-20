@@ -3,6 +3,7 @@
 namespace Caravane\Bundle\OrganicBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Caravane\Bundle\OrganicBundle\Entity\Job;
@@ -115,7 +116,7 @@ class JobController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $productCategories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
         $entity = $em->getRepository('CaravaneOrganicBundle:Job')->find($id);
 
         if (!$entity) {
@@ -129,6 +130,7 @@ class JobController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+             'productCategories' =>$productCategories
         ));
     }
 
@@ -138,19 +140,69 @@ class JobController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
 
+        /*echo "<pre>";
+        print_r($_POST);
+        echo "</pre>";
+        die();
+        */
+        $em = $this->getDoctrine()->getManager();
+        $productCategories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
         $entity = $em->getRepository('CaravaneOrganicBundle:Job')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Job entity.');
         }
 
+        $originalProducts = array();
+
+
+        foreach ($entity->getProducts() as $product) {
+            $originalProducts[] = $product;
+        }
+
+
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new JobType(), $entity);
         $editForm->bind($request);
 
+        $issue=0;
         if ($editForm->isValid()) {
+            $priceHt=0;
+            foreach($entity->getProducts() as $product) {
+                $product->setJobid($entity);
+                $product->setUpdatedate(new \Datetime('now'));
+                $priceHt+=$product->getPrice();
+                $em->persist($product);
+            }
+            $entity->setPrice($priceHt);
+            $totalSlice=0;
+            $totalSlicePriceHt=0;
+             foreach($entity->getSlices() as $slice) {
+                $slice->setJobid($entity);
+               
+                if($slice->getSlice()>0) {
+                    $slice->setPriceht(($slice->getSlice()*$entity->getPrice())/100);
+                }
+                else if($slice->getPriceht()>0) {
+                    $slice->setSlice((100*$slice->getPriceht())/$entity->getPrice());
+                }
+                 else {
+                    $slice->setSlice(100/count($entity->getSlices()));
+                    $slice->setPriceht(($slice->getSlice()*$entity->getPrice())/100);
+                }
+                //$totalSlice+=$slice->getSlice();
+                //$totalSlicePriceHt+=$slice->getPriceht();
+                $em->persist($slice);
+            }
+            //$entity->setTotalSlice($totalSlice);
+            //$entity->setTotalSlicePriceht($totalSlicePriceHt);
+            if($entity->getTotalSlicePriceht()!=$entity->getPrice() || $entity->getTotalSlice()!=100 ) {
+                $issue++;
+            }
+
+            $entity->setIssue($issue);
+
             $em->persist($entity);
             $em->flush();
 
@@ -161,6 +213,7 @@ class JobController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+             'productCategories' =>$productCategories
         ));
     }
 
@@ -195,4 +248,61 @@ class JobController extends Controller
             ->getForm()
         ;
     }
+
+
+
+    public function removeProductAction($id,$productid) {
+        $em = $this->getDoctrine()->getManager();
+        $job=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
+        $product=$em->getRepository('CaravaneOrganicBundle:Product2job')->find($productid);
+        $job->removeProduct($product);
+        $em->remove($product);
+        $em->persist($job);
+        $em->flush();
+        return new Response('ok');
+    }
+
+     public function removeSliceAction($id,$productid) {
+        $em = $this->getDoctrine()->getManager();
+        $job=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
+        $slice=$em->getRepository('CaravaneOrganicBundle:Slice2job')->find($productid);
+        $job->removeSlice($slice);
+        $em->remove($slice);
+        $em->persist($job);
+        $em->flush();
+        return new Response('ok');
+    }
+
+    public function addStockProductAction($id,$tentid) {
+        $em = $this->getDoctrine()->getManager();
+        $job=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
+        $tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($tentid);
+        if($tent) {
+            $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2job();
+            $product->setJobid($job);
+            $product->setInsertdate(new \Datetime('now'));
+            $product->setUpdatedate(new \Datetime('now'));
+            $product->setIsoption(false);
+
+            $product->setDescription($tent->getName()."(".$tent->getReference().")");
+            $product->setTentid($tent);
+            $datas=array();
+            //$datas['etat']=$tent->getEtat();
+            $datas['plancher']='0';
+            $datas['surfaceplancher']='';
+            $datas['sol']='';
+            $datas['canalisation']='0';
+            $datas['other']='';
+
+            $product->setDatas(json_encode($datas));
+            $product->setPrice(0);
+
+            $em->persist($product);
+            $em->persist($job);
+            $em->flush();
+        }
+
+        return new Response('ok');
+    }
+
 }

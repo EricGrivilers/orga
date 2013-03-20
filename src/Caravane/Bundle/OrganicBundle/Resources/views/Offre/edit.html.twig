@@ -6,7 +6,7 @@
 <div class="row-fluid">
 
 {% block form_header %}
-<form id='mainForm' action="{{ path('offre_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+<form id='mainForm' action="{{ path('offre_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} data-entity="offre" >
 {% endblock form_header %}
 
 {% if form_errors(edit_form) %}
@@ -36,9 +36,13 @@
                {{ form_row(edit_form.userid)}}
             </div>
             <div class="span4">
-                {#% if entity.jobid %}{{entity.jobid.reference}}{% endif %#}
+                
                {{ form_row(edit_form.status)}}
 
+               {% if entity.jobid %}<label>Related job</label><label><b><a href="{{path('job_edit',{'id':entity.jobid.id})}}"> {{entity.jobid}}</a> </b></label>
+               {% else %}
+                {{ form_row(edit_form.validity)}}
+               {% endif %}
             </div>
         </div>
     </div>

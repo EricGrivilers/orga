@@ -325,7 +325,16 @@ class Product2offre
     public function getDatasAsObject()
     {
         
-        return json_decode($this->datas);
+        $default=array('plancher'=>0,'surfaceplancher'=>'','sol'=>'','canalisation'=>0,'other'=>'');
+        if($array=json_decode($this->datas)) {
+            foreach($default as $k=>$v) {
+                if(!isset($array->$k)) {
+                   $array->$k=$v; 
+                }
+            }
+            return $array;
+        }
+        return $default;
     }
 
     /**

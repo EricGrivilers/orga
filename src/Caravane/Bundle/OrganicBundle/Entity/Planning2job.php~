@@ -3,6 +3,7 @@
 namespace Caravane\Bundle\OrganicBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use \Caravane\Bundle\OrganicBundle\Entity\Planning;
 
 /**
  * Planning2job
@@ -31,14 +32,14 @@ class Planning2job
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="startDate", type="datetime", nullable=false)
+     * @ORM\Column(name="startDate", type="datetime", nullable=true)
      */
     private $startdate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="endDate", type="datetime", nullable=false)
+     * @ORM\Column(name="endDate", type="datetime", nullable=true)
      */
     private $enddate;
 
@@ -52,7 +53,7 @@ class Planning2job
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="userId", referencedColumnName="id")
      * })
@@ -60,31 +61,27 @@ class Planning2job
     private $userid;
 
     /**
-     * @var \Job
+     * @var \Offre
      *
-     * @ORM\ManyToOne(targetEntity="Job")
+     * @ORM\ManyToOne(targetEntity="Job", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="jobId", referencedColumnName="id")
      * })
      */
     private $jobid;
 
-    /**
-     * @var \Offre
-     *
-     * @ORM\ManyToOne(targetEntity="Offre")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="offreId", referencedColumnName="id")
-     * })
-     */
-    private $offreid;
 
+     public function __toString() {
+        return $this->planningtype;
+    }
+
+    
 
 
     /**
-     * Get planningid
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -100,14 +97,14 @@ class Planning2job
     public function setPlanningtype($planningtype)
     {
         $this->planningtype = $planningtype;
-
+    
         return $this;
     }
 
     /**
      * Get planningtype
      *
-     * @return string
+     * @return string 
      */
     public function getPlanningtype()
     {
@@ -123,14 +120,14 @@ class Planning2job
     public function setStartdate($startdate)
     {
         $this->startdate = $startdate;
-
+    
         return $this;
     }
 
     /**
      * Get startdate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getStartdate()
     {
@@ -146,14 +143,14 @@ class Planning2job
     public function setEnddate($enddate)
     {
         $this->enddate = $enddate;
-
+    
         return $this;
     }
 
     /**
      * Get enddate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getEnddate()
     {
@@ -169,14 +166,14 @@ class Planning2job
     public function setEtat($etat)
     {
         $this->etat = $etat;
-
+    
         return $this;
     }
 
     /**
      * Get etat
      *
-     * @return string
+     * @return string 
      */
     public function getEtat()
     {
@@ -192,14 +189,14 @@ class Planning2job
     public function setUserid(\Caravane\UserBundle\Entity\User $userid = null)
     {
         $this->userid = $userid;
-
+    
         return $this;
     }
 
     /**
      * Get userid
      *
-     * @return \Caravane\UserBundle\Entity\User
+     * @return \Caravane\UserBundle\Entity\User 
      */
     public function getUserid()
     {
@@ -215,40 +212,17 @@ class Planning2job
     public function setJobid(\Caravane\Bundle\OrganicBundle\Entity\Job $jobid = null)
     {
         $this->jobid = $jobid;
-
+    
         return $this;
     }
 
     /**
      * Get jobid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Job
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Job 
      */
     public function getJobid()
     {
         return $this->jobid;
-    }
-
-    /**
-     * Set offreid
-     *
-     * @param \Caravane\Bundle\OrganicBundle\Entity\Offre $offreid
-     * @return Planning2job
-     */
-    public function setOffreid(\Caravane\Bundle\OrganicBundle\Entity\Offre $offreid = null)
-    {
-        $this->offreid = $offreid;
-
-        return $this;
-    }
-
-    /**
-     * Get offreid
-     *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Offre
-     */
-    public function getOffreid()
-    {
-        return $this->offreid;
     }
 }

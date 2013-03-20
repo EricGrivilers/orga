@@ -275,12 +275,13 @@ class Offre
      */
     private $language;
 
+
     /**
-     * @var boolean
+     * @var string
      *
-     * @ORM\Column(name="copyId", type="boolean", nullable=true)
+     * @ORM\Column(name="validity", type="string", length=2, nullable=false)
      */
-    private $copyid;
+    private $validity;
 
     /**
      * @var \User
@@ -306,7 +307,7 @@ class Offre
     /**
      * @var \Job
      *
-     * @ORM\OneToOne(targetEntity="Job")
+     * @ORM\OneToOne(targetEntity="Job",mappedBy="offreid")
      * @ORM\JoinColumn(name="jobId", referencedColumnName="id")
      */
     private $jobid;
@@ -1473,5 +1474,28 @@ class Offre
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
         $this->slices = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    
 
+    /**
+     * Set validity
+     *
+     * @param string $validity
+     * @return Offre
+     */
+    public function setValidity($validity)
+    {
+        $this->validity = $validity;
+    
+        return $this;
+    }
+
+    /**
+     * Get validity
+     *
+     * @return string 
+     */
+    public function getValidity()
+    {
+        return $this->validity;
+    }
 }

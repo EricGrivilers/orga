@@ -1,22 +1,500 @@
-<h1>Job edit</h1>
+{% extends "::base.html.twig" %}
 
-<form action="{{ path('job_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
-    <p>
-        <button type="submit">Edit</button>
-    </p>
+
+{% block body %}
+
+<div class="row-fluid">
+
+{% block form_header %}
+<form id='mainForm' action="{{ path('job_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} data-entity="job">
+{% endblock form_header %}
+
+{% if form_errors(edit_form) %}
+{{ form_errors(edit_form) }}
+{% endif %}
+<div class="row-fluid">
+    <div class="actions">
+            <button type="submit" class="btn btn-inverse">Save</button>
+            <a href="{{ path('job') }}" class="btn">
+                    Back to the list
+            </a>
+        </div>
+    </div>
+    <div class="well">
+        <div class="row-fluid">
+            <div class="span4">
+                <div>
+                    <label>Reference</label> <label><b>{{entity.reference}}</b></label>
+                </div>
+                <div>
+                    <label>Date</label> <label><b>{{entity.insertDate|date('d/m/Y')}}</b></label>
+                </div>
+
+            </div>
+            <div class="span4">
+                <label>Type</label><label><b>{{entity.offretype}}</b></label>
+                {% if entity.offreid %}<label>Related quote</label><label><b><a href="{{path('offre_edit',{'id':entity.offreid.id})}}"> {{entity.offreid}}</a> </b></label>{% endif %}
+              
+            </div>
+            <div class="span4">
+                <div class="symfony-form-row " style='text-align:right'>
+                    <a class='btn btn-inverse '>Cancel this job</a>
+                </div>
+
+
+               
+                {{ form_row(edit_form.userid)}}
+
+            </div>
+        </div>
+    </div>
+    <div class="well">
+        <div class="row-fluid">
+            {% set ToPay = entity.price %}
+            {% if entity.pricetype!='intra'%}
+                {% set ToPay = entity.price+(entity.price*0.21) %}
+            {% endif %}
+            <div class="span6">
+                <h4 style="text-align:center">Total amount {{ToPay|number_format(2,',',' ')}} {% if entity.pricetype!='intra'%}VAT incl.{% endif %}</h4>
+                {% if entity.pricetype!='intra'%}<div style="text-align:center">{{entity.price|number_format(2,',',' ')}} VAT excl.</div>{% endif %}
+            </div>
+             <div class="span6">
+                {{ form_row(edit_form.pricecomments)}}
+            </div>
+        </div>
+    </div>
+
+    <h4>Client</h4>
+    <div class="well">
+        <div class="row-fluid" >
+            <div class="span4">
+                {{form_row(edit_form.clientid.clienttype)}}
+            </div>
+             <div class="span4">
+                &nbsp;
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.clientid.language)}}
+            </div>
+         </div>
+        <div class="row-fluid" id="cieonly" {% if entity.clientid.clienttype!='cie' %} style='display:none' {% endif %}>
+            <div class="span4">
+                {{form_row(edit_form.clientid.name)}}
+
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.clientid.vat)}}
+
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.clientid.cietype)}}
+
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span4">
+                {{form_row(edit_form.clientid.clienttitle)}}
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.clientid.lastname)}}
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.clientid.firstname)}}
+
+            </div>
+        </div>
+    </div>
+
+     <div class="well">
+        <div class="row-fluid">
+            <div class="span4">
+                {{form_row(edit_form.clientid.address)}}
+                {{form_row(edit_form.clientid.city)}}
+                {{form_row(edit_form.clientid.country)}}
+                {{form_row(edit_form.clientid.url)}}
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.clientid.number)}}
+                {{form_row(edit_form.clientid.zip)}}
+            </div>
+             <div class="span4">
+                {{form_row(edit_form.clientid.email)}}
+                {{form_row(edit_form.clientid.mobile)}}
+                {{form_row(edit_form.clientid.phone)}}
+                {{form_row(edit_form.clientid.phone2)}}
+                {{form_row(edit_form.clientid.fax)}}
+
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="actions">
+            <button type="submit" class="btn btn-inverse">Save</button>
+            <a href="{{ path('job') }}" class="btn">
+                    Back to the list
+            </a>
+        </div>
+    </div>
+     <h4>Job</h4>
+      <div class="well">
+        <div class="row-fluid">
+            <div class="span4">
+                {{form_row(edit_form.address)}}
+                 {{form_row(edit_form.number)}}
+                {{form_row(edit_form.city)}}
+                {{form_row(edit_form.zip)}}
+                {{form_row(edit_form.country)}}
+                {{form_row(edit_form.url)}}
+
+
+            </div>
+            <div class="span4">
+                {{form_row(edit_form.email)}}
+                {{form_row(edit_form.mobile)}}
+                {{form_row(edit_form.phone)}}
+                {{form_row(edit_form.phone2)}}
+                {{form_row(edit_form.fax)}}
+
+            </div>
+             <div class="span4">
+
+                {{form_row(edit_form.offrecomments)}}
+            </div>
+
+        </div>
+    </div>
+    <h4>Planning</h4>
+    <div class="well">
+        <div class="row-fluid">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#
+                        </th>
+                        <th>From
+                        </th>
+                        <th>To
+                        </th>
+                        <th>
+                        </th>
+                        <th>In charge
+                        </th>
+                        <th>Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody >
+                    {% set planning=edit_form.plannings[0] %}
+                    <tr class='widget'>
+                        <td><label><b>{{planning.vars.value.planningtype}}</b></label>{{form_widget(planning.planningtype)}}</td>
+                        <td>{{form_widget(planning.startdate)}}</td>
+                        <td>{{form_widget(planning.enddate)}}</td>
+                        <td><div class="reportrange" >
+                            <i class="icon-calendar icon-large"></i>
+                            <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i:s')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
+                        </div></td>
+                        <td>{{form_widget(planning.userid)}}</td>
+                        <td>{{form_widget(planning.etat)}}</td>
+                    </tr>
+                    {% set planning=edit_form.plannings[1] %}
+                    <tr class='widget'>
+                        <td><label><b>{{planning.vars.value.planningtype}}</b></label>{{form_widget(planning.planningtype)}}</td>
+                        <td>{{form_widget(planning.startdate)}}</td>
+                        <td>{{form_widget(planning.enddate)}}</td>
+                        <td><div class="reportrange" >
+                            <i class="icon-calendar icon-large"></i>
+                            <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i:s')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
+                        </div></td>
+                        <td>{{form_widget(planning.userid)}}</td>
+                        <td>{{form_widget(planning.etat)}}</td>
+                    </tr>
+                    <tr><td colspan="6">{{form_row(edit_form.buildnotes)}}</td></tr>
+                    {% set planning=edit_form.plannings[2] %}
+                    <tr class='widget'>
+                        <td><label><b>{{planning.vars.value.planningtype}}</b></label>{{form_widget(planning.planningtype)}}</td>
+                        <td>{{form_widget(planning.startdate)}}</td>
+                        <td>{{form_widget(planning.enddate)}}</td>
+                        <td><div class="reportrange" >
+                            <i class="icon-calendar icon-large"></i>
+                            <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i:s')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
+                        </div></td>
+                        <td>{{form_widget(planning.userid)}}</td>
+                        <td>{{form_widget(planning.etat)}}</td>
+                    </tr>
+                    {% set planning=edit_form.plannings[3] %}
+                    <tr class='widget'>
+                        <td><label><b>{{planning.vars.value.planningtype}}</b></label>{{form_widget(planning.planningtype)}}</td>
+                        <td>{{form_widget(planning.startdate)}}</td>
+                        <td>{{form_widget(planning.enddate)}}</td>
+                        <td><div class="reportrange" >
+                            <i class="icon-calendar icon-large"></i>
+                            <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i:s')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
+                        </div></td>
+                        <td>{{form_widget(planning.userid)}}</td>
+                        <td>{{form_widget(planning.etat)}}</td>
+                    </tr>
+                    <tr><td colspan="6">{{form_row(edit_form.unbuildnotes)}}</td></tr>
+                {#% for planning in edit_form.plannings %}
+                    <tr class='widget'>
+                        <td><label><b>{{planning.vars.value.planningtype}}</b></label>{{form_widget(planning.planningtype)}}</td>
+                        <td>{{form_widget(planning.startdate)}}</td>
+                        <td>{{form_widget(planning.enddate)}}</td>
+                        <td><div class="reportrange" >
+                            <i class="icon-calendar icon-large"></i>
+                            <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i:s')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
+                        </div></td>
+                        <td>{{form_widget(planning.userid)}}</td>
+                        <td>{{form_widget(planning.etat)}}</td>
+                    </tr>
+                {% endfor %#}
+            </tbody>
+            </table>
+        </div>
+         {{form_row(edit_form.planningcomments)}}
+    </div>
+    <div class="row-fluid">
+        <div class="actions">
+            <button type="submit" class="btn btn-inverse">Save</button>
+            <a href="{{ path('job') }}" class="btn">
+                    Back to the list
+            </a>
+        </div>
+    </div>
+
+ <h4>Products</h4>
+   <div class="row-fluid">
+     {{form_row(edit_form.surface)}}
+</div>
+    <div class="row-fluid">
+
+        <table class="table table-bordered table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Product
+                    </th>
+                    <th>
+                        Price in &euro; VAT excl.
+                    </th>
+                    <th class="tiny"></th>
+                </tr>
+            </thead>
+            <tbody class="products" id="products"  data-prototype="{{('
+                        <td class="span9">'~form_widget(edit_form.products.vars.prototype.description)~' '~form_widget(edit_form.products.vars.prototype.datas)~'</td>
+                        <td class="span3">'~form_widget(edit_form.products.vars.prototype.price)~'</td>
+                        <td><a class="delete_new_row" ><i class="icon icon-trash"></i></a></td>
+                    ')|e}}">
+                    {% set c=0 %}
+                {% for product in edit_form.products  %}
+
+                   
+
+                    <tr data-productid="{{c}}" >
+                        <td class="span9">
+                            {{form_widget(product.description)}}
+                            {% if product.vars.value.tentid %}
+                               {% if product.vars.value.tentid.productCategory=='Tent' %}
+                                <div class='row-fluid' class="additionalDatasRow" style="background:#ccc">
+                                    <div class="span4">
+                                         Reference:  <b>{{product.vars.value.tentid.reference}}</b>
+                                         <br/>Name:  <b>{{product.vars.value.tentid.name}}</b>
+                                         <br/>Color:  <b>{{product.vars.value.tentid.color}}</b>
+                                         {% if product.vars.value.tentid.ownerid %}
+                                            <br/>Owner <b>{{product.vars.value.tentid.ownerid.name}}</b>
+                                        {% endif %}
+                                        <br/>Width: <b>{{product.vars.value.tentid.width}}</b> m x length: <b>{{product.vars.value.tentid.length}}</b> m ( <b>{{product.vars.value.tentid.m2}}</b> m2)
+
+                                    </div>
+                                    {% if product.vars.value.datasAsObject %}
+                                        <div class="span4">
+
+                                            Floor <input class="additionalData" type='checkbox' data-attribute="plancher" value='1' {% if product.vars.value.datasAsObject.plancher %} checked="checked"  {% endif %} />
+                                              area <input data-attribute="surfaceplancher"  type='text' value="{{product.vars.value.datasAsObject.surfaceplancher}}" class="span10 additionalData"  />
+                                       <br/>
+                                            Ground<br/> <input class="additionalData" data-attribute="sol" type='text' value="{{product.vars.value.datasAsObject.sol}}" class="span10"  />
+                                        <br/>
+                                            Pipeline  <input class="additionalData" data-attribute="canalisation" type='checkbox'  value='1' {% if product.vars.value.datasAsObject.canalisation %} checked="checked"  {% endif %} />
+                                        </div>
+                                        <div class="span4">
+                                            Other<br/> <textarea data-attribute="other" class="span12 additionalData">{{product.vars.value.datasAsObject.other}}</textarea>
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+
+                               {% endif %}
+                            {% endif %}
+                            {{form_widget(product.datas)}}
+                        </td>
+                        <td class="span3">
+                            {{form_widget(product.price)}}
+                        </td>
+                        <td><a class="delete_row" data-rel="{{entity.id}}" data-type="job" data-target="{{product.vars.value.id}}"><i class="icon icon-trash"></i></a></td>
+                    </tr>
+                    
+                    {% set c=c+1 %}
+                {% endfor %}
+
+
+            </tbody>
+             <tfoot>
+                <tr>
+                        <th class="right">
+
+                            <a id="add_product_link" class="add_product_link btn" data-isoption='0'>Add free row</a>
+                            <a href="#stockModal"  class="btn openStockModal"  data-isoption='0'>Add from stock</a>
+                        </th>
+                        <th>
+
+                        </th>
+                        <th class="tiny"></th>
+                </tr>
+                    <tr>
+                        <th class="right">
+                            Total VAT excl.
+                        </th>
+                        <th>
+                            {% set total=0 %}
+                            {% for p in entity.products %}
+                                
+                                    {% set total=total + p.price %}
+                                
+                            {% endfor %}
+                            {{total|number_format(2,',',' ')}}
+                        </th>
+                        <th class="tiny"></th>
+                </tr>
+
+
+                    <tr>
+                        <th class="right">
+                             {{form_widget(edit_form.pricetype)}}
+                        </th>
+                        <th>
+                            {% if entity.pricetype!='intra'%} {{(0.21*total)|number_format(2,',',' ')}} {% endif %}
+                        </th>
+                        <th class="tiny"></th>
+                    </tr>
+                    <tr>
+                        <th class="right">
+                            Total {% if entity.pricetype!='intra'%} VAT incl. {% endif %}
+                        </th>
+                        <th>
+                            {% if entity.pricetype=='intra'%}
+                                {{total|number_format(2,'.',' ')}}
+                            {% else %}
+                                {{(total+0.21*total)|number_format(2,'.',' ')}}
+                            {% endif %}
+                        </th>
+                        <th></th>
+                    </tr>
+
+            </tfoot>
+        </table>
+    </div>
+     <div class="row-fluid">
+          {{form_row(edit_form.tentscomments)}}
+    </div>
+    <div class="row-fluid">
+        <div class="actions">
+            <button type="submit" class="btn btn-inverse">Save</button>
+            <a href="{{ path('job') }}" class="btn">
+                    Back to the list
+            </a>
+        </div>
+    </div>
+    <h4>Conditions</h4>
+    <div class="row-fluid">
+
+         <table class="table table-bordered table-condensed table-striped">
+                    <thead>
+                        <tr>
+                            <th class="span9">Description</th>
+                            <th class="span1">Slice</th>
+
+                            <th class='span1'>Amount in &euro;</th>
+                            <th class='iiny'></th>
+                        </tr>
+                    </thead>
+                    <tbody class="slices" data-prototype="{{('
+                        <td class="span9">'~form_widget(edit_form.slices.vars.prototype.comments)~'</td>
+                        <td class="span1">'~form_widget(edit_form.slices.vars.prototype.slice)~'</td>
+                        <td class="span1">'~form_widget(edit_form.slices.vars.prototype.priceht)~'</td>
+                        <td><a class="delete_new_row" ><i class="icon icon-trash"></i></a></td>
+                    ')|e}}">
+
+                        {% for slice in edit_form.slices %}
+                        <tr {% if slice.vars.value.slice>100 or slice.vars.value.slice<=0 %} class="error" {% endif %} >
+                            <td>{{form_widget(slice.comments)}}</td>
+                            <td>{{form_widget(slice.slice)}}%</td>
+
+                            <td>{{form_widget(slice.priceht)}}<br/>
+                             </td>
+                             <td><a class="delete_row" data-rel="{{entity.id}}" data-type="job_slice" data-target="{{slice.vars.value.id}}"><i class="icon icon-trash"></i></a></td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                     <tfoot>
+                <tr {% if entity.totalSlice!=100 or entity.totalSlicePriceht!=entity.price %} class="error" {% endif %}>
+                        <th class="right">
+
+                            <a id="add_slice_link" class="add_slice_link btn">Add row</a>
+                        </th>
+                        <th>
+                            {{entity.totalSlice}}%
+                        </th>
+                        <th>
+                            {{entity.totalSlicePriceht}}&euro;
+                        </th>
+                        <th class="tiny"></th>
+                </tr>
+            </tfoot>
+                </table>
+    </div>
+     <div class="row-fluid">
+          {{form_row(edit_form.conditions)}}
+    </div>
+
+     <div class="row-fluid">
+        {{ form_widget(edit_form) }}
+    </div>
+     <div class="row-fluid">
+        <div class="actions">
+            <button type="submit" class="btn btn-inverse">Save</button>
+            <a href="{{ path('job') }}" class="btn">
+                    Back to the list
+            </a>
+        </div>
+    </div>
 </form>
+</div>
+<div id="stockModal" data-target="{{entity.id}}" class="modal hide fade largeModal" tabindex="-1" role="dialog" aria-labelledby="stockModalLabel" aria-hidden="true">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Stock</h3>
+          </div>
+          <div class="modal-body">
+                <div class='row-fluid' id="products">
+                    <ul class="nav nav-tabs" id="myTab">
+                        {% for category in productCategories %}
+                             <li {% if loop.index==1%} class='active' {% endif %}><a href="#cat{{category.id}}" data-toggle="tab" >{{category}}</a></li>
+                        {% endfor %}
+                    </ul>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('job') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('job_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+                    <div class="tab-content">
+                        {% for category in productCategories %}
+
+                             <div class="tab-pane {% if loop.index==1 %} active {% endif %}" id="cat{{category.id}}" >
+                                {% render "CaravaneOrganicBundle:Tent:getAvailable" with { 'entity':entity,'categoryId':category.id, 'startDate' : edit_form.plannings[1].vars.value.startDate ,'endDate': edit_form.plannings[3].vars.value.endDate} %}
+                             </div>
+                        {% endfor %}
+                    </div>
+                </div>
+          </div>
+          <div class="modal-footer">
+
+
+          </div>
+    </div>
+{% endblock body %}

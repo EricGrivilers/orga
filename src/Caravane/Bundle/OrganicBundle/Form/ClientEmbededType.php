@@ -60,10 +60,16 @@ class ClientEmbededType extends AbstractType
                     "VZW"=>"VZW",
                     "privé"=>"privé"
                 ),
-                "label"=>"Type"
+                "label"=>"Type",
+                'attr'=>array(
+                    'class'=>'span12'
+                )
             ))
             ->add('vat',"text",array(
-                "label"=>"VAT"
+                "label"=>"VAT",
+                'attr'=>array(
+                    'class'=>'span12'
+                )
             ))
             ->add('address',"text",array(
                 "attr"=>array(
@@ -86,7 +92,11 @@ class ClientEmbededType extends AbstractType
                     "class"=>"span12"
                 )
             ))
-            ->add('country')
+            ->add('country','country',array(
+                'attr'=>array(
+                    'class'=>'span12'
+                )
+            ))
             ->add('phone',"text",array(
                 "attr"=>array(
                     "class"=>"span12"

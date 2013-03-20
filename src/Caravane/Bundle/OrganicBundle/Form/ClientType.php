@@ -60,10 +60,15 @@ class ClientType extends AbstractType
                     "VZW"=>"VZW",
                     "privé"=>"privé"
                 ),
-                "label"=>"Type"
+                "label"=>"Type",
+                'attr'=>array(
+                    'class'=>'span12'
+                )
             ))
             ->add('vat',"text",array(
-                "label"=>"VAT"
+                "label"=>"VAT",'attr'=>array(
+                    'class'=>'span12'
+                )
             ))
             ->add('address',"text",array(
                 "attr"=>array(

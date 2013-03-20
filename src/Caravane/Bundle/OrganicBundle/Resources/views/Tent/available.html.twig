@@ -3,10 +3,7 @@
 <div class="row-fluid tableContainer">
 
     <div class='content'>
-{% for tent in entity.tents2offre %}
 
-
-{% endfor %}
         <table class="table table-bordered table-condensed table-striped stock">
             <thead>
                 <tr>
@@ -37,8 +34,8 @@
             <tbody>
                 {% set offreEntity=entity %}
             {% for entity in entities %}
-
-                <tr {% if entity in offreEntity.tents2offre  %} class="active success"  {% endif %} data-productid="{{entity.id}}" >
+                
+                <tr data-productid="{{entity.id}}" >
                     <td><a data-productid="{{entity.id}}">{{ entity.reference }}</a></td>
 
                     <td><a data-productid="{{entity.id}}">{{ entity.name }}</a></td>

@@ -110,7 +110,7 @@ class User extends BaseUser
 
 
     public function __toString() {
-        return $this->firstname." ".$this->lastname;
+        return $this->getName();
     }
 
 
@@ -122,6 +122,12 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+
+
+    public function getName() {
+        return $this->firstname." ".$this->lastname;
     }
 
     /**

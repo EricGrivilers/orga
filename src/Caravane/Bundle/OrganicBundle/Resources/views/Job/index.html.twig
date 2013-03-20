@@ -10,14 +10,18 @@
          <li {% if type=='' %}class="active" {% endif %} >
             <a href="{{path('job',{'ob':ob})}}">All</a>
           </li>
+           <li {% if type=='running' %}class="active" {% endif %} >
+            <a href="{{path('job',{'ob':ob})}}">Running</a>
+          </li>
+           <li {% if type=='closed' %}class="active" {% endif %} >
+            <a href="{{path('job',{'ob':ob})}}">Closed</a>
+          </li>
 
         </ul>
 </div>
 
 <div class="span2">
-     <a href="{{ path('offre_new') }}" class="btn btn-inverse ">
-            New job
-        </a>
+     
     </div>
     </div>
 </div>

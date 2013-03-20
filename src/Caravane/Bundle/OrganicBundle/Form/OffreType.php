@@ -21,9 +21,19 @@ class OffreType extends AbstractType
            // ->add('insertdate')
             //->add('updatedate')
            // ->add('reference')
+
+            ->add('validity','choice',array(
+                'choices'=>array('14'=>'14 days','21'=>'21 days','30'=>'1 month'),
+                'attr'=>array(
+                    'class'=>'span12'
+                )
+            ))
              ->add('offretype','choice',array(
                 "label"=>"Type",
-                'choices'=>array('sell'=>"Sell",'rent'=>"Rent",'winter'=>"Winter storage")
+                'choices'=>array('sell'=>"Sell",'rent'=>"Rent",'winter'=>"Winter storage"),
+                'attr'=>array(
+                    'class'=>'span12'
+                )
             ))
             ->add('planningcomments','ckeditor',array(
                 'label'=>"Planning comments",
@@ -49,7 +59,7 @@ class OffreType extends AbstractType
             ->add('status','choice',array(
                 'choices'=> $this->statusChoices,
                 'attr'=>array(
-                    'class='=>'status'
+                    'class'=>'span12 status'
                 )
             ))
              ->add('pricetype','choice',array(
@@ -62,6 +72,7 @@ class OffreType extends AbstractType
                 )
             ))*/
             ->add('pricecomments','textarea',array(
+                'label'=>'Comments',
                 'attr'=>array(
                     'class'=>"span12"
                 )
@@ -161,7 +172,10 @@ class OffreType extends AbstractType
                 'required' => false,
                 'label'=>"Account",
 
-                'class'=>'Caravane\UserBundle\Entity\User'
+                'class'=>'Caravane\UserBundle\Entity\User',
+                'attr'=>array(
+                    'class'=>'span12'
+                )
             ))
             ->add('clientid',new ClientEmbededType())
         ;
