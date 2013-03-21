@@ -12,6 +12,12 @@
 {% if form_errors(edit_form) %}
 {{ form_errors(edit_form) }}
 {% endif %}
+{% if customErrors %}
+{% for error in customErrors %}
+<div class="alert alert-error">{{error}}
+</div>
+{% endfor %}
+{% endif %}
  <div class="row-fluid">
         <div class="actions">
             <button type="submit" class="btn btn-inverse">Save</button>
@@ -44,6 +50,11 @@
                 {{ form_row(edit_form.validity)}}
                {% endif %}
             </div>
+        </div>
+    </div>
+    <div class="well">
+        <div class="row-fluid">     
+                {{ form_row(edit_form.eventdate)}}
         </div>
     </div>
     <div class="well">
@@ -591,12 +602,16 @@
                     </ul>
 
                     <div class="tab-content">
+                        {% if edit_form.plannings|length==4 %}
                         {% for category in productCategories %}
 
                              <div class="tab-pane {% if loop.index==1 %} active {% endif %}" id="cat{{category.id}}" >
                                 {% render "CaravaneOrganicBundle:Tent:getAvailable" with { 'entity':entity,'categoryId':category.id, 'startDate' : edit_form.plannings[1].vars.value.startDate ,'endDate': edit_form.plannings[3].vars.value.endDate} %}
                              </div>
                         {% endfor %}
+                        {% else %}
+                            <div class='alert alert-error'>No planning defined</div>
+                        {% endif %}
                     </div>
                 </div>
           </div>

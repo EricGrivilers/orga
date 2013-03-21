@@ -140,7 +140,7 @@ class ClientType extends AbstractType
          //   ->add('public')
             //->add('jobid')
             ->add('userid','entity',array(
-                "class"=>"CaravaneOrganicBundle:User",
+                "class"=>"CaravaneUserBundle:User",
                 "label"=>"Account manager",
                 "attr"=>array(
                     "class"=>"span12"

@@ -1,7 +1,7 @@
 parameters:
-#    caravane_organic.example.class: Caravane\Bundle\OrganicBundle\Example
+    caravane_organic.client.class: Caravane\Bundle\OrganicBundle\Managers\ClientManager
 
 services:
-#    caravane_organic.example:
-#        class: %caravane_organic.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    caravane_organic.client_manager:
+        class: %caravane_organic.client.class%
+        arguments: [client,em]

@@ -15,6 +15,13 @@ use Caravane\Bundle\OrganicBundle\Form\ClientType;
  */
 class ClientController extends Controller
 {
+
+    private $customErrors;
+
+    public function __construct() {
+        $this->customErrors=array();
+    }
+
     /**
      * Lists all Client entities.
      *
@@ -80,6 +87,8 @@ class ClientController extends Controller
         return $this->render('CaravaneOrganicBundle:Client:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'customErrors'=>$this->customErrors
+
         ));
     }
 
@@ -110,6 +119,7 @@ class ClientController extends Controller
         return $this->render('CaravaneOrganicBundle:Client:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'customErrors'=>$this->customErrors
         ));
     }
 
@@ -134,6 +144,7 @@ class ClientController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'customErrors'=>$this->customErrors
         ));
     }
 
@@ -167,6 +178,7 @@ class ClientController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'customErrors'=>$this->customErrors
         ));
     }
 
@@ -233,4 +245,6 @@ class ClientController extends Controller
         return new Response('ok');
 
     }
+
+
 }

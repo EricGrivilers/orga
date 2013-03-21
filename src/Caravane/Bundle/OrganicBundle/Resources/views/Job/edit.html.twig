@@ -10,7 +10,15 @@
 {% endblock form_header %}
 
 {% if form_errors(edit_form) %}
-{{ form_errors(edit_form) }}
+    <div class="alert alert-error">
+        {{ form_errors(edit_form) }}
+    </div>
+{% endif %}
+{% if customErrors %}
+    {% for error in customErrors %}
+        <div class="alert alert-error">{{error}}
+        </div>
+    {% endfor %}
 {% endif %}
 <div class="row-fluid">
     <div class="actions">
@@ -48,6 +56,12 @@
             </div>
         </div>
     </div>
+    <div class="well">
+        <div class="row-fluid">     
+                {{ form_row(edit_form.eventdate)}}
+        </div>
+    </div>
+    
     <div class="well">
         <div class="row-fluid">
             {% set ToPay = entity.price %}

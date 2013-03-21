@@ -15,6 +15,14 @@ use Caravane\Bundle\OrganicBundle\Form\InvoiceType;
  */
 class InvoiceController extends Controller
 {
+
+
+    private $customErrors;
+
+    public function __construct() {
+        $this->customErrors=array();
+    }
+
     /**
      * Lists all Invoice entities.
      *
@@ -65,7 +73,9 @@ class InvoiceController extends Controller
 
         return $this->render('CaravaneOrganicBundle:Invoice:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'delete_form' => $deleteForm->createView(),
+            'customErrors'=>$this->customErrors
+                    ));
     }
 
     /**
@@ -84,6 +94,7 @@ class InvoiceController extends Controller
         return $this->render('CaravaneOrganicBundle:Invoice:new.html.twig', array(
             'entity' => $entity,
             'edit_form'   => $form->createView(),
+            'customErrors'=>$this->customErrors
         ));
     }
 
@@ -116,6 +127,7 @@ class InvoiceController extends Controller
         return $this->render('CaravaneOrganicBundle:Invoice:new.html.twig', array(
             'entity' => $entity,
             'edit_form'   => $form->createView(),
+            'customErrors'=>$this->customErrors
         ));
     }
 
@@ -143,6 +155,7 @@ class InvoiceController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'customErrors'=>$this->customErrors
         ));
     }
 
@@ -219,6 +232,7 @@ class InvoiceController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'customErrors'=>$this->customErrors
         ));
     }
 

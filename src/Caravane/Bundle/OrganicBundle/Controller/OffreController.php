@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Caravane\Bundle\OrganicBundle\Entity\Offre;
 use Caravane\Bundle\OrganicBundle\Form\OffreType;
 
+
+use Caravane\Bundle\OrganicBundle\Managers\ClientManager;
 /**
  * Offre controller.
  *
@@ -16,9 +18,11 @@ use Caravane\Bundle\OrganicBundle\Form\OffreType;
 class OffreController extends Controller
 {
     private $planningTypes;
+    private $customErrors;
 
     public function __construct() {
         $this->planningTypes=array('preview','build','inplace','unbuild');
+        $this->customErrors=array();
     }
     /**
      * Lists all Offre entities.
@@ -87,6 +91,7 @@ class OffreController extends Controller
         $entity = new Offre();
         $slice=new \Caravane\Bundle\OrganicBundle\Entity\Slice2offre();
         $slice->setComments('');
+        $slice->setSlice(100);
         $entity->addSlice($slice);
 
 
@@ -104,13 +109,15 @@ class OffreController extends Controller
                 $client=new \Caravane\Bundle\organicBundle\Entity\Client();
             }
         }
+
         $entity->setClientid($client);
         $form   = $this->createForm(new OffreType(), $entity);
 
         return $this->render('CaravaneOrganicBundle:Offre:new.html.twig', array(
             'entity' => $entity,
             'edit_form'   => $form->createView(),
-            'productCategories' =>$productCategories
+            'productCategories' =>$productCategories,
+            'customErrors'=>$this->customErrors
         ));
     }
 
@@ -126,16 +133,25 @@ class OffreController extends Controller
         $em = $this->getDoctrine()->getManager();
         $productCategories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
         $entity  = new Offre();
-        if($clientId=$this->get('request')->request->get('clientId')) {
-            $client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientId);
-            $entity->setClientid($client);
-        }
-        else {
-            $client=$entity->getClientid();
-        }
-
+       
         $form = $this->createForm(new OffreType(), $entity);
         $form->bind($request);
+
+        
+        if(!$clientId=$this->get('request')->request->get('clientId')) {
+            $newClient=$entity->getClientid();
+            $newClient->setUserid($this->getUser());
+            $clientManager=new ClientManager($newClient,$em);
+            $client=$clientManager->persist();
+
+        }
+        else {
+            $client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientId); 
+        }
+        
+        //
+
+        $entity->setClientid($client);
 
         $issue=0;
         if ($form->isValid()) {
@@ -196,6 +212,7 @@ class OffreController extends Controller
 
 
             $em->persist($entity);
+            $em->flush();
             $entity->setReference(date('Ym')."-".$entity->getId()."-O".strtoupper(substr($entity->getOffretype(),0,1))."-".$this->getUser()->getIso());
             $em->persist($entity);
             $em->flush();
@@ -204,13 +221,14 @@ class OffreController extends Controller
         }
         else {
            // print_r($form->getErrors());
-            print_r($form->getErrorsAsString()) ;
+           // print_r($form->getErrorsAsString()) ;
         }
         //return new Response('nok');
         return $this->render('CaravaneOrganicBundle:Offre:new.html.twig', array(
             'entity' => $entity,
             'edit_form'   => $form->createView(),
-            'productCategories' =>$productCategories
+            'productCategories' =>$productCategories,
+            'customErrors'=>$this->customErrors
         ));
     }
 
@@ -227,7 +245,24 @@ class OffreController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Offre entity.');
         }
+        if(count($entity->getPlannings())!=4) {
+            foreach($this->planningTypes as $planningType) {
+                $planning=new \Caravane\Bundle\OrganicBundle\Entity\Planning2offre();
+                $planning->setPlanningtype($planningType);
+                $planning->setStartdate(new \Datetime('now'));
+                $planning->setEnddate(new \Datetime('now'));
+                $planning->setEtat('TO DO');
+                $planning->setOffreid($entity);
+                $em->persist($planning);
+                $em->flush();
+                $entity->addPlanning($planning);
 
+            }
+            $this->customErrors[]="Planning error, please double check the dates.";
+        }
+        if(count($entity->getSlices())<1) {
+            $this->customErrors[]="Conditions error, please verify the slices.";
+        }
         $editForm = $this->createForm(new OffreType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
@@ -235,7 +270,8 @@ class OffreController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'productCategories' =>$productCategories
+            'productCategories' =>$productCategories,
+            'customErrors'=>$this->customErrors
         ));
     }
 
@@ -312,7 +348,8 @@ class OffreController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'productCategories' =>$productCategories
+            'productCategories' =>$productCategories,
+            'customErrors'=>$this->customErrors
         ));
     }
 

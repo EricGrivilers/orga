@@ -8,6 +8,8 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('CaravaneOrganicBundle:Default:index.html.twig', array());
+
+    	return $this->redirect($this->generateUrl('dashboard'));
+        //return $this->render('CaravaneOrganicBundle:Default:index.html.twig', array());
     }
 }

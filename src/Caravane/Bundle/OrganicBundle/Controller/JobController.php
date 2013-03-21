@@ -15,6 +15,14 @@ use Caravane\Bundle\OrganicBundle\Form\JobType;
  */
 class JobController extends Controller
 {
+    private $planningTypes;
+    private $customErrors;
+
+    public function __construct() {
+        $this->planningTypes=array('preview','build','inplace','unbuild');
+        $this->customErrors=array();
+    }
+
     /**
      * Lists all Job entities.
      *
@@ -82,6 +90,7 @@ class JobController extends Controller
         return $this->render('CaravaneOrganicBundle:Job:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'customErrors'=>$this->customErrors
         ));
     }
 
@@ -106,6 +115,7 @@ class JobController extends Controller
         return $this->render('CaravaneOrganicBundle:Job:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'customErrors'=>$this->customErrors
         ));
     }
 
@@ -123,6 +133,25 @@ class JobController extends Controller
             throw $this->createNotFoundException('Unable to find Job entity.');
         }
 
+         if(count($entity->getPlannings())!=4) {
+            foreach($this->planningTypes as $planningType) {
+                $planning=new \Caravane\Bundle\OrganicBundle\Entity\Planning2job();
+                $planning->setPlanningtype($planningType);
+                $planning->setStartdate(new \Datetime('now'));
+                $planning->setEnddate(new \Datetime('now'));
+                $planning->setEtat('TO DO');
+                $planning->setOffreid($entity);
+                $em->persist($planning);
+                $em->flush();
+                $entity->addPlanning($planning);
+
+            }
+            $this->customErrors[]="Planning error, please double check the dates.";
+        }
+        if(count($entity->getSlices())<1) {
+            $this->customErrors[]="Conditions error, please verify the slices.";
+        }
+
         $editForm = $this->createForm(new JobType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
@@ -130,7 +159,8 @@ class JobController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-             'productCategories' =>$productCategories
+             'productCategories' =>$productCategories,
+            'customErrors'=>$this->customErrors
         ));
     }
 
@@ -213,7 +243,8 @@ class JobController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-             'productCategories' =>$productCategories
+             'productCategories' =>$productCategories,
+            'customErrors'=>$this->customErrors
         ));
     }
 
