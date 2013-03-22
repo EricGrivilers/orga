@@ -138,7 +138,7 @@ class OffreController extends Controller
         $form->bind($request);
 
         
-        if(!$clientId=$this->get('request')->request->get('clientId')) {
+        if(!$clientId=$this->get('request')->request->get('clientid')) {
             $newClient=$entity->getClientid();
             $newClient->setUserid($this->getUser());
             $clientManager=new ClientManager($newClient,$em);
@@ -304,6 +304,24 @@ class OffreController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new OffreType(), $entity);
         $editForm->bind($request);
+        if(!$clientId=$this->get('request')->request->get('clientid')) {
+            echo "eeee";
+            die();
+            $newClient=$entity->getClientid();
+            $newClient->setUserid($this->getUser());
+            $clientManager=new ClientManager($newClient,$em);
+            $client=$clientManager->persistNew();
+
+        }
+        else {
+            
+            if($this->get('request')->request->get('clientId')!=$entity->getClientid()->getId()) {
+
+                $client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientId); 
+                $entity->setClientid($client);
+            }
+        }
+
 
         $issue=0;
         if ($editForm->isValid()) {

@@ -152,6 +152,35 @@ function fillClient2invoice(clientid) {
 }
 
 
+function fillClient(clientid) {
+    
+    if($('#clientid').length==0) {
+        document.location=Routing.generate('client_edit',{'id':clientid});
+    }
+    entity=$('#mainForm').data('entity');
+    fields=new Array();
+    $.post(Routing.generate('client_get_data',{'id':clientid}),function(data) {
+        data=$.parseJSON(data);
+        $.each(data, function(i, item) {
+            $('#caravane_bundle_organicbundle_'+entity+'type_clientid_'+i).val(data[i]);
+            //$('#caravane_bundle_organicbundle_clienttype_'+i).val(data[i]);
+            if(i=='clienttype') {
+                if(data[i]=='cie') {
+                    $('#cieonly').show();
+                }
+                else {
+                    $('#cieonly').hide();
+                }
+                $("#caravane_bundle_organicbundle_"+entity+"type_clienttype_widget button").removeClass('active');
+                $("#caravane_bundle_organicbundle_"+entity+"type_clienttype_widget button[data-value='"+data[i]+"']").addClass('active');
+            }
+
+        });
+
+    })
+}
+
+
 function initOffre() {
     $('.add_slice_link').click(function(e) {
          e.preventDefault();

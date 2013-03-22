@@ -19,10 +19,24 @@ class ClientEmbededType extends AbstractType
                 'data' => 'cie'
             ))
            // ->add('isowner')
-            ->add('name',"text",array(
+            ->add('name',"CaravaneUIBootstrapTypeahead",array(
                 'label'=>"Company name",
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"span12",
+                    "source_route"=>"client_autocomplete",
+                    "label_field"=>"name",
+                    "updater"=>"fillClient",
+                    'target_field'=>"#clientid"
+                )
+            ))
+            ->add('lastname',"CaravaneUIBootstrapTypeahead",array(
+                'label'=>"Lastname",
+                "attr"=>array(
+                    "class"=>"span12",
+                    "source_route"=>"client_autocomplete",
+                    "label_field"=>"name",
+                    "updater"=>"fillClient",
+                    'target_field'=>"#clientid"
                 )
             ))
             ->add('firstname',"text",array(
@@ -30,11 +44,7 @@ class ClientEmbededType extends AbstractType
                     "class"=>"span12"
                 )
             ))
-            ->add('lastname',"text",array(
-                "attr"=>array(
-                    "class"=>"span12"
-                )
-            ))
+            
             ->add('clienttitle','choice',array(
                 "choices"=>array("M."=>"M.","Mme"=>"Mme"),
                 "label"=>"Title",
