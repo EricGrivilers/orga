@@ -34,7 +34,7 @@
             <div class="span4">
                 <label>Type</label><label><b>{{entity.offretype}}</b></label>
                 {% if entity.offreid %}<label>Related quote</label><label><b><a href="{{path('offre_edit',{'id':entity.offreid.id})}}"> {{entity.offreid}}</a> </b></label>{% endif %}
-              
+
             </div>
             <div class="span4">
                 <div class="symfony-form-row " style='text-align:right'>
@@ -42,7 +42,7 @@
                 </div>
 
 
-               
+
                 {{ form_row(edit_form.userid)}}
 
             </div>
@@ -287,12 +287,13 @@
                     {% set c=0 %}
                 {% for product in edit_form.products  %}
 
-                   
+
 
                     <tr data-productid="{{c}}" >
                         <td class="span9">
                             {{form_widget(product.description)}}
                             {% if product.vars.value.tentid %}
+
                                {% if product.vars.value.tentid.productCategory=='Tent' %}
                                 <div class='row-fluid' class="additionalDatasRow" style="background:#ccc">
                                     <div class="span4">
@@ -331,7 +332,7 @@
                         </td>
                         <td><a class="delete_row" data-rel="{{entity.id}}" data-type="job" data-target="{{product.vars.value.id}}"><i class="icon icon-trash"></i></a></td>
                     </tr>
-                    
+
                     {% set c=c+1 %}
                 {% endfor %}
 
@@ -356,9 +357,9 @@
                         <th>
                             {% set total=0 %}
                             {% for p in entity.products %}
-                                
+
                                     {% set total=total + p.price %}
-                                
+
                             {% endfor %}
                             {{total|number_format(2,',',' ')}}
                         </th>

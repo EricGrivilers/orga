@@ -71,7 +71,7 @@ class Product2job
      * @ORM\Column(name="datas", type="text", nullable=true)
      */
     private $datas;
-    
+
 
     private $datasAsObject;
 
@@ -84,7 +84,7 @@ class Product2job
      * })
      */
     private $jobid;
-    
+
     /**
      * @var \Tent
      *
@@ -98,14 +98,14 @@ class Product2job
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
 
-    
+
 
 
     public function getDatasAsObject()
@@ -114,7 +114,7 @@ class Product2job
         if($array=json_decode($this->datas)) {
             foreach($default as $k=>$v) {
                 if(!isset($array->$k)) {
-                   $array->$k=$v; 
+                   $array->$k=$v;
                 }
             }
             return $array;
@@ -133,14 +133,14 @@ class Product2job
     public function setProductid($productid)
     {
         $this->productid = $productid;
-    
+
         return $this;
     }
 
     /**
      * Get productid
      *
-     * @return integer 
+     * @return integer
      */
     public function getProductid()
     {
@@ -156,14 +156,14 @@ class Product2job
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -179,14 +179,14 @@ class Product2job
     public function setPrice($price)
     {
         $this->price = $price;
-    
+
         return $this;
     }
 
     /**
      * Get price
      *
-     * @return float 
+     * @return float
      */
     public function getPrice()
     {
@@ -202,14 +202,14 @@ class Product2job
     public function setInsertdate($insertdate)
     {
         $this->insertdate = $insertdate;
-    
+
         return $this;
     }
 
     /**
      * Get insertdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertdate()
     {
@@ -225,14 +225,14 @@ class Product2job
     public function setUpdatedate($updatedate)
     {
         $this->updatedate = $updatedate;
-    
+
         return $this;
     }
 
     /**
      * Get updatedate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedate()
     {
@@ -248,14 +248,14 @@ class Product2job
     public function setRank($rank)
     {
         $this->rank = $rank;
-    
+
         return $this;
     }
 
     /**
      * Get rank
      *
-     * @return integer 
+     * @return integer
      */
     public function getRank()
     {
@@ -271,14 +271,14 @@ class Product2job
     public function setDatas($datas)
     {
         $this->datas = $datas;
-    
+
         return $this;
     }
 
     /**
      * Get datas
      *
-     * @return string 
+     * @return string
      */
     public function getDatas()
     {
@@ -294,14 +294,14 @@ class Product2job
     public function setJobid(\Caravane\Bundle\OrganicBundle\Entity\Job $jobid = null)
     {
         $this->jobid = $jobid;
-    
+
         return $this;
     }
 
     /**
      * Get jobid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Job 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Job
      */
     public function getJobid()
     {
@@ -317,14 +317,14 @@ class Product2job
     public function setTentid(\Caravane\Bundle\OrganicBundle\Entity\Tent $tentid = null)
     {
         $this->tentid = $tentid;
-    
+
         return $this;
     }
 
     /**
      * Get tentid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Tent 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Tent
      */
     public function getTentid()
     {

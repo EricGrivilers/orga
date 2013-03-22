@@ -114,13 +114,16 @@ class DefaultController extends Controller
 
         foreach($tent2job as $tent) {
             if($tent->getJobid()) {
+
                 if($job=$em->getRepository('CaravaneOrganicBundle:Job')->find($tent->getJobid())) {
+
                     if($tent->getTentid()) {
+                        //echo 'ok';
                         $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2job();
                         $product->setJobid($job);
                         $product->setInsertdate(new \Datetime('now'));
                         $product->setUpdatedate(new \Datetime('now'));
-                        $product->setIsoption(false);
+                        //$product->setIsoption(false);
 
                         $product->setDescription($tent->getTentid()->getName()."(".$tent->getTentid()->getReference().")");
                         $product->setTentid($tent->getTentid());

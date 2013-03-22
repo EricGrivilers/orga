@@ -1475,4 +1475,27 @@ class Offre
         $this->slices = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
+
+    /**
+     * Set validity
+     *
+     * @param string $validity
+     * @return Offre
+     */
+    public function setValidity($validity)
+    {
+        $this->validity = $validity;
+    
+        return $this;
+    }
+
+    /**
+     * Get validity
+     *
+     * @return string 
+     */
+    public function getValidity()
+    {
+        return $this->validity;
+    }
 }
