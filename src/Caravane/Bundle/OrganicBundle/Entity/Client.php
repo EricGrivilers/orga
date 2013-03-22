@@ -1,6 +1,8 @@
 <?php
 
 namespace Caravane\Bundle\OrganicBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContext;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -9,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="client")
  * @ORM\Entity(repositoryClass="Caravane\Bundle\OrganicBundle\Entity\ClientRepository")
+ * @Assert\Callback(methods={"validateClientType"})
  */
 class Client
 {
@@ -32,6 +35,7 @@ class Client
      * @var string
      *
      * @ORM\Column(name="clientType", type="string", length=20, nullable=false)
+     * @Assert\NotBlank()
      */
     private $clienttype="cie";
 
@@ -46,6 +50,7 @@ class Client
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=50, nullable=true)
+     * @Assert\NotBlank(groups="is_cie_group",message="Name could not be blank")
      */
     private $name;
 
@@ -60,6 +65,7 @@ class Client
      * @var string
      *
      * @ORM\Column(name="lastname", type="string", length=50, nullable=true)
+     * @Assert\NotBlank(groups="is_part_group")
      */
     private $lastname;
 
@@ -81,6 +87,7 @@ class Client
      * @var string
      *
      * @ORM\Column(name="vat", type="string", length=50, nullable=true)
+     * @Assert\NotBlank(groups="is_cie_group") 
      */
     private $vat;
 
@@ -1024,5 +1031,17 @@ class Client
         $this->offres = new \Doctrine\Common\Collections\ArrayCollection();
         $this->invoices = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+     public function validateClientType(ExecutionContext $ec)
+  {
+
+    if ($this->clienttype=='cie') 
+    {
+      $ec->getGraphWalker()->walkReference($this, 'is_cie_group', $ec->getPropertyPath(), true);
+    }
+    else {
+        $ec->getGraphWalker()->walkReference($this, 'is_part_group', $ec->getPropertyPath(), true);
+    }
+  }
 
 }

@@ -142,7 +142,7 @@ class OffreController extends Controller
             $newClient=$entity->getClientid();
             $newClient->setUserid($this->getUser());
             $clientManager=new ClientManager($newClient,$em);
-            $client=$clientManager->persist();
+            $client=$clientManager->persistNew();
 
         }
         else {

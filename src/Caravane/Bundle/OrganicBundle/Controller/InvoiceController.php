@@ -9,6 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Caravane\Bundle\OrganicBundle\Entity\Invoice;
 use Caravane\Bundle\OrganicBundle\Form\InvoiceType;
 
+use Caravane\Bundle\OrganicBundle\Managers\ClientManager;
+use Caravane\Bundle\OrganicBundle\Managers\InvoiceManager;
+
 /**
  * Invoice controller.
  *
@@ -104,24 +107,32 @@ class InvoiceController extends Controller
      */
     public function createAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $statusChoices=array('draft'=>"Draft",'ok'=>"Sent to client");
         $entity  = new Invoice();
         $entity->setYear(date('Y'));
         $entity->setInsertdate(new \Datetime('now'));
 
 
+        
+
         $form = $this->createForm(new InvoiceType($statusChoices), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
         $form->bind($request);
 
+        $invoiceManager=new invoiceManager($entity,$em);
+        $entity=$invoiceManager->fillClient();  
+
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
+            $entity=$invoiceManager->persist();
             return $this->redirect($this->generateUrl('invoice_edit', array('id' => $entity->getId())));
+        }
+        else {
+            print_r($form->getErrors());
+            print_r($form->getErrorsAsString()) ;
         }
 
         return $this->render('CaravaneOrganicBundle:Invoice:new.html.twig', array(
@@ -187,44 +198,21 @@ class InvoiceController extends Controller
 
 
         
+        $invoiceManager=new invoiceManager($entity,$em);
+        $entity=$invoiceManager->fillClient();
 
+        
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new InvoiceType($statusChoices), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
         $editForm->bind($request);
 
-        if ($editForm->isValid()) {
-            if($entity->getStatus()=='ok' && $entity->getReference()=='') {
-                $entity->setYear(date('Y'));
-                $reference=$em->getRepository('CaravaneOrganicBundle:Invoice')->getNewReference($entity->getYear());
-                $entity->setReference($reference);
-                $entity->setInsertDate(new \Datetime('now'));
-            }
-            if($entity->getStatus()=='paid' && is_null($entity->getPaymentDate())) {
-                $entity->setPaymentDate(new \Datetime('now'));
-            }
-            $priceHt=0;
-            foreach($entity->getProducts() as $product) {
-                $product->setInvoiceid($entity);
-                $priceHt+=$product->getPrice();
-                $em->persist($product);
-            }
-            if($entity->getJobid()) {
-                if($entity->getPriceht()==0 && $entity->getSlice()>0) {
-                    $entity->setPriceht($priceHt*$entity->getSlice()/100);
-                }
-                else if($entity->getPriceht()>0 && $entity->getSlice()==0) {
-                    $entity->setSlice($entity->getPriceht()*100/$priceHt);
-                }
-            }
-            else if($entity->getPriceht()==0) {
-                $entity->setPriceht($priceHt);
-                $entity->setSlice(100);
-            }
 
-            $em->persist($entity);
-            $em->flush();
+        
+
+        if ($editForm->isValid()) {
+            $entity=$invoiceManager->persist();
             return $this->redirect($this->generateUrl('invoice_edit', array('id' => $id)));
         }
 

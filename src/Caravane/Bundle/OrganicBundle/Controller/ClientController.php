@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Caravane\Bundle\OrganicBundle\Entity\Client;
 use Caravane\Bundle\OrganicBundle\Form\ClientType;
 
+use Caravane\Bundle\OrganicBundle\Managers\ClientManager;
 /**
  * Client controller.
  *
@@ -86,7 +87,7 @@ class ClientController extends Controller
 
         return $this->render('CaravaneOrganicBundle:Client:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'edit_form'   => $form->createView(),
             'customErrors'=>$this->customErrors
 
         ));
@@ -98,11 +99,15 @@ class ClientController extends Controller
      */
     public function createAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $entity  = new Client();
         $form = $this->createForm(new ClientType(), $entity);
         $form->bind($request);
 
         if ($form->isValid()) {
+            $clientManager=new ClientManager($entity,$em);
+            $client=$clientManager->persistNew();
+/*
             $entity->setReference(strtoupper(substr($entity->getClientType(),0,1))."-".strtoupper(substr($entity->getName(),0,5))."-".$entity->getId());
             $entity->setInsertDate(new \Datetime("now"));
             $entity->setUpdateDate(new \Datetime("now"));
@@ -112,13 +117,17 @@ class ClientController extends Controller
             $entity->setReference(strtoupper(substr($entity->getClientType(),0,1))."-".strtoupper(substr($entity->getName(),0,5))."-".$entity->getId());
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('client_show', array('id' => $entity->getId())));
+*/
+            return $this->redirect($this->generateUrl('client_edit', array('id' => $entity->getId())));
+        }
+        else {
+           // print_r($form->getErrors());
+            print_r($form->getErrorsAsString()) ;
         }
 
         return $this->render('CaravaneOrganicBundle:Client:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'edit_form'   => $form->createView(),
             'customErrors'=>$this->customErrors
         ));
     }

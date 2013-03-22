@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="invoice")
  * @ORM\Entity(repositoryClass="Caravane\Bundle\OrganicBundle\Entity\InvoiceRepository"))
- * @Assert\Callback(methods={"validateClientType"})
  */
 class Invoice
 {
@@ -34,7 +33,7 @@ class Invoice
     /**
      * @var string
      *
-     * @ORM\Column(name="year", type="string", length=4, nullable=false)
+     * @ORM\Column(name="year", type="string", length=4, nullable=true)
      */
     private $year;
 
@@ -97,7 +96,7 @@ class Invoice
     /**
      * @var string
      *
-     * @ORM\Column(name="priceType", type="string", length=10, nullable=false)
+     * @ORM\Column(name="priceType", type="string", length=10, nullable=true)
      */
     private $pricetype;
 
@@ -153,8 +152,7 @@ class Invoice
     /**
      * @var string
      *
-     * @ORM\Column(name="clientType", type="string", length=5, nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="clientType", type="string", length=5, nullable=true)
      */
     private $clienttype;
 
@@ -168,8 +166,7 @@ class Invoice
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
-     * @Assert\NotBlank(groups="is_cie_group")
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;
 
@@ -177,7 +174,6 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
-     * @Assert\NotBlank(groups="is_part_group")
      */
     private $lastname;
 
@@ -192,15 +188,13 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="vat", type="string", length=30, nullable=true)
-     * @Assert\NotBlank(groups="is_cie_group") 
      */
     private $vat;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=255, nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
 
@@ -214,24 +208,21 @@ class Invoice
     /**
      * @var string
      *
-     * @ORM\Column(name="zip", type="string", length=20, nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="zip", type="string", length=20, nullable=true)
      */
     private $zip;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=120, nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="city", type="string", length=120, nullable=true)
      */
     private $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=120, nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="country", type="string", length=120, nullable=true)
      */
     private $country;
 
@@ -316,7 +307,7 @@ class Invoice
     /**
      * @var \Client
      *
-     * @ORM\ManyToOne(targetEntity="Client")
+     * @ORM\ManyToOne(targetEntity="Client", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="clientId", referencedColumnName="id")
      * })
@@ -1320,14 +1311,4 @@ class Invoice
 
 
 
-    public function validateClientType(ExecutionContext $ec)
-  {
-    if ($this->clienttype=='cie') 
-    {
-      $ec->getGraphWalker()->walkReference($this, 'is_cie_group', $ec->getPropertyPath(), true);
-    }
-    else {
-        $ec->getGraphWalker()->walkReference($this, 'is_part_group', $ec->getPropertyPath(), true);
-    }
-  }
 }

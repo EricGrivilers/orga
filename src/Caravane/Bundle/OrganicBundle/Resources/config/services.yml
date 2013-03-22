@@ -1,7 +1,28 @@
 parameters:
     caravane_organic.client.class: Caravane\Bundle\OrganicBundle\Managers\ClientManager
+    caravane_organic.invoice.class: Caravane\Bundle\OrganicBundle\Managers\InvoiceManager
+    caravane_organic.offre.class: Caravane\Bundle\OrganicBundle\Managers\OffreManager
+    caravane_organic.listener.class: Caravane\Bundle\OrganicBundle\Listeners\EntitiesStatusUpdater
 
 services:
     caravane_organic.client_manager:
         class: %caravane_organic.client.class%
         arguments: [client,em]
+
+
+    caravane_organic.invoice_manager:
+        class: %caravane_organic.invoice.class%
+        arguments: [invoice,em]
+
+    caravane_organic.offre_manager:
+        class: %caravane_organic.offre.class%
+        arguments: [offre,em]
+
+
+    caravane_organic.listener:
+        class: %caravane_organic.listener.class%
+        tags:
+            - { name: doctrine.event_listener, event: postUpdate, method: postUpdate }
+            - { name: doctrine.event_listener, event: prePersist, method: prePersist }
+            - { name: doctrine.event_listener, event: postPersist, method: postPersist }
+            - { name: doctrine.event_listener, event: preUpdate, method: preUpdate }

@@ -15,7 +15,8 @@ class ClientEmbededType extends AbstractType
             
              ->add('clienttype','CaravaneUIBootstrapRadioButton',array(
                 "label"=>"Client type",
-                'choices'=>array('cie'=>'Company','part'=>'Private')
+                'choices'=>array('cie'=>'Company','part'=>'Private'),
+                'data' => 'cie'
             ))
            // ->add('isowner')
             ->add('name',"text",array(
