@@ -58,15 +58,7 @@ class InvoiceManager
     public function persist() {
         $invoice=$this->invoice;
         $invoice=$this->fillClient();
-        if($invoice->getStatus()=='ok' && $invoice->getReference()=='') {
-            $invoice->setYear(date('Y'));
-            $reference=$this->em->getRepository('CaravaneOrganicBundle:Invoice')->getNewReference($invoice->getYear());
-            $invoice->setReference($reference);
-            $invoice->setInsertDate(new \Datetime('now'));
-        }
-        if($invoice->getStatus()=='paid' && is_null($invoice->getPaymentDate())) {
-            $invoice->setPaymentDate(new \Datetime('now'));
-        }
+       
 
         $priceHt=0;
         foreach($invoice->getProducts() as $product) {
@@ -91,6 +83,28 @@ class InvoiceManager
         $this->em->persist($invoice);
         $this->em->flush();
         return $invoice;
+    }
+
+    public function setReference() {
+
+       
+        $invoice=$this->invoice;
+        $reference=$this->em->getRepository('CaravaneOrganicBundle:Invoice')->getNewReference($invoice->getYear());
+        $invoice->setReference($reference); 
+
+        return $invoice->getReference();
+    }
+
+    public function setPaymentdate() {
+
+       
+        $invoice=$this->invoice;
+        if(is_null($invoice->getPaymentdate())) {
+            $invoice->setPaymentDate(new \Datetime('now'));
+        }
+        
+
+        return $invoice->getPaymentdate();
     }
 
 

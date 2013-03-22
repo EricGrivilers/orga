@@ -6,18 +6,24 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class InvoiceControllerTest extends WebTestCase
 {
-    /*
+
     public function testCompleteScenario()
     {
         // Create a new client to browse the application
-        $client = static::createClient();
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'eric@caravanemedia.com',
+            'PHP_AUTH_PW'   => 'absco8645',
+        ));
 
         // Create a new entry in the database
         $crawler = $client->request('GET', '/invoice/');
         $this->assertTrue(200 === $client->getResponse()->getStatusCode());
-        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
+        print "eeeeeee";
+
+        $crawler = $client->click($crawler->selectLink('New invoice')->link());
 
         // Fill in the form and submit it
+        print "eeeeeee";
         $form = $crawler->selectButton('Create')->form(array(
             'caravane_bundle_organicbundle_invoicetype[field_name]'  => 'Test',
             // ... other fields to fill
@@ -51,5 +57,5 @@ class InvoiceControllerTest extends WebTestCase
         $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
     }
 
-    */
+
 }

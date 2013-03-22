@@ -80,14 +80,22 @@ class EntitiesStatusUpdater {
         $entityManager = $args->getEntityManager();
         $uow = $entityManager->getUnitOfWork();
         if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Offre) {
-            
             if ($args->hasChangedField('offretype') ) {
                 $offreManager=new OffreManager($entity,$entityManager);
                 $entity->setReference($offreManager->changeReference());
-                $uow->recomputeSingleEntityChangeSet(
-                    $entityManager->getClassMetadata("CaravaneOrganicBundle:Offre"),
-                    $entity
-                 );
+                $uow->recomputeSingleEntityChangeSet($entityManager->getClassMetadata("CaravaneOrganicBundle:Offre"),$entity);
+            }
+        }
+        if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Invoice) {
+            if ($args->hasChangedField('status') && $args->getOldValue('status')=='draft' && $args->getNewValue('status')=='ok') {
+                $invoiceManager=new InvoiceManager($entity,$entityManager);
+                $entity->setReference($invoiceManager->setReference());
+                $uow->recomputeSingleEntityChangeSet($entityManager->getClassMetadata("CaravaneOrganicBundle:Invoice"),$entity);
+            }
+            if ($args->hasChangedField('status') && $args->getOldValue('status')=='ok' && $args->getNewValue('status')=='paid') {
+                $invoiceManager=new InvoiceManager($entity,$entityManager);
+                $entity->setPaymentdate($invoiceManager->setPaymentdate());
+                $uow->recomputeSingleEntityChangeSet($entityManager->getClassMetadata("CaravaneOrganicBundle:Invoice"),$entity);
             }
         }
         else {

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Ivory CKEditor package.
+ * This file is part of the Caravane CKEditor package.
  *
  * (c) Eric GELOEN <geloen.eric@gmail.com>
  *
@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Ivory\CKEditorBundle\Tests\Model;
+namespace Caravane\CKEditorBundle\Tests\Model;
 
-use Ivory\CKEditorBundle\Model\ConfigManager;
+use Caravane\CKEditorBundle\Model\ConfigManager;
 
 /**
  * Config manager test.
@@ -20,7 +20,7 @@ use Ivory\CKEditorBundle\Model\ConfigManager;
  */
 class ConfigManagerTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \Ivory\CKEditorBundle\Model\ConfigManager */
+    /** @var \Caravane\CKEditorBundle\Model\ConfigManager */
     protected $configManager;
 
     /**
@@ -66,7 +66,7 @@ class ConfigManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Ivory\CKEditorBundle\Exception\ConfigManagerException
+     * @expectedException \Caravane\CKEditorBundle\Exception\ConfigManagerException
      * @expectedExceptionMessage The CKEditor config "foo" does not exist.
      */
     public function testConfigWithInvalidName()

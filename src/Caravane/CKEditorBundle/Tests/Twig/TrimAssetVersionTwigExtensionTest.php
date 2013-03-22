@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Ivory CKEditor package.
+ * This file is part of the Caravane CKEditor package.
  *
  * (c) Eric GELOEN <geloen.eric@gmail.com>
  *
@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Ivory\CKEditorBundle\Tests\Twig;
+namespace Caravane\CKEditorBundle\Tests\Twig;
 
 use \Twig_Environment,
     \Twig_Loader_String,
-    Ivory\CKEditorBundle\Twig\TrimAssetVersionTwigExtension;
+    Caravane\CKEditorBundle\Twig\TrimAssetVersionTwigExtension;
 
 /**
  * Trim asset version twig extension test.
@@ -22,7 +22,7 @@ use \Twig_Environment,
  */
 class TrimAssetVersionTwigExtensionTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \Ivory\CKEditorBundle\Twig\TrimAssetVersionTwigExtension */
+    /** @var \Caravane\CKEditorBundle\Twig\TrimAssetVersionTwigExtension */
     protected $trimAssetVersionTwigExtension;
 
     /**

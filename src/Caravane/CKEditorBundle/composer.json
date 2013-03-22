@@ -20,7 +20,7 @@
         "twig/twig": "1.*"
     },
     "autoload": {
-        "psr-0": { "Ivory\\CKEditorBundle": "" }
+        "psr-0": { "Caravane\\CKEditorBundle": "" }
     },
-    "target-dir": "Ivory/CKEditorBundle"
+    "target-dir": "Caravane/CKEditorBundle"
 }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Ivory CKEditor package.
+ * This file is part of the Caravane CKEditor package.
  *
  * (c) Eric GELOEN <geloen.eric@gmail.com>
  *
@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Ivory\CKEditorBundle\Tests\Form\Type;
+namespace Caravane\CKEditorBundle\Tests\Form\Type;
 
-use Ivory\CKEditorBundle\Form\Type\CKEditorType,
+use Caravane\CKEditorBundle\Form\Type\CKEditorType,
     Symfony\Component\Form\Tests\Extension\Core\Type\TypeTestCase;
 
 /**
@@ -21,7 +21,7 @@ use Ivory\CKEditorBundle\Form\Type\CKEditorType,
  */
 class CKEditorTypeTest extends TypeTestCase
 {
-    /** @var \Ivory\CKEditorBundle\Model\ConfigManagerInterface */
+    /** @var \Caravane\CKEditorBundle\Model\ConfigManagerInterface */
     protected $configManagerMock;
 
     /**
@@ -31,7 +31,7 @@ class CKEditorTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $this->configManagerMock = $this->getMock('Ivory\CKEditorBundle\Model\ConfigManagerInterface');
+        $this->configManagerMock = $this->getMock('Caravane\CKEditorBundle\Model\ConfigManagerInterface');
         $this->factory->addType(new CKEditorType($this->configManagerMock));
     }
 

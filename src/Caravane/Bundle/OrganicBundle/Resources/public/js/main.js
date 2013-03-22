@@ -52,6 +52,13 @@ $('.reportrange').daterangepicker(
     }
 );
 
+
+$('.combobox ul.dropdown-menu li a').click(function() {
+    $(this).closest('.combobox').find('input').val($(this).text());
+});
+
+
+
 $(document).ready(function() {
     initClient();
     initProduct();

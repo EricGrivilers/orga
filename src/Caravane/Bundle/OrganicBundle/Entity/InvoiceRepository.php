@@ -46,9 +46,9 @@ class InvoiceRepository extends EntityRepository
 
 
 	public function getNewReference($year) {
-		if(is_null($year)) {
+		//if(is_null($year)) {
 			$year=date('Y');
-		}
+		//}
 
 
 		$dql = "SELECT I.reference FROM CaravaneOrganicBundle:Invoice I ";

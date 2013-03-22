@@ -75,14 +75,14 @@ class Invoice
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="insertDate", type="date", nullable=false)
+     * @ORM\Column(name="insertDate", type="datetime", nullable=false)
      */
     private $insertdate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="paymentDate", type="date", nullable=true)
+     * @ORM\Column(name="paymentDate", type="datetime", nullable=true)
      */
     private $paymentdate;
 

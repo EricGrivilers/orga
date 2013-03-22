@@ -94,6 +94,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
+    {% set row=loop.index %}
         <tr {% if entity.issue>0 %} class="error" {% endif %}>
             <td><a href="{{ path('job_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
             <td>{% if entity.clientid %} <a href="{{ path('client_edit', { 'id': entity.clientid.id }) }}">{{ entity.clientid.name }}</a> {% endif %}</td>
@@ -110,8 +111,8 @@
 
              <td>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>
-                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+                    <a class="dropdown-toggle" id="drop{{row}}_1" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>
+                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop{{row}}_1">
                         {% for lg in ['en','fr','nl'] %}
                             <li role="presentation">
                                 <a role="menuitem" href=""><img src="/images/icons/pdf.png"> Job {{lg}}</a>

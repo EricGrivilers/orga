@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ClientControllerTest extends WebTestCase
 {
-    /*
+    
     public function testCompleteScenario()
     {
         // Create a new client to browse the application
@@ -14,12 +14,13 @@ class ClientControllerTest extends WebTestCase
 
         // Create a new entry in the database
         $crawler = $client->request('GET', '/client/');
-        $this->assertTrue(200 === $client->getResponse()->getStatusCode());
-        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
+        $this->assertTrue(302 === $client->getResponse()->getStatusCode());
+        $crawler = $client->click($crawler->selectLink('New client')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
-            'caravane_bundle_organicbundle_clienttype[field_name]'  => 'Test',
+            'caravane_bundle_organicbundle_clienttype[name]'  => 'Test name',
+            'caravane_bundle_organicbundle_clienttype[lastname]'  => 'Test lastname',
             // ... other fields to fill
         ));
 
@@ -51,5 +52,5 @@ class ClientControllerTest extends WebTestCase
         $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
     }
 
-    */
+    
 }

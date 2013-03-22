@@ -2,7 +2,7 @@
 {% block headscripts %}
     {% javascripts output="js/organic-head.js"
     "../vendor/jquery/jquery/jquery-1.9.1.js"
-    "@CaravaneUIBundle/Resources/public/js/fuelux/loader.js"
+   
 
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -10,3 +10,4 @@
     <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 {% endblock headscripts %}
+{#  "@CaravaneUIBundle/Resources/public/js/fuelux/loader.js" #}
