@@ -18,22 +18,58 @@ class ClientType extends AbstractType
                 'choices'=>array('cie'=>'Company','part'=>'Private')
             ))
            // ->add('isowner')
-            ->add('name',"text",array(
+
+/*              ->add($builder->create('clientid', 'CaravaneUIBootstrapTypeahead',array(
+                "label"=>"Client",
+                "attr"=>array(
+                    "class"=>"span12",
+                    //"data"=>$owner->getName(),
+                    "source_route"=>"client_autocomplete",
+                    "label_field"=>"name",
+                    "updater"=>"fillClient2invoice"
+                )
+            ))
+                ->addModelTransformer($transformer)
+*/
+            ->add('name',"CaravaneUIBootstrapTypeahead",array(
+                'label'=>"Company name",
+                "attr"=>array(
+                    "class"=>"span12",
+                    "source_route"=>"client_autocomplete",
+                    "label_field"=>"name",
+                    "updater"=>"fillClient",
+                    'target_field'=>"#clientid"
+                )
+            ))
+            ->add('lastname',"CaravaneUIBootstrapTypeahead",array(
+                'label'=>"Lastname",
+                "attr"=>array(
+                    "class"=>"span12",
+                    "source_route"=>"client_autocomplete",
+                    "label_field"=>"name",
+                    "updater"=>"fillClient",
+                    'target_field'=>"#clientid"
+                )
+            ))
+            
+
+
+            /*->add('name',"text",array(
                 'label'=>"Company name",
                 "attr"=>array(
                     "class"=>"span12"
                 )
-            ))
+            ))*/
             ->add('firstname',"text",array(
                 "attr"=>array(
                     "class"=>"span12"
                 )
             ))
-            ->add('lastname',"text",array(
+          /*  ->add('lastname',"text",array(
                 "attr"=>array(
                     "class"=>"span12"
                 )
-            ))
+            ))*/
             ->add('clienttitle','choice',array(
                 "choices"=>array("M."=>"M.","Mme"=>"Mme"),
                 "label"=>"Title",
@@ -140,7 +176,7 @@ class ClientType extends AbstractType
          //   ->add('public')
             //->add('jobid')
             ->add('userid','entity',array(
-                "class"=>"CaravaneOrganicBundle:User",
+                "class"=>"CaravaneUserBundle:User",
                 "label"=>"Account manager",
                 "attr"=>array(
                     "class"=>"span12"

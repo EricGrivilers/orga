@@ -24,6 +24,13 @@ class Job
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="eventDate", type="datetime", nullable=true)
+     */
+    private $eventdate;
+    
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="insertDate", type="datetime", nullable=false)
      */
     private $insertdate;
@@ -1474,5 +1481,28 @@ class Job
     public function getSlices()
     {
         return $this->slices;
+    }
+
+    /**
+     * Set eventdate
+     *
+     * @param \DateTime $eventdate
+     * @return Job
+     */
+    public function setEventdate($eventdate)
+    {
+        $this->eventdate = $eventdate;
+    
+        return $this;
+    }
+
+    /**
+     * Get eventdate
+     *
+     * @return \DateTime 
+     */
+    public function getEventdate()
+    {
+        return $this->eventdate;
     }
 }

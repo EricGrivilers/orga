@@ -2,5 +2,4 @@
 
 {% block form_header %}
 <form id='mainForm' action="{{ path('offre_create') }}" method="post" {{ form_enctype(edit_form) }}>
-    {% if entity.clientid %}<input type='text' name='clientId' value='{{entity.clientid.id}}' />{% endif %}
 {% endblock form_header %}

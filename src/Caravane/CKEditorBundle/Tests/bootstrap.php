@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Ivory CKEditor package.
+ * This file is part of the Caravane CKEditor package.
  *
  * (c) Eric GELOEN <geloen.eric@gmail.com>
  *
@@ -9,5 +9,5 @@
  * file that was distributed with this source code.
  */
 
-// Autoloads Ivory CKEditor bundle.
+// Autoloads Caravane CKEditor bundle.
 require __DIR__.'/../vendor/autoload.php';

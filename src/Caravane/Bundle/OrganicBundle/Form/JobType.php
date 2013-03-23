@@ -28,6 +28,15 @@ class JobType extends AbstractType
                 'choices'=>array('sell'=>"Sell",'rent'=>"Rent",'winter'=>"Winter storage")
             ))
             */
+                
+            ->add('eventdate','CaravaneUIDatePicker',array(
+                'widget'=>'single_text',
+                'label'=>"Event date",
+                'attr'=>array(
+                    'class'=>'span3 datepicker'
+                )
+            ))
+            
             ->add('planningcomments','ckeditor',array(
                 'label'=>"Planning comments",
                 'attr'=>array(

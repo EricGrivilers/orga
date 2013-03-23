@@ -88,7 +88,7 @@ class TentType extends AbstractType
             ->add('etat','CaravaneUIFueluxComboBox',array(
                 "label"=>"Status",
                 "attr"=>array(
-                    'class'=>"span4",
+                    'class'=>"span12",
                     'choices'=>$this->etats
                 )
             ))

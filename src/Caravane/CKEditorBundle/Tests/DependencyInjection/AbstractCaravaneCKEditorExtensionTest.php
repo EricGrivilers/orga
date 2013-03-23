@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Ivory CKEditor package.
+ * This file is part of the Caravane CKEditor package.
  *
  * (c) Eric GELOEN <geloen.eric@gmail.com>
  *
@@ -9,17 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Ivory\CKEditorBundle\Tests\DependencyInjection;
+namespace Caravane\CKEditorBundle\Tests\DependencyInjection;
 
-use Ivory\CKEditorBundle\DependencyInjection\IvoryCKEditorExtension,
+use Caravane\CKEditorBundle\DependencyInjection\CaravaneCKEditorExtension,
     Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Abstract Ivory CKEditor extension test.
+ * Abstract Caravane CKEditor extension test.
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-abstract class AbstractIvoryCKEditorExtensionTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractCaravaneCKEditorExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /** @var \Symfony\Component\DependencyInjection\ContainerBuilder */
     protected $container;
@@ -31,7 +31,7 @@ abstract class AbstractIvoryCKEditorExtensionTest extends \PHPUnit_Framework_Tes
     {
         $this->container = new ContainerBuilder();
         $this->container->setParameter('twig.form.resources', array());
-        $this->container->registerExtension($extension = new IvoryCKEditorExtension());
+        $this->container->registerExtension($extension = new CaravaneCKEditorExtension());
         $this->container->loadFromExtension($extension->getAlias());
     }
 
@@ -56,7 +56,7 @@ abstract class AbstractIvoryCKEditorExtensionTest extends \PHPUnit_Framework_Tes
         $this->container->compile();
 
         $this->assertInstanceOf(
-            'Ivory\CKEditorBundle\Form\Type\CKEditorType',
+            'Caravane\CKEditorBundle\Form\Type\CKEditorType',
             $this->container->get('form.type.ckeditor')
         );
     }
@@ -74,7 +74,7 @@ abstract class AbstractIvoryCKEditorExtensionTest extends \PHPUnit_Framework_Tes
 //        $this->container->compile();
 //
 //        $this->assertTrue(in_array(
-//            'IvoryCKEditorBundle:Form:ckeditor_widget.html.twig',
+//            'CaravaneCKEditorBundle:Form:ckeditor_widget.html.twig',
 //            $this->container->getParameter('twig.form.resources'))
 //        );
     }
@@ -84,7 +84,7 @@ abstract class AbstractIvoryCKEditorExtensionTest extends \PHPUnit_Framework_Tes
         $this->loadConfiguration($this->container, 'single_configuration');
         $this->container->compile();
 
-        $configManager = $this->container->get('ivory_ck_editor.config_manager');
+        $configManager = $this->container->get('caravane_ck_editor.config_manager');
 
         $expected = array(
             'default' => array(
@@ -107,7 +107,7 @@ abstract class AbstractIvoryCKEditorExtensionTest extends \PHPUnit_Framework_Tes
         $this->loadConfiguration($this->container, 'multiple_configuration');
         $this->container->compile();
 
-        $configManager = $this->container->get('ivory_ck_editor.config_manager');
+        $configManager = $this->container->get('caravane_ck_editor.config_manager');
 
         $expected = array(
             'default' => array(
@@ -134,7 +134,7 @@ abstract class AbstractIvoryCKEditorExtensionTest extends \PHPUnit_Framework_Tes
     }
 
     /**
-     * @expectedException \Ivory\CKEditorBundle\Exception\DependencyInjectionException
+     * @expectedException \Caravane\CKEditorBundle\Exception\DependencyInjectionException
      * @expectedExceptionMessage The toolbar item "foo" does not exist.
      */
     public function testInvalidToolbarItem()
@@ -144,7 +144,7 @@ abstract class AbstractIvoryCKEditorExtensionTest extends \PHPUnit_Framework_Tes
     }
 
     /**
-     * @expectedException \Ivory\CKEditorBundle\Exception\DependencyInjectionException
+     * @expectedException \Caravane\CKEditorBundle\Exception\DependencyInjectionException
      * @expectedExceptionMessage The toolbar "foo" does not exist.
      */
     public function testInvalidToolbar()

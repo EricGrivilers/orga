@@ -52,6 +52,13 @@ $('.reportrange').daterangepicker(
     }
 );
 
+
+$('.combobox ul.dropdown-menu li a').click(function() {
+    $(this).closest('.combobox').find('input').val($(this).text());
+});
+
+
+
 $(document).ready(function() {
     initClient();
     initProduct();
@@ -107,7 +114,7 @@ function initProduct() {
          target.append($newFormLi);
          target.find('input:hidden').val($(this).data('isoption'));
 
-         
+
          $('a.delete_new_row').click(function() {
             $(this).closest('tr').remove();
         });
@@ -145,6 +152,36 @@ function fillClient2invoice(clientid) {
 }
 
 
+function fillClient(clientid,targetField) {
+
+    if($('#clientid').length==0) {
+        document.location=Routing.generate('client_edit',{'id':clientid});
+    }
+    entity=$('#mainForm').data('entity');
+    fields=new Array();
+    $(targetField).val(clientid);
+    $.post(Routing.generate('client_get_data',{'id':clientid}),function(data) {
+        data=$.parseJSON(data);
+        $.each(data, function(i, item) {
+            $('#caravane_bundle_organicbundle_'+entity+'type_clientid_'+i).val(data[i]);
+            //$('#caravane_bundle_organicbundle_clienttype_'+i).val(data[i]);
+            if(i=='clienttype') {
+                if(data[i]=='cie') {
+                    $('#cieonly').show();
+                }
+                else {
+                    $('#cieonly').hide();
+                }
+                $("#caravane_bundle_organicbundle_"+entity+"type_clienttype_widget button").removeClass('active');
+                $("#caravane_bundle_organicbundle_"+entity+"type_clienttype_widget button[data-value='"+data[i]+"']").addClass('active');
+            }
+
+        });
+
+    })
+}
+
+
 function initOffre() {
     $('.add_slice_link').click(function(e) {
          e.preventDefault();
@@ -163,7 +200,7 @@ function initOffre() {
          target.append($newFormLi);
          target.find('input:hidden').val($(this).data('isoption'));
 
-         
+
          $('a.delete_new_row').click(function() {
             $(this).closest('tr').remove();
         });
@@ -207,16 +244,16 @@ function initOffre() {
                 else {
                     datas[$(this).attr("data-attribute")]=$(this).val();
                 }
-                
+
             });
             //console.log('c:'+c);
             //console.log(JSON.stringify(datas));
             $('#caravane_bundle_organicbundle_'+entity+'type_products_'+c+'_datas').val(JSON.stringify(datas));
         });
-        
+
         return true;
     });
-   
+
     $('#products .pagination a').click(function(e) {
         e.preventDefault();
         $(this).closest('.tab-pane').find('.tableContainer').load($(this).attr('href')+" .content",function(data) {

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Ivory CKEditor package.
+ * This file is part of the Caravane CKEditor package.
  *
  * (c) Eric GELOEN <geloen.eric@gmail.com>
  *
@@ -12,7 +12,7 @@
 namespace Caravane\CKEditorBundle\Model;
 
 /**
- * Ivory CKEditor configuration manager.
+ * Caravane CKEditor configuration manager.
  *
  * @author GeLo <geloen.eric@gmail.com>
  */

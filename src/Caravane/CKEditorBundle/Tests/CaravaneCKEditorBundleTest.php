@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Ivory CKEditor package.
+ * This file is part of the Caravane CKEditor package.
  *
  * (c) Eric GELOEN <geloen.eric@gmail.com>
  *
@@ -9,20 +9,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Ivory\CKEditorBundle\Tests;
+namespace Caravane\CKEditorBundle\Tests;
 
-use Ivory\CKEditorBundle\IvoryCKEditorBundle;
+use Caravane\CKEditorBundle\CaravaneCKEditorBundle;
 
 /**
- * Ivory CKEditor bundle test.
+ * Caravane CKEditor bundle test.
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class IvoryCKEditorBundleTest extends \PHPUnit_Framework_TestCase
+class CaravaneCKEditorBundleTest extends \PHPUnit_Framework_TestCase
 {
     public function testBundle()
     {
-        $bundle = new IvoryCKEditorBundle();
+        $bundle = new CaravaneCKEditorBundle();
 
         $this->assertInstanceOf('Symfony\Component\HttpKernel\Bundle\Bundle', $bundle);
     }

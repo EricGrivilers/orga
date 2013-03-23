@@ -26,6 +26,13 @@ class Offre
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="eventDate", type="datetime", nullable=true)
+     */
+    private $eventdate;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="insertDate", type="datetime", nullable=false)
      */
     private $insertdate;
@@ -326,7 +333,7 @@ class Offre
     /**
      * @var \tents2offre
      *
-     * @ORM\OneTomany(targetEntity="Planning2offre",mappedBy="offreid")
+     * @ORM\OneTomany(targetEntity="Planning2offre",mappedBy="offreid",cascade={"persist"})
      *
      */
     private $plannings;
@@ -550,7 +557,12 @@ class Offre
      */
     public function getStartbuild()
     {
-        $this->startbuild = $this->plannings[1]->getStartdate();
+        if($this->plannings) {
+            if($this->plannings[1]) {
+                $this->startbuild = $this->plannings[1]->getStartdate();
+            }
+        }
+
         return $this->startbuild;
     }
 
@@ -574,8 +586,13 @@ class Offre
      */
     public function getEndbuild()
     {
-        $this->endbuild = $this->plannings[3]->getEnddate();
+        if($this->plannings) {
+            if($this->plannings[3]) {
+                $this->endbuild = $this->plannings[3]->getEnddate();
+            }
+        }
         return $this->endbuild;
+
     }
 
     /**
@@ -1497,5 +1514,28 @@ class Offre
     public function getValidity()
     {
         return $this->validity;
+    }
+
+    /**
+     * Set eventdate
+     *
+     * @param \DateTime $eventdate
+     * @return Offre
+     */
+    public function setEventdate($eventdate)
+    {
+        $this->eventdate = $eventdate;
+    
+        return $this;
+    }
+
+    /**
+     * Get eventdate
+     *
+     * @return \DateTime 
+     */
+    public function getEventdate()
+    {
+        return $this->eventdate;
     }
 }

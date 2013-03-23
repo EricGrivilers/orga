@@ -10,7 +10,7 @@
    syntaxCheck="false"
    bootstrap="./Tests/bootstrap.php">
     <testsuites>
-        <testsuite name="IvoryCKEditorBundle Test Suite">
+        <testsuite name="CaravaneCKEditorBundle Test Suite">
             <directory suffix="Test.php">./Tests</directory>
         </testsuite>
     </testsuites>

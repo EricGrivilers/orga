@@ -26,6 +26,13 @@ class Offre
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="eventDate", type="datetime", nullable=true)
+     */
+    private $eventdate;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="insertDate", type="datetime", nullable=false)
      */
     private $insertdate;

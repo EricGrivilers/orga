@@ -1,6 +1,6 @@
 CaravaneOrganicBundle_homepage:
     pattern:  /
-    defaults: { _controller: CaravaneOrganicBundle:Default:index }
+    defaults: { _controller: CaravaneOrganicBundle:Dashboard:index }
 
 CaravaneOrganicBundle_client:
     resource: "@CaravaneOrganicBundle/Resources/config/routing/client.yml"
@@ -12,7 +12,7 @@ CaravaneOrganicBundle_tent:
 
 CaravaneOrganicBundle_offre:
     resource: "@CaravaneOrganicBundle/Resources/config/routing/offre.yml"
-    prefix:   /quote
+    prefix:   /bid
 
 CaravaneOrganicBundle_invoice:
     resource: "@CaravaneOrganicBundle/Resources/config/routing/invoice.yml"
@@ -25,4 +25,8 @@ CaravaneOrganicBundle_job:
 CaravaneOrganicBundle_planning:
     resource: "@CaravaneOrganicBundle/Resources/config/routing/planning.yml"
     prefix:   /planning
+
+CaravaneOrganicBundle_dashboard:
+    resource: "@CaravaneOrganicBundle/Resources/config/routing/dashboard.yml"
+    prefix:   /
 

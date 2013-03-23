@@ -8,14 +8,17 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-
+        {% block header %}
         <div class="row-fluid">
             <img src="{{asset('bundles/caravaneorganic/images/logo.png')}}">
             <div class="pull-right" style="margin-right:10px">
               {% if is_granted('ROLE_USER') %}Logged as <b>{{app.user.email}}</b> | <a href='{{path('fos_user_profile_edit')}}'>my profile</a> | <a href='{{path('fos_user_security_logout')}}'>Logout</a> {% endif %}
             </div>
         </div>
+        {% endblock header %}
+        {% block mainmenu %}
         <div class="navbar navbar-inverse" style="position: static;">
+         
               <div class="navbar-inner">
                 <div class="container">
                   <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
@@ -23,12 +26,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </a>
-                  <a class="brand" href="#">Organic</a>
+                
+                  <a class="brand" href="{{path("CaravaneOrganicBundle_homepage")}}">Organic</a>
                   <div class="nav-collapse collapse navbar-inverse-collapse">
                     <ul class="nav">
-                      <li><a href="#">Dashboard</a></li>
+                      <li {% if app.request.attributes.get('_route')=='CaravaneOrganicBundle_homepage' %}  class="active" {% endif %} ><a href="{{path("dashboard")}}">Dashboard</a></li>
                       <li {% if app.request.attributes.get('_route')=='client' %}  class="active" {% endif %} ><a href="{{path("client")}}">Clients</a></li>
-                      <li {% if app.request.attributes.get('_route')=='quote' %}  class="active" {% endif %} ><a href="{{path("offre")}}">Quotes</a></li>
+                      <li {% if app.request.attributes.get('_route')=='offre' %}  class="active" {% endif %} ><a href="{{path("offre")}}">Bids</a></li>
                       <li {% if app.request.attributes.get('_route')=='job' %}  class="active" {% endif %} ><a href="{{path("job")}}">Jobs</a></li>
                       <li {% if app.request.attributes.get('_route')=='invoice' %}  class="active" {% endif %} ><a href="{{path("invoice")}}">Invoices</a></li>
                       <li {% if app.request.attributes.get('_route')=='calendar' %}  class="active" {% endif %} ><a href="#">Calendar</a></li>
@@ -43,7 +47,7 @@
                 </div>
               </div><!-- /navbar-inner -->
             </div>
-
+            {% endblock mainmenu %}
 
 
 
@@ -51,7 +55,7 @@
 
 
           <div class="container-fluid">
-        {% block body %}{% endblock %}
+{% block body %}{% endblock %}
       </div>
        {% include "::javascripts.body.html.twig"%}
     </body>

@@ -60,7 +60,7 @@ class InvoiceType extends AbstractType
             ->add('conditions1')
             ->add('conditions2')
             ->add('content')
-            ->add('cietype')
+        /*    ->add('cietype')
             ->add('clienttype','CaravaneUIBootstrapRadioButton',array(
                 "label"=>"Client type",
                 'choices'=>array('cie'=>'Company','part'=>'Private')
@@ -72,38 +72,8 @@ class InvoiceType extends AbstractType
                     "class"=>"span4"
                 )
             ))
-            ->add('name')
-            ->add('lastname')
-            ->add('firstname')
-            ->add('vat')
-            ->add('address',"text",array(
-                "attr"=>array(
-                    "class"=>"span12"
-                )
-            ))
-            ->add('number',"text",array(
-                "label"=>"Number/Box",
-                "attr"=>array(
-                    "class"=>"span4"
-                )
-            ))
-            ->add('zip',"text",array(
-                "attr"=>array(
-                    "class"=>"span4"
-                )
-            ))
-            ->add('city',"text",array(
-                "attr"=>array(
-                    "class"=>"span12"
-                )
-            ))
-            ->add('country')
-            ->add('status','choice',array(
-                'choices'=> $this->statusChoices,
-                'attr'=>array(
-                    'class='=>'status'
-                )
-            ))
+           
+            
      /*       ->add('r1')
             ->add('r1date')
             ->add('r2')
@@ -111,13 +81,38 @@ class InvoiceType extends AbstractType
             ->add('med')
             ->add('meddate')
             */
-              ->add('language','choice',array(
+      /*        ->add('language','choice',array(
                 "choices"=>array('en'=>'en','fr'=>'fr','nl'=>'nl'),
                 "attr"=>array(
                     "class"=>"span6"
                 )
             ))
+            */
+/*
+->add('name','hidden')
+            ->add('lastname','hidden')
+            ->add('firstname','hidden')
+            ->add('vat','hidden')
+            ->add('address','hidden')
+            ->add('number','hidden')
+            ->add('zip','hidden')
+            ->add('city','hidden')
+            ->add('country','hidden')
+
+            */
+
+
+
+
+->add('status','choice',array(
+                'choices'=> $this->statusChoices,
+                'attr'=>array(
+                    'class='=>'status'
+                )
+            ))
             //->add('jobid')
+              ->add('clientid',new ClientEmbededType())
+              /*
             ->add($builder->create('clientid', 'CaravaneUIBootstrapTypeahead',array(
                 "label"=>"Client",
                 "attr"=>array(
@@ -129,7 +124,7 @@ class InvoiceType extends AbstractType
                 )
             ))
                 ->addModelTransformer($transformer)
-            )
+            )*/
 
         ;
             $builder->add('products', 'collection', array(

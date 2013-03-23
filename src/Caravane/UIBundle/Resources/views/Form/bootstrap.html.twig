@@ -1,20 +1,19 @@
 {% block CaravaneUIBootstrapTypeahead_widget %}
 {% set label_field_value = form.parent.vars.value|access(form.vars.attr.label_field) %}
 
-	<input class="{{form.vars.attr.class}} typeahead" type="text" id="{{form.vars.id}}_widget" value="{{label_field_value}}" data-provide="typeahead" >
-	<input type='text' name="{{form.vars.full_name}}" id="{{form.vars.id}}" value="{{form.vars.data}}" />
+	<input class="{{form.vars.attr.class}} typeahead" type="text" id="{{form.vars.id}}" value="{{label_field_value}}" data-provide="typeahead" name="{{form.vars.full_name}}" >
 
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-				$('#{{form.vars.id}}_widget').typeahead({
+				$('#{{form.vars.id}}').typeahead({
 					minLength:3,
 					source: function (query, process) {
 					    $.getJSON(
 					    	Routing.generate('{{form.vars.attr.source_route}}'),
 					        { query: query },
 					        function (data) {
-					        		$('#{{form.vars.id}}').val('');
+					        		//$('{{form.vars.attr.target_field}}').val('');
 						        labels=[]
 						        ids={}
 						        mapped={}
@@ -32,9 +31,10 @@
 					},
 
 					updater:function (item) {
-						$('#{{form.vars.id}}').val(ids[item]);
+						//$('{{form.vars.attr.target_field}}').val(ids[item]);
+						//$('#{{form.vars.id}}').val(ids[item]);
 						{% if form.vars.attr.updater %}
-						{{form.vars.attr.updater}}(ids[item])
+						{{form.vars.attr.updater}}(ids[item],'{{form.vars.attr.target_field}}')
 						{% endif %}
 
 						return mapped[item]

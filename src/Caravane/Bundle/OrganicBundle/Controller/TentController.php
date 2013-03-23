@@ -108,7 +108,7 @@ class TentController extends Controller
 
         return $this->render('CaravaneOrganicBundle:Tent:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'edit_form'   => $form->createView(),
         ));
     }
 
@@ -137,7 +137,7 @@ class TentController extends Controller
 
         return $this->render('CaravaneOrganicBundle:Tent:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'edit_form'   => $form->createView(),
         ));
     }
 

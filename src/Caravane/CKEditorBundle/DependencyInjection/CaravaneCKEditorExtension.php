@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Ivory CKEditor package.
+ * This file is part of the Caravane CKEditor package.
  *
  * (c) Eric GELOEN <geloen.eric@gmail.com>
  *
@@ -19,7 +19,7 @@ use Caravane\CKEditorBundle\Exception\DependencyInjectionException,
     Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * Ivory CKEditor extension.
+ * Caravane CKEditor extension.
  *
  * @author GeLo <geloen.eric@gmail.com>
  */

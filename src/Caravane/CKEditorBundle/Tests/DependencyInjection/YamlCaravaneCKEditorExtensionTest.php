@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Ivory CKEditor package.
+ * This file is part of the Caravane CKEditor package.
  *
  * (c) Eric GELOEN <geloen.eric@gmail.com>
  *
@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Ivory\CKEditorBundle\Tests\DependencyInjection;
+namespace Caravane\CKEditorBundle\Tests\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator,
     Symfony\Component\DependencyInjection\ContainerBuilder,
     Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
- * Yaml Ivory CKEditor extension test.
+ * Yaml Caravane CKEditor extension test.
  *
  * @author GeLo <geloen.eric@gmail.com>
  */
-class YamlIvoryCKEditorExtensionTest extends AbstractIvoryCKEditorExtensionTest
+class YamlCaravaneCKEditorExtensionTest extends AbstractCaravaneCKEditorExtensionTest
 {
     /**
      * {@inheritdoc}

@@ -1,16 +1,4 @@
-<h1>Tent creation</h1>
-
-<form action="{{ path('tent_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
-
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('tent') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+{% extends "CaravaneOrganicBundle:Tent:edit.html.twig" %}
+{% block form_header %}
+<form action="{{ path('tent_create') }}" method="post" {{ form_enctype(edit_form) }} data-entity="tent">
+{% endblock form_header %}

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Ivory\CKEditorBundle\Tests\Form\Type;
+namespace Caravane\CKEditorBundle\Tests\Form\Type;
 
 use Symfony\Component\Form\FormBuilder,
     Symfony\Component\Form\FormFactory,

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Ivory CKEditor package.
+ * This file is part of the Caravane CKEditor package.
  *
  * (c) Eric GELOEN <geloen.eric@gmail.com>
  *
@@ -14,7 +14,7 @@ namespace Caravane\CKEditorBundle\Exception;
 use \Exception as BaseException;
 
 /**
- * Ivory CKEditor exception.
+ * Caravane CKEditor exception.
  *
  * All exceptions must extend this class.
  *

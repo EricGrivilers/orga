@@ -2,9 +2,11 @@
 
 {% block body %}
 <div class="row-fluid">
-
+{% block form_header %}
     <form action="{{ path('tent_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-        
+ {% endblock form_header %}       
+
+        <input type='text' name='clientid' id="clientid"  value="{% if entity.ownerid %}{{entity.ownerid.id}}{% endif %}"/>
          <div class="row-fluid">
             <div class="actions">
                 <button type="submit" class="btn btn-inverse">Save</button>
