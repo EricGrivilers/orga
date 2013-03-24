@@ -15,8 +15,8 @@ class ClientManager
     {
         $this->em=$em;
     	$this->client = $client;
-
     }
+
 
 
     public function persistNew() {
@@ -50,7 +50,6 @@ class ClientManager
     }
 
     public function postPersist() {
-
          $entity=$this->client;
          if($entity->getReference()=='temp') {
             $entity->setReference(strtoupper(substr($entity->getClientType(),0,1))."-".strtoupper(substr(preg_replace('/ /','',$entity->getName()),0,5))."-".$entity->getId());
@@ -61,6 +60,5 @@ class ClientManager
 
 
 }
-
 
 ?>

@@ -10,6 +10,7 @@ use Caravane\Bundle\OrganicBundle\Entity\Offre;
 use Caravane\Bundle\OrganicBundle\Form\OffreType;
 
 
+
 use Caravane\Bundle\OrganicBundle\Managers\OffreManager;
 use Caravane\Bundle\OrganicBundle\Managers\ClientManager;
 /**
@@ -110,6 +111,7 @@ class OffreController extends Controller
                 $client=new \Caravane\Bundle\organicBundle\Entity\Client();
             }
         }
+
         $entity->setUserid($this->getUser());
         $entity->setClientid($client);
         $form   = $this->createForm(new OffreType(), $entity);
@@ -135,9 +137,9 @@ class OffreController extends Controller
         $productCategories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
         $entity  = new Offre();
 
+
         $form = $this->createForm(new OffreType(), $entity);
         $form->bind($request);
-
 
         if(!$clientId=$this->get('request')->request->get('clientid')) {
             $newClient=$entity->getClientid();
@@ -150,11 +152,6 @@ class OffreController extends Controller
             $client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientId);
         }
 
-        //
-
-        $entity->setClientid($client);
-
-        $issue=0;
         if ($form->isValid()) {
 
             $em->persist($client);
@@ -162,7 +159,6 @@ class OffreController extends Controller
 
             $offreManager=new offreManager($entity,$em);
             $offreManager->persist();
-
 
             return $this->redirect($this->generateUrl('offre_edit', array('id' => $entity->getId())));
         }
@@ -252,8 +248,6 @@ class OffreController extends Controller
         $editForm = $this->createForm(new OffreType(), $entity);
         $editForm->bind($request);
         if(!$clientId=$this->get('request')->request->get('clientid')) {
-            echo "eeee";
-            die();
             $newClient=$entity->getClientid();
             $newClient->setUserid($this->getUser());
             $clientManager=new ClientManager($newClient,$em);
@@ -263,7 +257,6 @@ class OffreController extends Controller
         else {
 
             if($this->get('request')->request->get('clientId')!=$entity->getClientid()->getId()) {
-
                 $client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientId);
                 $entity->setClientid($client);
             }

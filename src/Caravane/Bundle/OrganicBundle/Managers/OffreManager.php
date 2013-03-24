@@ -27,7 +27,6 @@ class OffreManager
         $ta=explode('-',$entity->getReference());
         $entity->setReference($ta[0]."-".$entity->getId()."-O".strtoupper(substr($entity->getOffretype(),0,1))."-".$ta[3]);
 
-
         return $entity->getReference();
     }
 
@@ -103,18 +102,6 @@ class OffreManager
         $em->flush();
     }
 
-    public function setReference() {
-
-        $entity=$this->entity;
-        $em=$this->em;
-
-        if($entity->getReference()=='temp') {
-            $entity->setReference(date('Ym')."-".$entity->getId()."-O".strtoupper(substr($entity->getOffretype(),0,1))."-".$entity->getUserid()->getIso());
-
-        }
-
-        return $entity->getReference();
-    }
 
 }
 
