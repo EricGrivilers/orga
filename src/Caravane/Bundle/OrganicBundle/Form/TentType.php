@@ -40,6 +40,7 @@ class TentType extends AbstractType
                     "source_route"=>"client_autocomplete"
                 )
             ))*/
+            /*
             ->add($builder->create('ownerid', 'CaravaneUIBootstrapTypeahead',array(
                 "label"=>"Owner",
                 "attr"=>array(
@@ -52,6 +53,8 @@ class TentType extends AbstractType
             ))
                 ->addModelTransformer($transformer)
             )
+            */
+->add('ownerid',new ClientEmbededType())
             ->add('color','text',array(
                 "attr"=>array(
                     "class"=>"span12"
@@ -92,7 +95,7 @@ class TentType extends AbstractType
                     'choices'=>$this->etats
                 )
             ))
-            
+
             ->add('comments','ckeditor',array(
                 "attr"=>array(
                     "class"=>"span12"
