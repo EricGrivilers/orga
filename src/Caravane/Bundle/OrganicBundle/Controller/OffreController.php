@@ -271,7 +271,7 @@ class OffreController extends Controller
 
 
             if($entity->getStatus()=='CONFIRMÉ' && $entity->getJobid()=='') {
-              
+
                 $job=$offreManager->createJob();
                 $entity->setJobid($job);
                 $em->persist($entity);
@@ -373,5 +373,22 @@ class OffreController extends Controller
         }
 
         return new Response('ok');
+    }
+
+
+    public function resolveIssueAction() {
+        $em = $this->getDoctrine()->getManager();
+        $offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($this->get('request')->query->get('offreId'));
+        $job=$em->getRepository('CaravaneOrganicBundle:Job')->find($this->get('request')->query->get('jobId'));
+        $tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($this->get('request')->query->get('tentId'));
+        return $this->render('CaravaneOrganicBundle:Offre:resolve.html.twig', array(
+            'offre'      => $offre,
+            'job'      => $job,
+            'tent'      => $tent,
+        ));
+    }
+
+    public function resolveConfirmAction() {
+
     }
 }

@@ -199,6 +199,17 @@ class JobController extends Controller
         $issue=0;
         if ($editForm->isValid()) {
             $priceHt=0;
+
+            foreach($entity->getPlannings() as $planning) {
+
+                if($planning->getPlanningtype()=='build') {
+                    $entity->setStartbuild($planning->getStartdate());
+                }
+                if($planning->getPlanningtype()=='unbuild') {
+                    $entity->setEndbuild($planning->getEnddate());
+                }
+            }
+
             foreach($entity->getProducts() as $product) {
                 $product->setJobid($entity);
                 $product->setUpdatedate(new \Datetime('now'));
@@ -206,11 +217,12 @@ class JobController extends Controller
                 $em->persist($product);
             }
             $entity->setPrice($priceHt);
+
             $totalSlice=0;
             $totalSlicePriceHt=0;
              foreach($entity->getSlices() as $slice) {
                 $slice->setJobid($entity);
-               
+
                 if($slice->getSlice()>0) {
                     $slice->setPriceht(($slice->getSlice()*$entity->getPrice())/100);
                 }
@@ -313,7 +325,7 @@ class JobController extends Controller
             $product->setJobid($job);
             $product->setInsertdate(new \Datetime('now'));
             $product->setUpdatedate(new \Datetime('now'));
-            $product->setIsoption(false);
+            //$product->setIsoption(false);
 
             $product->setDescription($tent->getName()."(".$tent->getReference().")");
             $product->setTentid($tent);
@@ -331,6 +343,10 @@ class JobController extends Controller
             $em->persist($product);
             $em->persist($job);
             $em->flush();
+
+        }
+        else {
+
         }
 
         return new Response('ok');

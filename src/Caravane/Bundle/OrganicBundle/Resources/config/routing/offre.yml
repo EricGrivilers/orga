@@ -52,3 +52,13 @@ offre_slice_remove_product:
     requirements: { _method: post }
     options:
         expose: true
+
+offre_resolve:
+    pattern:  /resolve
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:resolveIssue" }
+    requirements: { _method: get }
+
+offre_resolve_confirm:
+    pattern:  /resolve/confirm
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:resolveConfirm" }
+

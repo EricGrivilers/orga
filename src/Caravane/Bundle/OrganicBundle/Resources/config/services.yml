@@ -21,7 +21,7 @@ services:
 
     caravane_organic.listener:
         class: %caravane_organic.listener.class%
-        arguments: [@mailer,@templating]
+        arguments: [@service_container]
         tags:
             - { name: doctrine.event_listener, event: postUpdate, method: postUpdate }
             - { name: doctrine.event_listener, event: prePersist, method: prePersist }

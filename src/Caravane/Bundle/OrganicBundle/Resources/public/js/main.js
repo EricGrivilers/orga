@@ -95,8 +95,8 @@ function pagination() {
             document.location=Routing.generate($('#CaravaneUiPaginationRoute').val(),{'type':$('#CaravaneUiPaginationType').val(),'ob':$(this).data('orderby')+" "+currentSens,'page':$('#CaravaneUiPaginationPage').val()});
         });
     }
-    
-    
+
+
 }
 
 
@@ -243,7 +243,7 @@ function initOffre() {
             tentid=$(this).data('productid');
             entityId=$(this).closest('.modal').data('target');
              $.post(Routing.generate(entity+'_add_tent',{'id':entityId,'tentid':tentid}),function(data) {
-                alert(data);
+                //alert(data);
                 $('form').submit();
             })
         });

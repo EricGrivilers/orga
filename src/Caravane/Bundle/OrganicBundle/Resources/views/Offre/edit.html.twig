@@ -8,8 +8,8 @@
 {% block form_header %}
 <form id='mainForm' action="{{ path('offre_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} data-entity="offre" >
 {% endblock form_header %}
-    
-    
+
+
 <input type='text' name='clientid' id="clientid"  value="{{entity.clientid.id}}"/>
 {% if form_errors(edit_form) %}
 {{ form_errors(edit_form) }}
@@ -44,7 +44,7 @@
                {{ form_row(edit_form.userid)}}
             </div>
             <div class="span4">
-                
+
                {{ form_row(edit_form.status)}}
 
                {% if entity.jobid %}<label>Related job</label><label><b><a href="{{path('job_edit',{'id':entity.jobid.id})}}"> {{entity.jobid}}</a> </b></label>
@@ -55,7 +55,7 @@
         </div>
     </div>
     <div class="well">
-        <div class="row-fluid">     
+        <div class="row-fluid">
                 {{ form_row(edit_form.eventdate)}}
         </div>
     </div>
@@ -249,7 +249,7 @@
 
                     {% if product.isoption.vars.data!=true %}
 
-                    <tr data-productid="{{c}}" >
+                    <tr data-productid="{{c}}" {% if product.vars.value.toremove %} class="error" {% endif %}>
                         <td class="span9">
                             {{form_widget(product.description)}}
                             {% if product.vars.value.tentid %}

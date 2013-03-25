@@ -28,7 +28,8 @@
         "blueimp/jQuery-File-Upload":"dev-master",
         "leafo/lessphp": "0.3.5",
         "twitter/bootstrap": "master",
-        "jquery/jquery":"master"
+        "jquery/jquery":"master",
+        "sami/sami": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
