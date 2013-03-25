@@ -140,7 +140,7 @@ class JobController extends Controller
                 $planning->setStartdate(new \Datetime('now'));
                 $planning->setEnddate(new \Datetime('now'));
                 $planning->setEtat('TO DO');
-                $planning->setOffreid($entity);
+                $planning->setJobid($entity);
                 $em->persist($planning);
                 $em->flush();
                 $entity->addPlanning($planning);

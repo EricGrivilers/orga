@@ -52,6 +52,16 @@ class Chat
      */
     private $userid;
 
+     /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="target", referencedColumnName="id")
+     * })
+     */
+    private $target;
+
 
 
     /**

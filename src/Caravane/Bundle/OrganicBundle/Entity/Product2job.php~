@@ -110,7 +110,6 @@ class Product2job
 
     public function getDatasAsObject()
     {
-
         $default=array('plancher'=>0,'surfaceplancher'=>'','sol'=>'','canalisation'=>0,'other'=>'');
         if($array=json_decode($this->datas)) {
             foreach($default as $k=>$v) {
@@ -118,10 +117,8 @@ class Product2job
                    $array->$k=$v;
                 }
             }
-            $this->datasAsObject=$array;
             return $array;
         }
-        print_r($default);
         return $default;
     }
 

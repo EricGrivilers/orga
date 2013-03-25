@@ -1,6 +1,8 @@
 client:
     pattern:  /
     defaults: { _controller: "CaravaneOrganicBundle:Client:index" }
+    options:
+        expose: true
 
 client_show:
     pattern:  /{id}/show

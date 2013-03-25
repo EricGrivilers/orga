@@ -1,6 +1,8 @@
 invoice:
     pattern:  /
     defaults: { _controller: "CaravaneOrganicBundle:Invoice:index" }
+    options:
+        expose: true
 
 invoice_show:
     pattern:  /{id}/show

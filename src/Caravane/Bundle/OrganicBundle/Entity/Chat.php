@@ -52,6 +52,16 @@ class Chat
      */
     private $userid;
 
+     /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="target", referencedColumnName="id")
+     * })
+     */
+    private $target;
+
 
 
     /**
@@ -154,5 +164,28 @@ class Chat
     public function getUserid()
     {
         return $this->userid;
+    }
+
+    /**
+     * Set target
+     *
+     * @param \Caravane\UserBundle\Entity\User $target
+     * @return Chat
+     */
+    public function setTarget(\Caravane\UserBundle\Entity\User $target = null)
+    {
+        $this->target = $target;
+    
+        return $this;
+    }
+
+    /**
+     * Get target
+     *
+     * @return \Caravane\UserBundle\Entity\User 
+     */
+    public function getTarget()
+    {
+        return $this->target;
     }
 }

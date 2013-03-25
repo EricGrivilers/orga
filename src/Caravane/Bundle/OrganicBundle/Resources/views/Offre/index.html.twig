@@ -32,60 +32,19 @@
 <table class="table table-bordered table-condensed table-striped">
     <thead>
         <tr>
-            <th>Reference</th>
-            <th>Client</th>
-            <th>Type</th>
-             <th>Price VAT excl</th>
-             <th>Status</th>
-             <th>Invoice</th>
-             <th>Delivery</th>
-             <th>Date</th>
+            <th><a data-orderby="reference" >Reference</a></th>
+            <th><a data-orderby="clientid" >Client</a></th>
+            <th><a data-orderby="offretype" >Type</a></th>
+             <th><a data-orderby="price" >Price VAT excl</a></th>
+             <th><a data-orderby="status" >Status</a></th>
+             <th >Invoice</th>
+             <th><a data-orderby="country" >Delivery</a></th>
+             <th><a data-orderby="insertdate" >Date</a></th>
              <th>PDF</th>
-             <th>Issues</th>
+             <th><a data-orderby="issue" >Issues</a></th>
              <th>Ed</th>
             <th>Del</th>
-{#
 
-            <th>Id</th>
-            <th>Insertdate</th>
-            <th>Updatedate</th>
-            <th>Reference</th>
-            <th>Offretype</th>
-            <th>Planningcomments</th>
-            <th>Offrecomments</th>
-            <th>Surface</th>
-            <th>Startbuild</th>
-            <th>Endbuild</th>
-            <th>Requestdate</th>
-            <th>Status</th>
-            <th>Pricetype</th>
-            <th>Price</th>
-            <th>Pricecomments</th>
-            <th>Conditions</th>
-            <th>Conditionsslices</th>
-            <th>Tents</th>
-            <th>Tentscomments</th>
-            <th>Address</th>
-            <th>Number</th>
-            <th>Zip</th>
-            <th>City</th>
-            <th>Country</th>
-            <th>Contact</th>
-            <th>Phone</th>
-            <th>Phone2</th>
-            <th>Mobile</th>
-            <th>Fax</th>
-            <th>Email</th>
-            <th>Url</th>
-            <th>Comments</th>
-            <th>Introtext</th>
-            <th>Issue</th>
-            <th>Deleted</th>
-            <th>Public</th>
-            <th>Language</th>
-            <th>Copyid</th>
-            <th>Actions</th>
-            #}
         </tr>
     </thead>
     <tbody>
@@ -183,14 +142,8 @@
 
 </div>
 <div class="row-fluid">
-    <div class="pagination">
-  <ul>
-    <li {% if page<=1 %} class="disabled" {% endif %} ><a href="{{path('offre',{'type': type,'ob':ob,'page':page-1} )}}" >Prev</a></li>
-    {% for p in 1..nbpages %}
-    <li {% if page==p %} class="active" {% endif %} ><a href="{{path('offre',{'type': type,'ob':ob,'page':p} )}}">{{p}}</a></li>
-    {% endfor %}
-    <li {% if page>=nbpages %} class="disabled" {% endif %}><a href="{{path('offre',{'type': type,'ob':ob,'page':page+1} )}}">Next</a></li>
-  </ul>
+    <div class="row-fluid">
+    {% include "CaravaneOrganicBundle:Default:Pagination.html.twig" %}
 </div>
 </div>
 {% endblock body %}

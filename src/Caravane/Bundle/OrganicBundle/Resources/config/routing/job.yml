@@ -1,6 +1,8 @@
 job:
     pattern:  /
     defaults: { _controller: "CaravaneOrganicBundle:Job:index" }
+    options:
+        expose: true
 
 job_show:
     pattern:  /{id}/show

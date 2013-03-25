@@ -59,35 +59,35 @@ class Tent
     /**
      * @var string
      *
-     * @ORM\Column(name="length", type="string", length=10, nullable=true)
+     * @ORM\Column(name="length", type="decimal",  scale=2, nullable=true)
      */
     private $length;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="width", type="string", length=10, nullable=true)
+     * @ORM\Column(name="width", type="decimal",  scale=2,  nullable=true)
      */
     private $width;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="m2", type="string", length=15, nullable=true)
+     * @ORM\Column(name="m2", type="decimal",  scale=2,  nullable=true)
      */
     private $m2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="weight", type="string", length=50, nullable=true)
+     * @ORM\Column(name="weight", type="decimal",  scale=2, nullable=true)
      */
     private $weight;
 
     /**
      * @var height
      *
-     * @ORM\Column(name="height", type="string", length=50, nullable=true)
+     * @ORM\Column(name="height", type="decimal",  scale=2, nullable=true)
      */
     private $height;
 

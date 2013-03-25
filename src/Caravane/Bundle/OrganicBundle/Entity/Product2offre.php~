@@ -100,8 +100,13 @@ class Product2offre
      */
     private $tentid;
 
-
-
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="toremove", type="boolean", nullable=true)
+     */
+    private $toremove;
+    
     /**
      * Get id
      *
@@ -358,5 +363,28 @@ class Product2offre
     public function getTentid()
     {
         return $this->tentid;
+    }
+
+    /**
+     * Set toremove
+     *
+     * @param boolean $toremove
+     * @return Product2offre
+     */
+    public function setToremove($toremove)
+    {
+        $this->toremove = $toremove;
+    
+        return $this;
+    }
+
+    /**
+     * Get toremove
+     *
+     * @return boolean 
+     */
+    public function getToremove()
+    {
+        return $this->toremove;
     }
 }

@@ -314,7 +314,7 @@ class Offre
     /**
      * @var \Job
      *
-     * @ORM\OneToOne(targetEntity="Job",mappedBy="offreid")
+     * @ORM\OneToOne(targetEntity="Job",mappedBy="offreid",cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="jobId", referencedColumnName="id")
      */
     private $jobid;

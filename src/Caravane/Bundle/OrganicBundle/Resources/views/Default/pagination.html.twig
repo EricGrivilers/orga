@@ -1,0 +1,14 @@
+<div class="pagination">
+	<input type='hidden' id='CaravaneUiPaginationType' value="{{type}}" />
+	<input type='hidden' id='CaravaneUiPaginationOb' value="{{ob}}" />
+	<input type='hidden' id='CaravaneUiPaginationPage' value="{{page}}" />
+	<input type='hidden' id='CaravaneUiPaginationRoute' value="{{app.request.get('_route')}}" />
+
+  <ul>
+    <li {% if page<=1 %} class="disabled" {% endif %} ><a href="{{path(app.request.get('_route'),{'type': type,'ob':ob,'page':page-1} )}}" >Prev</a></li>
+    {% for p in 1..nbpages %}
+    <li {% if page==p %} class="active" {% endif %} ><a href="{{path(app.request.get('_route'),{'type': type,'ob':ob,'page':p} )}}">{{p}}</a></li>
+    {% endfor %}
+    <li {% if page>=nbpages %} class="disabled" {% endif %}><a href="{{path(app.request.get('_route'),{'type': type,'ob':ob,'page':page+1} )}}">Next</a></li>
+  </ul>
+</div>

@@ -63,19 +63,19 @@
 <table class="table table-bordered table-condensed table-striped">
     <thead>
         <tr>
-            <th>Reference</th>
-            <th>Category</th>
-            <th>Name</th>
+            <th><a data-orderby="reference" >Reference</a></th>
+            <th><a data-orderby="productCategory" >Category</a></th>
+            <th><a data-orderby="name" >Name</a></th>
             
             <th>Kit</th>
-            <th>Owner</th>
+            <th><a data-orderby="ownerid" >Owner</a></th>
             <th>Color</th>
-            <th>Length</th>
-            <th>Width</th>
-            <th>Area</th>
+            <th><a data-orderby="length" >Length</a></th>
+            <th><a data-orderby="width" >Width</a></th>
+            <th><a data-orderby="m2" >Area</a></th>
 
 
-            <th>Etat</th>
+            <th><a data-orderby="status" >Etat</th>
             {% if type=='reserved' %}
                 <th>Jobs</th>
             {% endif %}
@@ -83,7 +83,7 @@
                 <th>Offres</th>
             {% endif %}
             <th>PDF</th>
-            <th>Issue</th>
+             <th><a data-orderby="issue" >Issues</a></th>
 
             <th>Ed</th>
             <th>Del</th>
@@ -151,14 +151,8 @@
 
 </div>
 <div class="row-fluid">
-    <div class="pagination">
-  <ul>
-    <li {% if page<=1 %} class="disabled" {% endif %} ><a href="{{path('tent',{'type': type,'ob':ob,'page':page-1,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')} )}}" >Prev</a></li>
-    {% for p in 1..nbpages %}
-    <li {% if page==p %} class="active" {% endif %} ><a href="{{path('tent',{'type': type,'ob':ob,'page':p,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')} )}}">{{p}}</a></li>
-    {% endfor %}
-    <li {% if page>=nbpages %} class="disabled" {% endif %}><a href="{{path('tent',{'type': type,'ob':ob,'page':page+1,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')} )}}">Next</a></li>
-  </ul>
+  <div class="row-fluid">
+    {% include "CaravaneOrganicBundle:Default:Pagination.html.twig" %}
 </div>
 </div>
 {% endblock body %}

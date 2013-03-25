@@ -269,6 +269,14 @@ class OffreController extends Controller
             $offreManager=new offreManager($entity,$em);
             $offreManager->persist();
 
+
+            if($entity->getStatus()=='CONFIRMÉ' && $entity->getJobid()=='') {
+              
+                $job=$offreManager->createJob();
+                $entity->setJobid($job);
+                $em->persist($entity);
+                $em->flush();
+            }
             return $this->redirect($this->generateUrl('offre_edit', array('id' => $id)));
         }
 

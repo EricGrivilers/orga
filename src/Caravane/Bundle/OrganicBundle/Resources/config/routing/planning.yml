@@ -1,6 +1,8 @@
 planning:
     pattern:  /
     defaults: { _controller: "CaravaneOrganicBundle:Planning:index" }
+    options:
+        expose: true
 
 planning_show:
     pattern:  /{id}/show

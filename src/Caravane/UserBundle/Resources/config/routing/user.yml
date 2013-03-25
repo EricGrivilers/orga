@@ -1,6 +1,8 @@
 user:
     pattern:  /
     defaults: { _controller: "CaravaneUserBundle:User:index" }
+    options:
+        expose: true
 
 user_show:
     pattern:  /{id}/show

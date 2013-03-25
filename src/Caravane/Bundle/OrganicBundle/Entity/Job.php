@@ -59,56 +59,56 @@ class Job
     /**
      * @var string
      *
-     * @ORM\Column(name="planningComments", type="text", nullable=false)
+     * @ORM\Column(name="planningComments", type="text", nullable=true)
      */
     private $planningcomments;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="offreComments", type="text", nullable=false)
+     * @ORM\Column(name="offreComments", type="text", nullable=true)
      */
     private $offrecomments;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="surface", type="string", length=100, nullable=false)
+     * @ORM\Column(name="surface", type="string", length=100, nullable=true)
      */
     private $surface;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="startBuild", type="datetime", nullable=false)
+     * @ORM\Column(name="startBuild", type="datetime", nullable=true)
      */
     private $startbuild;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="endBuild", type="datetime", nullable=false)
+     * @ORM\Column(name="endBuild", type="datetime", nullable=true)
      */
     private $endbuild;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="buildNotes", type="text", nullable=false)
+     * @ORM\Column(name="buildNotes", type="text", nullable=true)
      */
     private $buildnotes;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="unbuildNotes", type="text", nullable=false)
+     * @ORM\Column(name="unbuildNotes", type="text", nullable=true)
      */
     private $unbuildnotes;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="requestDate", type="datetime", nullable=false)
+     * @ORM\Column(name="requestDate", type="datetime", nullable=true)
      */
     private $requestdate;
 
@@ -129,133 +129,133 @@ class Job
     /**
      * @var string
      *
-     * @ORM\Column(name="price", type="decimal", length=50, nullable=false, scale=2 )
+     * @ORM\Column(name="price", type="decimal", length=50, nullable=true, scale=2 )
      */
     private $price;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="priceComments", type="text", nullable=false)
+     * @ORM\Column(name="priceComments", type="text", nullable=true)
      */
     private $pricecomments;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="conditions", type="text", nullable=false)
+     * @ORM\Column(name="conditions", type="text", nullable=true)
      */
     private $conditions;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="conditionsSlices", type="text", nullable=false)
+     * @ORM\Column(name="conditionsSlices", type="text", nullable=true)
      */
     private $conditionsslices;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tents", type="string", length=255, nullable=false)
+     * @ORM\Column(name="tents", type="string", length=255, nullable=true)
      */
     private $tents;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tentsComments", type="text", nullable=false)
+     * @ORM\Column(name="tentsComments", type="text", nullable=true)
      */
     private $tentscomments;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=255, nullable=false)
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="number", type="string", length=10, nullable=false)
+     * @ORM\Column(name="number", type="string", length=10, nullable=true)
      */
     private $number;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="zip", type="string", length=10, nullable=false)
+     * @ORM\Column(name="zip", type="string", length=10, nullable=true)
      */
     private $zip;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=120, nullable=false)
+     * @ORM\Column(name="city", type="string", length=120, nullable=true)
      */
     private $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=120, nullable=false)
+     * @ORM\Column(name="country", type="string", length=120, nullable=true)
      */
     private $country;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="contact", type="string", length=255, nullable=false)
+     * @ORM\Column(name="contact", type="string", length=255, nullable=true)
      */
     private $contact;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="phone", type="string", length=20, nullable=false)
+     * @ORM\Column(name="phone", type="string", length=20, nullable=true)
      */
     private $phone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="phone2", type="string", length=20, nullable=false)
+     * @ORM\Column(name="phone2", type="string", length=20, nullable=true)
      */
     private $phone2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mobile", type="string", length=20, nullable=false)
+     * @ORM\Column(name="mobile", type="string", length=20, nullable=true)
      */
     private $mobile;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fax", type="string", length=20, nullable=false)
+     * @ORM\Column(name="fax", type="string", length=20, nullable=true)
      */
     private $fax;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=120, nullable=false)
+     * @ORM\Column(name="email", type="string", length=120, nullable=true)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="url", type="string", length=255, nullable=false)
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
      */
     private $url;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="comments", type="text", nullable=false)
+     * @ORM\Column(name="comments", type="text", nullable=true)
      */
     private $comments;
 
@@ -269,7 +269,7 @@ class Job
     /**
      * @var boolean
      *
-     * @ORM\Column(name="issue", type="boolean", nullable=false)
+     * @ORM\Column(name="issue", type="boolean", nullable=true)
      */
     private $issue;
 

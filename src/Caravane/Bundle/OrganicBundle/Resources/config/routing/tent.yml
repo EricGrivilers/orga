@@ -1,6 +1,8 @@
 tent:
     pattern:  /
     defaults: { _controller: "CaravaneOrganicBundle:Tent:index" }
+    options:
+        expose: true
 
 tent_show:
     pattern:  /{id}/show

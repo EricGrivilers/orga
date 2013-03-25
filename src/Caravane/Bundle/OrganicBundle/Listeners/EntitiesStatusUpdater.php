@@ -1,18 +1,60 @@
 <?php
 namespace Caravane\Bundle\OrganicBundle\Listeners;
+
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 
+use Symfony\Component\Templating\EngineInterface;
+
 use \Caravane\Bundle\OrganicBundle\Managers\ClientManager;
 use \Caravane\Bundle\OrganicBundle\Managers\InvoiceManager;
+use \Caravane\Bundle\OrganicBundle\Managers\JobManager;
 use \Caravane\Bundle\OrganicBundle\Managers\OffreManager;
 
 
 
 class EntitiesStatusUpdater {
+
+
+
+
+    protected $mailer;
+    protected $templating;
+
+ 
+    public function __construct(\Swift_Mailer $mailer, EngineInterface $templating)
+    {
+        $this->mailer = $mailer;
+        $this->templating = $templating;
+       
+    }
+
+
+
+
     public function postUpdate(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
+        if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Offre) {
+           
+        }
+        if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Job) {
+            $jobManager=new JobManager($entity,$entityManager);
+            $mails=$jobManager->checkAvailability();
+            foreach($mails as $mail) {
+                $message = \Swift_Message::newInstance()
+                ->setSubject('Job updated')
+                ->setFrom($mail['from']->getEmail())
+                ->setTo($mail['to']->getEmail())
+                ->setBody($this->templating->render(
+                    'CaravaneOrganicBundle:Job:email.update.txt.twig',
+                    array('messages' => $mail['messages']))
+                )
+                ;
+                $this->mailer->send($message);
+            }
+        }
+
       /*  if ($entity instanceof \Surgeworks\CoreBundle\Entity\Item) {
             $params = array('item_id' => $entity->getId());
             $col_repo = $entityManager->getRepository('Surgeworks\CoreBundle\Entity\ItemsToCollections');
@@ -32,6 +74,8 @@ class EntitiesStatusUpdater {
             $entityManager->flush();
         }
         */
+
+        
     }
     public function prePersist(LifecycleEventArgs $args) {
 
@@ -60,10 +104,16 @@ class EntitiesStatusUpdater {
             $clientManager=new ClientManager($entity,$entityManager);
             $clientManager->postPersist();
         }
-         if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Offre) {
+         if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Job) {
 
+            $jobManager=new JobManager($entity,$entityManager);
+            $jobManager->postPersist();
+            $jobManager->checkAvailability();
+        }
+         if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Offre) {
             $offreManager=new OffreManager($entity,$entityManager);
             $offreManager->postPersist();
+            
         }
 
 
@@ -79,6 +129,11 @@ class EntitiesStatusUpdater {
                 $entity->setReference($offreManager->changeReference());
                 $uow->recomputeSingleEntityChangeSet($entityManager->getClassMetadata("CaravaneOrganicBundle:Offre"),$entity);
             }
+             if ($args->hasChangedField('status') && $args->getOldValue('status')=='ok' && $args->getNewValue('status')=='CONFIRMÉ') {
+
+                //$uow->recomputeSingleEntityChangeSet($entityManager->getClassMetadata("CaravaneOrganicBundle:Offre"),$entity);
+            }
+           
         }
         if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Invoice) {
             if ($args->hasChangedField('status') && $args->getOldValue('status')=='draft' && $args->getNewValue('status')=='ok') {

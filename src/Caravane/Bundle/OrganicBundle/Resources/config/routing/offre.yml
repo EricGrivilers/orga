@@ -1,6 +1,8 @@
 offre:
     pattern:  /
     defaults: { _controller: "CaravaneOrganicBundle:Offre:index" }
+    options:
+        expose: true
 
 offre_show:
     pattern:  /{id}/show

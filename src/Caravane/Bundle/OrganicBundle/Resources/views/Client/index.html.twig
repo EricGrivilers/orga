@@ -28,22 +28,22 @@
     <thead>
         <tr>
 
-            <th>Reference</th>
-            <th>Type</th>
+            <th><a data-orderby="reference" >Reference</a></th>
+            <th><a data-orderby="clienttype">Type</a></th>
 
-             <th>Name</th>
+             <th><a data-orderby="name">Name</a></th>
             {#<th>Firstname</th>
             <th>Lastname</th>#}
 
-            <th>Vat</th>
+            <th><a data-orderby="vat">VAT</a></th>
 
             <th>Tents</th>
 
 
 
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Mobile</th>
+            <th><a data-orderby="email">Email</a></th>
+            <th><a data-orderby="phone">Phone</a></th>
+            <th><a data-orderby="mobile">Mobile</a></th>
 
             {#<th>Address</th>
             <th>Number</th>
@@ -118,14 +118,8 @@
 
 </div>
 <div class="row-fluid">
-    <div class="pagination">
-  <ul>
-    <li {% if page<=1 %} class="disabled" {% endif %} ><a href="{{path('client',{'type': type,'ob':ob,'page':page-1} )}}" >Prev</a></li>
-    {% for p in 1..nbpages %}
-    <li {% if page==p %} class="active" {% endif %} ><a href="{{path('client',{'type': type,'ob':ob,'page':p} )}}">{{p}}</a></li>
-    {% endfor %}
-    <li {% if page>=nbpages %} class="disabled" {% endif %}><a href="{{path('client',{'type': type,'ob':ob,'page':page+1} )}}">Next</a></li>
-  </ul>
+    <div class="row-fluid">
+    {% include "CaravaneOrganicBundle:Default:Pagination.html.twig" %}
 </div>
 </div>
 {% endblock body %}
