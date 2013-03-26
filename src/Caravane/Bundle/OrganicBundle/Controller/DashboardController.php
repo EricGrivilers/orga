@@ -19,7 +19,7 @@ class DashboardController extends Controller
             $messages=$em->getRepository('CaravaneOrganicBundle:Chat')->findBy(array('messagetype'=>'logs','target'=>5),array('messagedate'=>' desc'));
         $offres=$em->getRepository('CaravaneOrganicBundle:Offre')->findBy(array('userid'=>$this->getUser()->getId()),array('startbuild'=>' desc'));
         $jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findBy(array('userid'=>$this->getUser()->getId()),array('startbuild'=>' desc'));
-        $products=>
+
 
     	return $this->render('CaravaneOrganicBundle:Dashboard:index.html.twig', array(
                 'offres'=>$offres,
