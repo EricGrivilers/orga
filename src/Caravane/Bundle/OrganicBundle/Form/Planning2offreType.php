@@ -14,13 +14,13 @@ class Planning2offreType extends AbstractType
             ->add('planningtype','hidden')
             ->add('startdate','datetime',array(
                 'widget' => 'single_text',
-                'format' => 'dd/MM/yyyy HH:mm:ss',
+                'format' => 'dd/MM/yyyy HH:mm',
                 'attr' => array('class' => 'startDate span12')
 
             ))
              ->add('enddate','datetime',array(
                 'widget' => 'single_text',
-                'format' => 'dd/MM/yyyy HH:mm:ss',
+                'format' => 'dd/MM/yyyy HH:mm',
                 'attr' => array('class' => 'endDate span12')
 
             ))

@@ -42,6 +42,10 @@
             <tag name="form.type" alias="CaravaneUIDatePicker" />
         </service>
 
+        <service id="caravane_ui_bundle.date_time_picker_type" class="Caravane\UIBundle\Form\Type\DateTimePickerType">
+            <tag name="form.type" alias="CaravaneUIDateTimePicker" />
+        </service>
+
 
     </services>
 </container>
