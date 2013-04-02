@@ -32,7 +32,6 @@ class EntitiesStatusUpdater {
 */
     public function __construct($container) {
         $this->container=$container;
-
     }
 
 
@@ -116,7 +115,7 @@ class EntitiesStatusUpdater {
 
             $jobManager=new JobManager($entity,$entityManager);
             $jobManager->postPersist();
-            $jobManager->checkAvailability();
+            $jobManager->checkAvailability($this->container);
         }
          if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Offre) {
             $offreManager=new OffreManager($entity,$entityManager);

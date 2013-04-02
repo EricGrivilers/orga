@@ -6,42 +6,34 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-				$('#{{form.vars.id}}').typeahead({
-					minLength:3,
-					source: function (query, process) {
-					    $.getJSON(
-					    	Routing.generate('{{form.vars.attr.source_route}}'),
-					        { query: query },
-					        function (data) {
-					        		//$('{{form.vars.attr.target_field}}').val('');
-						        labels=[]
-						        ids={}
-						        mapped={}
-
-						        $.each(data, function (i, item) {
-									mapped[item.label] = item.label;
-									labels.push(item.label);
-									ids[item.label]=item.value;
-								})
-
-								process(labels)
-
-					    	}
-					    );
-					},
-
-					updater:function (item) {
-						//$('{{form.vars.attr.target_field}}').val(ids[item]);
-						//$('#{{form.vars.id}}').val(ids[item]);
-						{% if form.vars.attr.updater %}
+			$('#{{form.vars.id}}').typeahead({
+				minLength:3,
+				source: function (query, process) {
+					$.getJSON(
+					    Routing.generate('{{form.vars.attr.source_route}}'),
+					    { query: query },
+					    function (data) {
+						    labels=[]
+						    ids={}
+						    mapped={}
+						    $.each(data, function (i, item) {
+								mapped[item.label] = item.label;
+								labels.push(item.label);
+								ids[item.label]=item.value;
+							})
+							process(labels);
+					    }
+					);
+				},
+				updater:function (item) {
+					{% if form.vars.attr.updater %}
 						{{form.vars.attr.updater}}(ids[item],'{{form.vars.attr.target_field}}')
-						{% endif %}
+					{% endif %}
+					return mapped[item]
+				}
 
-						return mapped[item]
-					}
-
-		        		});
-			});
+		    });
+		});
 	</script>
 {% endblock %}
 

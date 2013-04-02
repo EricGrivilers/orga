@@ -35,6 +35,7 @@ $('.reportrange').daterangepicker(
         startDate:$(this).closest('.widget').find('input.startDate').val(),
         endDate:$(this).closest('.widget').find('input.endDate').val(),
         minDate:Date.today(),
+        format : 'MM/dd/yyyy hh:mm:ss',
         locale: {
             customRangeLabel:"Custom dates"
         }

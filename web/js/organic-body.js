@@ -3097,25 +3097,28 @@ $(document).ready(function() {
 
 
 function pagination() {
-    ob=$('#CaravaneUiPaginationOb').val();
-    tA=ob.split(' ');
-    currentOb=tA[0];
-    currentSens=tA[1];
-    currentSens=='asc'?icon='up':icon='down';
-    currentField=$("thead th a[data-orderby='"+currentOb+"']");
+    if($('#CaravaneUiPaginationOb').length>0) {
+        ob=$('#CaravaneUiPaginationOb').val();
+        tA=ob.split(' ');
+        currentOb=tA[0];
+        currentSens=tA[1];
+        currentSens=='asc'?icon='up':icon='down';
+        currentField=$("thead th a[data-orderby='"+currentOb+"']");
 
-    currentField.html(currentField.text()+" <i class='icon icon-chevron-"+icon+"'></i>");
-    /*currentField.click(function() {
-        currentSens=='asc'?currentSens='desc':currentSens='asc';
-        document.location=Routing.generate($('#CaravaneUiPaginationRoute').val(),{'type':$('#CaravaneUiPaginationType').val(),'ob':currentOb+" "+currentSens,'page':$('#CaravaneUiPaginationPage').val()});
-    });*/
-    $("thead th a").click(function() {
-        if($(this).data('orderby')==currentOb) {
+        currentField.html(currentField.text()+" <i class='icon icon-chevron-"+icon+"'></i>");
+        /*currentField.click(function() {
             currentSens=='asc'?currentSens='desc':currentSens='asc';
-        }
-        document.location=Routing.generate($('#CaravaneUiPaginationRoute').val(),{'type':$('#CaravaneUiPaginationType').val(),'ob':$(this).data('orderby')+" "+currentSens,'page':$('#CaravaneUiPaginationPage').val()});
-    });
-    
+            document.location=Routing.generate($('#CaravaneUiPaginationRoute').val(),{'type':$('#CaravaneUiPaginationType').val(),'ob':currentOb+" "+currentSens,'page':$('#CaravaneUiPaginationPage').val()});
+        });*/
+        $("thead th a").click(function() {
+            if($(this).data('orderby')==currentOb) {
+                currentSens=='asc'?currentSens='desc':currentSens='asc';
+            }
+            document.location=Routing.generate($('#CaravaneUiPaginationRoute').val(),{'type':$('#CaravaneUiPaginationType').val(),'ob':$(this).data('orderby')+" "+currentSens,'page':$('#CaravaneUiPaginationPage').val()});
+        });
+    }
+
+
 }
 
 
@@ -3262,7 +3265,7 @@ function initOffre() {
             tentid=$(this).data('productid');
             entityId=$(this).closest('.modal').data('target');
              $.post(Routing.generate(entity+'_add_tent',{'id':entityId,'tentid':tentid}),function(data) {
-                alert(data);
+                //alert(data);
                 $('form').submit();
             })
         });
