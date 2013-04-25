@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Caravane\Bundle\OrganicBundle\Entity\Planning;
 use Caravane\Bundle\OrganicBundle\Form\PlanningType;
 
+
 /**
  * Planning controller.
  *
@@ -21,12 +22,32 @@ class PlanningController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        $users=$em->getRepository('CaravaneUserBundle:User')->findAll();
+/*
         $entities = $em->getRepository('CaravaneOrganicBundle:Planning')->findAll();
 
         return $this->render('CaravaneOrganicBundle:Planning:index.html.twig', array(
             'entities' => $entities,
         ));
+        */
+        $request=$this->getRequest();
+        $user=$this->getUser();
+        if($request->query->get('user')) {
+            if($request->query->get('user')=='any') {
+                $user=null;
+            }
+            else {
+                if(!$user=$em->getRepository('CaravaneUserBundle:User')->find($request->query->get('user'))) {
+                   $user=$this->getUser();
+                };
+            }
+        }
+         return $this->render('CaravaneOrganicBundle:Planning:index.html.twig', array(
+            'user' => $user,
+            "users"=>$users,
+            'show_inplace'=>$request->query->get('show_inplace')
+        ));
+
     }
 
     /**
@@ -175,5 +196,92 @@ class PlanningController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+
+
+    public function loadEventsAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $startDatetime = new \DateTime();
+        $startDatetime->setTimestamp($request->get('start'));
+        
+        $endDatetime = new \DateTime();
+        $endDatetime->setTimestamp($request->get('end'));
+        
+        //$events = $this->container->get('event_dispatcher')->dispatch(CalendarEvent::CONFIGURE, new CalendarEvent($startDatetime, $endDatetime))->getEvents();
+        $jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAllBetweenDates($startDatetime,$endDatetime);
+        
+        $response = new \Symfony\Component\HttpFoundation\Response();
+        $response->headers->set('Content-Type', 'application/json');
+        
+        $userId=$request->get('user');
+       
+        $user=$this->getUser();
+        if($userId>0) {
+            if(!$user=$em->getRepository('CaravaneUserBundle:User')->find($userId)) {
+                $user=$this->getUser();
+            }
+        }
+
+       
+        
+        $return_events = array();
+        
+        foreach($jobs as $job) {
+            $users=array();
+            $users[]=$job->getUserid();
+            foreach($job->getPlannings() as $p) {
+                $users[]=$p->getUserid();
+            }
+            if(in_array($user,$users) || $request->get('user')=='any') {
+                $hasInplace=false;
+                foreach($job->getPlannings() as $p) {
+                    if($p->getPlanningtype()!="inplace" ) {
+                           
+                        
+                        $return_events[] = array(
+                            'start'=>$p->getStartdate()->format("Y-m-d\TH:i:sP"),
+                            'end'=>$p->getEnddate()->format("Y-m-d\TH:i:sP"),
+                            'className'=>$p->getPlanningtype(),
+                            'title'=>$p->getStartdate()->format("H:i")." - ".$job->getReference(),
+                            'client'=>$job->getClientid()->getName(),
+                            'url'=>$this->generateUrl('job_edit',array('id'=>$job->getId())),
+                            'content'=>$this->renderView('CaravaneOrganicBundle:Job:popover.html.twig', array('job'=>$job))
+                        );
+                        if($p->getPlanningtype()=="build") {
+                            $startBuild=$p->getStartdate();
+
+                        }
+                         if($p->getPlanningtype()=="unbuild") {
+                            $startUnbuild=$p->getStartdate();
+                        }
+                    }
+                }
+                if($request->query->get('show_inplace')) {
+                    $return_events[] = array(
+                        'start'=>$startBuild->format("Y-m-d\TH:i:sP"),
+                        'end'=>$startUnbuild->format("Y-m-d\TH:i:sP"),
+                        'className'=>'inplace',
+                        'title'=>$job->getReference(). " inplace",
+                        'client'=>$job->getClientid()->getName(),
+                        'url'=>$this->generateUrl('job_edit',array('id'=>$job->getId())),
+                        'content'=>$this->renderView('CaravaneOrganicBundle:Job:popover.html.twig', array('job'=>$job))
+                    );
+                }
+                
+            }
+                /*
+                $return_events[] = array(
+                    'start'=>$job->getStartbuild()->format("Y-m-d\TH:i:sP"),
+                    'end'=>$job->getEndbuild()->format("Y-m-d\TH:i:sP"),
+                    'title'=>$job->getReference(),
+                    'url'=>$this->generateUrl('job_edit',array('id'=>$job->getId()))
+                );
+                */
+        
+        }
+        
+        $response->setContent(json_encode($return_events));
+        
+        return $response;
     }
 }

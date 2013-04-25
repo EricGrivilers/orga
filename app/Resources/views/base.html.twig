@@ -35,7 +35,7 @@
                       <li {% if app.request.attributes.get('_route')=='offre' %}  class="active" {% endif %} ><a href="{{path("offre")}}">Bids</a></li>
                       <li {% if app.request.attributes.get('_route')=='job' %}  class="active" {% endif %} ><a href="{{path("job")}}">Jobs</a></li>
                       <li {% if app.request.attributes.get('_route')=='invoice' %}  class="active" {% endif %} ><a href="{{path("invoice")}}">Invoices</a></li>
-                      <li {% if app.request.attributes.get('_route')=='calendar' %}  class="active" {% endif %} ><a href="#">Calendar</a></li>
+                      <li {% if app.request.attributes.get('_route')=='planning' %}  class="active" {% endif %} ><a href="{{path('planning')}}">Planning</a></li>
                       <li {% if app.request.attributes.get('_route')=='tent' %}  class="active" {% endif %} ><a href="{{path("tent")}}">Stock</a></li>
                       <li {% if app.request.attributes.get('_route')=='user' %}  class="active" {% endif %} ><a href="{{path("user")}}">Users</a></li>
                     </ul>

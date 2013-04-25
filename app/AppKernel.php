@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new Caravane\DevBundle\CaravaneDevBundle(),
             new Caravane\UIBundle\CaravaneUIBundle(),
             new Caravane\CKEditorBundle\CaravaneCKEditorBundle(),
+            new Caravane\CalendarBundle\CaravaneCalendarBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

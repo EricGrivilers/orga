@@ -13,12 +13,19 @@
     "../vendor/twitter/bootstrap/js/bootstrap-collapse.js"
     "../vendor/twitter/bootstrap/js/bootstrap-carousel.js"
     "../vendor/twitter/bootstrap/js/bootstrap-typeahead.js"
-    "@CaravaneUIBundle/Resources/public/js/date/date.js"
+
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% javascripts output="js/organic-ui.js"
+   "@CaravaneUIBundle/Resources/public/js/date/date.js"
     "@CaravaneUIBundle/Resources/public/js/date/daterangepicker.js"
     "@CaravaneUIBundle/Resources/public/js/datepicker/bootstrap-datepicker.js"
     "@CaravaneUIBundle/Resources/public/js/datepicker/bootstrap-datetimepicker.js"
-
-    "@CaravaneOrganicBundle/Resources/public/js/main.js"
+   
+    "@CaravaneCalendarBundle/Resources/public/js/fullcalendar/jquery.fullcalendar.min.js"
+    "@CaravaneCalendarBundle/Resources/public/js/calendar-settings.js"
+        "@CaravaneOrganicBundle/Resources/public/js/main.js"
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
