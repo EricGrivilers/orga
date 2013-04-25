@@ -41,12 +41,15 @@ class InvoiceController extends Controller
         if(!$ob=$request->query->get('ob')) {
             $ob='reference desc';
         }
+        if(!$offset=$request->query->get('offset')) {
+            $offset=25;
+        }
          if(!$page=$request->query->get('page')) {
             $page=1;
         }
        // $entities = $em->getRepository('CaravaneOrganicBundle:Client')->listAll();
-        $entities=$em->getRepository('CaravaneOrganicBundle:Invoice')->listAll($type,$ob,$page);
-        $nbpages=(Integer)(count($entities)/25)+1;
+        $entities=$em->getRepository('CaravaneOrganicBundle:Invoice')->listAll($type,$ob,$page,$offset);
+        $nbpages=(Integer)(count($entities)/$offset)+1;
 
 
         return $this->render('CaravaneOrganicBundle:Invoice:index.html.twig', array(
@@ -54,7 +57,8 @@ class InvoiceController extends Controller
             'type'=>$type,
             'ob'=>$ob,
             'page'=>$page,
-            "nbpages"=>$nbpages
+            "nbpages"=>$nbpages,
+            'offset'=>$offset
         ));
     }
 

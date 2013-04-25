@@ -66,7 +66,7 @@
 
              <td>{% for invoice in entity.invoiceid %} <li><a href="{{path('invoice_edit',{'id':invoice.id})}}" class='red' >{{invoice}}</a></li>{% endfor %}</td>
              <td>{% if entity.userid %}<a href="mailto:{{entity.userid.email}}">{{entity.userid.name}}</a>{% endif %}</td>
-             <td><a href="{{path('offre',{'id':entity.offreid.id} )}}" class="red">{{entity.offreid}}</a></td>
+             <td>{% if entity.offreid %}<a href="{{path('offre',{'id':entity.offreid.id} )}}" class="red">{{entity.offreid}}</a>{% endif %}</td>
 
              <td>
                 <li class="dropdown">

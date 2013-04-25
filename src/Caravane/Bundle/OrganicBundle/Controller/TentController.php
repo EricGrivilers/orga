@@ -36,7 +36,9 @@ class TentController extends Controller
          if(!$page=$request->query->get('page')) {
             $page=1;
         }
-
+        if(!$offset=$request->query->get('offset')) {
+            $offset=25;
+        }
 
 
         $jobs=array();
@@ -56,8 +58,8 @@ class TentController extends Controller
             $offres=$em->getRepository('CaravaneOrganicBundle:Offre')->findAllBetweenDates($startDate,$endDate);
         //}
 
-        $entities=$em->getRepository('CaravaneOrganicBundle:Tent')->listAll($type,$ob,$page,$startDate,$endDate,$jobs,$offres);
-        $nbpages=(Integer)(count($entities)/25)+1;
+        $entities=$em->getRepository('CaravaneOrganicBundle:Tent')->listAll($type,$ob,$page,$startDate,$endDate,$jobs,$offres,$offset);
+        $nbpages=(Integer)(count($entities)/$offset)+1;
 
         return $this->render('CaravaneOrganicBundle:Tent:index.html.twig', array(
             'entities' => $entities,
@@ -65,6 +67,7 @@ class TentController extends Controller
             'ob'=>$ob,
             'page'=>$page,
             "nbpages"=>$nbpages,
+            'offset'=>$offset,
             "jobs"=>$jobs,
             "offres"=>$offres,
             'startDate'=>$startDate,
