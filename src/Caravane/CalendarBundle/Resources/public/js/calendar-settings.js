@@ -32,6 +32,7 @@ calendar.show=function(category) {
 			eventSources: [
                     {
                         url: Routing.generate('fullcalendar_loader',{'user':$('#planning_user').val(),'show_inplace':$('#show_inplace:checked')}), 
+                        //url: Routing.generate('fullcalendar_loader'), 
 
 						type: 'POST',
                         error: function() {
