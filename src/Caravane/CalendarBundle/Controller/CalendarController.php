@@ -18,8 +18,7 @@ class CalendarController extends Controller
     public function loadCalendarAction(Request $request)
     {
 
-        echo "eee";
-        die();
+
         $startDatetime = new \DateTime();
         $startDatetime->setTimestamp($request->get('start'));
         
