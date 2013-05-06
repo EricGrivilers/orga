@@ -325,7 +325,7 @@ class Job
     /**
      * @var \tents2job
      *
-     * @ORM\OneToMany(targetEntity="Tent2Job", mappedBy="jobid")
+     * @ORM\OneToMany(targetEntity="Tent2job", mappedBy="jobid")
      *
      */
     private $tents2job;
