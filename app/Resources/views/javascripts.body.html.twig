@@ -1,5 +1,5 @@
 {% block bodyscripts %}
-    {% javascripts output="js/organic-body.js"
+    {% javascripts output="js/organic-bootstrap.js"
     "../vendor/twitter/bootstrap/js/bootstrap-affix.js"
     "../vendor/twitter/bootstrap/js/bootstrap-transition.js"
     "../vendor/twitter/bootstrap/js/bootstrap-modal.js"
@@ -14,6 +14,7 @@
     "../vendor/twitter/bootstrap/js/bootstrap-carousel.js"
     "../vendor/twitter/bootstrap/js/bootstrap-typeahead.js"
 
+
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -22,10 +23,21 @@
     "@CaravaneUIBundle/Resources/public/js/date/daterangepicker.js"
     "@CaravaneUIBundle/Resources/public/js/datepicker/bootstrap-datepicker.js"
     "@CaravaneUIBundle/Resources/public/js/datepicker/bootstrap-datetimepicker.js"
-   
+
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% javascripts output="js/organic-calendar.js"
     "@CaravaneCalendarBundle/Resources/public/js/fullcalendar/jquery.fullcalendar.min.js"
     "@CaravaneCalendarBundle/Resources/public/js/calendar-settings.js"
-        "@CaravaneOrganicBundle/Resources/public/js/main.js"
+
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+     {% javascripts output="js/organic-body.js"
+            "@CaravaneOrganicBundle/Resources/public/js/main.js"
+
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
