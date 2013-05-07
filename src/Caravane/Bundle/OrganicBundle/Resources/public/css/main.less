@@ -19,7 +19,7 @@ body,p,a,td {
 	color: #fff;
 	text-decoration: none;
 	background-color: #262e49;
-	
+
 	border-left:1px solid #fff;
 	border-right:1px solid #fff;
 	border:0 1px 0 1px;
@@ -171,7 +171,7 @@ ul.offset {
 		line-height:14px;
 	}
 	a.inplace {
-		
+
 	}
 	a.inplace {
 		background:#dedede;
@@ -181,6 +181,7 @@ ul.offset {
 			color:#666;
 			border-color:#dedede;
 		}
+		text-align:center;
 
 	}
 	a.build {
@@ -191,8 +192,8 @@ ul.offset {
 			color:#fff;
 			border-color:#C80017;
 		}
-		
-		border-right:16px solid #dedede;
+		.square;
+		.rounded-left
 
 	}
 	a.unbuild {
@@ -202,8 +203,11 @@ ul.offset {
 			background:#262E49;
 			color:#fff;
 			border-color:#262E49;
+			.square;
 		}
-		border-left:16px solid #dedede;
+
+		text-align:right;
+		.rounded-right;
 	}
 	.popover {
 		z-index:9999;
@@ -216,4 +220,32 @@ ul.offset {
 
 .fc-view {
 	overflow:visible;
+}
+
+
+.square() {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0 ;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0 ;
+}
+.rounded-right (@radius: 7px) {
+  -webkit-border-radius: 0 @radius @radius 0 ;
+  -moz-border-radius: 0 @radius @radius 0 ;
+  -ms-border-radius: 0 @radius @radius 0 ;
+  -o-border-radius: 0 @radius @radius 0 ;
+  border-radius: 0 @radius @radius 0 ;
+  padding-right:@radius;
+  border-left:0;
+}
+
+.rounded-left (@radius: 7px) {
+  -webkit-border-radius: @radius 0 0 @radius;
+  -moz-border-radius: @radius 0 0 @radius;
+  -ms-border-radius: @radius 0 0 @radius;
+  -o-border-radius: @radius 0 0 @radius;
+  border-radius: @radius 0 0 @radius;
+    padding-left:@radius;
+  border-right:0;
 }

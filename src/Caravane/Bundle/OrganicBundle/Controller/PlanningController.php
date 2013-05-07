@@ -203,18 +203,18 @@ class PlanningController extends Controller
         $em = $this->getDoctrine()->getManager();
         $startDatetime = new \DateTime();
         $startDatetime->setTimestamp($request->get('start'));
-        
+
         $endDatetime = new \DateTime();
         $endDatetime->setTimestamp($request->get('end'));
-        
+
         //$events = $this->container->get('event_dispatcher')->dispatch(CalendarEvent::CONFIGURE, new CalendarEvent($startDatetime, $endDatetime))->getEvents();
         $jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAllBetweenDates($startDatetime,$endDatetime);
-        
+
         $response = new \Symfony\Component\HttpFoundation\Response();
         $response->headers->set('Content-Type', 'application/json');
-        
+
         $userId=$request->get('user');
-       
+
         $user=$this->getUser();
         if($userId>0) {
             if(!$user=$em->getRepository('CaravaneUserBundle:User')->find($userId)) {
@@ -222,10 +222,10 @@ class PlanningController extends Controller
             }
         }
 
-       
-        
+
+
         $return_events = array();
-        
+
         foreach($jobs as $job) {
             $users=array();
             $users[]=$job->getUserid();
@@ -236,8 +236,8 @@ class PlanningController extends Controller
                 $hasInplace=false;
                 foreach($job->getPlannings() as $p) {
                     if($p->getPlanningtype()!="inplace" ) {
-                           
-                        
+
+
                         $return_events[] = array(
                             'start'=>$p->getStartdate()->format("Y-m-d\TH:i:sP"),
                             'end'=>$p->getEnddate()->format("Y-m-d\TH:i:sP"),
@@ -256,7 +256,7 @@ class PlanningController extends Controller
                         }
                     }
                 }
-                if($request->query->get('show_inplace')) {
+                if($request->query->get('show_inplace')=='true') {
                     $return_events[] = array(
                         'start'=>$startBuild->format("Y-m-d\TH:i:sP"),
                         'end'=>$startUnbuild->format("Y-m-d\TH:i:sP"),
@@ -267,7 +267,7 @@ class PlanningController extends Controller
                         'content'=>$this->renderView('CaravaneOrganicBundle:Job:popover.html.twig', array('job'=>$job))
                     );
                 }
-                
+
             }
                 /*
                 $return_events[] = array(
@@ -277,11 +277,11 @@ class PlanningController extends Controller
                     'url'=>$this->generateUrl('job_edit',array('id'=>$job->getId()))
                 );
                 */
-        
+
         }
-        
+
         $response->setContent(json_encode($return_events));
-        
+
         return $response;
     }
 }
