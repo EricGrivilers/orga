@@ -1,0 +1,6 @@
+{% extends "CaravaneOrganicBundle:Default:pdf.html.twig" %}
+
+{% block reference %}
+  {{"Reference"|trans}} {{entity.reference}}<br/>
+  Zaventem, {{"le"|trans}} {{entity.date}}
+{% endblock reference %}

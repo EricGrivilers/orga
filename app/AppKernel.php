@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Ensepar\Html2pdfBundle\EnseparHtml2pdfBundle(),
             new Caravane\Bundle\OrganicBundle\CaravaneOrganicBundle(),
             new Caravane\UserBundle\CaravaneUserBundle(),
             new Caravane\DevBundle\CaravaneDevBundle(),

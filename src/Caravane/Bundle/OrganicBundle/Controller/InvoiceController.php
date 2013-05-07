@@ -119,7 +119,7 @@ class InvoiceController extends Controller
         $entity->setInsertdate(new \Datetime('now'));
 
 
-        
+
 
         $form = $this->createForm(new InvoiceType($statusChoices), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
@@ -127,7 +127,7 @@ class InvoiceController extends Controller
         $form->bind($request);
 
         $invoiceManager=new invoiceManager($entity,$em);
-        $entity=$invoiceManager->fillClient();  
+        $entity=$invoiceManager->fillClient();
 
 
         if ($form->isValid()) {
@@ -201,11 +201,11 @@ class InvoiceController extends Controller
 
 
 
-        
+
         $invoiceManager=new invoiceManager($entity,$em);
         $entity=$invoiceManager->fillClient();
 
-        
+
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new InvoiceType($statusChoices), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
@@ -213,7 +213,7 @@ class InvoiceController extends Controller
         $editForm->bind($request);
 
 
-        
+
 
         if ($editForm->isValid()) {
             $entity=$invoiceManager->persist();
@@ -271,6 +271,13 @@ class InvoiceController extends Controller
         return new Response('ok');
     }
 
-
+    public function pdfAction(Request $request, $id,$language) {
+        $em = $this->getDoctrine()->getManager();
+        $entity=$em->getRepository('CaravaneOrganicBundle:Invoice')->find($id);
+        $content=$this->renderView("CaravaneOrganicBundle:Invoice:pdf.html.twig",array("entity"=>$entity,"dir"=>__DIR__."/../../../../.."));
+        $html2pdf = $this->get('html2pdf')->get();
+        $html2pdf->writeHTML($content);
+        $html2pdf->Output("Invoice_".$entity->getReference().'.pdf');
+    }
 
 }
