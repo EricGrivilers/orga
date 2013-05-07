@@ -13,7 +13,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class OffreRepository extends EntityRepository
 {
 
-	public function listAll($type=null,$ob=null,$page=1) {
+	public function listAll($type=null,$ob=null,$page=1,$offset=25) {
 		$dql = "SELECT O FROM CaravaneOrganicBundle:Offre O ";
 		
 		$dql.=" WHERE O.public=1 ";
@@ -40,8 +40,8 @@ class OffreRepository extends EntityRepository
 		}
 
 		$query = $this->getEntityManager()->createQuery($dql)
-                       ->setFirstResult(($page-1)*25)
-                       ->setMaxResults(25);
+                       ->setFirstResult(($page-1)*$offset)
+                       ->setMaxResults($offset);
 
 		$entities = new Paginator($query, $fetchJoinCollection = true);
 

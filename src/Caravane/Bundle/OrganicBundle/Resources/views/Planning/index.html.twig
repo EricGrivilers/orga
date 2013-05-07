@@ -1,43 +1,42 @@
-<h1>Planning list</h1>
+{% extends "::base.html.twig" %}
 
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Planningtype</th>
-            <th>Startdate</th>
-            <th>Enddate</th>
-            <th>Etat</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('planning_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.planningtype }}</td>
-            <td>{% if entity.startdate %}{{ entity.startdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{% if entity.enddate %}{{ entity.enddate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{{ entity.etat }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('planning_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('planning_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+{% block body %}
+<div class="row-fluid">
+    <div class="tools">
+        <div class="span10">
+        {#<ul class="nav nav-pills">
+         
+           <li {% if user=='any' %}class="active" {% endif %} >
+            <a href="{{path('planning',{'user':'any'})}}">All</a>
+          </li>
+           <li {% if user=='' %}class="active" {% endif %} >
+            <a href="{{path('planning',{'user':''})}}">My planning</a>
+          </li>
+        </ul>#}
+        <form action="{{path('planning')}}" methgod="get">
+        <input type="checkbox" name="show_inplace" value="1" {% if show_inplace %}checked='checked' {% endif %} onchange="submit()" />
+        <select id="planning_user" name="user" onchange="submit()">
 
-<ul>
-    <li>
-        <a href="{{ path('planning_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+            <option value="any">Any user</option>
+          {% for u in users %}
+            <option value="{{u.id}}" {% if user!=null %} 
+            {% if u.id==user.id %} selected {% endif %} 
+            {% endif %}
+            >{{u.name}}</option>
+          {% endfor %}
+        </select>
+       </form>
+    </div>
+    <div class="span2">
+        {# <a href="{{ path('client_new') }}" class="btn btn-inverse ">New client</a>#}
+    </div>
+    </div>
+</div>
+<div class="row-fluid">
+
+    {% include "CaravaneCalendarBundle::calendar.html.twig" %}
+
+
+</div>
+
+{% endblock body %}

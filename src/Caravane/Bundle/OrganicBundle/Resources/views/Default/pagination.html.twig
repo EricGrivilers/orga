@@ -1,14 +1,54 @@
+<div class="row-fluid">
+        <div class="center">
+              <ul class="nav nav-pills offset">
+                  {% for o in ['10','25','50','100','200'] %}
+                                        <li {% if offset==o %}class="active" {% endif %} >
+                                              <a href="{{path(app.request.get('_route'),{'type': type,'ob':ob,'page':1,'offset':o} )}}">{{o}}</a>
+                                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+</div>
+
 <div class="pagination">
 	<input type='hidden' id='CaravaneUiPaginationType' value="{{type}}" />
 	<input type='hidden' id='CaravaneUiPaginationOb' value="{{ob}}" />
 	<input type='hidden' id='CaravaneUiPaginationPage' value="{{page}}" />
+  <input type='hidden' id='CaravaneUiPaginationOffset' value="{{offset}}" />
 	<input type='hidden' id='CaravaneUiPaginationRoute' value="{{app.request.get('_route')}}" />
 
+{% if nbpages>1 %}
   <ul>
-    <li {% if page<=1 %} class="disabled" {% endif %} ><a href="{{path(app.request.get('_route'),{'type': type,'ob':ob,'page':page-1} )}}" >Prev</a></li>
-    {% for p in 1..nbpages %}
-    <li {% if page==p %} class="active" {% endif %} ><a href="{{path(app.request.get('_route'),{'type': type,'ob':ob,'page':p} )}}">{{p}}</a></li>
-    {% endfor %}
-    <li {% if page>=nbpages %} class="disabled" {% endif %}><a href="{{path(app.request.get('_route'),{'type': type,'ob':ob,'page':page+1} )}}">Next</a></li>
+    <li {% if page<=1 %} class="disabled" {% endif %} ><a href="{{path(app.request.get('_route'),{'type': type,'ob':ob,'page':page-1,'offset':offset} )}}" >Prev</a></li>
+
+    {% if nbpages>10 %}
+      {% if page<6 %}
+        {% for p in 1..7 %}
+          <li {% if page==p %} class="active" {% endif %} ><a href="{{path(app.request.get('_route'),{'type': type,'ob':ob,'page':p,'offset':offset} )}}">{{p}}</a></li>
+        {% endfor %}
+         <li class="disabled"><a >...</a></li>
+      {% elseif page>nbpages-7 %}
+         <li class="disabled"><a >...</a></li>
+         {% for p in nbpages-7..nbpages  %}
+            <li {% if page==p %} class="active" {% endif %} ><a href="{{path(app.request.get('_route'),{'type': type,'ob':ob,'page':p,'offset':offset} )}}">{{p}}</a></li>
+         {% endfor %}
+      {% else %}
+        <li class="disabled"><a >...</a></li>
+        {% for p in page-3..page+3 %}
+             <li {% if page==p %} class="active" {% endif %} ><a href="{{path(app.request.get('_route'),{'type': type,'ob':ob,'page':p,'offset':offset} )}}">{{p}}</a></li>
+        {% endfor %}
+        <li class="disabled"><a >...</a></li>
+      {% endif %}
+    {% else %}
+      {% for p in 1..nbpages %}
+        <li {% if page==p %} class="active" {% endif %} ><a href="{{path(app.request.get('_route'),{'type': type,'ob':ob,'page':p,'offset':offset} )}}">{{p}}</a></li>
+      {% endfor %}
+    {% endif %}
+
+    <li {% if page>=nbpages %} class="disabled" {% endif %}><a href="{{path(app.request.get('_route'),{'type': type,'ob':ob,'page':page+1,'offset':offset} )}}">Next</a></li>
   </ul>
+   <br/>
+
+            {{page}}/{{nbpages}}
+{% endif %}
 </div>

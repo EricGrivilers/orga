@@ -17,7 +17,7 @@ class TentRepository extends EntityRepository
 	private $page;
 
 
-	public function listAll($type=null,$ob=null,$page=1,$startDate,$endDate,$jobs=null,$offres=null) {
+	public function listAll($type=null,$ob=null,$page=1,$startDate,$endDate,$jobs=null,$offres=null,$offset=25) {
 		$this->type=$type;
 		$this->ob=$ob;
 		$this->page=$page;
@@ -49,8 +49,8 @@ class TentRepository extends EntityRepository
 		}
 
 		$query = $this->getEntityManager()->createQuery($dql)
-                       ->setFirstResult(($page-1)*25)
-                       ->setMaxResults(25);
+                       ->setFirstResult(($page-1)*$offset)
+                       ->setMaxResults($offset);
 
 		$entities = new Paginator($query, $fetchJoinCollection = true);
 
