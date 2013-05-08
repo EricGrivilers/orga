@@ -24,7 +24,7 @@
 		width:95mm;
 	}
 	td.address {
-		padding-top:25mm;
+		padding-top:45mm;
 	}
 	td.price,th.price {
 		width:35mm;
@@ -52,10 +52,10 @@
 {% endblock styles %}
 
 {% block page1 %}
-	<page backtop="20mm" backbottom="25mm" backleft="0mm" backright="0mm" >
-		<div class="marker" style="height:69mm" >
+	<page backtop="30mm" backbottom="25mm" backleft="0mm" backright="0mm" >
+		<div class="marker" style="height:49mm" >
 		</div>
-		<div class="marker" style="height:169mm" >
+		<div class="marker" style="height:149mm" >
 		</div>
 		<page_header>
 			{% block page1_header %}
@@ -97,6 +97,10 @@
 					    {% endblock reference %}
 					</td>
 					<td class="2col address">
+						<br/>
+						<br/>
+						<br/>
+						<br/>
 						{% block address %}
 					    {% endblock address %}
 					</td>
