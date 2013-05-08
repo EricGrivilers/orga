@@ -2,6 +2,7 @@ parameters:
     caravane_organic.client.class: Caravane\Bundle\OrganicBundle\Managers\ClientManager
     caravane_organic.invoice.class: Caravane\Bundle\OrganicBundle\Managers\InvoiceManager
     caravane_organic.offre.class: Caravane\Bundle\OrganicBundle\Managers\OffreManager
+    caravane_organic.pdf.class: Caravane\Bundle\OrganicBundle\Managers\PdfManager
     caravane_organic.listener.class: Caravane\Bundle\OrganicBundle\Listeners\EntitiesStatusUpdater
 
 services:
@@ -18,6 +19,9 @@ services:
         class: %caravane_organic.offre.class%
         arguments: [offre,em]
 
+    caravane_organic.pdf_manager:
+        class: %caravane_organic.pdf.class%
+        arguments: [em,@templating,@html2pdf]
 
     caravane_organic.listener:
         class: %caravane_organic.listener.class%

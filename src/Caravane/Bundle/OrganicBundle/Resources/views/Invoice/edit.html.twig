@@ -30,6 +30,25 @@
             <a href="{{ path('invoice') }}" class="btn">
                     Back to the list
             </a>
+            
+             {#<div class="dropdown pull-right">
+                    <a class="dropdown-toggle" id="drop_1" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>#}
+                    <div class="btn-group pull-right">
+                      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="drop_1">
+                        <img src="/images/icons/pdf.png">
+                        <span class="caret"></span>
+                      </a>
+                    <ul  class="dropdown-menu" role="menu" aria-labelledby="drop_1">
+                        {% for lg in ['en','fr','nl'] %}
+                            <li role="presentation">
+                                <a role="menuitem" href="{{path('invoice_pdf',{'id':entity.id,'_locale':lg})}}" target="_blank" ><img src="/images/icons/pdf.png"> Invoice {{lg}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            <a class="pull-right btn" href="{{path('invoice_pdf',{'id':entity.id,'force':true,'_locale':'all'})}}"><img src="/images/icons/pdf.png"> Rebuild pdf</a>
+            
         </div>
     </div>
     <div class="well">

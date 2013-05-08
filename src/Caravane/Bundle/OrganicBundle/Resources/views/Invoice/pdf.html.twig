@@ -2,5 +2,150 @@
 
 {% block reference %}
   {{"Reference"|trans}} {{entity.reference}}<br/>
-  Zaventem, {{"le"|trans}} {{entity.date}}
+  Zaventem, {{"le"|trans}} {{entity.insertDate|date('d/m/Y')}}
 {% endblock reference %}
+
+{% block documentType %}
+	{{("Facture de "~entity.offreType)|trans}}
+{% endblock documentType %}
+
+{% block address %}
+	<b>{{entity.name}}</b>
+	<br/>{{entity.clientTitle}} {{entity.firstname}} {{entity.lastname}}
+	<br/>
+	<br/>{{entity.address}} {{entity.number}}
+	<br/>{{entity.zip}} {{entity.city}}
+	<br/>{{entity.country}}
+	<br/>
+	{% if entity.vat %}
+	<br/>
+		<br/>{{"VAT"|trans}}: {{entity.vat}}
+	{% endif %}
+{% endblock address %}
+
+{% block conditions %}
+	<tr>
+		<td class="center 1col" >
+			{{"Conditions générales applicables pour la vente et la location de nos produits en annexe de cette facture."|trans}}
+		</td>
+	</tr>
+{% endblock conditions %}
+
+
+{% block page1_body %}
+<table class="main">
+	<thead>
+		<tr>
+			<th class="left description" >{{"Description"|trans}}</th>
+			<th class='right price' >{{"Montant HTVA"|trans}}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for product in entity.products %}
+			<tr>
+				<td>{{product.description}}</td>
+				<td class='right' >{{product.price|number_format(2,'.',' ')}} &euro;</td>
+			</tr>
+		{% endfor %}
+		<tr>
+			<th>&nbsp;</th>
+			<th>&nbsp;</th>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td class='right'>{{"Total VAT excl."|trans}}</td>
+			<td class='right' >
+				{% set total=0 %}
+                {% for p in entity.products %}
+                    {% set total=total + p.price %}
+                {% endfor %}
+                {{total|number_format(2,',',' ')}}  &euro;
+			</td>
+		</tr>
+		<tr>
+			<td class='right' >{% if entity.pricetype!='intra'%} {{"VAT"|trans}} (21%){% endif %}</td>
+			<td class='right' > {% if entity.pricetype!='intra'%} {{(0.21*total)|number_format(2,'.',' ')}}  &euro; {% endif %}</td>
+		</tr>
+		<tr>
+			<td class='grey right'>
+				{{"Total"|trans}} {% if entity.pricetype!='intra'%} VAT incl. {% endif %}
+			</td>
+			<td class='grey right' >
+				{% if entity.pricetype=='intra'%}
+                    {{total|number_format(2,'.',' ')}}
+                {% else %}
+                    {{(total+0.21*total)|number_format(2,'.',' ')}}
+                {% endif %}
+                  &euro;
+			</td>
+		</tr>
+	</tfoot>
+</table>
+<br/>
+<br/>
+<table class="main">
+    <tbody>
+        <tr>
+            <td style="width:85mm" >{{entity.sliceDescription}}</td>
+            <td style="width:20mm">{{entity.slice}}%</td>
+            <td class='right price' style="width:30mm">{{"Total VAT excl."|trans}}</td>
+            <td class='right price' >{% set TotalHT=entity.priceHt %} {{entity.priceht|number_format(2,'.',' ')}} &euro;</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td class='right'>{{"VAT"|trans}}</td>
+            <td class='right price'>
+                {% if entity.pricetype=='intra'%}
+                	<i>intra</i> {% set VAT=0 %}
+                {% else %}
+                	{% set VAT= entity.priceHt*0.21 %} {{VAT|number_format(2,'.',' ')}} &euro;
+                {% endif %}
+
+             </td>
+        </tr>
+    </tbody>
+ </table>
+<br/>
+<br/>	
+
+<table class="main">
+	
+	<tr>
+		<td class="center 1col" style="width:178mm;border: 0.5mm solid #333;padding:2mm">
+			{% set ToPay = entity.priceHT %}
+	        {% if entity.pricetype!='intra'%}
+	            {% set ToPay = entity.priceHT+(entity.priceHT*0.21) %}
+	        {% endif %}
+	       <b>{{"Total amount to pay"|trans}}  {% if entity.pricetype!='intra'%}{{"VAT incl."|trans}}{% endif %} {{ToPay|number_format(2,'.',' ')}} &euro;</b>
+		</td>
+	</tr>
+</table>
+<br/>
+<br/>
+<p><b><u>{{"Conditions"|trans}}</u></b></p>
+{{entity.conditions}}
+{% if entity.conditions1 %}
+	<br/>{{"Conditions de paiement: comptant."|trans}}
+	<br/>{{"Communication à mentionner: "|trans}} <b>{{"Facture"|trans}} {{entity.reference}}</b>
+{% endif %}
+{% if entity.conditions2 %}
+	<br/>{{" Le paiement de votre acompte confirme votre commande."|trans}}
+{% endif %}
+<br/><br/>
+
+<p><b><u>{{"Coordonnées bancaires"|trans}}</u></b></p>
+Fortis Bank - Compte n° 001-5712962-29 - IBAN BE26001571296229 - Adresse SWIFT : GEBABEBB
+
+
+
+{% endblock page1_body %}
+
+{% block page2 %}
+	<page backtop="15mm" backbottom="15mm" backleft="10mm" backright="10mm">
+		{% block page2_body %}
+	        {% include "CaravaneOrganicBundle:Default:cgv."~_locale~ ".html.twig" %}
+	    {% endblock page2_body %}
+	</page>
+{% endblock page2 %}

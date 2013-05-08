@@ -88,7 +88,7 @@
 
              <td>
 
-                <div class="dropdown">
+                <li class="dropdown">
                     <a class="dropdown-toggle" id="drop{{row}}_1" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>
                     <ul  class="dropdown-menu" role="menu" aria-labelledby="drop{{row}}_1">
                         {% for lg in ['en','fr','nl'] %}
@@ -97,9 +97,10 @@
                             </li>
                         {% endfor %}
                     </ul>
-                </div>
+                </li>
             </td>
              <td>
+                {% if entity.r1==1 %}
                 <li class="dropdown">
                     <a class="dropdown-toggle" id="drop{{row}}_2" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>
                     <ul  class="dropdown-menu" role="menu" aria-labelledby="drop{{row}}_2">
@@ -110,8 +111,10 @@
                         {% endfor %}
                     </ul>
                 </li>
+                {% endif %}
             </td>
             <td>
+                {% if entity.r2==1 %}
                 <li class="dropdown">
                     <a class="dropdown-toggle" id="drop{{row}}_3" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>
                     <ul  class="dropdown-menu" role="menu" aria-labelledby="drop{{row}}_3">
@@ -122,9 +125,11 @@
                         {% endfor %}
                     </ul>
                 </li>
+                {% endif %}
             </td>
             <td>
-                <div class="dropdown">
+                {% if entity.med==1 %}
+                <li class="dropdown">
                     <a class="dropdown-toggle" id="drop{{row}}_4" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>
                     <ul  class="dropdown-menu" role="menu" aria-labelledby="drop{{row}}_4">
                         {% for lg in ['en','fr','nl'] %}
@@ -133,7 +138,8 @@
                             </li>
                         {% endfor %}
                     </ul>
-                </div>
+                </li>
+                {% endif %}
             </td>
 
               <td>

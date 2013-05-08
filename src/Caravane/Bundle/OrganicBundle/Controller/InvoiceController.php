@@ -11,6 +11,7 @@ use Caravane\Bundle\OrganicBundle\Form\InvoiceType;
 
 use Caravane\Bundle\OrganicBundle\Managers\ClientManager;
 use Caravane\Bundle\OrganicBundle\Managers\InvoiceManager;
+use Caravane\Bundle\OrganicBundle\Managers\PdfManager;
 
 /**
  * Invoice controller.
@@ -69,6 +70,7 @@ class InvoiceController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+
 
         $entity = $em->getRepository('CaravaneOrganicBundle:Invoice')->find($id);
 
@@ -271,13 +273,41 @@ class InvoiceController extends Controller
         return new Response('ok');
     }
 
-    public function pdfAction(Request $request, $id,$language) {
+
+
+    public function pdfAction(Request $request, $id,$_locale='all') {
+        $templating=$this->container->get('templating');
+        $html2pdf=$this->get('html2pdf');
         $em = $this->getDoctrine()->getManager();
         $entity=$em->getRepository('CaravaneOrganicBundle:Invoice')->find($id);
-        $content=$this->renderView("CaravaneOrganicBundle:Invoice:pdf.html.twig",array("entity"=>$entity,"dir"=>__DIR__."/../../../../.."));
-        $html2pdf = $this->get('html2pdf')->get();
-        $html2pdf->writeHTML($content);
-        $html2pdf->Output("Invoice_".$entity->getReference().'.pdf');
+
+        $request->query->get('force')?$force=true:$force=false;
+
+        $pdfManager=new PdfManager($em,$templating,$html2pdf);
+        if($_locale=='all') {
+            foreach(array('en','fr','nl') as $l) {
+                $file=array(
+                    'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/invoices",
+                    'filename'=>$entity->getReference()."-".$l.".pdf"
+                );
+                if(file_exists($file['path']."/".$file['filename'])) {
+                    unlink($file['path']."/".$file['filename']);
+                }
+            }
+            return $this->redirect($this->generateUrl('invoice_edit', array('id' => $id)));
+        }
+        else {
+            $file=array(
+                'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/invoices",
+                'filename'=>$entity->getReference()."-".$_locale.".pdf"
+            );
+            $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Invoice:pdf.html.twig",$file,$_locale,$force);
+            return $this->redirect("/docs/invoices/".$file['filename']);
+        }
+        
     }
+
+
+
 
 }

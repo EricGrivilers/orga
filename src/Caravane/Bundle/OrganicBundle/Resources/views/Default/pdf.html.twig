@@ -1,16 +1,115 @@
 {% block styles %}
+<style type="text/css">
+	<!--
+	table.main {
+		width:190mm;
 
+	}
+	td {
+		vertical-align:top;
+	}
+	.center {
+		text-align:center;
+	}
+	.left {
+		text-align:left;
+	}
+	.right {
+		text-align:right;
+	}
+	td.1col {
+		width:180mm;
+	}
+	td.2col {
+		width:95mm;
+	}
+	td.address {
+		padding-top:25mm;
+	}
+	td.price,th.price {
+		width:35mm;
+	}
+	td.description,th.description {
+		width:145mm;
+	}
+	th {
+		background:#ededed;
+	}
+	table.main td,table.main th {
+		padding:0 1mm;
+	}
+
+	.grey {
+		background:#ededed;
+	}
+	.marker {
+		position:absolute;
+		border-bottom:0.51mm solid #ededed;
+		width:1mm;
+	}
+	-->
+</style>
 {% endblock styles %}
 
-{% block body %}
-<table >
-  <tr>
-      <td><img src="{{dir}}/web/bundles/caravaneorganic/images/logo.png" />
-        <br/>
-        {% block reference %}
-        {% endblock reference %}
-      </td>
-      <td></td>
-  </tr>
-</table>
-{% endblock body %}
+{% block page1 %}
+	<page backtop="20mm" backbottom="25mm" backleft="0mm" backright="0mm" >
+		<div class="marker" style="height:69mm" >
+		</div>
+		<div class="marker" style="height:169mm" >
+		</div>
+		<page_header>
+			{% block page1_header %}
+			<table class="main" >
+				<tr>
+					<td class="2col">
+						<img src="{{dir}}/web/bundles/caravaneorganic/images/logo.png" />
+					</td>
+					<td class="2col" >{% block documentType %} {% endblock documentType %}</td>
+				</tr>
+			</table>
+			{% endblock page1_header %}
+		</page_header>
+		<page_footer>
+
+			{% block page1_footer %}
+			<table class="main">
+				{% block conditions %}
+				{% endblock conditions %}
+				<tr>
+					<td class="center 1col grey">
+						Organic sa-nv - 71, Ikaroslaan - 1930 Zaventem - Belgium
+						<br/>
+						www.organic-concept.com - TVA/BTW: 0807.879.247
+						<br/>
+						Bank account: 001-5712962-29 - IBAN BE26001571296229 - Adresse SWIFT : GEBABEBB
+						<br/>
+						Tel 00 32 2 709 09 50 - Fax 00 32 2 709 09 51 - info@organic-concept.com
+					</td>
+				</tr>
+			</table>
+			{% endblock page1_footer %}
+		</page_footer>
+		
+			<table class="main">
+				<tr>
+					<td class="2col">
+						{% block reference %}
+					    {% endblock reference %}
+					</td>
+					<td class="2col address">
+						{% block address %}
+					    {% endblock address %}
+					</td>
+				</tr>
+			</table>
+			<br/>
+			<br/>
+			<br/>
+	    {% block page1_body %}
+	    {% endblock page1_body %}
+	</page>
+{% endblock page1 %}
+
+{% block page2 %}
+	
+{% endblock page2 %}
