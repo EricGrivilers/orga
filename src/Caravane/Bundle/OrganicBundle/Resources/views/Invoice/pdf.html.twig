@@ -26,7 +26,7 @@
 {% block conditions %}
 	<tr>
 		<td class="center 1col" >
-			{{"Conditions générales applicables pour la vente et la location de nos produits en annexe de cette facture."|trans}}
+			{{"_More conditions"|trans}}
 		</td>
 	</tr>
 {% endblock conditions %}
@@ -127,15 +127,15 @@
 <b><u>{{"Conditions"|trans}}</u></b><br/>
 {{entity.conditions}}
 {% if entity.conditions1 %}
-	<br/>{{"Conditions de paiement: comptant."|trans}}
-	<br/>{{"Communication à mentionner: "|trans}} <b>{{"Facture"|trans}} {{entity.reference}}</b>
+	<br/>{{"Conditions de paiement"|trans}}: {{"comptant."|trans}}
+	<br/>{{"Communication à mentionner"|trans}}: <b>{{"Facture"|trans}} {{entity.reference}}</b>
 {% endif %}
 {% if entity.conditions2 %}
-	<br/>{{" Le paiement de votre acompte confirme votre commande."|trans}}
+	<br/>{{"Le paiement de votre acompte confirme votre commande"|trans}}.
 {% endif %}
 <br/><br/>
 
-<b><u>{{"Coordonnées bancaires"|trans}}</u></b><br/>
+<b><u>{{"Coordonnées bancaires"|trans}}</u></b><br/><br/>
 Fortis Bank - Compte n° 001-5712962-29 - IBAN BE26001571296229 - Adresse SWIFT : GEBABEBB
 
 
@@ -143,7 +143,7 @@ Fortis Bank - Compte n° 001-5712962-29 - IBAN BE26001571296229 - Adresse SWIFT 
 {% endblock page1_body %}
 
 {% block page2 %}
-	<page backtop="15mm" backbottom="15mm" backleft="10mm" backright="10mm">
+	<page backtop="0mm" backbottom="0mm" backleft="0mm" backright="0mm">
 		{% block page2_body %}
 	        {% include "CaravaneOrganicBundle:Default:cgv."~_locale~ ".html.twig" %}
 	    {% endblock page2_body %}
