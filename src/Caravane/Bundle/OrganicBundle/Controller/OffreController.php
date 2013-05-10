@@ -13,6 +13,7 @@ use Caravane\Bundle\OrganicBundle\Form\OffreType;
 
 use Caravane\Bundle\OrganicBundle\Managers\OffreManager;
 use Caravane\Bundle\OrganicBundle\Managers\ClientManager;
+use Caravane\Bundle\OrganicBundle\Managers\PdfManager;
 /**
  * Offre controller.
  *
@@ -395,4 +396,41 @@ class OffreController extends Controller
     public function resolveConfirmAction() {
 
     }
+
+
+
+
+
+    public function pdfAction(Request $request, $id,$_locale='all') {
+        $templating=$this->container->get('templating');
+        $html2pdf=$this->get('html2pdf');
+        $em = $this->getDoctrine()->getManager();
+        $entity=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
+
+       
+
+        $pdfManager=new PdfManager($em,$templating,$html2pdf);
+        if($_locale=='all') {
+            foreach(array('en','fr','nl') as $l) {
+                $file=array(
+                    'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/offres",
+                    'filename'=>$entity->getReference()."-".$l.".pdf"
+                );
+                if(file_exists($file['path']."/".$file['filename'])) {
+                    unlink($file['path']."/".$file['filename']);
+                }
+            }
+            return $this->redirect($this->generateUrl('invoice_edit', array('id' => $id)));
+        }
+        else {
+            $file=array(
+                    'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/offres",
+                    'filename'=>$entity->getReference()."-".$_locale.".pdf"
+            );
+            $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Offre:pdf.html.twig",$file,$_locale,true); 
+            return $this->redirect("/docs/offres/".$file['filename']);
+        }
+        
+    }
+
 }

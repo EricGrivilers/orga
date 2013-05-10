@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Caravane\Bundle\OrganicBundle\Entity\Job;
 use Caravane\Bundle\OrganicBundle\Form\JobType;
+use Caravane\Bundle\OrganicBundle\Managers\PdfManager;
 
 /**
  * Job controller.

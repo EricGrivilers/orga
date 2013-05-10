@@ -12,7 +12,7 @@ CaravaneOrganicBundle_tent:
 
 CaravaneOrganicBundle_offre:
     resource: "@CaravaneOrganicBundle/Resources/config/routing/offre.yml"
-    prefix:   /bid
+    prefix:   /offer
 
 CaravaneOrganicBundle_invoice:
     resource: "@CaravaneOrganicBundle/Resources/config/routing/invoice.yml"

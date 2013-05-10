@@ -1,4 +1,4 @@
-{% extends "CaravaneOrganicBundle:Default:pdf.html.twig" %}
+{% extends "CaravaneOrganicBundle:Invoice:pdf.html.twig" %}
 
 {% block reference %}
   {{"Reference"|trans}} {{entity.reference}}<br/>
@@ -8,29 +8,6 @@
 {% block documentType %}
 	{{"2nd RAPPEL"|trans}} - {{("Facture de "~entity.offreType)|trans}}
 {% endblock documentType %}
-
-{% block address %}
-	<b>{{entity.name}}</b>
-	<br/>{{entity.clientTitle}} {{entity.firstname}} {{entity.lastname}}
-	<br/>
-	<br/>{{entity.address}} {{entity.number}}
-	<br/>{{entity.zip}} {{entity.city}}
-	<br/>{{entity.country}}
-	<br/>
-	{% if entity.vat %}
-	<br/>
-		<br/>{{"VAT"|trans}}: {{entity.vat}}
-	{% endif %}
-{% endblock address %}
-
-{% block conditions %}
-	<tr>
-		<td class="center 1col" >
-			{{"_More conditions"|trans}}
-		</td>
-	</tr>
-{% endblock conditions %}
-
 
 {% block page1_body %}
 
@@ -82,10 +59,3 @@ Fortis Bank - Compte n° 001-5712962-29 - IBAN BE26001571296229 - Adresse SWIFT 
 
 {% endblock page1_body %}
 
-{% block page2 %}
-	<page backtop="0mm" backbottom="0mm" backleft="0mm" backright="0mm">
-		{% block page2_body %}
-	        {% include "CaravaneOrganicBundle:Default:cgv."~_locale~ ".html.twig" %}
-	    {% endblock page2_body %}
-	</page>
-{% endblock page2 %}

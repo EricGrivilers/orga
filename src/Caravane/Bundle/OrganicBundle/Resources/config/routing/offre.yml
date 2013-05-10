@@ -12,6 +12,11 @@ offre_new:
     pattern:  /new
     defaults: { _controller: "CaravaneOrganicBundle:Offre:new" }
 
+offre_pdf:
+    pattern:  /{_locale}/{id}/pdf
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:pdf" }
+
+
 
 offre_create:
     pattern:  /create

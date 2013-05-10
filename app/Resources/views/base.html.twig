@@ -32,7 +32,7 @@
                     <ul class="nav">
                       <li {% if app.request.attributes.get('_route')=='CaravaneOrganicBundle_homepage' %}  class="active" {% endif %} ><a href="{{path("dashboard")}}">Dashboard</a></li>
                       <li {% if app.request.attributes.get('_route')=='client' %}  class="active" {% endif %} ><a href="{{path("client")}}">Clients</a></li>
-                      <li {% if app.request.attributes.get('_route')=='offre' %}  class="active" {% endif %} ><a href="{{path("offre")}}">Bids</a></li>
+                      <li {% if app.request.attributes.get('_route')=='offre' %}  class="active" {% endif %} ><a href="{{path("offre")}}">Offers</a></li>
                       <li {% if app.request.attributes.get('_route')=='job' %}  class="active" {% endif %} ><a href="{{path("job")}}">Jobs</a></li>
                       <li {% if app.request.attributes.get('_route')=='invoice' %}  class="active" {% endif %} ><a href="{{path("invoice")}}">Invoices</a></li>
                       <li {% if app.request.attributes.get('_route')=='planning' %}  class="active" {% endif %} ><a href="{{path('planning')}}">Planning</a></li>

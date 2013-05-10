@@ -45,3 +45,31 @@ _R1: <p>Cher Client, </p><p>Votre compte en nos livres présente un solde en not
 _R2: <p>Cher Client, </p><p>La facture n°%reference% n’est pas payée à ce jour, la date d’échéance étant datée au %date%.</p><p>Nous vous remercions d’effectuer le paiement dès réception de la présente sur notre compte. Dans le cas contraire, nous serons obligés de vous facturer des frais supplémentaires de 15 %.</p>
 
 _R3: <p>Cher Client, </p><p>La facture n°%reference% n’est pas payée à ce jour, la date d’échéance étant datée au %date%.</p><p>N’ayant pas réceptionné le paiement de cette facture, nous sommes obligés de vous facturer des frais supplémentaires de 15 %. </p>
+
+
+
+
+Offre: Offre
+
+Offre de sell: Offre de vente
+Offre de rent: Offre de location
+Offre de winter: Offre d'hivernage 
+
+Lieu: Lieu
+Dates: Dates
+Tente(s): Tente(s)
+
+Budget(s): Budget(s)
+Option(s): Option(s)
+
+Montage: Montage
+Démontage: Démontage
+Jour(s) de votre événement: Jour(s) de votre événement
+
+du: du
+au: au
+
+Une assurance est à votre charge durant votre location: Une assurance est à votre charge durant votre location
+Nos prix s'entendent hors TVA: Nos prix s'entendent hors TVA
+Validité de cette offre: Validité de cette offre
+30 jours date de l'offre: 30 jours date de l'offre

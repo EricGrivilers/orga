@@ -10,7 +10,9 @@
 {% endblock documentType %}
 
 {% block address %}
-	<b>{{entity.name}}</b>
+	{% if entity.clientType=='cie' %}
+		<b>{{entity.name}}</b>
+	{% endif %}
 	<br/>{{entity.clientTitle}} {{entity.firstname}} {{entity.lastname}}
 	<br/>
 	<br/>{{entity.address}} {{entity.number}}
@@ -43,7 +45,7 @@
 	<tbody>
 		{% for product in entity.products %}
 			<tr>
-				<td>{{product.description}}</td>
+				<td class="left description">{{product.description}}</td>
 				<td class='right' >{{product.price|number_format(2,'.',' ')}} &euro;</td>
 			</tr>
 		{% endfor %}

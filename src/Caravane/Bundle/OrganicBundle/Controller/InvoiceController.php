@@ -275,7 +275,7 @@ class InvoiceController extends Controller
 
 
 
-    public function pdfAction(Request $request, $id,$_locale='all',$type='') {
+    public function pdfAction(Request $request, $id,$_locale='all',$type='inv') {
         $templating=$this->container->get('templating');
         $html2pdf=$this->get('html2pdf');
         $em = $this->getDoctrine()->getManager();
@@ -298,7 +298,7 @@ class InvoiceController extends Controller
         }
         else {
             
-            if($type!='') {
+            if($type!='inv') {
                 $file=array(
                     'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/invoices",
                     'filename'=>$entity->getReference()."-".$type."-".$_locale.".pdf"
