@@ -10,7 +10,8 @@
 {% endblock form_header %}
 
 
-<input type='text' name='clientid' id="clientid"  value="{{entity.clientid.id}}"/>
+
+<input type='text' name='clientid' id="clientid"  value="{% if entity.clientid %}{{entity.clientid.id}} {% endif %}"/>
 {% if form_errors(edit_form) %}
 {{ form_errors(edit_form) }}
 {% endif %}
@@ -101,7 +102,7 @@
                 {{form_row(edit_form.clientid.language)}}
             </div>
          </div>
-        <div class="row-fluid" id="cieonly" {% if entity.clientid.clienttype!='cie' %} style='display:none' {% endif %}>
+        <div class="row-fluid" id="cieonly" {% if entity.clientid %} {% if entity.clientid.clienttype!='cie' %} style='display:none' {% endif %} {% endif %}>
             <div class="span4">
                 {{form_row(edit_form.clientid.name)}}
 

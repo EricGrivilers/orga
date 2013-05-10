@@ -357,4 +357,36 @@ class JobController extends Controller
         return new Response('ok');
     }
 
+    public function pdfAction(Request $request, $id,$_locale='all') {
+        $templating=$this->container->get('templating');
+        $html2pdf=$this->get('html2pdf');
+        $em = $this->getDoctrine()->getManager();
+        $entity=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
+
+       
+
+        $pdfManager=new PdfManager($em,$templating,$html2pdf);
+        if($_locale=='all') {
+            foreach(array('en','fr','nl') as $l) {
+                $file=array(
+                    'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/jobs",
+                    'filename'=>$entity->getReference()."-".$l.".pdf"
+                );
+                if(file_exists($file['path']."/".$file['filename'])) {
+                    unlink($file['path']."/".$file['filename']);
+                }
+            }
+            return $this->redirect($this->generateUrl('job_edit', array('id' => $id)));
+        }
+        else {
+            $file=array(
+                    'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/jobs",
+                    'filename'=>$entity->getReference()."-".$_locale.".pdf"
+            );
+            $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Job:pdf.html.twig",$file,$_locale,true); 
+            return $this->redirect("/docs/jobs/".$file['filename']);
+        }
+        
+    }
+
 }

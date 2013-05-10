@@ -26,6 +26,20 @@
             <a href="{{ path('job') }}" class="btn">
                     Back to the list
             </a>
+
+            <div class="btn-group pull-right">
+                      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="drop_1">
+                        <img src="/images/icons/pdf.png">
+                        <span class="caret"></span>
+                      </a>
+                    <ul  class="dropdown-menu" role="menu" aria-labelledby="drop_1">
+                        {% for lg in ['en','fr','nl'] %}
+                            <li role="presentation">
+                                <a role="menuitem" href="{{path('job_pdf',{'id':entity.id,'_locale':lg})}}" target="_blank" ><img src="/images/icons/pdf.png"> Offre {{lg}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
         </div>
     </div>
     <div class="well">

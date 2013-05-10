@@ -420,7 +420,7 @@ class OffreController extends Controller
                     unlink($file['path']."/".$file['filename']);
                 }
             }
-            return $this->redirect($this->generateUrl('invoice_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('job_edit', array('id' => $id)));
         }
         else {
             $file=array(
