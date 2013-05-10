@@ -3,10 +3,19 @@ Reference: Référence
 Facture de sell: Facture de vente
 Facture de rent: Facture de location
 Facture de winter: Facture d'hivernage 
+Facture: Facture
+VAT: TVA
 
 _More conditions: Conditions générales applicables pour la vente et la location de nos produits en annexe de cette facture.
 
 Total VAT excl.: Total hors TVA
+
+Description: Description
+Montant HTVA: Montant HTVA
+
+Total VAT excl.: Total HTVA
+Total: Total
+VAT incl.:  TTC
 
 Conditions: Conditions
 Coordonnées bancaires: Coordonnées bancaires
@@ -15,3 +24,24 @@ Conditions de paiement: Conditions de paiement
 comptant: comptant
 Communication à mentionner: Communication à mentionner
 Le paiement de votre acompte confirme votre commande: Le paiement de votre acompte confirme votre commande
+
+1er RAPPEL: 1er RAPPEL
+2nd RAPPEL: 2nd RAPPEL
+Mise en demeure: MISE EN DEMEURE
+
+FACTURE: FACTURE
+DATE: DATE
+MONTANT: MONTANT
+MONTANT TVAC: MONTANT TVAC
+ECHEANCE: ECHEANCE
+CONDITIONS PAIEMENT: CONDITIONS PAIEMENT
+COMPTANT: COMPTANT
+TOTAL: TOTAL
+
+Cordialement: Cordialement
+
+_R1: <p>Cher Client, </p><p>Votre compte en nos livres présente un solde en notre faveur dont vous trouverez le détail ci-dessous.</p><p>Nous vous remercions dès lors d’effectuer le paiement dès réception de la présente sur notre compte en mentionnant le(s) numéro(s) de facture.<br/>Dans le cas où votre règlement aurait été adressé entre temps, nous vous prions de ne pas tenir compte de la présente.</p>
+
+_R2: <p>Cher Client, </p><p>La facture n°%reference% n’est pas payée à ce jour, la date d’échéance étant datée au %date%.</p><p>Nous vous remercions d’effectuer le paiement dès réception de la présente sur notre compte. Dans le cas contraire, nous serons obligés de vous facturer des frais supplémentaires de 15 %.</p>
+
+_R3: <p>Cher Client, </p><p>La facture n°%reference% n’est pas payée à ce jour, la date d’échéance étant datée au %date%.</p><p>N’ayant pas réceptionné le paiement de cette facture, nous sommes obligés de vous facturer des frais supplémentaires de 15 %. </p>

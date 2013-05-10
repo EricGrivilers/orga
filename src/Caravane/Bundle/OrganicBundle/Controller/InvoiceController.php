@@ -275,7 +275,7 @@ class InvoiceController extends Controller
 
 
 
-    public function pdfAction(Request $request, $id,$_locale='all') {
+    public function pdfAction(Request $request, $id,$_locale='all',$type='') {
         $templating=$this->container->get('templating');
         $html2pdf=$this->get('html2pdf');
         $em = $this->getDoctrine()->getManager();
@@ -297,11 +297,22 @@ class InvoiceController extends Controller
             return $this->redirect($this->generateUrl('invoice_edit', array('id' => $id)));
         }
         else {
-            $file=array(
-                'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/invoices",
-                'filename'=>$entity->getReference()."-".$_locale.".pdf"
-            );
-            $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Invoice:pdf.html.twig",$file,$_locale,$force);
+            
+            if($type!='') {
+                $file=array(
+                    'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/invoices",
+                    'filename'=>$entity->getReference()."-".$type."-".$_locale.".pdf"
+                );
+                $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Invoice:pdf.".$type.".html.twig",$file,$_locale,$force);
+            }
+            else {
+               
+                $file=array(
+                    'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/invoices",
+                    'filename'=>$entity->getReference()."-".$_locale.".pdf"
+                );
+                $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Invoice:pdf.html.twig",$file,$_locale,$force); 
+            }
             return $this->redirect("/docs/invoices/".$file['filename']);
         }
         

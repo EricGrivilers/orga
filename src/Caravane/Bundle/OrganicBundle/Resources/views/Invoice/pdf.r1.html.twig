@@ -1,0 +1,91 @@
+{% extends "CaravaneOrganicBundle:Default:pdf.html.twig" %}
+
+{% block reference %}
+  {{"Reference"|trans}} {{entity.reference}}<br/>
+  Zaventem, {{"le"|trans}} {{"now"|date('d/m/Y')}}
+{% endblock reference %}
+
+{% block documentType %}
+	{{"1er RAPPEL"|trans}} - {{("Facture de "~entity.offreType)|trans}}
+{% endblock documentType %}
+
+{% block address %}
+	<b>{{entity.name}}</b>
+	<br/>{{entity.clientTitle}} {{entity.firstname}} {{entity.lastname}}
+	<br/>
+	<br/>{{entity.address}} {{entity.number}}
+	<br/>{{entity.zip}} {{entity.city}}
+	<br/>{{entity.country}}
+	<br/>
+	{% if entity.vat %}
+	<br/>
+		<br/>{{"VAT"|trans}}: {{entity.vat}}
+	{% endif %}
+{% endblock address %}
+
+{% block conditions %}
+	<tr>
+		<td class="center 1col" >
+			{{"_More conditions"|trans}}
+		</td>
+	</tr>
+{% endblock conditions %}
+
+
+{% block page1_body %}
+
+{{"_R1"|trans|raw}}
+
+<br/>
+<br/>
+<table class="main" style="border:1px solid">
+	<tr >
+ 		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>{{"FACTURE"|trans}}</td>
+ 		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>{{"DATE"|trans}}</td>
+		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>{{"MONTANT"|trans}}</td>
+ 		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>{{"MONTANT TVAC"|trans}}</td>
+ 		<td style='padding:2mm;border-bottom:1px solid #000000;border-right:1px solid #000000'>{{"ECHEANCE"|trans}}</td>
+		<td style='padding:2mm;border-bottom:1px solid #000000'>{{"CONDITIONS PAIEMENT"|trans}}</td>
+ 		
+ 	</tr>
+ 	<tr>
+ 		<td style='padding:2mm;border-right:1px solid #000000'>{{entity.reference}}</td>
+ 		<td style='padding:2mm;border-right:1px solid #000000'>{{entity.invoiceDate|date('d/m/Y')}}</td>
+		<td style='padding:2mm;border-right:1px solid #000000;text-align:right'>{{entity.priceht|number_format(2,'.',' ')}} €</td>
+ 		<td style='padding:2mm;border-right:1px solid #000000;text-align:right'>{% if entity.pricetype!='intra'%}
+	            {{(entity.priceHT+(entity.priceHT*0.21))|number_format(2,'.',' ')}} €
+	        {% endif %}</td>
+ 		<td style='padding:2mm;border-right:1px solid #000000'>{{"now"|date('d/m/Y')}}</td>
+		<td style='padding:2mm;'>{{"COMPTANT"|trans}}</td>
+ 		
+ 	</tr>
+</table>
+<br/>
+
+
+<p></p>
+  <p>{{"Cordialement"|trans}},</p>
+  <p>Géraldine Henry de Frahan.</p>
+<br/<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<b><u>{{"Conditions"|trans}}</u></b><br/>
+<br/>{{"Conditions de paiement"|trans}}: {{"comptant."|trans}}
+<br/>{{"Communication à mentionner"|trans}}: <b>{{"Facture"|trans}} {{entity.reference}}</b>
+<br/><br/>
+<b><u>{{"Coordonnées bancaires"|trans}}</u></b><br/><br/>
+Fortis Bank - Compte n° 001-5712962-29 - IBAN BE26001571296229 - Adresse SWIFT : GEBABEBB
+
+
+
+{% endblock page1_body %}
+
+{% block page2 %}
+	<page backtop="0mm" backbottom="0mm" backleft="0mm" backright="0mm">
+		{% block page2_body %}
+	        {% include "CaravaneOrganicBundle:Default:cgv."~_locale~ ".html.twig" %}
+	    {% endblock page2_body %}
+	</page>
+{% endblock page2 %}

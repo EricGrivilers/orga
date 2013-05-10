@@ -79,6 +79,14 @@ class Invoice
      */
     private $insertdate;
 
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="invoicedate", type="datetime", nullable=true)
+     */
+    private $invoicedate;
+
     /**
      * @var \DateTime
      *
@@ -501,6 +509,33 @@ class Invoice
     {
         return $this->insertdate;
     }
+
+    /**
+     * Set invoicedate
+     *
+     * @param \DateTime $invoicedate
+     * @return Invoice
+     */
+    public function setInvoicedate($invoicedate)
+    {
+        $this->invoicedate = $invoicedate;
+
+        return $this;
+    }
+
+    /**
+     * Get invoicedate
+     *
+     * @return \DateTime
+     */
+    public function getInvoicedate()
+    {
+        if(is_null($this->invoicedate)) {
+            return $this->insertdate;
+        }
+        return $this->invoicedate;
+    }
+
 
     /**
      * Set paymentdate

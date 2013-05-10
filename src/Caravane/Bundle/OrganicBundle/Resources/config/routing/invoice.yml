@@ -9,7 +9,7 @@ invoice_show:
     defaults: { _controller: "CaravaneOrganicBundle:Invoice:show" }
 
 invoice_pdf:
-    pattern:  /{_locale}/{id}/pdf/
+    pattern:  /{_locale}/{id}/pdf/{type}
     defaults: { _controller: "CaravaneOrganicBundle:Invoice:pdf" }
 
 invoice_new:

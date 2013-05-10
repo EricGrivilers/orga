@@ -2,7 +2,7 @@
 
 {% block reference %}
   {{"Reference"|trans}} {{entity.reference}}<br/>
-  Zaventem, {{"le"|trans}} {{entity.insertDate|date('d/m/Y')}}
+  Zaventem, {{"le"|trans}} {{entity.invoiceDate|date('d/m/Y')}}
 {% endblock reference %}
 
 {% block documentType %}
@@ -69,7 +69,7 @@
 		</tr>
 		<tr>
 			<td class='grey right'>
-				{{"Total"|trans}} {% if entity.pricetype!='intra'%} VAT incl. {% endif %}
+				{{"Total"|trans}} {% if entity.pricetype!='intra'%} {{"VAT incl."|trans}} {% endif %}
 			</td>
 			<td class='grey right' >
 				{% if entity.pricetype=='intra'%}
