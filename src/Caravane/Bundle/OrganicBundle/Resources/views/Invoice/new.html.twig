@@ -1,5 +1,5 @@
 {% extends "CaravaneOrganicBundle:Invoice:edit.html.twig" %}
 
 {% block form_header %}
-<form action="{{ path('invoice_create') }}" method="post" {{ form_enctype(edit_form) }} class="{{entity.status}}">
+<form action="{{ path('invoice_create') }}" method="post" {{ form_enctype(edit_form) }} class="{{entity.status}}" data-entity='invoice' >
 {% endblock form_header %}

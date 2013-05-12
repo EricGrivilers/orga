@@ -182,15 +182,19 @@ function fillClient2invoice(clientid) {
 
 function fillClient(clientid,targetField) {
     if($('#clientid').length==0) {
+        //$('#mainForm').submit();
         document.location=Routing.generate('client_edit',{'id':clientid});
+
     }
     entity=$('#mainForm').data('entity');
+
     fields=new Array();
 
     $(targetField).val(clientid);
 
     $.post(Routing.generate('client_get_data',{'id':clientid}),function(data) {
         data=$.parseJSON(data);
+
         $.each(data, function(i, item) {
             $('#caravane_bundle_organicbundle_'+entity+'type_clientid_'+i).val(data[i]);
             //$('#caravane_bundle_organicbundle_clienttype_'+i).val(data[i]);

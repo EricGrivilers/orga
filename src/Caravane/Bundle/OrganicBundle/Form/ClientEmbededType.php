@@ -12,11 +12,10 @@ class ClientEmbededType extends AbstractType
     {
 
         $builder
-            
+
              ->add('clienttype','CaravaneUIBootstrapRadioButton',array(
                 "label"=>"Client type",
-                'choices'=>array('cie'=>'Company','part'=>'Private'),
-                'data' => 'cie'
+                'choices'=>array('cie'=>'Company','part'=>'Private')
             ))
            // ->add('isowner')
             ->add('name',"CaravaneUIBootstrapTypeahead",array(
@@ -44,7 +43,7 @@ class ClientEmbededType extends AbstractType
                     "class"=>"span12"
                 )
             ))
-            
+
             ->add('clienttitle','choice',array(
                 "choices"=>array("M."=>"M.","Mme"=>"Mme"),
                 "label"=>"Title",
@@ -104,6 +103,7 @@ class ClientEmbededType extends AbstractType
                 )
             ))
             ->add('country','country',array(
+                'required'=>false,
                 'attr'=>array(
                     'class'=>'span12'
                 )

@@ -51,7 +51,7 @@ class ClientType extends AbstractType
                     'target_field'=>"#clientid"
                 )
             ))
-            
+
 
 
             /*->add('name',"text",array(
@@ -127,7 +127,12 @@ class ClientType extends AbstractType
                     "class"=>"span12"
                 )
             ))
-            ->add('country')
+            ->add('country','country',array(
+                'required'=>false,
+                'attr'=>array(
+                    'class'=>'span12'
+                )
+            ))
             ->add('phone',"text",array(
                 "attr"=>array(
                     "class"=>"span12"

@@ -31,14 +31,14 @@ class Product2offre
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=false)
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="price", type="float", nullable=false)
+     * @ORM\Column(name="price", type="float", nullable=true)
      */
     private $price;
 
@@ -52,7 +52,7 @@ class Product2offre
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updateDate", type="datetime", nullable=false)
+     * @ORM\Column(name="updateDate", type="datetime", nullable=true)
      */
     private $updatedate;
 
@@ -76,10 +76,10 @@ class Product2offre
      * @ORM\Column(name="datas", type="text", nullable=true)
      */
     private $datas;
-    
+
 
     private $datasAsObject;
-    
+
     /**
      * @var \Offre
      *
@@ -106,7 +106,7 @@ class Product2offre
      * @ORM\Column(name="toremove", type="boolean", nullable=true)
      */
     private $toremove;
-    
+
     /**
      * Get id
      *
@@ -278,7 +278,7 @@ class Product2offre
         return $this->isoption;
     }
 
-   
+
 
     /**
      * Set offreid
@@ -312,29 +312,29 @@ class Product2offre
     public function setDatas($datas)
     {
         $this->datas = $datas;
-    
+
         return $this;
     }
 
     /**
      * Get datas
      *
-     * @return string 
+     * @return string
      */
     public function getDatas()
     {
-        
+
         return $this->datas;
     }
 
     public function getDatasAsObject()
     {
-        
+
         $default=array('plancher'=>0,'surfaceplancher'=>'','sol'=>'','canalisation'=>0,'other'=>'');
         if($array=json_decode($this->datas)) {
             foreach($default as $k=>$v) {
                 if(!isset($array->$k)) {
-                   $array->$k=$v; 
+                   $array->$k=$v;
                 }
             }
             return $array;
@@ -351,14 +351,14 @@ class Product2offre
     public function setTentid(\Caravane\Bundle\OrganicBundle\Entity\Tent $tentid = null)
     {
         $this->tentid = $tentid;
-    
+
         return $this;
     }
 
     /**
      * Get tentid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Tent 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Tent
      */
     public function getTentid()
     {
@@ -374,14 +374,14 @@ class Product2offre
     public function setToremove($toremove)
     {
         $this->toremove = $toremove;
-    
+
         return $this;
     }
 
     /**
      * Get toremove
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getToremove()
     {

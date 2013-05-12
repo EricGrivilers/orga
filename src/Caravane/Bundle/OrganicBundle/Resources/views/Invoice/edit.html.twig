@@ -5,10 +5,10 @@
 <div class="row-fluid">
 
 {% block form_header %}
-<form action="{{ path('invoice_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} data-entity="invoice" class="{{entity.status}}">
-    <input type='text' name='clientid' id="clientid"  value="{{entity.clientid.id}}"/>
-{% endblock form_header %}
+<form id='mainForm' action="{{ path('invoice_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} data-entity="invoice" class="{{entity.status}}">
 
+{% endblock form_header %}
+<input type='text' name='clientid' id="clientid"  value="{% if entity.clientid %}{{entity.clientid.id}} {% endif %}"/>
 
 
 {% if form_errors(edit_form) %}
@@ -30,7 +30,7 @@
             <a href="{{ path('invoice') }}" class="btn">
                     Back to the list
             </a>
-            
+
              {#<div class="dropdown pull-right">
                     <a class="dropdown-toggle" id="drop_1" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>#}
                     <div class="btn-group pull-right">
@@ -47,8 +47,8 @@
                     </ul>
                 </div>
 
-            <a class="pull-right btn" href="{{path('invoice_pdf',{'id':entity.id,'force':true,'_locale':'all'})}}"><img src="/images/icons/pdf.png"> Rebuild pdf</a>
-            
+            <a class="pull-right btn" href="{{path('invoice_pdf',{'id':entity.id,'force':true,'_locale':'all','type':'inv'})}}"><img src="/images/icons/pdf.png"> Rebuild pdf</a>
+
         </div>
     </div>
     <div class="well">
@@ -306,7 +306,7 @@
         {% if entity.pricetype!='intra'%}
             {% set ToPay = entity.priceHT+(entity.priceHT*0.21) %}
         {% endif %}
-       <h4 style="text-align:center">Total amount to pay {{ToPay|number_format(2,',',' ')}} {% if entity.pricetype!='intra'%}VAT incl.{% endif %}</h4>
+       <h4 style="text-align:center">Total amount to pay {{ToPay|number_format(2,',',' ')}} &euro; {% if entity.pricetype!='intra'%}VAT incl.{% endif %}</h4>
     </div>
 
     {{ form_widget(edit_form) }}
