@@ -241,7 +241,7 @@ class PlanningController extends Controller
                         $return_events[] = array(
                             'start'=>$p->getStartdate()->format("Y-m-d\TH:i:sP"),
                             'end'=>$p->getEnddate()->format("Y-m-d\TH:i:sP"),
-                            'className'=>$p->getPlanningtype(),
+                            'className'=>$p->getPlanningtype()." ".$job->getOffreType(),
                             'title'=>$p->getStartdate()->format("H:i")." - ".$job->getReference(),
                             'client'=>$job->getClientid()->getName(),
                             'url'=>$this->generateUrl('job_edit',array('id'=>$job->getId())),
