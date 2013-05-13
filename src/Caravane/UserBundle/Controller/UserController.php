@@ -31,6 +31,9 @@ class UserController extends Controller
          if(!$page=$request->query->get('page')) {
             $page=1;
         }
+        if(!$offset=$request->query->get('offset')) {
+            $offset=25;
+        }
        // $entities = $em->getRepository('CaravaneOrganicBundle:Client')->listAll();
         $entities=$em->getRepository('CaravaneUserBundle:User')->listAll($type,$ob,$page);
         $nbpages=(Integer)(count($entities)/25)+1;
@@ -41,7 +44,8 @@ class UserController extends Controller
             'type'=>$type,
             'ob'=>$ob,
             'page'=>$page,
-            "nbpages"=>$nbpages
+            "nbpages"=>$nbpages,
+            'offset'=>$offset
         ));
     }
     /**
