@@ -297,14 +297,17 @@
                                 <thead>
                                     <tr>
                                         <th>Reference</th>
+                                        <th>Paid</th>
                                         <th>Amount VAT excl.</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                     {% for invoice in entity.jobid.invoiceid %}
+
                                     <tr>
-                                        <td><a href="{{path('invoice_edit',{'id':invoice.id})}}">{{invoice.reference }}</a></td>
+                                        <td><a href="{{path('invoice_edit',{'id':invoice.id})}}">{{invoice.reference }}</a> {% if invoice.id==entity.id %} (this) {% endif %}</td>
+                                        <td>{% if invoice.status=='paid' %} {{invoice.paymentdate|date('Y-m-d')}} {% endif %}</td>
                                         <td>{{invoice.priceht}}</td>
                                     </tr>
                                     {% set alreadyInvoicedPriceHt=alreadyInvoicedPriceHt+invoice.priceht %}
@@ -312,14 +315,18 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
+                                        <td></td>
                                         <td class='right'>Total</td>
+
                                         <td>{{alreadyInvoicedPriceHt|number_format(2,',',' ')}}</td>
                                     </tr>
 
-                                    <tr>
-                                        <td class='right'>Balance</td>
-                                        <td>{{(alreadyInvoicedPriceHt-total)|number_format(2,',',' ')}}</td>
+                                   <tr>
+                                        <td></td>
+                                        <td class='right'>Balance from job</td>
+                                        <td>{{(entity.jobid.price-alreadyInvoicedPriceHt)|number_format(2,',',' ')}} ({{entity.jobid.price|number_format(2,',',' ')}}-{{alreadyInvoicedPriceHt|number_format(2,',',' ')}})</td>
                                     </tr>
+                                    
                                 </tfoot>
                             </table>
                     </div>
