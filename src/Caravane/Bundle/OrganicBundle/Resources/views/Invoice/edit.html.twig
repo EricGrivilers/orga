@@ -247,7 +247,7 @@
 
                                     {% for invoice in entity.jobid.invoiceid %}
                                     <tr>
-                                        <td>{{invoice.reference }}</td>
+                                        <td><a href="{{path('invoice_edit',{'id':invoice.id})}}">{{invoice.reference }}</a></td>
                                         <td>{{invoice.priceht}}</td>
                                     </tr>
                                     {% set alreadyInvoicedPriceHt=alreadyInvoicedPriceHt+invoice.priceht %}
