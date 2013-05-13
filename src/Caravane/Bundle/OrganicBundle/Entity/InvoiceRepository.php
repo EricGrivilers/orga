@@ -62,4 +62,12 @@ class InvoiceRepository extends EntityRepository
 		return $reference;
 		
 	}
+
+
+	public function getConditions(){
+		$dql = "SELECT I.conditions FROM CaravaneOrganicBundle:Invoice I GROUP BY I.conditions";
+		$query = $this->getEntityManager()->createQuery($dql);
+		return $query->getResult();
+
+	}
 }

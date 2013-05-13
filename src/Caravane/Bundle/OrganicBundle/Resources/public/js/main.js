@@ -71,6 +71,10 @@ $(document).ready(function() {
         $(this).closest('form').submit();
     });
 
+    $('#conditionChoices td').click(function() {
+        //$(this).closest('.row-fluid').find("#cke_1_contents").html($(this).html());
+    });
+
 });
 
 

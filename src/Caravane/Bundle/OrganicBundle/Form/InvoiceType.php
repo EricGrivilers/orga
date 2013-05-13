@@ -54,12 +54,12 @@ class InvoiceType extends AbstractType
             ->add('pricetype','choice',array(
                 'choices'=>array('intra'=>"Intracomm.",'htva'=>"TVA (21%)")
             ))
-            ->add('creditnote')
-            ->add('comments')
-            ->add('conditions')
-            ->add('conditions1')
-            ->add('conditions2')
-            ->add('content')
+         //   ->add('creditnote')
+            ->add('comments','ckeditor')
+            ->add('conditions','ckeditor')
+            //->add('conditions1')
+           // ->add('conditions2')
+         //   ->add('content')
         /*    ->add('cietype')
             ->add('clienttype','CaravaneUIBootstrapRadioButton',array(
                 "label"=>"Client type",

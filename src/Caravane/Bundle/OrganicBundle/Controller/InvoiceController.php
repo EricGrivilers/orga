@@ -103,7 +103,8 @@ class InvoiceController extends Controller
         return $this->render('CaravaneOrganicBundle:Invoice:new.html.twig', array(
             'entity' => $entity,
             'edit_form'   => $form->createView(),
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'conditions'=>$em->getRepository('CaravaneOrganicBundle:Invoice')->getConditions()
         ));
     }
 
@@ -172,7 +173,8 @@ class InvoiceController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'conditions'=>$em->getRepository('CaravaneOrganicBundle:Invoice')->getConditions()
         ));
     }
 
