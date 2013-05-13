@@ -201,7 +201,7 @@ class OffreType extends AbstractType
             );
 
         $builder->add('slices', 'collection', array(
-                'type' => new Slice2offreType(),
+                'type' => new Slice2OffreType(),
                 'allow_add'    => true,
                 'allow_delete' => true,
                 'by_reference' => false,
