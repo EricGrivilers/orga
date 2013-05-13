@@ -93,11 +93,13 @@ class InvoiceController extends Controller
      */
     public function newAction()
     {
+        $em = $this->getDoctrine()->getManager();
+
         $statusChoices=array('draft'=>"Draft");
         $entity = new Invoice();
 
         $form   = $this->createForm(new InvoiceType($statusChoices), $entity,array(
-            'em' => $this->getDoctrine()->getEntityManager(),
+            'em' => $em,
         ));
 
         return $this->render('CaravaneOrganicBundle:Invoice:new.html.twig', array(
