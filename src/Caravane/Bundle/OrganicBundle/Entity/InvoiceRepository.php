@@ -8,7 +8,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class InvoiceRepository extends EntityRepository
 {
 
-	public function listAll($type=null,$ob=null,$page=1,$offset) {
+	public function listAll($type=null,$ob=null,$page=1,$offset,$search=null) {
 		$dql = "SELECT I FROM CaravaneOrganicBundle:Invoice I ";
 		$dql.=" WHERE 1=1 ";
 		if($type) {
@@ -29,12 +29,19 @@ class InvoiceRepository extends EntityRepository
 			}
 
 		}
+		if($search) {
+			$dql.=" AND (I.reference LIKE ?1 OR I.name LIKE ?1 OR I.lastname LIKE ?1 OR I.firstname=?1 OR I.priceht LIKE ?1 ) ";
+		}
 		if($ob) {
 			$dql.=" ORDER BY I.".$ob." ";
 		}
 
-		$query = $this->getEntityManager()->createQuery($dql)
-                       ->setFirstResult(($page-1)*$offset)
+		$query = $this->getEntityManager()->createQuery($dql);
+        if($search) {
+        	$query->setParameter('1','%'.$search.'%');
+        }
+
+        $query->setFirstResult(($page-1)*$offset)
                        ->setMaxResults($offset);
 
 		$entities = new Paginator($query, $fetchJoinCollection = true);

@@ -48,8 +48,11 @@ class InvoiceController extends Controller
          if(!$page=$request->query->get('page')) {
             $page=1;
         }
+         if(!$search=$request->query->get('search')) {
+            $search=null;
+        }
        // $entities = $em->getRepository('CaravaneOrganicBundle:Client')->listAll();
-        $entities=$em->getRepository('CaravaneOrganicBundle:Invoice')->listAll($type,$ob,$page,$offset);
+        $entities=$em->getRepository('CaravaneOrganicBundle:Invoice')->listAll($type,$ob,$page,$offset,$search);
         $nbpages=(Integer)(count($entities)/$offset)+1;
 
 
@@ -59,7 +62,8 @@ class InvoiceController extends Controller
             'ob'=>$ob,
             'page'=>$page,
             "nbpages"=>$nbpages,
-            'offset'=>$offset
+            'offset'=>$offset,
+            'search'=>$search
         ));
     }
 

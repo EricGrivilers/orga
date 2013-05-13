@@ -30,5 +30,9 @@ CaravaneOrganicBundle_dashboard:
     resource: "@CaravaneOrganicBundle/Resources/config/routing/dashboard.yml"
     prefix:   /
 
+CaravaneOrganicBundle_search:
+    resource: "@CaravaneOrganicBundle/Resources/config/routing/search.yml"
+    prefix:   /
+
 caravane_calendar:
     resource: "@CaravaneCalendarBundle/Resources/config/routing.yml"   

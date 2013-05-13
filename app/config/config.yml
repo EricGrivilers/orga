@@ -69,3 +69,43 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Caravane\UserBundle\Entity\User
+
+
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        appli:
+            client: default
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                            my_analyzer:
+                                type: custom
+                                tokenizer: standard
+                                filter: [mynGram]
+                        filter:
+                            mynGram:
+                                type: nGram
+                                min_gram: 1
+                                max_gram: 10
+            types:
+                invoice:
+                    mappings:
+                        lastname: { boost: 5, analyzer: my_analyzer }
+                        firstName: { boost: 3, analyzer: my_analyzer  }
+                        name: { boost: 5, analyzer: my_analyzer  }
+                        reference: { boost: 5 }
+                        priceht: { boost: 3 }
+                    persistence:
+                        driver: orm # orm, mongodb, propel are available
+                        model: Caravane\Bundle\OrganicBundle\Entity\Invoice
+                        provider: ~
+                        #listener: ~
+                        finder: ~
+
+
+
+
+

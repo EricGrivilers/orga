@@ -31,3 +31,17 @@ services:
             - { name: doctrine.event_listener, event: prePersist, method: prePersist }
             - { name: doctrine.event_listener, event: postPersist, method: postPersist }
             - { name: doctrine.event_listener, event: preUpdate, method: preUpdate }
+
+
+#    fos_elastica.index.website.invoice
+#        class: 
+
+
+
+
+
+
+#<service id="acme.search_provider.user" class="Acme\UserBundle\Search\UserProvider">
+#        <tag name="fos_elastica.provider" index="website" type="user" />
+#        <argument type="service" id="fos_elastica.index.website.user" />
+#    </service>
