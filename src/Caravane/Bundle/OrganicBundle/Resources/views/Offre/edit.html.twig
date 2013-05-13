@@ -11,7 +11,7 @@
 
 
 
-<input type='text' name='clientid' id="clientid"  value="{% if entity.clientid %}{{entity.clientid.id}} {% endif %}"/>
+<input type='hidden' name='clientid' id="clientid"  value="{% if entity.clientid %}{{entity.clientid.id}} {% endif %}"/>
 {% if form_errors(edit_form) %}
 {{ form_errors(edit_form) }}
 {% endif %}

@@ -197,6 +197,7 @@ function fillClient(clientid,targetField) {
 
         $.each(data, function(i, item) {
             $('#caravane_bundle_organicbundle_'+entity+'type_clientid_'+i).val(data[i]);
+            //$('#caravane_bundle_organicbundle_'+entity+'type_clientid_'+i).val(data[i]);
             //$('#caravane_bundle_organicbundle_clienttype_'+i).val(data[i]);
             if(i=='clienttype') {
                 if(data[i]=='cie') {
@@ -207,6 +208,8 @@ function fillClient(clientid,targetField) {
                 }
                 $("#caravane_bundle_organicbundle_"+entity+"type_clienttype_widget button").removeClass('active');
                 $("#caravane_bundle_organicbundle_"+entity+"type_clienttype_widget button[data-value='"+data[i]+"']").addClass('active');
+
+                //$("#caravane_bundle_organicbundle_"+entity+"type_clientid_name
             }
 
         });

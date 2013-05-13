@@ -48,7 +48,7 @@ class ClientRepository extends EntityRepository
 
 	public function autocomplete($keyword,$type="json") {
 
-		$query = $this->getEntityManager()->createQuery("SELECT C FROM CaravaneOrganicBundle:Client C WHERE C.name LIKE ?1 OR C.firstname LIKE ?1 OR C.lastname LIKE ?1");
+		$query = $this->getEntityManager()->createQuery("SELECT C FROM CaravaneOrganicBundle:Client C WHERE C.name LIKE ?1 OR C.firstname LIKE ?1 OR C.lastname LIKE ?1 ORDER BY C.name,C.lastname,C.firstname");
 		$query->setParameter(1,  '%'.strtolower($keyword).'%');
 			
 		$result=$query->getResult();
