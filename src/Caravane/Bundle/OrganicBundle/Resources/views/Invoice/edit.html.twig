@@ -33,19 +33,7 @@
 
              {#<div class="dropdown pull-right">
                     <a class="dropdown-toggle" id="drop_1" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>#}
-                    <div class="btn-group pull-right">
-                      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="drop_1">
-                        <img src="/images/icons/pdf.png">
-                        <span class="caret"></span>
-                      </a>
-                    <ul  class="dropdown-menu" role="menu" aria-labelledby="drop_1">
-                        {% for lg in ['en','fr','nl'] %}
-                            <li role="presentation">
-                                <a role="menuitem" href="{{path('invoice_pdf',{'id':entity.id,'_locale':lg,'type':'inv'})}}" target="_blank" ><img src="/images/icons/pdf.png"> Invoice {{lg}}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                    
 
             <a class="pull-right btn" href="{{path('invoice_pdf',{'id':entity.id,'force':true,'_locale':'all','type':'inv'})}}"><img src="/images/icons/pdf.png"> Rebuild pdf</a>
 
@@ -53,7 +41,7 @@
     </div>
     <div class="well">
         <div class="row-fluid">
-            <div class="span4">
+            <div class="span3">
                 <div>
                     <label>Reference</label> <label><b>{{entity.reference}}</b></label>
                 </div>
@@ -66,14 +54,83 @@
                 </div>
                {% endif %}
             </div>
-            <div class="span4">
+            <div class="span3">
                {#{ form_row(edit_form.language)}#}
                {{ form_row(edit_form.offretype)}}
             </div>
-            <div class="span4">
+            <div class="span3">
                {{ form_row(edit_form.status)}}
 
                 {{ form_row(edit_form.paymentdate)}}
+            </div>
+            <div class="span3">
+
+
+                    <div class="btn-group">
+                      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="drop_1">Invoice
+                        <img src="/images/icons/pdf.png">
+                        <span class="caret"></span>
+                      </a>
+                        <ul  class="dropdown-menu" role="menu" aria-labelledby="drop_1">
+                            {% for lg in ['en','fr','nl'] %}
+                                <li role="presentation">
+                                    <a role="menuitem" href="{{path('invoice_pdf',{'id':entity.id,'_locale':lg,'type':'inv'})}}" target="_blank" ><img src="/images/icons/pdf.png"> Invoice {{lg}}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    {% if entity.r1 %}
+                        <br/>
+                        <div class="btn-group">
+                          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="drop_1">Reminder 1
+                            <img src="/images/icons/pdf.png">
+                            <span class="caret"></span>
+                          </a>
+                            <ul  class="dropdown-menu" role="menu" aria-labelledby="drop_1">
+                                {% for lg in ['en','fr','nl'] %}
+                                    <li role="presentation">
+                                        <a role="menuitem" href="{{path('invoice_pdf',{'id':entity.id,'_locale':lg,'type':'r1'})}}" target="_blank" ><img src="/images/icons/pdf.png"> Reminder 1 {{lg}}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    {% if entity.r2 %}
+                        <br/>
+                        <div class="btn-group">
+                          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="drop_1">Reminder 2
+                            <img src="/images/icons/pdf.png">
+                            <span class="caret"></span>
+                          </a>
+                            <ul  class="dropdown-menu" role="menu" aria-labelledby="drop_1">
+                                {% for lg in ['en','fr','nl'] %}
+                                    <li role="presentation">
+                                        <a role="menuitem" href="{{path('invoice_pdf',{'id':entity.id,'_locale':lg,'type':'r2'})}}" target="_blank" ><img src="/images/icons/pdf.png"> Reminder 2 {{lg}}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    {% if entity.med %}
+                        <br/>
+                        <div class="btn-group">
+                          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="drop_1">Ultimatum
+                            <img src="/images/icons/pdf.png">
+                            <span class="caret"></span>
+                          </a>
+                            <ul  class="dropdown-menu" role="menu" aria-labelledby="drop_1">
+                                {% for lg in ['en','fr','nl'] %}
+                                    <li role="presentation">
+                                        <a role="menuitem" href="{{path('invoice_pdf',{'id':entity.id,'_locale':lg,'type':'med'})}}" target="_blank" ><img src="/images/icons/pdf.png"> Ultimatum {{lg}}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
             </div>
         </div>
     </div>
