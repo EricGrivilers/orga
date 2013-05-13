@@ -110,6 +110,67 @@ class InvoiceController extends Controller
         ));
     }
 
+
+    /**
+     * Displays a form to create a new Invoice entity.
+     *
+     */
+    public function newFromJobAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $slice=$em->getRepository('CaravaneOrganicBundle:Slice2job')->find($id);
+
+        $job=$slice->getJobid();
+        $client=$job->getClientid();
+
+        $statusChoices=array('draft'=>"Draft");
+        $entity = new Invoice();
+
+        $entity->setClientid($client);
+        $entity->setJobid($job);
+        foreach($job->getProducts() as $product) {
+            $p=new \Caravane\Bundle\OrganicBundle\Entity\Product2invoice();
+            $p->setProductid($product->getProductid());
+            $p->setDescription($product->getDescription());
+            $p->setPrice($product->getPrice());
+            $p->setInsertDate($product->getInsertdate());
+            $p->setUpdatedate($product->getUpdatedate());
+            $p->setRank($product->getRank());
+            $p->setIsfromjob(true);
+            $entity->addProduct($p);
+
+        }
+
+        $entity->setOffretype($job->getOffretype());
+        $entity->setInsertDate(new \Datetime('now'));
+        $entity->setStatus('draft');
+        
+        $entity->setSlice($slice->getId());
+        $entity->setSliceDescription($slice->getComments());
+        $entity->setPriceht($slice->getPriceht());
+
+        $invoiceManager=new invoiceManager($entity,$em);
+        $entity=$invoiceManager->fillClient();
+        $entity=$invoiceManager->persist();
+
+        $slice->setInvoiceid($entity);
+        $slice->setStatus('ready');
+        $em->persist($slice);
+        $em->flush();
+        return $this->redirect($this->generateUrl('invoice_edit', array('id' => $entity->getId())));
+        /*$form   = $this->createForm(new InvoiceType($statusChoices), $entity,array(
+            'em' => $em,
+        ));
+
+        return $this->render('CaravaneOrganicBundle:Invoice:new.html.twig', array(
+            'entity' => $entity,
+            'edit_form'   => $form->createView(),
+            'customErrors'=>$this->customErrors,
+            'conditions'=>$em->getRepository('CaravaneOrganicBundle:Invoice')->getConditions()
+        ));
+        */
+    }
+
     /**
      * Creates a new Invoice entity.
      *

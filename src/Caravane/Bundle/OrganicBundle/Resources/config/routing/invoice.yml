@@ -12,6 +12,11 @@ invoice_pdf:
     pattern:  /{_locale}/{id}/pdf/{type}
     defaults: { _controller: "CaravaneOrganicBundle:Invoice:pdf" }
 
+invoice_new_from_job:
+    pattern:  /newfromjob/{id}
+    defaults: { _controller: "CaravaneOrganicBundle:Invoice:newFromJob" }
+
+
 invoice_new:
     pattern:  /new
     defaults: { _controller: "CaravaneOrganicBundle:Invoice:new" }

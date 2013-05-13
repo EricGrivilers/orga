@@ -442,13 +442,15 @@
                             <th class="span1">Slice</th>
 
                             <th class='span1'>Amount in &euro;</th>
-                            <th class='iiny'></th>
+                            <th class='tiny'>Invoice</th>
+                            <th class='tiny'></th>
                         </tr>
                     </thead>
                     <tbody class="slices" data-prototype="{{('
                         <td class="span9">'~form_widget(edit_form.slices.vars.prototype.comments)~'</td>
                         <td class="span1">'~form_widget(edit_form.slices.vars.prototype.slice)~'</td>
                         <td class="span1">'~form_widget(edit_form.slices.vars.prototype.priceht)~'</td>
+                        <td class="span1"></td>
                         <td><a class="delete_new_row" ><i class="icon icon-trash"></i></a></td>
                     ')|e}}">
 
@@ -459,7 +461,19 @@
 
                             <td>{{form_widget(slice.priceht)}}<br/>
                              </td>
-                             <td><a class="delete_row" data-rel="{{entity.id}}" data-type="job_slice" data-target="{{slice.vars.value.id}}"><i class="icon icon-trash"></i></a></td>
+                            {% if slice.vars.value.invoiceid %}
+                             <td>
+                                <a class="red" href="{{path('invoice_edit',{'id':slice.vars.value.invoiceid.id})}}">{% if slice.vars.value.invoiceid.reference %}{{slice.vars.value.invoiceid.reference}} {% else %} draft {% endif %} </a>  
+                            </td>
+                            <td></td>
+                             {% else %}
+                             <td>
+                                <a href="{{path('invoice_new_from_job',{'id':slice.vars.value.id})}}" class="btn btn-inverse"><i class="icon icon-plus"></i> Invoice</a>
+                            </td>
+                            <td>
+                                <a class="delete_row" data-rel="{{entity.id}}" data-type="job_slice" data-target="{{slice.vars.value.id}}"><i class="icon icon-trash"></i></a>
+                            </td>
+                            {% endif %}
                         </tr>
                         {% endfor %}
 
@@ -477,6 +491,7 @@
                             {{entity.totalSlicePriceht}}&euro;
                         </th>
                         <th class="tiny"></th>
+                        <th class='iiny'></th>
                 </tr>
             </tfoot>
                 </table>
