@@ -110,7 +110,7 @@ class OffreController extends Controller
             $planning->setEtat('TO DO');
             $entity->addPlanning($planning);
         }
-        $client=new \Caravane\Bundle\organicBundle\Entity\Client();
+        $client=new \Caravane\Bundle\OrganicBundle\Entity\Client();
         if($clientId=$this->get('request')->query->get('clientId')) {
             if(!$client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientId)) {
                 $client=new \Caravane\Bundle\organicBundle\Entity\Client();
