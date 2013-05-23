@@ -80,7 +80,7 @@
 						{{entity.insertdate|date('d/m/Y H:i:s')}}
 					</td>
 					<td  class="borderedRight" >
-						{{entity.offreid.reference}}
+						{{entity.offreid?entity.offreid.reference:''}}
 					</td>
 					<td >
 						{{entity.reference}}
@@ -106,7 +106,7 @@
 					{% for product in entity.products %}
 						
 							<tr>
-								<td style="width:95mm" class="borderedBottomLight" >{{product.description}}</td>
+								<td style="width:95mm" class="borderedBottomLight" >{{product.description|nl2br}}</td>
 								<td style="width:25mm" class="borderedBottomLight" ></td>
 								<td style="width:25mm" class="right borderedBottomLight" ></td>
 								<td style="width:25mm" class="right borderedBottomLight" > {{product.price|number_format(2,'.',' ')}} &euro;</td>

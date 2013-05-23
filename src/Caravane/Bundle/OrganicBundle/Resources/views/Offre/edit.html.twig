@@ -623,7 +623,7 @@
                         {% for category in productCategories %}
 
                              <div class="tab-pane {% if loop.index==1 %} active {% endif %}" id="cat{{category.id}}" >
-                                {% render "CaravaneOrganicBundle:Tent:getAvailable" with { 'entity':entity,'categoryId':category.id, 'startDate' : edit_form.plannings[1].vars.value.startDate ,'endDate': edit_form.plannings[3].vars.value.endDate} %}
+                                {{ render (controller("CaravaneOrganicBundle:Tent:getAvailable" , { 'entity':entity,'categoryId':category.id, 'startDate' : edit_form.plannings[1].vars.value.startDate ,'endDate': edit_form.plannings[3].vars.value.endDate} )) }}
                              </div>
                         {% endfor %}
                         {% else %}

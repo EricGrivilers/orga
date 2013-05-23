@@ -64,6 +64,7 @@ Option(s): Option(s)
 Montage: Build
 Démontage: Unbuild
 Jour(s) de votre événement: Event dates
+Event date: Event date
 
 du: from
 au: to
@@ -72,7 +73,7 @@ au: to
 Une assurance est à votre charge durant votre location: Une assurance est à votre charge durant votre location
 Nos prix s'entendent hors TVA: Nos prix s'entendent hors TVA
 Validité de cette offre: Validité de cette offre
-30 jours date de l'offre: 30 jours date de l'offre
+jours date de l'offre: days
 
 _JobConfirmIn:   Le client confirme avoir reçu les materiaux mentionnés ci-dessus en bon état et sans défaut. Tous le défauts doivent être mentionnés ci-dessous.
 _JobConfirmOut:  Organic SA confirme avoir récupéré les materiaux ci-dessus en bon état et sans défaut. Tous le défauts doivent être mentionnés ci-dessous.

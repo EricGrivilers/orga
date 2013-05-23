@@ -45,7 +45,7 @@
 	<tbody>
 		{% for product in entity.products %}
 			<tr>
-				<td class="left description">{{product.description}}</td>
+				<td class="left description">{{product.description|nl2br}}</td>
 				<td class='right' >{{product.price|number_format(2,'.',' ')}} &euro;</td>
 			</tr>
 		{% endfor %}

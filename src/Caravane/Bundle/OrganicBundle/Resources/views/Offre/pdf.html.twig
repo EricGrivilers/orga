@@ -63,6 +63,7 @@
 
 
 <b><u>{{"Dates"|trans}}</u></b>
+{% if entity.eventDate %}<br/> {{"Event date"|trans}}: {{entity.eventDate|date('d/m/Y h:i:s') }} {% endif %}
 <ul>
 {% if entity.plannings|length>0 %}
 	<li>{{"Montage"|trans}} : {{entity.plannings[1].startDate|date('d/m/Y H:i:s')}}</li>
@@ -163,8 +164,8 @@
 		{% for product in entity.products %}
 			{% if product.isOption!=1 %}
 			<tr>
-				<td class="left description">{{product.description}}</td>
-				<td class='right' >{{product.price|number_format(2,'.',' ')}} &euro;</td>
+				<td class="left description">{{product.description|nl2br}}</td>
+				<td class='right' >{% if product.price>0 %}{{product.price|number_format(2,'.',' ')}} &euro;{% endif %}</td>
 			</tr>
 			{% endif %}
 		{% endfor %}
@@ -220,12 +221,14 @@
 			<th class='right price' >{{"Montant HTVA"|trans}}</th>
 		</tr>
 	</thead>
+	{% set hasOption=false %}
 	<tbody>
 		{% for product in entity.products %}
 			{% if product.isOption==1 %}
+			{% set hasOption=true %}
 				<tr>
-					<td class="left description">{{product.description}}</td>
-					<td class='right' >{{product.price|number_format(2,'.',' ')}} &euro;</td>
+					<td class="left description">{{product.description|nl2br}}</td>
+					<td class='right' >{% if product.price>0 %} {{product.price|number_format(2,'.',' ')}} &euro;{% endif %}</td>
 				</tr>
 			{% endif %}
 		{% endfor %}
@@ -251,17 +254,44 @@
 
 {{"Une assurance est à votre charge durant votre location"|trans}}.<br/><br/>
 <b>{{"Nos prix s'entendent hors TVA"|trans}}</b><br/>
-{{"Validité de cette offre"|trans}}: {{"30 jours date de l'offre"|trans}}
-</p>
-<p>
-{{"Sincères salutations"|trans}},<br/><br/>
-{{entity.userid.firstname}} {{entity.userid.lastname}}<br/>
- {{entity.userid.email}}<br/>
-{{entity.userid.phone}}<br/>
-{{entity.userid.mobile}}
-
+{{"Validité de cette offre"|trans}}: {{entity.validity?entity.validity:"14"}} {{"jours date de l'offre"|trans}}
 </p>
 
+
+<br/>
+
+			<table class=" main ">
+				<tr>
+					<td style="width:60mm"  >
+						
+					</td>
+					<td style="width:120mm;text-align:right" class=" borderedBottom" >
+						{{"BON POUR ACCORD"|trans}}
+					</td>
+					
+				</tr>
+				<tr>
+					<td style="height:30mm;"  >
+						<p>
+							{{"Sincères salutations"|trans}},<br/><br/>
+							{{entity.userid.firstname}} {{entity.userid.lastname}}<br/>
+							 {{entity.userid.email}}<br/>
+							{{entity.userid.phone}}<br/>
+							{{entity.userid.mobile}}
+
+							</p>
+					</td>
+					<td style="height:30mm;border:1px solid #333" >
+						<br/>
+						{{"Offre"|trans}}: <b>{{entity.reference}}</b><br/>
+						{{"Total"|trans}}: <b>{{total|number_format(2,'.',' ')}} &euro; {{"HTVA"|trans}}</b>
+						<br/>
+						{% if hasOption %}
+						{{"Total options"|trans}}:
+						{% endif %}
+					</td>
+				</tr>
+			</table>
 
 
 	{% endblock page2_body %}
