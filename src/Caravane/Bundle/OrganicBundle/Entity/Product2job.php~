@@ -31,14 +31,14 @@ class Product2job
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=false)
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="price", type="float", nullable=false)
+     * @ORM\Column(name="price", type="float", nullable=true)
      */
     private $price;
 
@@ -52,7 +52,7 @@ class Product2job
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updateDate", type="datetime", nullable=false)
+     * @ORM\Column(name="updateDate", type="datetime", nullable=true)
      */
     private $updatedate;
 

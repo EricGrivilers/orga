@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: ../../src/Caravane/UIBundle/Resources/config/config.yml }
+    - { resource: ../../src/Caravane/Bundle/BIJUploadBundle/Resources/config/config.yml }
 
 framework:
     #esi:             ~

@@ -323,7 +323,7 @@ class Offre
     /**
      * @var \tents2offre
      *
-     * @ORM\OneToMany(targetEntity="Tent2Offre", mappedBy="offreid")
+     * @ORM\OneToMany(targetEntity="Tent2offre", mappedBy="offreid")
      *
      */
     private $tents2offre;

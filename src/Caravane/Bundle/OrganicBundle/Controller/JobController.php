@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Caravane\Bundle\OrganicBundle\Entity\Job;
 use Caravane\Bundle\OrganicBundle\Form\JobType;
 use Caravane\Bundle\OrganicBundle\Managers\PdfManager;
+use Caravane\Bundle\OrganicBundle\Managers\DocumentManager;
 
 /**
  * Job controller.
@@ -113,6 +114,9 @@ class JobController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
+            $documentManager=new DocumentManager($entity,$em);
+            $documentManager->moveAttachedDocument('/docs/jobs/'.$entity->getId());
 
             return $this->redirect($this->generateUrl('job_show', array('id' => $entity->getId())));
         }
@@ -253,6 +257,10 @@ class JobController extends Controller
             $em->persist($entity);
             $em->flush();
 
+
+            $documentManager=new DocumentManager($entity,$em);
+            $documentManager->moveAttachedDocument('/docs/jobs/'.$entity->getId());
+
             return $this->redirect($this->generateUrl('job_edit', array('id' => $id)));
         }
 
@@ -363,7 +371,7 @@ class JobController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
 
-       
+
 
         $pdfManager=new PdfManager($em,$templating,$html2pdf);
         if($_locale=='all') {
@@ -383,10 +391,10 @@ class JobController extends Controller
                     'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/jobs",
                     'filename'=>$entity->getReference()."-".$_locale.".pdf"
             );
-            $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Job:pdf.html.twig",$file,$_locale,true); 
+            $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Job:pdf.html.twig",$file,$_locale,true);
             return $this->redirect("/docs/jobs/".$file['filename']);
         }
-        
+
     }
 
 }

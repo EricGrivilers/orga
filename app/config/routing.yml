@@ -17,6 +17,8 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
+bijupload_routing:
+    resource: "@CaravaneBIJUploadBundle/Resources/config/routing.yml"
 
 caravane_ui:
     resource: "@CaravaneUIBundle/Controller/"

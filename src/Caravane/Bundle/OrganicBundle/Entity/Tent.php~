@@ -178,7 +178,7 @@ class Tent
     /**
      * @var \tents2job
      *
-     * @ORM\OneToMany(targetEntity="Tent2Job", mappedBy="tentid")
+     * @ORM\OneToMany(targetEntity="Tent2job", mappedBy="tentid")
      * 
      */
     private $tents2job;
@@ -187,7 +187,7 @@ class Tent
     /**
      * @var \tents2offre
      *
-     * @ORM\OneToMany(targetEntity="Tent2Offre", mappedBy="tentid")
+     * @ORM\OneToMany(targetEntity="Tent2offre", mappedBy="tentid")
      * 
      */
     private $tents2offre;
@@ -204,7 +204,7 @@ class Tent
     /**
      * @var \offres
      *
-     * @ORM\OneToMany(targetEntity="Product2Offre", mappedBy="tentid")
+     * @ORM\OneToMany(targetEntity="Product2offre", mappedBy="tentid")
      * 
      */
     private $offres;
@@ -212,7 +212,7 @@ class Tent
     /**
      * @var \jobs
      *
-     * @ORM\OneToMany(targetEntity="Product2Job", mappedBy="tentid")
+     * @ORM\OneToMany(targetEntity="Product2job", mappedBy="tentid")
      * 
      */
     private $jobs;

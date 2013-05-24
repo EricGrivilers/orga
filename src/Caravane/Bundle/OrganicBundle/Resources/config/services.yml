@@ -2,6 +2,7 @@ parameters:
     caravane_organic.client.class: Caravane\Bundle\OrganicBundle\Managers\ClientManager
     caravane_organic.invoice.class: Caravane\Bundle\OrganicBundle\Managers\InvoiceManager
     caravane_organic.offre.class: Caravane\Bundle\OrganicBundle\Managers\OffreManager
+    caravane_organic.document.class: Caravane\Bundle\OrganicBundle\Managers\DocumentManager
     caravane_organic.pdf.class: Caravane\Bundle\OrganicBundle\Managers\PdfManager
     caravane_organic.listener.class: Caravane\Bundle\OrganicBundle\Listeners\EntitiesStatusUpdater
 
@@ -23,6 +24,11 @@ services:
         class: %caravane_organic.pdf.class%
         arguments: [em,@templating,@html2pdf]
 
+    caravane_organic.document_manager:
+        class: %caravane_organic.document.class%
+        arguments: [entity,em]
+
+
     caravane_organic.listener:
         class: %caravane_organic.listener.class%
         arguments: [@service_container]
@@ -34,7 +40,7 @@ services:
 
 
 #    fos_elastica.index.website.invoice
-#        class: 
+#        class:
 
 
 

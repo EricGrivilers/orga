@@ -1,0 +1,3 @@
+Caravane_bij_ulpload:
+    pattern: /filesupload
+    defaults: { _controller: "CaravaneBIJUploadBundle:Default:index"}

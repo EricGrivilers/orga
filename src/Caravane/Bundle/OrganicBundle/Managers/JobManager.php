@@ -50,14 +50,14 @@ class JobManager
         foreach($products as $p) {
             if($p->getTentid()) {
                 $tents[]=$p->getTentid();
-                echo $p->getTentid()->getReference()."<br/>";
+                //echo $p->getTentid()->getReference()."<br/>";
             }
         }
-        echo date_format($entity->getStartbuild(),'Ymd His');
+        //echo date_format($entity->getStartbuild(),'Ymd His');
         $overlapingOffres=$em->getRepository('CaravaneOrganicBundle:Offre')->findAllBetweenDates($entity->getStartbuild(),$entity->getEndbuild());
         $mails=array();
         foreach($overlapingOffres as $offre) {
-            echo "offre:".$offre->getReference()."<br/>";
+            //echo "offre:".$offre->getReference()."<br/>";
             //if($offre!=$relativeOffre && is_null($offre->getJobid())) {
             $messages=array();
             if($offre!=$relativeOffre ) {
@@ -68,7 +68,7 @@ class JobManager
                         if(in_array($tent,$tents)) {
                             $p->setToremove(true);
                             $offre->setIssue(1);
-                            echo "offre:".$offre->getReference()." / tent:".$p->getTentid()->getReference()."<br/>";
+                            //echo "offre:".$offre->getReference()." / tent:".$p->getTentid()->getReference()."<br/>";
                             $em->persist($p);
                             $em->persist($offre);
 

@@ -226,25 +226,25 @@ class Client
     private $userid;
 
     /**
-    * @ORM\OneToMany(targetEntity="tent", mappedBy="ownerid")
+    * @ORM\OneToMany(targetEntity="Tent", mappedBy="ownerid")
     *
     */
     private $tents;
 
     /**
-    * @ORM\OneToMany(targetEntity="job", mappedBy="clientid")
+    * @ORM\OneToMany(targetEntity="Job", mappedBy="clientid")
     *
     */
      private $jobs;
 
     /**
-    * @ORM\OneToMany(targetEntity="offre", mappedBy="clientid")
+    * @ORM\OneToMany(targetEntity="Offre", mappedBy="clientid")
     *
     */
      private $offres;
 
     /**
-    * @ORM\OneToMany(targetEntity="invoice", mappedBy="clientid")
+    * @ORM\OneToMany(targetEntity="Invoice", mappedBy="clientid")
     *
     */
      private $invoices;
