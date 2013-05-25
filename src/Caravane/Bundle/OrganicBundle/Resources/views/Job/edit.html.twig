@@ -501,29 +501,34 @@
     </div>
 
     <div class="row-fluid">
+        <h4>Documents</h4>
         <table class="table table-condensed table-bordered">
                 <thead>
                     <tr>
-                        <th></th>
-                        <th>Filename</th>
-                        <th>Title</th>
+                        <th class="tiny"></th>
+                        <th class="tiny">Filename</th>
+                        <th class="tiny">Title</th>
                         <th>Description</th>
+                        <th class="tiny" ></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for document in edit_form.document %}
                         <tr>
                             <td>
-                                <img src="{{asset(document.vars.value.path~'/'~document.vars.value.filename)}}"  style="max-width:120px; maw-height:120px">
+                                <a href="{{asset(document.vars.value.path~'/'~document.vars.value.filename)}}" target="_blank"><img src="{{asset(document.vars.value.path~'/'~document.vars.value.filename)}}"  style="max-width:120px; maw-height:120px"></a>
                             </td>
                             <td>
-                                {{document.vars.value.filename}}
+                               <a href="{{asset(document.vars.value.path~'/'~document.vars.value.filename)}}" target="_blank"> {{document.vars.value.filename}}</a>
                             </td>
                              <td>
                                 {{ form_widget(document.title)}}
                             </td>
                             <td>
                                 {{ form_widget(document.description)}}
+                            </td>
+                            <td>
+                                <a class="delete_document" data-rel="{{entity.id}}" data-type="job" data-target="{{document.vars.value.id}}"><i class="icon icon-trash"></i></a>
                             </td>
                         </tr>
                     {% endfor %}

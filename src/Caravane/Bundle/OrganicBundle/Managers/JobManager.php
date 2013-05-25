@@ -46,7 +46,7 @@ class JobManager
         $products=$entity->getproducts();
         $tents=array();
         $relativeOffre=$em->getRepository('CaravaneOrganicBundle:Offre')->findOneByJobid($entity->getId());
-       echo "offre:".$relativeOffre."<br/>";
+      // echo "offre:".$relativeOffre."<br/>";
         foreach($products as $p) {
             if($p->getTentid()) {
                 $tents[]=$p->getTentid();

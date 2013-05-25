@@ -56,3 +56,10 @@ job_slice_remove_product:
     requirements: { _method: post }
     options:
         expose: true
+
+job_remove_document:
+    pattern:  /{id}/remove_document/{documentid}
+    defaults: { _controller: "CaravaneOrganicBundle:Job:removeDocument" }
+    requirements: { _method: post }
+    options:
+        expose: true

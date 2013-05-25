@@ -14,7 +14,11 @@ class DocumentEmbedType extends AbstractType
     {
         $builder
         ->add('title')
-        ->add('description')
+        ->add('description','textarea',array(
+            "attr"=>array(
+                    'class'=>'span12'
+                )
+            ))
         ;
 
     }

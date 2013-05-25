@@ -109,6 +109,17 @@ class TentType extends AbstractType
             ->add('winteroffreid')
             ->add('productCategory')
           //  ->add('ownerid')
+
+            ->add('files','filesupload',array(
+                    'data_class'=>null
+                ))
+
+              ->add('document','collection',array(
+                'required'=>false,
+                'allow_add'    => false,
+                'by_reference' => true,
+                'type'=>new DocumentEmbedType()
+            ))
         ;
     }
 

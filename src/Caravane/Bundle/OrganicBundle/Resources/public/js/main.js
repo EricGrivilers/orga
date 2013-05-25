@@ -150,6 +150,14 @@ function initProduct() {
             $(this).closest('tr').remove();
         });
     });
+
+    $('a.delete_document').click(function() {
+        var link=$(this);
+        $.post(Routing.generate($(this).attr('data-type')+'_remove_document',{'id':$(this).attr('data-rel'),'documentid':$(this).attr('data-target')}),function(data) {
+            link.closest('tr').remove();
+           // alert(data);
+        });
+    });
 }
 
 

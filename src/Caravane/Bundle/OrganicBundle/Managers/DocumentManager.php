@@ -34,7 +34,11 @@ class DocumentManager
                     if(!$fs->exists(__DIR__."/../../../../../web".$path)) {
                         $fs->mkdir(__DIR__."/../../../../../web".$path,0755);
                     }
-                    $fs->rename($fromFile,__DIR__."/../../../../../web".$path."/".$document->getFilename());
+                    $toFile=__DIR__."/../../../../../web".$path."/".$document->getFilename();
+                    if($fs->exists($toFile)) {
+                        $toFile=__DIR__."/../../../../../web".$path."/".rand(0,100)."_".$document->getFilename();
+                    }
+                    $fs->rename($fromFile,$toFile);
                     $fs->remove(__DIR__."/../../../../../web/files/thumbnail/".$document->getFilename());
                     $document->setPath($path);
                     $em->persist($document);
@@ -44,7 +48,17 @@ class DocumentManager
 
     }
 
-
+    public function deleteDocument() {
+        $document=$this->entity;
+        $em=$this->em;
+        $fs=new Filesystem();
+        $file=__DIR__."/../../../../../web".$document->getPath()."/".$document->getFilename();
+        if($fs->exists($file)) {
+            $fs->remove($file);
+        }
+        $em->remove($document);
+        $em->flush();
+    }
 
 
 }

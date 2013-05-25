@@ -329,6 +329,20 @@ class JobController extends Controller
         return new Response('ok');
     }
 
+    public function removeDocumentAction($id,$documentid) {
+        $em=$this->getDoctrine()->getManager();
+        $job=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
+        $document=$em->getRepository('CaravaneOrganicBundle:Document')->find($documentid);
+        $job->removeDocument($document);
+
+        $documentManager=new DocumentManager($document,$em);
+        $documentManager->deleteDocument();
+
+        $em->persist($job);
+        $em->flush();
+        return new Response('oki');
+    }
+
     public function addStockProductAction($id,$tentid) {
         $em = $this->getDoctrine()->getManager();
         $job=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
