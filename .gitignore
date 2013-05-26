@@ -13,3 +13,4 @@ www/css/*
 web/js/*
 web/css/*
 .DS_Store
+composer.lock
