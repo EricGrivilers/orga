@@ -1,0 +1,12 @@
+<a class="btn add_comment" data-prototype="{{('<div><div>'~form_widget(edit_form.comment.vars.prototype.subject)~'</div><div>'~form_widget(edit_form.comment.vars.prototype.content)~'</div></div>')|e}}" ><i class='icon icon-plus'></i> Add comment</a>
+{% for comment in edit_form.comment %}
+	<div class="well comment">
+		<div >{{comment.vars.value.subject}} {#<span>posted on {{comment.vars.value.createdOn|date('d/m/Y')}} by {{comment.vars.value.user.firstname}} </span>#}</div>
+		<div>{{comment.vars.value.content}}</div>
+		
+		<input type="hidden" name="{{comment.subject.vars.full_name}}" value="{{comment.vars.value.subject}}" />
+		<input type="hidden" name="{{comment.content.vars.full_name}}" value="{{comment.vars.value.content}}" />
+
+
+	</div>
+{% endfor %}

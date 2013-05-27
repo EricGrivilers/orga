@@ -159,7 +159,7 @@ class OffreType extends AbstractType
                 )
             ))
             ->add('introtext','ckeditor',array(
-                'label'=>"Quotre introducting text",
+                'label'=>"Offre introducting text",
                 'attr'=>array(
                     'class'=>"span12"
                 )

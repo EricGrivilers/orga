@@ -294,8 +294,11 @@ class Client
      * @param string $clienttype
      * @return Client
      */
-    public function setClienttype($clienttype)
+    public function setClienttype($clienttype=null)
     {
+        if(is_null($clienttype) || $clienttype=='') {
+            $clienttype='cie';
+        }
         $this->clienttype = $clienttype;
 
         return $this;
