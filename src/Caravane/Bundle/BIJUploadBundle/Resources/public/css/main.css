@@ -1,0 +1,12 @@
+#caravane_bij_upload_progress {
+
+}
+
+#caravane_bij_upload_files {
+
+
+    z-index:9999;
+    border:1px solid #ccc;
+    background:#fff;
+    padding:5px;
+}

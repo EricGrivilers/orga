@@ -361,6 +361,34 @@ class Offre
     private $totalSlicePriceht;
 
 
+     /**
+    *  @ORM\ManyToMany(targetEntity="Document",cascade={"persist"})
+    * @ORM\OrderBy({"rank" = "ASC"})
+    */
+    private $document;
+
+    private $files=array();
+
+    public function getFiles() {
+        return $this->files;
+    }
+
+    public function setFiles($files) {
+        $rank=count($this->document)+1;
+         if(!is_null($files)) {
+            foreach($files as $file) {
+
+                $document=new \Caravane\Bundle\OrganicBundle\Entity\Document();
+                $document->setFilename($file);
+                $document->setRank($rank);
+                $rank++;
+
+                $this->addDocument($document);
+            }
+        }
+    }
+
+
     public function __toString() {
         return $this->reference;
     }
@@ -1491,7 +1519,7 @@ class Offre
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
         $this->slices = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
 
     /**
      * Set validity
@@ -1502,14 +1530,14 @@ class Offre
     public function setValidity($validity)
     {
         $this->validity = $validity;
-    
+
         return $this;
     }
 
     /**
      * Get validity
      *
-     * @return string 
+     * @return string
      */
     public function getValidity()
     {
@@ -1525,17 +1553,50 @@ class Offre
     public function setEventdate($eventdate)
     {
         $this->eventdate = $eventdate;
-    
+
         return $this;
     }
 
     /**
      * Get eventdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getEventdate()
     {
         return $this->eventdate;
+    }
+
+    /**
+     * Add document
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Document $document
+     * @return Offre
+     */
+    public function addDocument(\Caravane\Bundle\OrganicBundle\Entity\Document $document)
+    {
+        $this->document[] = $document;
+
+        return $this;
+    }
+
+    /**
+     * Remove document
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Document $document
+     */
+    public function removeDocument(\Caravane\Bundle\OrganicBundle\Entity\Document $document)
+    {
+        $this->document->removeElement($document);
+    }
+
+    /**
+     * Get document
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDocument()
+    {
+        return $this->document;
     }
 }

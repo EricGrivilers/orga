@@ -14,6 +14,8 @@ use Caravane\Bundle\OrganicBundle\Form\OffreType;
 use Caravane\Bundle\OrganicBundle\Managers\OffreManager;
 use Caravane\Bundle\OrganicBundle\Managers\ClientManager;
 use Caravane\Bundle\OrganicBundle\Managers\PdfManager;
+
+use Caravane\Bundle\OrganicBundle\Managers\DocumentManager;
 /**
  * Offre controller.
  *
@@ -165,6 +167,9 @@ class OffreController extends Controller
             $offreManager=new offreManager($entity,$em);
             $offreManager->persist();
 
+            $documentManager=new DocumentManager($entity,$em);
+            $documentManager->moveAttachedDocument('/docs/offres/'.$entity->getId());
+
             return $this->redirect($this->generateUrl('offre_edit', array('id' => $entity->getId())));
         }
         else {
@@ -282,6 +287,11 @@ class OffreController extends Controller
                 $em->persist($entity);
                 $em->flush();
             }
+
+            $documentManager=new DocumentManager($entity,$em);
+            $documentManager->moveAttachedDocument('/docs/offres/'.$entity->getId());
+
+
             return $this->redirect($this->generateUrl('offre_edit', array('id' => $id)));
         }
 
@@ -348,6 +358,21 @@ class OffreController extends Controller
         return new Response('ok');
     }
 
+
+    public function removeDocumentAction($id,$documentid) {
+        $em=$this->getDoctrine()->getManager();
+        $offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
+        $document=$em->getRepository('CaravaneOrganicBundle:Document')->find($documentid);
+        $offre->removeDocument($document);
+
+         $documentManager=new DocumentManager($document,$em);
+        $documentManager->deleteDocument();
+
+        $em->persist($offre);
+        $em->flush();
+        return new Response('oki');
+    }
+
     public function addStockProductAction($id,$tentid) {
         $em = $this->getDoctrine()->getManager();
         $offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
@@ -407,7 +432,7 @@ class OffreController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
 
-       
+
 
         $pdfManager=new PdfManager($em,$templating,$html2pdf);
         if($_locale=='all') {
@@ -427,10 +452,10 @@ class OffreController extends Controller
                     'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/offres",
                     'filename'=>$entity->getReference()."-".$_locale.".pdf"
             );
-            $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Offre:pdf.html.twig",$file,$_locale,true); 
+            $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Offre:pdf.html.twig",$file,$_locale,true);
             return $this->redirect("/docs/offres/".$file['filename']);
         }
-        
+
     }
 
 }

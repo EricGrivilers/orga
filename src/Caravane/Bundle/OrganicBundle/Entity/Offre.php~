@@ -323,7 +323,7 @@ class Offre
     /**
      * @var \tents2offre
      *
-     * @ORM\OneToMany(targetEntity="Tent2Offre", mappedBy="offreid")
+     * @ORM\OneToMany(targetEntity="Tent2offre", mappedBy="offreid")
      *
      */
     private $tents2offre;
@@ -359,6 +359,34 @@ class Offre
 
     private $totalSlice;
     private $totalSlicePriceht;
+
+
+     /**
+    *  @ORM\ManyToMany(targetEntity="Document",cascade={"persist"})
+    * @ORM\OrderBy({"rank" = "ASC"})
+    */
+    private $document;
+
+    private $files=array();
+
+    public function getFiles() {
+        return $this->files;
+    }
+
+    public function setFiles($files) {
+        $rank=count($this->document)+1;
+         if(!is_null($files)) {
+            foreach($files as $file) {
+
+                $document=new \Caravane\Bundle\OrganicBundle\Entity\Document();
+                $document->setFilename($file);
+                $document->setRank($rank);
+                $rank++;
+
+                $this->addDocument($document);
+            }
+        }
+    }
 
 
     public function __toString() {
@@ -1491,7 +1519,7 @@ class Offre
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
         $this->slices = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
 
     /**
      * Set validity
@@ -1502,14 +1530,14 @@ class Offre
     public function setValidity($validity)
     {
         $this->validity = $validity;
-    
+
         return $this;
     }
 
     /**
      * Get validity
      *
-     * @return string 
+     * @return string
      */
     public function getValidity()
     {
@@ -1525,14 +1553,14 @@ class Offre
     public function setEventdate($eventdate)
     {
         $this->eventdate = $eventdate;
-    
+
         return $this;
     }
 
     /**
      * Get eventdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getEventdate()
     {

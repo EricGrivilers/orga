@@ -165,4 +165,27 @@ class Chat
     {
         return $this->userid;
     }
+
+    /**
+     * Set target
+     *
+     * @param \Caravane\UserBundle\Entity\User $target
+     * @return Chat
+     */
+    public function setTarget(\Caravane\UserBundle\Entity\User $target = null)
+    {
+        $this->target = $target;
+    
+        return $this;
+    }
+
+    /**
+     * Get target
+     *
+     * @return \Caravane\UserBundle\Entity\User 
+     */
+    public function getTarget()
+    {
+        return $this->target;
+    }
 }

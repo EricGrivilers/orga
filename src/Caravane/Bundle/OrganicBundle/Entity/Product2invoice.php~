@@ -31,14 +31,14 @@ class Product2invoice
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=false)
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="price", type="float", nullable=false)
+     * @ORM\Column(name="price", type="float", nullable=true)
      */
     private $price;
 

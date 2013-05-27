@@ -3,11 +3,14 @@
 namespace Caravane\Bundle\OrganicBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Caravane\Bundle\OrganicBundle\Entity\Client;
 use Caravane\Bundle\OrganicBundle\Entity\Tent;
 use Caravane\Bundle\OrganicBundle\Form\TentType;
+
+use Caravane\Bundle\OrganicBundle\Managers\DocumentManager;
 
 /**
  * Tent controller.
@@ -135,6 +138,9 @@ class TentController extends Controller
             $em->persist($entity);
             $em->flush();
 
+            $documentManager=new DocumentManager($entity,$em);
+            $documentManager->moveAttachedDocument('/docs/products/'.$entity->getId());
+
             return $this->redirect($this->generateUrl('tent_show', array('id' => $entity->getId())));
         }
 
@@ -197,6 +203,10 @@ class TentController extends Controller
             $em->persist($entity);
             $em->flush();
 
+            $documentManager=new DocumentManager($entity,$em);
+            $documentManager->moveAttachedDocument('/docs/products/'.$entity->getId());
+
+
             return $this->redirect($this->generateUrl('tent_edit', array('id' => $id)));
         }
 
@@ -243,6 +253,25 @@ class TentController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+
+
+    public function removeDocumentAction($id,$documentid) {
+        $em=$this->getDoctrine()->getManager();
+        $tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($id);
+        if($document=$em->getRepository('CaravaneOrganicBundle:Document')->find($documentid)) {
+
+
+            $tent->removeDocument($document);
+
+            $documentManager=new DocumentManager($document,$em);
+            $documentManager->deleteDocument();
+
+            $em->persist($tent);
+            $em->flush();
+        }
+
+        return new Response('oki');
     }
 
     public function getAvailableFromRouteAction() {
@@ -296,10 +325,10 @@ class TentController extends Controller
                 if($prod->getTentid()) {
                     $exclude[]=$prod->getTentid()->getId();
                 }
-                
+
             }
         }
-        
+
 
         $em = $this->getDoctrine()->getManager();
         $category=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->find($categoryId);

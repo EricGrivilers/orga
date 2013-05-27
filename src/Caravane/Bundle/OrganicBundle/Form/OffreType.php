@@ -185,6 +185,17 @@ class OffreType extends AbstractType
                 )
             ))
             ->add('clientid',new ClientEmbededType())
+
+            ->add('files','filesupload',array(
+                    'data_class'=>null
+                ))
+
+              ->add('document','collection',array(
+                'required'=>false,
+                'allow_add'    => false,
+                'by_reference' => true,
+                'type'=>new DocumentEmbedType()
+            ))
         ;
 
 

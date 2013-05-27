@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Document
  *
- * @ORM\Table(name="document")
+ * @ORM\Table(name="Document")
  * @ORM\Entity
  */
 class Document
@@ -24,31 +24,38 @@ class Document
     /**
      * @var string
      *
-     * @ORM\Column(name="linkTo", type="string", length=20, nullable=false)
+     * @ORM\Column(name="path", type="string", length=255, nullable=true)
      */
-    private $linkto;
+    private $path;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="filename", type="string", length=255, nullable=true)
+     */
+    private $filename;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="linkId", type="integer", nullable=false)
+     * @ORM\Column(name="rank", type="integer", nullable=true)
      */
-    private $linkid;
+    private $rank;
+
 
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=7, nullable=false)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
-    private $type;
+    private $title;
 
     /**
-     * @var string
+     * @var text
      *
-     * @ORM\Column(name="url", type="string", length=255, nullable=false)
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
-    private $url;
-
+    private $description;
 
 
     /**
@@ -62,94 +69,117 @@ class Document
     }
 
     /**
-     * Set linkto
+     * Set path
      *
-     * @param string $linkto
+     * @param string $path
      * @return Document
      */
-    public function setLinkto($linkto)
+    public function setPath($path)
     {
-        $this->linkto = $linkto;
+        $this->path = $path;
 
         return $this;
     }
 
     /**
-     * Get linkto
+     * Get path
      *
      * @return string
      */
-    public function getLinkto()
+    public function getPath()
     {
-        return $this->linkto;
+        return $this->path;
     }
 
     /**
-     * Set linkid
+     * Set filename
      *
-     * @param integer $linkid
+     * @param string $filename
      * @return Document
      */
-    public function setLinkid($linkid)
+    public function setFilename($filename)
     {
-        $this->linkid = $linkid;
+        $this->filename = $filename;
 
         return $this;
     }
 
     /**
-     * Get linkid
+     * Get filename
+     *
+     * @return string
+     */
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
+     * Set rank
+     *
+     * @param integer $rank
+     * @return Document
+     */
+    public function setRank($rank)
+    {
+        $this->rank = $rank;
+
+        return $this;
+    }
+
+    /**
+     * Get rank
      *
      * @return integer
      */
-    public function getLinkid()
+    public function getRank()
     {
-        return $this->linkid;
+        return $this->rank;
     }
 
     /**
-     * Set type
+     * Set title
      *
-     * @param string $type
+     * @param string $title
      * @return Document
      */
-    public function setType($type)
+    public function setTitle($title)
     {
-        $this->type = $type;
+        $this->title = $title;
 
         return $this;
     }
 
     /**
-     * Get type
+     * Get title
      *
-     * @return string
+     * @return string 
      */
-    public function getType()
+    public function getTitle()
     {
-        return $this->type;
+        return $this->title;
     }
 
     /**
-     * Set url
+     * Set description
      *
-     * @param string $url
+     * @param string $description
      * @return Document
      */
-    public function setUrl($url)
+    public function setDescription($description)
     {
-        $this->url = $url;
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Get url
+     * Get description
      *
-     * @return string
+     * @return string 
      */
-    public function getUrl()
+    public function getDescription()
     {
-        return $this->url;
+        return $this->description;
     }
 }

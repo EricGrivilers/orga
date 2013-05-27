@@ -28,7 +28,7 @@ class JobType extends AbstractType
                 'choices'=>array('sell'=>"Sell",'rent'=>"Rent",'winter'=>"Winter storage")
             ))
             */
-                
+
             ->add('eventdate','CaravaneUIDatePicker',array(
                 'widget'=>'single_text',
                 'label'=>"Event date",
@@ -36,7 +36,7 @@ class JobType extends AbstractType
                     'class'=>'span3 datepicker'
                 )
             ))
-            
+
             ->add('planningcomments','ckeditor',array(
                 'label'=>"Planning comments",
                 'attr'=>array(
@@ -177,6 +177,17 @@ class JobType extends AbstractType
            // ->add('offreid')
             ->add('clientid',new ClientEmbededType(),array(
                 'required'=>false
+            ))
+
+             ->add('files','filesupload',array(
+                    'data_class'=>null
+                ))
+
+              ->add('document','collection',array(
+                'required'=>false,
+                'allow_add'    => false,
+                'by_reference' => true,
+                'type'=>new DocumentEmbedType()
             ))
         ;
 

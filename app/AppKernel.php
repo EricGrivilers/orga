@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new FOS\ElasticaBundle\FOSElasticaBundle(),
             new Ensepar\Html2pdfBundle\EnseparHtml2pdfBundle(),
             new Caravane\Bundle\OrganicBundle\CaravaneOrganicBundle(),
+            new Caravane\Bundle\BIJUploadBundle\CaravaneBIJUploadBundle(),
             new Caravane\UserBundle\CaravaneUserBundle(),
             new Caravane\DevBundle\CaravaneDevBundle(),
             new Caravane\UIBundle\CaravaneUIBundle(),

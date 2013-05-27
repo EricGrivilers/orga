@@ -67,3 +67,9 @@ offre_resolve_confirm:
     pattern:  /resolve/confirm
     defaults: { _controller: "CaravaneOrganicBundle:Offre:resolveConfirm" }
 
+offre_remove_document:
+    pattern:  /{id}/remove_document/{documentid}
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:removeDocument" }
+    requirements: { _method: post }
+    options:
+        expose: true

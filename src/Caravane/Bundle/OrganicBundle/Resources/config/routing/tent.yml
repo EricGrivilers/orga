@@ -38,4 +38,10 @@ tent_get_available:
     options:
         expose: true
 
+tent_remove_document:
+    pattern:  /{id}/remove_document/{documentid}
+    defaults: { _controller: "CaravaneOrganicBundle:Tent:removeDocument" }
+    requirements: { _method: post }
+    options:
+        expose: true
 
