@@ -369,6 +369,17 @@ class Offre
 
     private $files=array();
 
+
+
+     /**
+    *  @ORM\ManyToMany(targetEntity="Comment",cascade={"persist"})
+    * @ORM\OrderBy({"createdOn" = "ASC"})
+    */
+    private $comment;
+
+
+    
+
     public function getFiles() {
         return $this->files;
     }
@@ -1598,5 +1609,38 @@ class Offre
     public function getDocument()
     {
         return $this->document;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Comment $comment
+     * @return Offre
+     */
+    public function addComment(\Caravane\Bundle\OrganicBundle\Entity\Comment $comment)
+    {
+        $this->comment[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Comment $comment
+     */
+    public function removeComment(\Caravane\Bundle\OrganicBundle\Entity\Comment $comment)
+    {
+        $this->comment->removeElement($comment);
+    }
+
+    /**
+     * Get comment
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 }

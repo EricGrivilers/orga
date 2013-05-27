@@ -254,6 +254,25 @@ function initOffre() {
         });
     });
 
+
+    $('.add_comment').click(function(e) {
+         e.preventDefault();
+         target=$(this).closest('div');
+       /* if($(this).data('isoption')) {
+            target=$('tbody#options');
+        }
+        else (
+            target=$('tbody#products');
+        )*/
+        var prototype =$(this).closest('div').find('.comment_field').data('prototype');
+        var index=target.find(':input').length;
+        var newForm = prototype.replace(/__name__/g, index);
+         target.data('index', index + 1);
+         var $newFormLi = $('<div></div>div>').append(newForm);
+         target.append($newFormLi);
+         
+    });
+
     $('.openStockModal').click(function() {
         target=$(this).closest('table').find('.products');
         entity=$('#mainForm').data('entity');

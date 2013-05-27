@@ -141,7 +141,7 @@ class JobController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Job entity.');
         }
-
+        
          if(count($entity->getPlannings())!=4) {
             foreach($this->planningTypes as $planningType) {
                 $planning=new \Caravane\Bundle\OrganicBundle\Entity\Planning2job();

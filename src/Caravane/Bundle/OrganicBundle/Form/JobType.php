@@ -189,6 +189,15 @@ class JobType extends AbstractType
                 'by_reference' => true,
                 'type'=>new DocumentEmbedType()
             ))
+            ->add('comment','collection',array(
+                'type'=>new CommentEmbedType(),
+                'allow_add'    => true,
+                'by_reference' => false,
+                'data_class'=> null,
+                'attr'=>array(
+                    'class'=>'comment_field'
+                )
+            ))
         ;
 
 

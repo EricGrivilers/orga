@@ -366,9 +366,16 @@ class Job
 
      /**
     *  @ORM\ManyToMany(targetEntity="Document",cascade={"persist"})
-    * @ORM\OrderBy({"rank" = "ASC"})
+    * @ORM\OrderBy({"rank" = "DESC"})
     */
     private $document;
+
+     /**
+    *  @ORM\ManyToMany(targetEntity="Comment",cascade={"persist"})
+    * @ORM\OrderBy({"createdOn" = "ASC"})
+    */
+    private $comment;
+
 
     private $files=array();
 
@@ -1566,5 +1573,38 @@ class Job
     public function getDocument()
     {
         return $this->document;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Comment $comment
+     * @return Job
+     */
+    public function addComment(\Caravane\Bundle\OrganicBundle\Entity\Comment $comment)
+    {
+        $this->comment[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Comment $comment
+     */
+    public function removeComment(\Caravane\Bundle\OrganicBundle\Entity\Comment $comment)
+    {
+        $this->comment->removeElement($comment);
+    }
+
+    /**
+     * Get comment
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 }

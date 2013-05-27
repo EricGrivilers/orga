@@ -908,4 +908,37 @@ class Tent
     {
         return $this->jobs;
     }
+
+    /**
+     * Add document
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Document $document
+     * @return Tent
+     */
+    public function addDocument(\Caravane\Bundle\OrganicBundle\Entity\Document $document)
+    {
+        $this->document[] = $document;
+
+        return $this;
+    }
+
+    /**
+     * Remove document
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Document $document
+     */
+    public function removeDocument(\Caravane\Bundle\OrganicBundle\Entity\Document $document)
+    {
+        $this->document->removeElement($document);
+    }
+
+    /**
+     * Get document
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDocument()
+    {
+        return $this->document;
+    }
 }
