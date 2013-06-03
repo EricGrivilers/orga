@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Caravane\Bundle\OrganicBundle\Entity\Offre;
+use Caravane\Bundle\OrganicBundle\Entity\Client;
 use Caravane\Bundle\OrganicBundle\Form\OffreType;
 
 
@@ -149,20 +150,23 @@ class OffreController extends Controller
         $form->bind($request);
 
         if(!$clientId=$this->get('request')->request->get('clientid')) {
-            $newClient=$entity->getClientid();
+            if(!$newClient=$entity->getClientid()) {
+                $newClient=new Client();
+            }
             $newClient->setUserid($this->getUser());
             $clientManager=new ClientManager($newClient,$em);
             $client=$clientManager->persistNew();
 
         }
-        else {
-            $client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientId);
+        else if(!$client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientId)){
+            $client=new Client();
         }
 
         if ($form->isValid()) {
-
+           
             $em->persist($client);
             $entity->setClientid($client);
+
 
             $offreManager=new offreManager($entity,$em);
             $offreManager->persist();
@@ -173,8 +177,9 @@ class OffreController extends Controller
             return $this->redirect($this->generateUrl('offre_edit', array('id' => $entity->getId())));
         }
         else {
-           // print_r($form->getErrors());
-           // print_r($form->getErrorsAsString()) ;
+           // var_dump($request->request);
+           // echo $form->getErrorsAsString() ;
+
         }
         //return new Response('nok');
         return $this->render('CaravaneOrganicBundle:Offre:new.html.twig', array(
