@@ -82,7 +82,7 @@ $(document).ready(function() {
             $(this).find('tr').each(function() {
                 lis.push($(this).data('entity'));
             });
-            
+
             $.post($(this).data('update'),{'list':lis},function(data) {
                 //alert(data);
             });
@@ -285,24 +285,47 @@ function initOffre() {
          target.data('index', index + 1);
          var $newFormLi = $('<div></div>').append(newForm);
          target.append($newFormLi);
-         
+
     });
 
     $('.openStockModal').click(function() {
         target=$(this).closest('table').find('.products');
         entity=$('#mainForm').data('entity');
+        option=$(this).closest('table').data('option');
         $('#stockModal').modal('show');
         $('table.stock tbody tr, table.stock tbody a').click(function(e) {
             e.stopPropagation();
             tentid=$(this).data('productid');
             entityId=$(this).closest('.modal').data('target');
-             $.post(Routing.generate(entity+'_add_tent',{'id':entityId,'tentid':tentid}),function(data) {
-                //alert(data);
+
+             $.post(Routing.generate(entity+'_add_tent',{'id':entityId,'tentid':tentid}),{'option':option},function(data) {
+               // alert(data);
                 $('form').submit();
             })
         });
 
     });
+
+
+    $('.openTransportModal').click(function() {
+        target=$(this).closest('table').find('.products');
+        entity=$('#mainForm').data('entity');
+        option=$(this).closest('table').data('option');
+        $('#transportModal').modal('show');
+        $('table.transport tbody tr, table.transport tbody a').click(function(e) {
+            e.stopPropagation();
+            transportid=$(this).data('productid');
+            entityId=$(this).closest('.modal').data('target');
+            //alert(Routing.generate(entity+'_add_transport',{'id':entityId,'transportid':transportid}));
+             $.post(Routing.generate(entity+'_add_transport',{'id':entityId,'transportid':transportid}),{'option':option},function(data) {
+               // alert(data);
+                $('form').submit();
+            })
+        });
+
+    });
+
+
     $('#mainForm').submit(function() {
         entity=$('#mainForm').data('entity');
         $('tbody.products tr').each(function() {

@@ -278,7 +278,7 @@ class Offre
     /**
      * @var string
      *
-     * @ORM\Column(name="language", type="string", length=2, nullable=false)
+     * @ORM\Column(name="language", type="string", length=2, nullable=true)
      */
     private $language;
 
@@ -286,7 +286,7 @@ class Offre
     /**
      * @var string
      *
-     * @ORM\Column(name="validity", type="string", length=2, nullable=false)
+     * @ORM\Column(name="validity", type="string", length=2, nullable=true)
      */
     private $validity;
 
@@ -327,6 +327,14 @@ class Offre
      *
      */
     private $tents2offre;
+
+    /**
+     * @var \transport2offre
+     *
+     * @ORM\OneToMany(targetEntity="Transport2offre", mappedBy="offreid")
+     *
+     */
+    private $transport2offre;
 
 
 
@@ -379,7 +387,7 @@ class Offre
     private $comment;
 
 
-    
+
 
     public function getFiles() {
         return $this->files;
@@ -1605,7 +1613,7 @@ class Offre
     /**
      * Get document
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDocument()
     {
@@ -1638,10 +1646,43 @@ class Offre
     /**
      * Get comment
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getComment()
     {
         return $this->comment;
+    }
+
+    /**
+     * Add transport2offre
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Transport2offre $transport2offre
+     * @return Offre
+     */
+    public function addTransport2offre(\Caravane\Bundle\OrganicBundle\Entity\Transport2offre $transport2offre)
+    {
+        $this->transport2offre[] = $transport2offre;
+
+        return $this;
+    }
+
+    /**
+     * Remove transport2offre
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Transport2offre $transport2offre
+     */
+    public function removeTransport2offre(\Caravane\Bundle\OrganicBundle\Entity\Transport2offre $transport2offre)
+    {
+        $this->transport2offre->removeElement($transport2offre);
+    }
+
+    /**
+     * Get transport2offre
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTransport2offre()
+    {
+        return $this->transport2offre;
     }
 }

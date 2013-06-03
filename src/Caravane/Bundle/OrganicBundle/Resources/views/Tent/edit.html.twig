@@ -3,7 +3,7 @@
 {% block body %}
 <div class="row-fluid">
 {% block form_header %}
-    <form action="{{ path('tent_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    <form action="{{ path('tent_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} novalidate >
  {% endblock form_header %}
 
         <input type='text' name='clientid' id="clientid"  value="{% if entity.ownerid %}{{entity.ownerid.id}}{% endif %}"/>
@@ -18,9 +18,7 @@
 <div class="well">
     <div class="row-fluid">
         <div class="span4">
-            <div>
-                    <label>Reference</label> <label><b>{{entity.reference}}</b></label>
-                </div>
+             {{form_row(edit_form.reference)}}
                 {{form_row(edit_form.etat)}}
         </div>
         <div class="span4">

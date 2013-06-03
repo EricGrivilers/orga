@@ -24,10 +24,15 @@ class Slice2OffreType extends AbstractType
             'attr'=>array(
             'class'=>'span12 price')
             ))
-           ->add('comments','text',array(
-            'attr'=>array(
-            'class'=>'span12')
-            ))
+           ->add('comments','text',
+                array(
+                    'required'=>false,
+                    'attr'=>array(
+                        'placeholder'=>"Description",
+                        'class'=>'span12'
+                    )
+                )
+            )
         //   ->add('status')
 
         ;

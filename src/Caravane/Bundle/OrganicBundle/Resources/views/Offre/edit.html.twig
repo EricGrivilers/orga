@@ -6,7 +6,7 @@
 <div class="row-fluid">
 
 {% block form_header %}
-<form id='mainForm' action="{{ path('offre_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} data-entity="offre" >
+<form id='mainForm' action="{{ path('offre_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} data-entity="offre"  novalidate >
 {% endblock form_header %}
 
 
@@ -243,7 +243,7 @@
 </div>
     <div class="row-fluid">
 
-        <table class="table table-bordered table-condensed table-striped table-sortable">
+        <table class="table table-bordered table-condensed table-striped table-sortable" data-option="0">
             <thead>
                 <tr>
                     <th>
@@ -318,6 +318,7 @@
                         <th class="right">
 
                             <a id="add_product_link" class="add_product_link btn" data-isoption='0'>Add free row</a>
+                            <a href="#transportModal" class="btn openTransportModal" data-isoption='0'>Add transport row</a>
                              {% if entity.id and entity.plannings %}
                                 <a href="#stockModal"  class="btn openStockModal"  data-isoption='0'>Add from stock</a>
                             {% else %}
@@ -391,7 +392,7 @@
     </div>
     <div class="row-fluid">
         {{entity.plannings|length}}
-        <table class="table table-bordered table-condensed table-striped table-sortable">
+        <table class="table table-bordered table-condensed table-striped table-sortable" data-option="1">
             <thead>
                 <tr>
                     <th>
@@ -428,6 +429,8 @@
                         <th class="right">
 
                             <a id="add_option_link" class="add_product_link btn" data-isoption='1'>Add free row</a>
+                            <a href="#transportModal" class="btn openTransportModal" data-isoption='1'>Add transport row</a>
+
                             {% if entity.id and entity.plannings %}
                                 <a href="#stockModal"  class="btn openStockModal" data-isoption='1'>Add from stock</a>
                             {% else %}
@@ -692,4 +695,27 @@
 
           </div>
     </div>
+
+
+
+
+
+
+    <div id="transportModal" data-target="{{entity.id}}" class="modal hide fade largeModal" tabindex="-1" role="dialog" aria-labelledby="transportModalLabel" aria-hidden="true">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Transport</h3>
+          </div>
+          <div class="modal-body">
+                <div class='row-fluid' id="transports">
+                     {{ render (controller("CaravaneOrganicBundle:Transport:getAvailable" )) }}
+                </div>
+          </div>
+          <div class="modal-footer">
+
+
+          </div>
+    </div>
+
+
 {% endblock body %}

@@ -4,7 +4,7 @@
 {% block body %}
 
 <div class="row-fluid">
-        <form id='mainForm' action="{{ path('offre_resolve_confirm') }}" method="post" >
+        <form id='mainForm' action="{{ path('offre_resolve_confirm') }}" method="post"  novalidate >
             <div class="well">
                 <p>
                         Product <b><a href="{{path('tent_edit', {'id':tent.id})}}">{{tent.reference}}</a></b> ({{tent.id}})

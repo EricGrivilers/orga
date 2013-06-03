@@ -100,7 +100,7 @@ class OffreController extends Controller
 
         $entity = new Offre();
         $slice=new \Caravane\Bundle\OrganicBundle\Entity\Slice2offre();
-        $slice->setComments('');
+        $slice->setComments('100%');
         $slice->setSlice(100);
         $entity->addSlice($slice);
 
@@ -141,6 +141,8 @@ class OffreController extends Controller
      */
     public function createAction(Request $request)
     {
+        //var_dump($request->request);
+
         $em = $this->getDoctrine()->getManager();
         $productCategories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
         $entity  = new Offre();
@@ -163,7 +165,7 @@ class OffreController extends Controller
         }
 
         if ($form->isValid()) {
-           
+
             $em->persist($client);
             $entity->setClientid($client);
 
@@ -378,10 +380,11 @@ class OffreController extends Controller
         return new Response('oki');
     }
 
-    public function addStockProductAction($id,$tentid) {
+    public function addStockProductAction(Request $request,$id,$tentid) {
         $em = $this->getDoctrine()->getManager();
         $offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
         $tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($tentid);
+
         if($tent) {
             $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
             $product->setOffreid($offre);
@@ -401,8 +404,38 @@ class OffreController extends Controller
 
             $product->setDatas(json_encode($datas));
             $product->setPrice(0);
+            $product->setIsoption($request->request->get('option'));
 
             $em->persist($product);
+            $offre->addProduct($product);
+            $em->persist($offre);
+            $em->flush();
+        }
+
+        return new Response('ok');
+    }
+
+    public function addTransportProductAction(Request $request,$id,$transportid) {
+        $em = $this->getDoctrine()->getManager();
+        $offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
+        $transport=$em->getRepository('CaravaneOrganicBundle:Transport')->find($transportid);
+
+        if($transport) {
+
+            $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
+
+            $product->setOffreid($offre);
+
+            $product->setInsertdate(new \Datetime('now'));
+            $product->setUpdatedate(new \Datetime('now'));
+            $product->setIsoption(false);
+            $product->setPrice($transport->getCost());
+            $product->setDescription($transport->getName()."(".$transport->getZip().")");
+
+
+
+            $em->persist($product);
+            $offre->addProduct($product);
             $em->persist($offre);
             $em->flush();
         }
@@ -466,7 +499,7 @@ class OffreController extends Controller
 
     public function sortProductsAction(Request $request,$id) {
 
-        
+
         $em=$this->getDoctrine()->getManager();
         if(!$entity=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id)) {
             return new Response("error");

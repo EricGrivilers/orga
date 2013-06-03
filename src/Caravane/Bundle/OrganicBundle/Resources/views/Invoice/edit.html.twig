@@ -5,7 +5,7 @@
 <div class="row-fluid">
 
 {% block form_header %}
-<form id='mainForm' action="{{ path('invoice_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} data-entity="invoice"  class="{{entity.status}}">
+<form id='mainForm' action="{{ path('invoice_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} data-entity="invoice"  class="{{entity.status}}" novalidate >
 
 {% endblock form_header %}
 <input type='hidden' name='clientid' id="clientid"  value="{% if entity.clientid %}{{entity.clientid.id}} {% endif %}"/>
@@ -33,7 +33,7 @@
 
              {#<div class="dropdown pull-right">
                     <a class="dropdown-toggle" id="drop_1" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>#}
-                    
+
                 {% if entity.id %}
             <a class="pull-right btn" href="{{path('invoice_pdf',{'id':entity.id,'force':true,'_locale':'all','type':'inv'})}}"><img src="/images/icons/pdf.png"> Rebuild pdf</a>
             {% endif %}
@@ -242,6 +242,8 @@
                         <th class="right">
 
                             <a id="add_product_link" class="add_product_link btn">Add row</a>
+                            <a href="#transportModal" class="btn openTransportModal" data-isoption='0'>Add transport row</a>
+
                         </th>
                         <th>
 
@@ -266,7 +268,7 @@
                 {# discount #}
                     <tr class="grey">
                         <th class="right">
-                            
+
                             {{form_widget(edit_form.discountDescription)}}
                         </th>
                         <th>
@@ -281,7 +283,7 @@
                             </th>
                             <th>
                                 {% set total=total-(total*(entity.discount/100)) %}
-                                
+
 
                                 {{total|number_format(2,',',' ')}}
                             </th>
@@ -358,7 +360,7 @@
                                         <td class='right'>Balance from job</td>
                                         <td>{{(entity.jobid.price-alreadyInvoicedPriceHt)|number_format(2,',',' ')}} ({{entity.jobid.price|number_format(2,',',' ')}}-{{alreadyInvoicedPriceHt|number_format(2,',',' ')}})</td>
                                     </tr>
-                                    
+
                                 </tfoot>
                             </table>
                     </div>
@@ -401,7 +403,7 @@
         {% set ToPay = entity.priceHT %}
         {% if entity.pricetype!='intra'%}
             {% set ToPay = entity.priceHT+(entity.priceHT*0.21) %}
-           
+
         {% endif %}
        <h4 style="text-align:center">Total amount to pay {{ToPay|number_format(2,',',' ')}} &euro; {% if entity.pricetype!='intra'%}VAT incl.{% endif %}</h4>
     </div>
@@ -418,7 +420,7 @@
                 </table>
             </div>
         </div>
-        
+
     </div>
 
     {{ form_widget(edit_form) }}
@@ -433,4 +435,23 @@
 </form>
 
 </div>
+
+
+    <div id="transportModal" data-target="{{entity.id}}" class="modal hide fade largeModal" tabindex="-1" role="dialog" aria-labelledby="transportModalLabel" aria-hidden="true">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Transport</h3>
+          </div>
+          <div class="modal-body">
+                <div class='row-fluid' id="transports">
+                     {{ render (controller("CaravaneOrganicBundle:Transport:getAvailable" )) }}
+                </div>
+          </div>
+          <div class="modal-footer">
+
+
+          </div>
+    </div>
+
+
 {% endblock body %}

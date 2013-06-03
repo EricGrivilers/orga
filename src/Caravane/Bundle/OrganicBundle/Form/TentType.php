@@ -31,7 +31,7 @@ class TentType extends AbstractType
                     "class"=>"span12"
                 )
             ))
-           // ->add('reference')
+            ->add('reference')
             ->add('kit')
          /*   ->add('owner','CaravaneUIBootstrapTypeahead',array(
                 "attr"=>array(

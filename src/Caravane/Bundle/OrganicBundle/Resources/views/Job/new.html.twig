@@ -1,6 +1,6 @@
 <h1>Job creation</h1>
 
-<form action="{{ path('job_create') }}" method="post" {{ form_enctype(form) }} data-entity='job' id='mainForm'  >
+<form action="{{ path('job_create') }}" method="post" {{ form_enctype(form) }} data-entity='job' id='mainForm'   novalidate >
     {{ form_widget(form) }}
     <p>
         <button type="submit">Create</button>

@@ -100,6 +100,16 @@ class Product2offre
      */
     private $tentid;
 
+     /**
+     * @var \Transport
+     *
+     * @ORM\ManyToOne(targetEntity="Transport")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="transportid", referencedColumnName="id")
+     * })
+     */
+    private $transportid;
+
     /**
      * @var boolean
      *

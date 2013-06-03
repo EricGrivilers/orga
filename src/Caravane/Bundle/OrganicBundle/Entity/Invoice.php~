@@ -342,6 +342,7 @@ class Invoice
      * @var \Client
      *
      * @ORM\OneTomany(targetEntity="Product2invoice",mappedBy="invoiceid")
+     * @ORM\OrderBy({"rank"="asc"})
      */
 
     private $products;
@@ -1384,5 +1385,28 @@ class Invoice
     public function getDiscount()
     {
         return $this->discount;
+    }
+
+    /**
+     * Set discountDescription
+     *
+     * @param string $discountDescription
+     * @return Invoice
+     */
+    public function setDiscountDescription($discountDescription)
+    {
+        $this->discountDescription = $discountDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get discountDescription
+     *
+     * @return string 
+     */
+    public function getDiscountDescription()
+    {
+        return $this->discountDescription;
     }
 }

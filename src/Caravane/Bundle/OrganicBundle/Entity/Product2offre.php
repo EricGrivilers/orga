@@ -100,6 +100,16 @@ class Product2offre
      */
     private $tentid;
 
+     /**
+     * @var \Transport
+     *
+     * @ORM\ManyToOne(targetEntity="Transport")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="transportid", referencedColumnName="id")
+     * })
+     */
+    private $transportid;
+
     /**
      * @var boolean
      *
@@ -386,5 +396,28 @@ class Product2offre
     public function getToremove()
     {
         return $this->toremove;
+    }
+
+    /**
+     * Set transportid
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Transport $transportid
+     * @return Product2offre
+     */
+    public function setTransportid(\Caravane\Bundle\OrganicBundle\Entity\Transport $transportid = null)
+    {
+        $this->transportid = $transportid;
+
+        return $this;
+    }
+
+    /**
+     * Get transportid
+     *
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Transport 
+     */
+    public function getTransportid()
+    {
+        return $this->transportid;
     }
 }

@@ -130,18 +130,22 @@ class TentController extends Controller
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
         $form->bind($request);
-
+        if(!$entity->getOwnerid()->getId()) {
+            $entity->setOwnerid(null);
+        }
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity->setInsertdate(new \Datetime("now"));
             $entity->setUpdatedate(new \Datetime("now"));
             $em->persist($entity);
+
+
             $em->flush();
 
             $documentManager=new DocumentManager($entity,$em);
             $documentManager->moveAttachedDocument('/docs/products/'.$entity->getId());
 
-            return $this->redirect($this->generateUrl('tent_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('tent_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('CaravaneOrganicBundle:Tent:new.html.twig', array(
@@ -197,6 +201,14 @@ class TentController extends Controller
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
         $editForm->bind($request);
+
+        if(!$entity->getOwnerid()->getId()) {
+            $entity->setOwnerid(null);
+        }
+
+        if($entity->getReference()=='') {
+                $entity->setReference(date('Y')."-".$entity->getId());
+        }
 
         if ($editForm->isValid()) {
             $entity->setUpdatedate(new \Datetime("now"));

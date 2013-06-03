@@ -1,0 +1,50 @@
+
+
+<div class="row-fluid tableContainer">
+
+    <div class='content'>
+
+        <table class="table table-bordered table-condensed table-striped transport">
+            <thead>
+                <tr>
+                    <th>zip</th>
+
+                    <th>Name</th>
+
+
+                </tr>
+            </thead>
+
+            <tbody>
+
+            {% for entity in entities %}
+
+                <tr data-productid="{{entity.id}}" >
+                    <td><a data-productid="{{entity.id}}">{{ entity.zip }}</a></td>
+
+                    <td><a data-productid="{{entity.id}}">{{ entity.name }}</a></td>
+
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+{#
+
+        <div class="row-fluid">
+            <div class="pagination">
+                  <ul>
+
+                    {% for p in 1..nbpages %}
+                    <li {% if page==p %} class="active" {% endif %} ><a href="{{path('tent_get_available',{'type': type,'ob':ob,'page':p,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s'),'entityId':entityId,'categoryId':categoryId} )}}">{{p}}</a></li>
+                    {% endfor %}
+
+                  </ul>
+            </div>
+        </div>
+        #}
+</div>
+
+</div>

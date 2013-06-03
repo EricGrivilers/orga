@@ -87,7 +87,7 @@ class Client
      * @var string
      *
      * @ORM\Column(name="vat", type="string", length=50, nullable=true)
-     * @Assert\NotBlank(groups="is_cie_group") 
+     * @Assert\NotBlank(groups="is_cie_group")
      */
     private $vat;
 
@@ -358,8 +358,9 @@ class Client
     public function getName()
     {
         if($this->clienttype=='part') {
-            return $this->lastname." ".$this->firstname;
+            $this->name= $this->lastname." ".$this->firstname;
         }
+
         return $this->name;
     }
 
@@ -1038,7 +1039,7 @@ class Client
      public function validateClientType(ExecutionContext $ec)
   {
 
-    if ($this->clienttype=='cie') 
+    if ($this->clienttype=='cie')
     {
       $ec->getGraphWalker()->walkReference($this, 'is_cie_group', $ec->getPropertyPath(), true);
     }

@@ -141,7 +141,7 @@ class JobController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Job entity.');
         }
-        
+
          if(count($entity->getPlannings())!=4) {
             foreach($this->planningTypes as $planningType) {
                 $planning=new \Caravane\Bundle\OrganicBundle\Entity\Planning2job();
@@ -379,6 +379,36 @@ class JobController extends Controller
         return new Response('ok');
     }
 
+
+
+    public function addTransportProductAction(Request $request,$id,$transportid) {
+        $em = $this->getDoctrine()->getManager();
+        $offre=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
+        $transport=$em->getRepository('CaravaneOrganicBundle:Transport')->find($transportid);
+
+        if($transport) {
+
+            $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2job();
+
+            $product->setJobid($offre);
+
+            $product->setInsertdate(new \Datetime('now'));
+            $product->setUpdatedate(new \Datetime('now'));
+            $product->setPrice($transport->getCost());
+            $product->setDescription($transport->getName()."(".$transport->getZip().")");
+
+
+
+            $em->persist($product);
+            $offre->addProduct($product);
+            $em->persist($offre);
+            $em->flush();
+        }
+
+        return new Response('ok');
+    }
+
+
     public function pdfAction(Request $request, $id,$_locale='all') {
         $templating=$this->container->get('templating');
         $html2pdf=$this->get('html2pdf');
@@ -414,7 +444,7 @@ class JobController extends Controller
 
     public function sortProductsAction(Request $request,$id) {
 
-        
+
         $em=$this->getDoctrine()->getManager();
         if(!$entity=$em->getRepository('CaravaneOrganicBundle:Job')->find($id)) {
             return new Response("error");

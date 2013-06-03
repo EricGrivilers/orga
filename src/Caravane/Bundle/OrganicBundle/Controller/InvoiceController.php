@@ -149,7 +149,7 @@ class InvoiceController extends Controller
         $entity->setOffretype($job->getOffretype());
         $entity->setInsertDate(new \Datetime('now'));
         $entity->setStatus('draft');
-        
+
         $entity->setSlice($slice->getId());
         $entity->setSliceDescription($slice->getComments());
         $entity->setPriceht($slice->getPriceht());
@@ -175,6 +175,34 @@ class InvoiceController extends Controller
         ));
         */
     }
+
+
+       public function addTransportProductAction(Request $request,$id,$transportid) {
+            $em = $this->getDoctrine()->getManager();
+            $offre=$em->getRepository('CaravaneOrganicBundle:Invoice')->find($id);
+            $transport=$em->getRepository('CaravaneOrganicBundle:Transport')->find($transportid);
+
+            if($transport) {
+
+                $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2invoice();
+
+                $product->setInvoiceid($offre);
+
+                $product->setInsertdate(new \Datetime('now'));
+                $product->setUpdatedate(new \Datetime('now'));
+                $product->setPrice($transport->getCost());
+                $product->setDescription($transport->getName()."(".$transport->getZip().")");
+
+
+
+                $em->persist($product);
+                $offre->addProduct($product);
+                $em->persist($offre);
+                $em->flush();
+            }
+
+            return new Response('ok');
+        }
 
     /**
      * Creates a new Invoice entity.
@@ -367,7 +395,7 @@ class InvoiceController extends Controller
             return $this->redirect($this->generateUrl('invoice_edit', array('id' => $id)));
         }
         else {
-            
+
             if($type!='inv') {
                 $file=array(
                     'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/invoices",
@@ -376,22 +404,22 @@ class InvoiceController extends Controller
                 $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Invoice:pdf.".$type.".html.twig",$file,$_locale,$force);
             }
             else {
-               
+
                 $file=array(
                     'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/invoices",
                     'filename'=>$entity->getReference()."-".$_locale.".pdf"
                 );
-                $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Invoice:pdf.html.twig",$file,$_locale,$force); 
+                $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Invoice:pdf.html.twig",$file,$_locale,$force);
             }
             return $this->redirect("/docs/invoices/".$file['filename']);
         }
-        
+
     }
 
 
     public function sortProductsAction(Request $request,$id) {
 
-        
+
         $em=$this->getDoctrine()->getManager();
         if(!$entity=$em->getRepository('CaravaneOrganicBundle:Invoice')->find($id)) {
             return new Response("error");

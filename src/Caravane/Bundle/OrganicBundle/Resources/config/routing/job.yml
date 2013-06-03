@@ -50,6 +50,12 @@ job_add_tent:
     options:
         expose: true
 
+job_add_transport:
+    pattern:  /{id}/add_transport_product/{transportid}
+    defaults: { _controller: "CaravaneOrganicBundle:Job:addTransportProduct" }
+    options:
+        expose: true
+
 
 job_sort_products:
     pattern: /{id}/sort_products

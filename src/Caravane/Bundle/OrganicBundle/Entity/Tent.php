@@ -31,7 +31,7 @@ class Tent
     /**
      * @var string
      *
-     * @ORM\Column(name="reference", type="string", length=64, nullable=false)
+     * @ORM\Column(name="reference", type="string", length=64, nullable=true)
      */
     private $reference;
 
@@ -143,7 +143,7 @@ class Tent
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updateDate", type="datetime", nullable=false)
+     * @ORM\Column(name="updateDate", type="datetime", nullable=true)
      */
     private $updatedate;
 
@@ -935,7 +935,7 @@ class Tent
     /**
      * Get document
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDocument()
     {

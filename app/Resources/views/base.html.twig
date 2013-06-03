@@ -18,7 +18,7 @@
         {% endblock header %}
         {% block mainmenu %}
         <div class="navbar navbar-inverse" style="position: static;">
-         
+
               <div class="navbar-inner">
                 <div class="container">
                   <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
@@ -26,7 +26,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </a>
-                
+
                   <a class="brand" href="{{path("CaravaneOrganicBundle_homepage")}}">Organic</a>
                   <div class="nav-collapse collapse navbar-inverse-collapse">
                     <ul class="nav">
@@ -37,6 +37,7 @@
                       <li {% if app.request.attributes.get('_route')=='invoice' %}  class="active" {% endif %} ><a href="{{path("invoice")}}">Invoices</a></li>
                       <li {% if app.request.attributes.get('_route')=='planning' %}  class="active" {% endif %} ><a href="{{path('planning')}}">Planning</a></li>
                       <li {% if app.request.attributes.get('_route')=='tent' %}  class="active" {% endif %} ><a href="{{path("tent")}}">Stock</a></li>
+                      <li {% if app.request.attributes.get('_route')=='transport' %}  class="active" {% endif %} ><a href="{{path("transport")}}">Transport</a></li>
                       <li {% if app.request.attributes.get('_route')=='user' %}  class="active" {% endif %} ><a href="{{path("user")}}">Users</a></li>
                     </ul>
                     <form class="navbar-search pull-right" action="">

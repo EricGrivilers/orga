@@ -21,6 +21,12 @@ invoice_sort_products:
     defaults: {_controller: "CaravaneOrganicBundle:Invoice:sortProducts" }
     requirements: { _method: post }
 
+invoice_add_transport:
+    pattern:  /{id}/add_transport_product/{transportid}
+    defaults: { _controller: "CaravaneOrganicBundle:Invoice:addTransportProduct" }
+    options:
+        expose: true
+
 
 invoice_new:
     pattern:  /new

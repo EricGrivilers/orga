@@ -70,14 +70,14 @@ class Slice2offre
      */
     private $offreid;
 
-  
+
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -93,14 +93,14 @@ class Slice2offre
     public function setSliceid($sliceid)
     {
         $this->sliceid = $sliceid;
-    
+
         return $this;
     }
 
     /**
      * Get sliceid
      *
-     * @return integer 
+     * @return integer
      */
     public function getSliceid()
     {
@@ -116,14 +116,14 @@ class Slice2offre
     public function setSlice($slice)
     {
         $this->slice = $slice;
-    
+
         return $this;
     }
 
     /**
      * Get slice
      *
-     * @return float 
+     * @return float
      */
     public function getSlice()
     {
@@ -139,14 +139,14 @@ class Slice2offre
     public function setPriceht($priceht)
     {
         $this->priceht = $priceht;
-    
+
         return $this;
     }
 
     /**
      * Get priceht
      *
-     * @return float 
+     * @return float
      */
     public function getPriceht()
     {
@@ -162,14 +162,14 @@ class Slice2offre
     public function setComments($comments)
     {
         $this->comments = $comments;
-    
+
         return $this;
     }
 
     /**
      * Get comments
      *
-     * @return string 
+     * @return string
      */
     public function getComments()
     {
@@ -185,14 +185,14 @@ class Slice2offre
     public function setStatus($status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -209,19 +209,19 @@ class Slice2offre
     public function setOffreid(\Caravane\Bundle\OrganicBundle\Entity\Offre $offreid = null)
     {
         $this->offreid = $offreid;
-    
+
         return $this;
     }
 
     /**
      * Get offreid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Offre 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Offre
      */
     public function getOffreid()
     {
         return $this->offreid;
     }
 
-   
+
 }

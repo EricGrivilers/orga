@@ -24,27 +24,30 @@ class DocumentManager
             $fs = new Filesystem();
             $em=$this->em;
             $entity=$this->entity;
-            $documents=$entity->getDocument();
-            foreach($documents as $document) {
 
-                $fromFile=__DIR__."/../../../../../web/files/".$document->getFilename();
+            if($documents=$entity->getDocument()) {
+                foreach($documents as $document) {
 
-                if($document->getPath()!=$path && file_exists($fromFile)) {
+                    $fromFile=__DIR__."/../../../../../web/files/".$document->getFilename();
 
-                    if(!$fs->exists(__DIR__."/../../../../../web".$path)) {
-                        $fs->mkdir(__DIR__."/../../../../../web".$path,0755);
+                    if($document->getPath()!=$path && file_exists($fromFile)) {
+
+                        if(!$fs->exists(__DIR__."/../../../../../web".$path)) {
+                            $fs->mkdir(__DIR__."/../../../../../web".$path,0755);
+                        }
+                        $toFile=__DIR__."/../../../../../web".$path."/".$document->getFilename();
+                        if($fs->exists($toFile)) {
+                            $toFile=__DIR__."/../../../../../web".$path."/".rand(0,100)."_".$document->getFilename();
+                        }
+                        $fs->rename($fromFile,$toFile);
+                        $fs->remove(__DIR__."/../../../../../web/files/thumbnail/".$document->getFilename());
+                        $document->setPath($path);
+                        $em->persist($document);
                     }
-                    $toFile=__DIR__."/../../../../../web".$path."/".$document->getFilename();
-                    if($fs->exists($toFile)) {
-                        $toFile=__DIR__."/../../../../../web".$path."/".rand(0,100)."_".$document->getFilename();
-                    }
-                    $fs->rename($fromFile,$toFile);
-                    $fs->remove(__DIR__."/../../../../../web/files/thumbnail/".$document->getFilename());
-                    $document->setPath($path);
-                    $em->persist($document);
                 }
+                $em->flush();
             }
-            $em->flush();
+
 
     }
 
