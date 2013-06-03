@@ -134,9 +134,7 @@ class Comment
      */
     public function getCreatedOn()
     {
-         if(is_null($createdOn)) {
-            $this->createdOn = new \Datetime('now');
-        }
+         
         return $this->createdOn;
     }
 

@@ -55,7 +55,7 @@ class OffreType extends AbstractType
                 )
             ))
             ->add('surface','text',array(
-                'label'=>"Wished area",
+                'label'=>"Wished surface",
                 'attr'=>array(
                     'class'=>"span3"
                 )
