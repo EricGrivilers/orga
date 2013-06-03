@@ -50,6 +50,12 @@ job_add_tent:
     options:
         expose: true
 
+
+job_sort_products:
+    pattern: /{id}/sort_products
+    defaults: {_controller: "CaravaneOrganicBundle:Job:sortProducts" }
+    requirements: { _method: post }
+
 job_slice_remove_product:
     pattern:  /{id}/remove_slice/{productid}
     defaults: { _controller: "CaravaneOrganicBundle:Job:removeSlice" }

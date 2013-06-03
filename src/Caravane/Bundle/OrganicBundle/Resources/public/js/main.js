@@ -75,6 +75,21 @@ $(document).ready(function() {
         //$(this).closest('.row-fluid').find("#cke_1_contents").html($(this).html());
     });
 
+    $('table.table-sortable tbody').sortable({
+        update:function(ui,item) {
+
+            lis=new Array();
+            $(this).find('tr').each(function() {
+                lis.push($(this).data('entity'));
+            });
+            
+            $.post($(this).data('update'),{'list':lis},function(data) {
+                //alert(data);
+            });
+
+        }
+    });
+
 });
 
 

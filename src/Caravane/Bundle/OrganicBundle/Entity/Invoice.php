@@ -342,6 +342,7 @@ class Invoice
      * @var \Client
      *
      * @ORM\OneTomany(targetEntity="Product2invoice",mappedBy="invoiceid")
+     * @ORM\OrderBy({"rank"="asc"})
      */
 
     private $products;

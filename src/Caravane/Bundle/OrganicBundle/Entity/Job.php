@@ -344,6 +344,7 @@ class Job
      * @var \Client
      *
      * @ORM\OneToMany(targetEntity="Product2job",mappedBy="jobid")
+     * @ORM\OrderBy({"rank"="asc"})
      */
 
     private $products;

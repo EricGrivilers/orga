@@ -57,6 +57,10 @@ offre_slice_remove_product:
     requirements: { _method: post }
     options:
         expose: true
+offre_sort_products:
+    pattern: /{id}/sort_products
+    defaults: {_controller: "CaravaneOrganicBundle:Offre:sortProducts" }
+    requirements: { _method: post }
 
 offre_resolve:
     pattern:  /resolve

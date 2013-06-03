@@ -295,7 +295,7 @@
 </div>
     <div class="row-fluid">
 
-        <table class="table table-bordered table-condensed table-striped">
+        <table class="table table-bordered table-condensed table-striped table-sortable">
             <thead>
                 <tr>
                     <th>
@@ -307,7 +307,7 @@
                     <th class="tiny"></th>
                 </tr>
             </thead>
-            <tbody class="products" id="products"  data-prototype="{{('
+            <tbody class="products" data-update="{{path('job_sort_products',{'id':entity.id})}}" id="products"  data-prototype="{{('
                         <td class="span9">'~form_widget(edit_form.products.vars.prototype.description)~' '~form_widget(edit_form.products.vars.prototype.datas)~'</td>
                         <td class="span3">'~form_widget(edit_form.products.vars.prototype.price)~'</td>
                         <td><a class="delete_new_row" ><i class="icon icon-trash"></i></a></td>
@@ -317,7 +317,7 @@
 
 
 
-                    <tr data-productid="{{c}}" >
+                    <tr data-productid="{{c}}" data-entity="{{product.vars.value.id}}" >
                         <td class="span9">
                             {{form_widget(product.description)}}
                             {% if product.vars.value.tentid %}

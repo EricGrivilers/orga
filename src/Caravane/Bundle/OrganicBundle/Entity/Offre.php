@@ -343,6 +343,7 @@ class Offre
      * @var \Products
      *
      * @ORM\OneToMany(targetEntity="Product2offre",mappedBy="offreid")
+     * @ORM\OrderBy({"rank"="asc"})
      */
 
     private $products;

@@ -16,6 +16,11 @@ invoice_new_from_job:
     pattern:  /newfromjob/{id}
     defaults: { _controller: "CaravaneOrganicBundle:Invoice:newFromJob" }
 
+invoice_sort_products:
+    pattern: /{id}/sort_products
+    defaults: {_controller: "CaravaneOrganicBundle:Invoice:sortProducts" }
+    requirements: { _method: post }
+
 
 invoice_new:
     pattern:  /new

@@ -458,4 +458,28 @@ class OffreController extends Controller
 
     }
 
+
+    public function sortProductsAction(Request $request,$id) {
+
+        
+        $em=$this->getDoctrine()->getManager();
+        if(!$entity=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id)) {
+            return new Response("error");
+        }
+
+        $list=$request->request->get('list');
+        $rank=1;
+        foreach($list as $productId) {
+            $product=$em->getRepository('CaravaneOrganicBundle:Product2offre')->find($productId);
+            $product->setRank($rank);
+            $rank++;
+            $em->persist($product);
+        }
+        $em->flush();
+        return new Response("ok");
+
+
+
+    }
+
 }

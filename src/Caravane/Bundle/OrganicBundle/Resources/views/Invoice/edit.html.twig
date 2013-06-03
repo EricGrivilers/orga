@@ -204,7 +204,7 @@
 
     <div class="row-fluid">
 
-        <table class="table table-bordered table-condensed table-striped">
+        <table class="table table-bordered table-condensed table-striped table-sortable">
             <thead>
                 <tr>
                     <th>
@@ -216,7 +216,7 @@
                     <th class="tiny"></th>
                 </tr>
             </thead>
-            <tbody id="products" class="products" data-prototype="{{('
+            <tbody id="products" class="products" data-update="{{path('invoice_sort_products',{'id':entity.id})}}" data-prototype="{{('
                         <td class="span9">'~form_widget(edit_form.products.vars.prototype.description)~'</td>
                         <td class="span3">'~form_widget(edit_form.products.vars.prototype.price)~'</td>
                         <td><a class="delete_new_row" ><i class="icon icon-trash"></i></a></td>
@@ -224,7 +224,7 @@
 
                 {% for product in edit_form.products %}
 
-                    <tr>
+                    <tr  data-entity="{{product.vars.value.id}}"  >
                         <td class="span9">
                             {{form_widget(product.description)}}
                         </td>

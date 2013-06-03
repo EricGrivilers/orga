@@ -411,4 +411,28 @@ class JobController extends Controller
 
     }
 
+
+    public function sortProductsAction(Request $request,$id) {
+
+        
+        $em=$this->getDoctrine()->getManager();
+        if(!$entity=$em->getRepository('CaravaneOrganicBundle:Job')->find($id)) {
+            return new Response("error");
+        }
+
+        $list=$request->request->get('list');
+        $rank=1;
+        foreach($list as $productId) {
+            $product=$em->getRepository('CaravaneOrganicBundle:Product2job')->find($productId);
+            $product->setRank($rank);
+            $rank++;
+            $em->persist($product);
+        }
+        $em->flush();
+        return new Response("ok");
+
+
+
+    }
+
 }
