@@ -54,6 +54,16 @@ class InvoiceType extends AbstractType
             ->add('pricetype','choice',array(
                 'choices'=>array('intra'=>"Intracomm.",'htva'=>"TVA (21%)")
             ))
+
+            ->add('discount')
+            ->add('discountDescription',"text",array(
+                "attr"=>array(
+                    /*"class"=>"span12",
+                    "style"=>"text-align:right",*/
+                    "placeholder"=>"Discount"
+                )
+            ))
+
          //   ->add('creditnote')
             ->add('comments','ckeditor')
             ->add('conditions','ckeditor')

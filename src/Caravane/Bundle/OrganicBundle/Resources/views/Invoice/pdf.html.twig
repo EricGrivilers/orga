@@ -65,6 +65,22 @@
                 {{total|number_format(2,',',' ')}}  &euro;
 			</td>
 		</tr>
+		{% if entity.discount %}
+		<tr>
+			<td class='right'>{% if entity.discountDescription %} {{entity.discountDescription}} {% else %} <b>{{"Discount"|trans}}</b>{% endif %}</td>
+			<td class='right' ><b>- 
+				{{entity.discount}}%</b>
+			</td>
+		</tr>
+		<tr>
+			<td class='right'>{{"Total VAT excl."|trans}}</td>
+			<td class='right' >
+				{% set total=total-(total*(entity.discount/100)) %}
+				 {{total|number_format(2,',',' ')}}  &euro;
+			</td>
+		</tr>
+
+		{% endif %}
 		<tr>
 			<td class='right' >{% if entity.pricetype!='intra'%} {{"VAT"|trans}} (21%){% endif %}</td>
 			<td class='right' > {% if entity.pricetype!='intra'%} {{(0.21*total)|number_format(2,'.',' ')}}  &euro; {% endif %}</td>

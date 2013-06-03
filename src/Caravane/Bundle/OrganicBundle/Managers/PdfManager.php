@@ -17,7 +17,7 @@ class PdfManager
 
     public function createPdf($entity,$template,$file,$_locale,$force=false) {
         
-        if(!file_exists($file['path']."/".$file['filename']) || $force==true) {
+        if(!file_exists($file['path']."/".$file['filename']) || !$entity->getReference() || $force==true) {
             $content=$this->templateEngine->render($template,array("entity"=>$entity,"_locale"=>$_locale,"dir"=>__DIR__."/../../../../.."));
             $html2pdf = $this->html2pdf->get();
             $html2pdf->writeHTML($content);

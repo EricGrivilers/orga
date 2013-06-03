@@ -56,6 +56,7 @@ class InvoiceManager
     }
 
     public function persist() {
+
         $invoice=$this->invoice;
         $invoice=$this->fillClient();
        
@@ -65,6 +66,10 @@ class InvoiceManager
             $product->setInvoiceid($invoice);
             $priceHt+=$product->getPrice();
             $this->em->persist($product);
+        }
+        if($invoice->getDiscount()>0) {
+            $priceHt=$priceHt-($priceHt*$invoice->getDiscount()/100);
+            //$invoice->setPriceht($priceHt);
         }
         if($invoice->getJobid()) {
             if($invoice->getPriceht()==0 && $invoice->getSlice()>0) {

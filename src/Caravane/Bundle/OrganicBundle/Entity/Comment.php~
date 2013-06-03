@@ -49,7 +49,7 @@ class Comment
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdOn", type="datetime")
+     * @ORM\Column(name="createdOn", type="datetime",nullable=true)
      */
     private $createdOn;
 
@@ -118,10 +118,12 @@ class Comment
      * @param \DateTime $createdOn
      * @return Comment
      */
-    public function setCreatedOn($createdOn)
+    public function setCreatedOn($createdOn=null)
     {
-        $this->createdOn = $createdOn;
-
+        if(is_null($createdOn)) {
+            $createdOn = new \Datetime('now');
+        }
+         $this->createdOn = $createdOn;
         return $this;
     }
 
@@ -132,6 +134,7 @@ class Comment
      */
     public function getCreatedOn()
     {
+         
         return $this->createdOn;
     }
 

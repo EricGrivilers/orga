@@ -34,8 +34,9 @@
              {#<div class="dropdown pull-right">
                     <a class="dropdown-toggle" id="drop_1" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>#}
                     
-
+                {% if entity.id %}
             <a class="pull-right btn" href="{{path('invoice_pdf',{'id':entity.id,'force':true,'_locale':'all','type':'inv'})}}"><img src="/images/icons/pdf.png"> Rebuild pdf</a>
+            {% endif %}
 
         </div>
     </div>
@@ -64,7 +65,7 @@
                 {{ form_row(edit_form.paymentdate)}}
             </div>
             <div class="span3">
-
+                {% if entity.id %}
 
                     <div class="btn-group">
                       <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="drop_1">Invoice
@@ -130,6 +131,8 @@
                             </ul>
                         </div>
                     {% endif %}
+
+                {% endif %}
 
             </div>
         </div>
@@ -254,10 +257,39 @@
                             {% for p in entity.products %}
                                 {% set total=total + p.price %}
                             {% endfor %}
+
                             {{total|number_format(2,',',' ')}}
                         </th>
                         <th class="tiny"></th>
                 </tr>
+
+                {# discount #}
+                    <tr class="grey">
+                        <th class="right">
+                            
+                            {{form_widget(edit_form.discountDescription)}}
+                        </th>
+                        <th>
+                            - {{form_widget(edit_form.discount)}}%
+                        </th>
+                        <th class="tiny"></th>
+                    </tr>
+                    {% if entity.discount>0 %}
+                         <tr>
+                            <th class="right">
+                                Total VAT excl.
+                            </th>
+                            <th>
+                                {% set total=total-(total*(entity.discount/100)) %}
+                                
+
+                                {{total|number_format(2,',',' ')}}
+                            </th>
+                            <th class="tiny"></th>
+                    </tr>
+                    {% endif %}
+
+                {# // discount #}
 
 
                     <tr>
@@ -369,6 +401,7 @@
         {% set ToPay = entity.priceHT %}
         {% if entity.pricetype!='intra'%}
             {% set ToPay = entity.priceHT+(entity.priceHT*0.21) %}
+           
         {% endif %}
        <h4 style="text-align:center">Total amount to pay {{ToPay|number_format(2,',',' ')}} &euro; {% if entity.pricetype!='intra'%}VAT incl.{% endif %}</h4>
     </div>

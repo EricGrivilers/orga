@@ -102,11 +102,27 @@ class Invoice
     private $priceht;
 
     /**
-     * @var string
+     * @var float
      *
      * @ORM\Column(name="priceType", type="string", length=10, nullable=true)
      */
     private $pricetype;
+
+
+    /**
+    * @var number
+    *
+    * @ORM\Column(name="discount", type="decimal", nullable=true)
+    */
+    private $discount;
+
+
+    /**
+    * @var text
+    *
+    * @ORM\Column(name="discountDescription", type="text", nullable=true)
+    */
+    private $discountDescription;
 
     /**
      * @var string
@@ -1346,4 +1362,50 @@ class Invoice
 
 
 
+
+    /**
+     * Set discount
+     *
+     * @param float $discount
+     * @return Invoice
+     */
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
+
+        return $this;
+    }
+
+    /**
+     * Get discount
+     *
+     * @return float 
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
+
+    /**
+     * Set discountDescription
+     *
+     * @param string $discountDescription
+     * @return Invoice
+     */
+    public function setDiscountDescription($discountDescription)
+    {
+        $this->discountDescription = $discountDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get discountDescription
+     *
+     * @return string 
+     */
+    public function getDiscountDescription()
+    {
+        return $this->discountDescription;
+    }
 }

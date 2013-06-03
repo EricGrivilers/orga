@@ -102,6 +102,7 @@ class InvoiceController extends Controller
         $statusChoices=array('draft'=>"Draft");
         $entity = new Invoice();
 
+        $entity->setDiscountDescription('Discount');
         $form   = $this->createForm(new InvoiceType($statusChoices), $entity,array(
             'em' => $em,
         ));
