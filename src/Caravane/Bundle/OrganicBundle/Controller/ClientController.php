@@ -252,7 +252,7 @@ class ClientController extends Controller
             $datas['zip']=$client->getZip();
             $datas['city']=$client->getCity();
             $datas['country']=$client->getCountry();
-            
+
             return new Response(json_encode($datas));
         }
         return new Response('ok');

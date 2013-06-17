@@ -67,6 +67,7 @@ $(document).ready(function() {
     initProduct();
     initOffre();
     initSlice();
+    initSearch();
     $('select.status').change(function() {
         $(this).closest('form').submit();
     });
@@ -366,4 +367,32 @@ function initOffre() {
         })
     });
 
+}
+
+
+
+
+
+function initSearch() {
+
+    $('#searchField').keyup(function() {
+        query=$(this).val();
+        url=Routing.generate('search',{'query':query});
+        if(query.length<=2) {
+            resetSearch();
+        }
+        else {
+            if($('#searchSuggestion').size()<1) {
+                $(this).parent(). append('<div id="searchSuggestion"></div>');
+             }
+            $.get(url,function(data) {
+                $('#searchSuggestion').html(data);
+            })
+        }
+    });
+}
+
+
+function resetSearch() {
+    $('#searchSuggestion').remove();
 }

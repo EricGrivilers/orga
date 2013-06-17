@@ -45,7 +45,7 @@ class JobRepository extends EntityRepository
 
 
 	public function findAllBetweenDates(\Datetime $startDate=null,\Datetime $endDate=null) {
-		
+
 		$em=$this->getEntityManager();
 
 		$dql="SELECT J FROM CaravaneOrganicBundle:Job J ";
@@ -53,10 +53,40 @@ class JobRepository extends EntityRepository
 		$dql.=" AND (J.startbuild BETWEEN '".$startDate->format('Y-m-d H:i:s')."' AND '".$endDate->format('Y-m-d H:i:s')."') ";
 		$dql.=" OR (J.endbuild BETWEEN '".$startDate->format('Y-m-d H:i:s')."' AND '".$endDate->format('Y-m-d H:i:s')."') ";
 		$dql.=" OR (J.startbuild <= '".$startDate->format('Y-m-d H:i:s')."' AND J.endbuild >= '".$endDate->format('Y-m-d H:i:s')."') ";
-		
+
 		$query = $this->getEntityManager()->createQuery($dql);
 		$jobs=$query->getResult();
 		return $jobs;
+	}
+
+
+
+	public function autocomplete($keyword,$controller,$type=null) {
+
+		$query = $this->getEntityManager()->createQuery("
+			SELECT C FROM CaravaneOrganicBundle:Job C
+			WHERE LOWER(C.reference) LIKE ?1
+			ORDER BY C.reference"
+		);
+		$query->setParameter(1,  '%'.strtolower($keyword).'%');
+
+		$result=$query->getResult();
+		$invoices=array();
+		foreach($result as $invoice) {
+			if($invoice->getClientId()) {
+				$name=$invoice->getClientid()->getname();
+			}
+			$invoices[]="<li class='job'><a href=\"".$controller->generateUrl('job_edit',array('id'=>$invoice->getId()))."\" >".$invoice->getReference()." (".$name.")</a></li>";
+		}
+		switch($type) {
+			default:
+				return $invoices;
+			break;
+			case 'json':
+				return json_encode($invoices);
+			break;
+		}
+
 	}
 }
 

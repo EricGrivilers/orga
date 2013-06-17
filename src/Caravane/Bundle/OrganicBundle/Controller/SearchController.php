@@ -28,4 +28,22 @@ echo count($contacts);
 return array();
 	}
 
+
+  public function searchAction($query) {
+    $result='';
+      $em=$this->getDoctrine()->getManager();
+      $query=strtolower($query);
+      $clients=$em->getRepository('CaravaneOrganicBundle:Client')->autocomplete($query,$this);
+      $invoices=$em->getRepository('CaravaneOrganicBundle:Invoice')->autocomplete($query,$this);
+       $jobs=$em->getRepository('CaravaneOrganicBundle:Job')->autocomplete($query,$this);
+       $offres=$em->getRepository('CaravaneOrganicBundle:Offre')->autocomplete($query,$this);
+
+       $result.=implode('',$clients);
+       $result.=implode('',$invoices);
+       $result.=implode('',$jobs);
+       $result.=implode('',$offres);
+
+         return new Response("<ul>".$result."</ul>");
+  }
+
 }

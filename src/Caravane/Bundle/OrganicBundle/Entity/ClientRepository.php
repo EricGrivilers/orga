@@ -29,7 +29,7 @@ class ClientRepository extends EntityRepository
 					$dql.=" AND C.clienttype='".$type."' ";
 				break;
 			}
-			
+
 		}
 		if($ob) {
 			$dql.=" ORDER BY C.".$ob." ";
@@ -46,25 +46,41 @@ class ClientRepository extends EntityRepository
 		return $entities;
 	}
 
-	public function autocomplete($keyword,$type="json") {
+	public function autocomplete($keyword,$controller,$type=null) {
 
-		$query = $this->getEntityManager()->createQuery("SELECT C FROM CaravaneOrganicBundle:Client C WHERE C.name LIKE ?1 OR C.firstname LIKE ?1 OR C.lastname LIKE ?1 ORDER BY C.name,C.lastname,C.firstname");
+		$query = $this->getEntityManager()->createQuery("
+			SELECT C FROM CaravaneOrganicBundle:Client C
+			WHERE LOWER(C.name) LIKE ?1
+			OR LOWER(C.firstname) LIKE ?1
+			OR LOWER(C.lastname) LIKE ?1
+			OR LOWER(C.vat) LIKE ?1
+			ORDER BY C.name,C.lastname,C.firstname"
+		);
 		$query->setParameter(1,  '%'.strtolower($keyword).'%');
-			
+
 		$result=$query->getResult();
 		$clients=array();
 		foreach($result as $client) {
 			if(!$name=$client->getName()) {
 				$name=$client->getFirstname()." ".$client->getLastname();
 			}
-			$clients[]=array('value'=>$client->getId(),"label"=>$name);
+			if($client->getvat()) {
+				$name.=" (".$client->getVat().")";
+			}
+			//$clients[]=array('type'=>'contact','value'=>$client->getId(),"label"=>$name);
+			$clients[]="<li class='client'><a href=\"".$controller->generateUrl('client_edit',array('id'=>$client->getId()))."\" >".$name."</a></li>";
 		}
 		switch($type) {
 			default:
+				return $clients;
+			break;
 			case 'json':
 				return json_encode($clients);
 			break;
 		}
-		
+
 	}
+
+
+
 }

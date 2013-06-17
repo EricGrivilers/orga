@@ -1,3 +1,6 @@
 search:
     pattern:  /search/{query}
-    defaults: { _controller: "CaravaneOrganicBundle:Search:index" }
+    defaults: { _controller: "CaravaneOrganicBundle:Search:search" }
+    requirements: { _method: get }
+    options:
+        expose: true

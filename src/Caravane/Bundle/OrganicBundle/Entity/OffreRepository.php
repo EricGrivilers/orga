@@ -15,7 +15,7 @@ class OffreRepository extends EntityRepository
 
 	public function listAll($type=null,$ob=null,$page=1,$offset=25) {
 		$dql = "SELECT O FROM CaravaneOrganicBundle:Offre O ";
-		
+
 		$dql.=" WHERE O.public=1 ";
 		if($type) {
 			switch($type) {
@@ -28,13 +28,13 @@ class OffreRepository extends EntityRepository
 				case 'running':
 					$dql.=" AND (O.status!='ok' OR O.status!='draft' OR O.status='') AND O.jobid IS NULL ";
 				break;
-				
 
-				
+
+
 			}
-			
+
 		}
-		
+
 		if($ob) {
 			$dql.=" ORDER BY O.".$ob." ";
 		}
@@ -52,7 +52,7 @@ class OffreRepository extends EntityRepository
 
 
 	public function findAllBetweenDates(\Datetime $startDate=null,\Datetime $endDate=null) {
-		
+
 		$em=$this->getEntityManager();
 
 		$dql="SELECT O FROM CaravaneOrganicBundle:Offre O ";
@@ -60,11 +60,41 @@ class OffreRepository extends EntityRepository
 		$dql.=" AND O.startbuild BETWEEN '".$startDate->format('Y-m-d H:i:s')."' AND '".$endDate->format('Y-m-d H:i:s')."' ";
 		$dql.=" OR O.endbuild BETWEEN '".$startDate->format('Y-m-d H:i:s')."' AND '".$endDate->format('Y-m-d H:i:s')."' ";
 		$dql.=" OR O.startbuild <= '".$startDate->format('Y-m-d H:i:s')."' AND O.endbuild >= '".$endDate->format('Y-m-d H:i:s')."' ";
-		
-		
+
+
 
 		$query = $this->getEntityManager()->createQuery($dql);
 		$offres=$query->getResult();
 		return $offres;
+	}
+
+
+
+	public function autocomplete($keyword,$controller,$type=null) {
+
+		$query = $this->getEntityManager()->createQuery("
+			SELECT C FROM CaravaneOrganicBundle:Offre C
+			WHERE LOWER(C.reference) LIKE ?1
+			ORDER BY C.reference"
+		);
+		$query->setParameter(1,  '%'.strtolower($keyword).'%');
+
+		$result=$query->getResult();
+		$invoices=array();
+		foreach($result as $invoice) {
+			if($invoice->getClientId()) {
+				$name=$invoice->getClientid()->getname();
+			}
+			$invoices[]="<li class='offre'><a href=\"".$controller->generateUrl('job_edit',array('id'=>$invoice->getId()))."\" >".$invoice->getReference()." (".$name.")</a></li>";
+		}
+		switch($type) {
+			default:
+				return $invoices;
+			break;
+			case 'json':
+				return json_encode($invoices);
+			break;
+		}
+
 	}
 }
