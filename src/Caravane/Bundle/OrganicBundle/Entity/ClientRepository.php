@@ -68,7 +68,7 @@ class ClientRepository extends EntityRepository
 				$name.=" (".$client->getVat().")";
 			}
 			//$clients[]=array('type'=>'contact','value'=>$client->getId(),"label"=>$name);
-			$clients[]="<li class='client'><a href=\"".$controller->generateUrl('client_edit',array('id'=>$client->getId()))."\" >".$name."</a></li>";
+			$clients[]="<li class='client'>cli <a href=\"".$controller->generateUrl('client_edit',array('id'=>$client->getId()))."\" >".$name."</a></li>";
 		}
 		switch($type) {
 			default:

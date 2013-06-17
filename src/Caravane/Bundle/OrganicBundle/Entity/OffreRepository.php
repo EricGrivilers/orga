@@ -85,7 +85,7 @@ class OffreRepository extends EntityRepository
 			if($invoice->getClientId()) {
 				$name=$invoice->getClientid()->getname();
 			}
-			$invoices[]="<li class='offre'><a href=\"".$controller->generateUrl('job_edit',array('id'=>$invoice->getId()))."\" >".$invoice->getReference()." (".$name.")</a></li>";
+			$invoices[]="<li class='offre'>off <a href=\"".$controller->generateUrl('job_edit',array('id'=>$invoice->getId()))."\" >".$invoice->getReference()." (".$name.")</a></li>";
 		}
 		switch($type) {
 			default:

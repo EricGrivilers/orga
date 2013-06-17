@@ -99,7 +99,7 @@ class InvoiceRepository extends EntityRepository
 			if(!$name=$invoice->getName()) {
 				$name=$invoice->getFirstname()." ".$invoice->getLastname();
 			}
-			$invoices[]="<li class='invoice'><a href=\"".$controller->generateUrl('invoice_edit',array('id'=>$invoice->getId()))."\" >".$invoice->getReference()." (".$name.")</a></li>";
+			$invoices[]="<li class='invoice'>inv <a href=\"".$controller->generateUrl('invoice_edit',array('id'=>$invoice->getId()))."\" >".$invoice->getReference()." (".$name.")</a></li>";
 		}
 		switch($type) {
 			default:

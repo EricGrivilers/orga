@@ -76,7 +76,7 @@ class JobRepository extends EntityRepository
 			if($invoice->getClientId()) {
 				$name=$invoice->getClientid()->getname();
 			}
-			$invoices[]="<li class='job'><a href=\"".$controller->generateUrl('job_edit',array('id'=>$invoice->getId()))."\" >".$invoice->getReference()." (".$name.")</a></li>";
+			$invoices[]="<li class='job'>job <a href=\"".$controller->generateUrl('job_edit',array('id'=>$invoice->getId()))."\" >".$invoice->getReference()." (".$name.")</a></li>";
 		}
 		switch($type) {
 			default:
