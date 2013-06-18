@@ -107,11 +107,13 @@ class InvoiceController extends Controller
             'em' => $em,
         ));
 
+        $conditions=$em->getRepository('CaravaneOrganicBundle:Condition')->findAll();
+
         return $this->render('CaravaneOrganicBundle:Invoice:new.html.twig', array(
             'entity' => $entity,
             'edit_form'   => $form->createView(),
             'customErrors'=>$this->customErrors,
-            'conditions'=>$em->getRepository('CaravaneOrganicBundle:Invoice')->getConditions()
+            'conditions'=>$conditions
         ));
     }
 
@@ -265,12 +267,13 @@ class InvoiceController extends Controller
         ));
         $deleteForm = $this->createDeleteForm($id);
 
+        $conditions=$em->getRepository('CaravaneOrganicBundle:Condition')->findAll();
         return $this->render('CaravaneOrganicBundle:Invoice:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'customErrors'=>$this->customErrors,
-            'conditions'=>$em->getRepository('CaravaneOrganicBundle:Invoice')->getConditions()
+            'conditions'=>$conditions
         ));
     }
 
