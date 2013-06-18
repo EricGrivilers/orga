@@ -356,6 +356,15 @@ class Offre
 
     private $products;
 
+
+     /**
+     * @var \SLices
+     *
+     * @ORM\ManyToMany(targetEntity="Condition")
+     */
+    private $condition;
+
+
      /**
      * @var \SLices
      *
@@ -1679,10 +1688,43 @@ class Offre
     /**
      * Get transport2offre
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTransport2offre()
     {
         return $this->transport2offre;
+    }
+
+    /**
+     * Add condition
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Condition $condition
+     * @return Offre
+     */
+    public function addCondition(\Caravane\Bundle\OrganicBundle\Entity\Condition $condition)
+    {
+        $this->condition[] = $condition;
+
+        return $this;
+    }
+
+    /**
+     * Remove condition
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Condition $condition
+     */
+    public function removeCondition(\Caravane\Bundle\OrganicBundle\Entity\Condition $condition)
+    {
+        $this->condition->removeElement($condition);
+    }
+
+    /**
+     * Get condition
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCondition()
+    {
+        return $this->condition;
     }
 }

@@ -356,6 +356,15 @@ class Offre
 
     private $products;
 
+
+     /**
+     * @var \SLices
+     *
+     * @ORM\ManyToMany(targetEntity="Condition")
+     */
+    private $condition;
+
+
      /**
      * @var \SLices
      *
@@ -1679,7 +1688,7 @@ class Offre
     /**
      * Get transport2offre
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTransport2offre()
     {

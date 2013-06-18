@@ -79,7 +79,7 @@ class Invoice
      */
     private $insertdate;
 
-    
+
     /**
      * @var \DateTime
      *
@@ -346,6 +346,15 @@ class Invoice
      */
 
     private $products;
+
+
+    /**
+     * @var \SLices
+     *
+     * @ORM\ManyToMany(targetEntity="Condition")
+     */
+    private $condition;
+
 
     public function __toString() {
         if($this->reference) {
@@ -1279,7 +1288,7 @@ class Invoice
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add products
      *
@@ -1289,7 +1298,7 @@ class Invoice
     public function addProduct(\Caravane\Bundle\OrganicBundle\Entity\Product2invoice $products)
     {
         $this->products[] = $products;
-    
+
         return $this;
     }
 
@@ -1306,14 +1315,14 @@ class Invoice
     /**
      * Get products
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProducts()
     {
         return $this->products;
     }
 
-   
+
 
     /**
      * Set sliceid
@@ -1324,14 +1333,14 @@ class Invoice
     public function setSliceid(\Caravane\Bundle\OrganicBundle\Entity\Slice2job $sliceid = null)
     {
         $this->sliceid = $sliceid;
-    
+
         return $this;
     }
 
     /**
      * Get sliceid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Slice2job 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Slice2job
      */
     public function getSliceid()
     {
@@ -1347,14 +1356,14 @@ class Invoice
     public function setSliceDescription($sliceDescription)
     {
         $this->sliceDescription = $sliceDescription;
-    
+
         return $this;
     }
 
     /**
      * Get sliceDescription
      *
-     * @return string 
+     * @return string
      */
     public function getSliceDescription()
     {
@@ -1380,7 +1389,7 @@ class Invoice
     /**
      * Get discount
      *
-     * @return float 
+     * @return float
      */
     public function getDiscount()
     {
@@ -1403,10 +1412,43 @@ class Invoice
     /**
      * Get discountDescription
      *
-     * @return string 
+     * @return string
      */
     public function getDiscountDescription()
     {
         return $this->discountDescription;
+    }
+
+    /**
+     * Add condition
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Condition $condition
+     * @return Invoice
+     */
+    public function addCondition(\Caravane\Bundle\OrganicBundle\Entity\Condition $condition)
+    {
+        $this->condition[] = $condition;
+
+        return $this;
+    }
+
+    /**
+     * Remove condition
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Condition $condition
+     */
+    public function removeCondition(\Caravane\Bundle\OrganicBundle\Entity\Condition $condition)
+    {
+        $this->condition->removeElement($condition);
+    }
+
+    /**
+     * Get condition
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCondition()
+    {
+        return $this->condition;
     }
 }
