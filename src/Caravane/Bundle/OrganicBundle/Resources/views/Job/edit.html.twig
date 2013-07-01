@@ -20,6 +20,7 @@
         </div>
     {% endfor %}
 {% endif %}
+
 <div class="row-fluid">
     <div class="actions">
             <button type="submit" class="btn btn-inverse">Save</button>
@@ -27,403 +28,51 @@
                     Back to the list
             </a>
 
-            <div class="btn-group pull-right">
-                      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="drop_1">
-                        <img src="/images/icons/pdf.png">
-                        <span class="caret"></span>
-                      </a>
-                    <ul  class="dropdown-menu" role="menu" aria-labelledby="drop_1">
-                        {% for lg in ['en','fr','nl'] %}
-                            <li role="presentation">
-                                <a role="menuitem" href="{{path('job_pdf',{'id':entity.id,'_locale':lg})}}" target="_blank" ><img src="/images/icons/pdf.png"> Offre {{lg}}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-        </div>
-    </div>
-    <div class="well">
-        <div class="row-fluid">
-            <div class="span4">
-                <div>
-                    <label>Reference</label> <label><b>{{entity.reference}}</b></label>
-                </div>
-                <div>
-                    <label>Date</label> <label><b>{{entity.insertDate|date('d/m/Y')}}</b></label>
-                </div>
-
-            </div>
-            <div class="span4">
-                <label>Type</label><label><b>{{entity.offretype}}</b></label>
-                {% if entity.offreid %}<label>Related quote</label><label><b><a href="{{path('offre_edit',{'id':entity.offreid.id})}}"> {{entity.offreid}}</a> </b></label>{% endif %}
-
-            </div>
-            <div class="span4">
-                <div class="symfony-form-row " style='text-align:right'>
-                    <a class='btn btn-inverse '>Cancel this job</a>
-                </div>
-
-
-
-                {{ form_row(edit_form.userid)}}
-
-            </div>
-        </div>
-    </div>
-    <div class="well">
-        <div class="row-fluid">
-                {{ form_row(edit_form.eventdate)}}
+                    <div class="btn-group pull-right">
+                              <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="drop_1">
+                                <img src="/images/icons/pdf.png">
+                                <span class="caret"></span>
+                              </a>
+                            <ul  class="dropdown-menu" role="menu" aria-labelledby="drop_1">
+                                {% for lg in ['en','fr','nl'] %}
+                                    <li role="presentation">
+                                        <a role="menuitem" href="{{path('job_pdf',{'id':entity.id,'_locale':lg})}}" target="_blank" ><img src="/images/icons/pdf.png"> Offre {{lg}}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                    </div>
         </div>
     </div>
 
-    <div class="well">
-        <div class="row-fluid">
-            {% set ToPay = entity.price %}
-            {% if entity.pricetype!='intra'%}
-                {% set ToPay = entity.price+(entity.price*0.21) %}
-            {% endif %}
-            <div class="span6">
-                <h4 style="text-align:center">Total amount {{ToPay|number_format(2,',',' ')}} {% if entity.pricetype!='intra'%}VAT incl.{% endif %}</h4>
-                {% if entity.pricetype!='intra'%}<div style="text-align:center">{{entity.price|number_format(2,',',' ')}} VAT excl.</div>{% endif %}
-            </div>
-             <div class="span6">
-                {{ form_row(edit_form.pricecomments)}}
-            </div>
-        </div>
-    </div>
-
-    <h4>Client</h4>
-    <div class="well">
-        <div class="row-fluid" >
-            <div class="span4">
-                {{form_row(edit_form.clientid.clienttype)}}
-            </div>
-             <div class="span4">
-                &nbsp;
-            </div>
-             <div class="span4">
-                {{form_row(edit_form.clientid.language)}}
-            </div>
-         </div>
-        <div class="row-fluid" id="cieonly" {% if entity.clientid.clienttype!='cie' %} style='display:none' {% endif %}>
-            <div class="span4">
-                {{form_row(edit_form.clientid.name)}}
-
-            </div>
-             <div class="span4">
-                {{form_row(edit_form.clientid.vat)}}
-
-            </div>
-             <div class="span4">
-                {{form_row(edit_form.clientid.cietype)}}
-
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span4">
-                {{form_row(edit_form.clientid.clienttitle)}}
-            </div>
-             <div class="span4">
-                {{form_row(edit_form.clientid.lastname)}}
-            </div>
-             <div class="span4">
-                {{form_row(edit_form.clientid.firstname)}}
-
-            </div>
-        </div>
-    </div>
-
-     <div class="well">
-        <div class="row-fluid">
-            <div class="span4">
-                {{form_row(edit_form.clientid.address)}}
-                {{form_row(edit_form.clientid.city)}}
-                {{form_row(edit_form.clientid.country)}}
-                {{form_row(edit_form.clientid.url)}}
-            </div>
-             <div class="span4">
-                {{form_row(edit_form.clientid.number)}}
-                {{form_row(edit_form.clientid.zip)}}
-            </div>
-             <div class="span4">
-                {{form_row(edit_form.clientid.email)}}
-                {{form_row(edit_form.clientid.mobile)}}
-                {{form_row(edit_form.clientid.phone)}}
-                {{form_row(edit_form.clientid.phone2)}}
-                {{form_row(edit_form.clientid.fax)}}
-
-            </div>
-        </div>
-    </div>
-    <div class="row-fluid">
-        <div class="actions">
-            <button type="submit" class="btn btn-inverse">Save</button>
-            <a href="{{ path('job') }}" class="btn">
-                    Back to the list
-            </a>
-        </div>
-    </div>
-     <h4>Job</h4>
-      <div class="well">
-        <div class="row-fluid">
-            <div class="span4">
-                {{form_row(edit_form.address)}}
-                 {{form_row(edit_form.number)}}
-                {{form_row(edit_form.city)}}
-                {{form_row(edit_form.zip)}}
-                {{form_row(edit_form.country)}}
-                {{form_row(edit_form.url)}}
 
 
-            </div>
-            <div class="span4">
-                {{form_row(edit_form.email)}}
-                {{form_row(edit_form.mobile)}}
-                {{form_row(edit_form.phone)}}
-                {{form_row(edit_form.phone2)}}
-                {{form_row(edit_form.fax)}}
-
-            </div>
-             <div class="span4">
-
-                {{form_row(edit_form.offrecomments)}}
-            </div>
-
-        </div>
-    </div>
-    <h4>Planning</h4>
-    <div class="well">
-        <div class="row-fluid">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>#
-                        </th>
-                        <th>From
-                        </th>
-                        <th>To
-                        </th>
-                        <th>
-                        </th>
-                        <th>In charge
-                        </th>
-                        <th>Status
-                        </th>
-                    </tr>
-                </thead>
-                <tbody >
-                    {% set planning=edit_form.plannings[0] %}
-                    <tr class='widget'>
-                        <td><label><b>{{planning.vars.value.planningtype}}</b></label>{{form_widget(planning.planningtype)}}</td>
-                        <td>{{form_widget(planning.startdate)}}</td>
-                        <td>{{form_widget(planning.enddate)}}</td>
-                        <td><div class="reportrange" >
-                            <i class="icon-calendar icon-large"></i>
-                            <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i:s')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
-                        </div></td>
-                        <td>{{form_widget(planning.userid)}}</td>
-                        <td>{{form_widget(planning.etat)}}</td>
-                    </tr>
-                    {% set planning=edit_form.plannings[1] %}
-                    <tr class='widget'>
-                        <td><label><b>{{planning.vars.value.planningtype}}</b></label>{{form_widget(planning.planningtype)}}</td>
-                        <td>{{form_widget(planning.startdate)}}</td>
-                        <td>{{form_widget(planning.enddate)}}</td>
-                        <td><div class="reportrange" >
-                            <i class="icon-calendar icon-large"></i>
-                            <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i:s')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
-                        </div></td>
-                        <td>{{form_widget(planning.userid)}}</td>
-                        <td>{{form_widget(planning.etat)}}</td>
-                    </tr>
-                    <tr><td colspan="6">{{form_row(edit_form.buildnotes)}}</td></tr>
-                    {% set planning=edit_form.plannings[2] %}
-                    <tr class='widget'>
-                        <td><label><b>{{planning.vars.value.planningtype}}</b></label>{{form_widget(planning.planningtype)}}</td>
-                        <td>{{form_widget(planning.startdate)}}</td>
-                        <td>{{form_widget(planning.enddate)}}</td>
-                        <td><div class="reportrange" >
-                            <i class="icon-calendar icon-large"></i>
-                            <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i:s')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
-                        </div></td>
-                        <td>{{form_widget(planning.userid)}}</td>
-                        <td>{{form_widget(planning.etat)}}</td>
-                    </tr>
-                    {% set planning=edit_form.plannings[3] %}
-                    <tr class='widget'>
-                        <td><label><b>{{planning.vars.value.planningtype}}</b></label>{{form_widget(planning.planningtype)}}</td>
-                        <td>{{form_widget(planning.startdate)}}</td>
-                        <td>{{form_widget(planning.enddate)}}</td>
-                        <td><div class="reportrange" >
-                            <i class="icon-calendar icon-large"></i>
-                            <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i:s')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
-                        </div></td>
-                        <td>{{form_widget(planning.userid)}}</td>
-                        <td>{{form_widget(planning.etat)}}</td>
-                    </tr>
-                    <tr><td colspan="6">{{form_row(edit_form.unbuildnotes)}}</td></tr>
-                {#% for planning in edit_form.plannings %}
-                    <tr class='widget'>
-                        <td><label><b>{{planning.vars.value.planningtype}}</b></label>{{form_widget(planning.planningtype)}}</td>
-                        <td>{{form_widget(planning.startdate)}}</td>
-                        <td>{{form_widget(planning.enddate)}}</td>
-                        <td><div class="reportrange" >
-                            <i class="icon-calendar icon-large"></i>
-                            <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i:s')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
-                        </div></td>
-                        <td>{{form_widget(planning.userid)}}</td>
-                        <td>{{form_widget(planning.etat)}}</td>
-                    </tr>
-                {% endfor %#}
-            </tbody>
-            </table>
-        </div>
-         {{form_row(edit_form.planningcomments)}}
-    </div>
-    <div class="row-fluid">
-        <div class="actions">
-            <button type="submit" class="btn btn-inverse">Save</button>
-            <a href="{{ path('job') }}" class="btn">
-                    Back to the list
-            </a>
-        </div>
-    </div>
-
- <h4>Products</h4>
-   <div class="row-fluid">
-     {{form_row(edit_form.surface)}}
+<div>
+    <ul class="nav nav-tabs">
+         <li class="active"><a href="#tab_summary" data-toggle="tab">Summary</a></li>
+        <li><a href="#tab_client" data-toggle="tab">Client</a></li>
+        <li><a href="#tab_job" data-toggle="tab">Job</a></li>
+        <li><a href="#tab_planning" data-toggle="tab">Planning</a></li>
+        <li><a href="#tab_products" data-toggle="tab">Products</a></li>
+        <li><a href="#tab_conditions" data-toggle="tab">Conditions</a></li>
+        <li><a href="#tab_documents" data-toggle="tab">Documents</a></li>
+        <li><a href="#tab_comments" data-toggle="tab">Comments</a></li>
+    </ul>
 </div>
-    <div class="row-fluid">
-
-        <table class="table table-bordered table-condensed table-striped table-sortable">
-            <thead>
-                <tr>
-                    <th>
-                        Product
-                    </th>
-                    <th>
-                        Price in &euro; VAT excl.
-                    </th>
-                    <th class="tiny"></th>
-                </tr>
-            </thead>
-            <tbody class="products"  {% if entity.id %} data-update="{{path('job_sort_products',{'id':entity.id})}}" {% endif %} id="products"  data-prototype="{{('
-                        <td class="span9">'~form_widget(edit_form.products.vars.prototype.description)~' '~form_widget(edit_form.products.vars.prototype.datas)~'</td>
-                        <td class="span3">'~form_widget(edit_form.products.vars.prototype.price)~'</td>
-                        <td><a class="delete_new_row" ><i class="icon icon-trash"></i></a></td>
-                    ')|e}}">
-                    {% set c=0 %}
-                {% for product in edit_form.products  %}
+<div class="tab-content">
+      <div class="tab-pane active" id="tab_summary"> {% include "CaravaneOrganicBundle:Job:tabs/summary.html.twig" %}</div>
+      <div class="tab-pane" id="tab_client"> {% include "CaravaneOrganicBundle:Job:tabs/client.html.twig" %}</div>
+      <div class="tab-pane" id="tab_job">   {% include "CaravaneOrganicBundle:Job:tabs/job.html.twig" %}</div>
+      <div class="tab-pane" id="tab_planning"> {% include "CaravaneOrganicBundle:Job:tabs/planning.html.twig" %}</div>
+      <div class="tab-pane" id="tab_products">{% include "CaravaneOrganicBundle:Job:tabs/products.html.twig" %}</div>
+      <div class="tab-pane" id="tab_conditions">{% include "CaravaneOrganicBundle:Job:tabs/conditions.html.twig" %}</div>
+      <div class="tab-pane" id="tab_documents">{% include "CaravaneOrganicBundle:Job:tabs/documents.html.twig" %}</div>
+      <div class="tab-pane" id="tab_comments">{% include "CaravaneOrganicBundle:Job:tabs/comments.html.twig" %}</div>
+</div>
 
 
 
-                    <tr data-productid="{{c}}" data-entity="{{product.vars.value.id}}" >
-                        <td class="span9">
-                            {{form_widget(product.description)}}
-                            {% if product.vars.value.tentid %}
-
-                               {% if product.vars.value.tentid.productCategory=='Tent' %}
-                                <div class='row-fluid' class="additionalDatasRow" style="background:#ccc">
-                                    <div class="span4">
-                                         Reference:  <b>{{product.vars.value.tentid.reference}}</b>
-                                         <br/>Name:  <b>{{product.vars.value.tentid.name}}</b>
-                                         <br/>Color:  <b>{{product.vars.value.tentid.color}}</b>
-                                         {% if product.vars.value.tentid.ownerid %}
-                                            <br/>Owner <b>{{product.vars.value.tentid.ownerid.name}}</b>
-                                        {% endif %}
-                                        <br/>Width: <b>{{product.vars.value.tentid.width}}</b> m x length: <b>{{product.vars.value.tentid.length}}</b> m ( <b>{{product.vars.value.tentid.m2}}</b> m2)
-
-                                    </div>
-                                    {% if product.vars.value.datasAsObject %}
-                                        <div class="span4">
-
-                                            Floor <input class="additionalData" type='checkbox' data-attribute="plancher" value='1' {% if product.vars.value.datasAsObject.plancher %} checked="checked"  {% endif %} />
-                                              area <input data-attribute="surfaceplancher"  type='text' value="{{product.vars.value.datasAsObject.surfaceplancher}}" class="span10 additionalData"  />
-                                       <br/>
-                                            Ground<br/> <input class="additionalData" data-attribute="sol" type='text' value="{{product.vars.value.datasAsObject.sol}}" class="span10"  />
-                                        <br/>
-                                            Pipeline  <input class="additionalData" data-attribute="canalisation" type='checkbox'  value='1' {% if product.vars.value.datasAsObject.canalisation %} checked="checked"  {% endif %} />
-                                        </div>
-                                        <div class="span4">
-                                            Other<br/> <textarea data-attribute="other" class="span12 additionalData">{{product.vars.value.datasAsObject.other}}</textarea>
-                                        </div>
-                                    {% endif %}
-                                </div>
 
 
-                               {% endif %}
-                            {% endif %}
-                            {{form_widget(product.datas)}}
-                        </td>
-                        <td class="span3">
-                            {{form_widget(product.price)}}
-                        </td>
-                        <td><a class="delete_row" data-rel="{{entity.id}}" data-type="job" data-target="{{product.vars.value.id}}"><i class="icon icon-trash"></i></a></td>
-                    </tr>
-
-                    {% set c=c+1 %}
-                {% endfor %}
-
-
-            </tbody>
-             <tfoot>
-                <tr>
-                        <th class="right">
-
-                            <a id="add_product_link" class="add_product_link btn" data-isoption='0'>Add free row</a>
-                            <a href="#transportModal" class="btn openTransportModal" data-isoption='0'>Add transport row</a>
-                            <a   class="btn openStockModal"  data-isoption='0'>Add from stock</a>
-                        </th>
-                        <th>
-
-                        </th>
-                        <th class="tiny"></th>
-                </tr>
-                    <tr>
-                        <th class="right">
-                            Total VAT excl.
-                        </th>
-                        <th>
-                            {% set total=0 %}
-                            {% for p in entity.products %}
-
-                                    {% set total=total + p.price %}
-
-                            {% endfor %}
-                            {{total|number_format(2,',',' ')}}
-                        </th>
-                        <th class="tiny"></th>
-                </tr>
-
-
-                    <tr>
-                        <th class="right">
-                             {{form_widget(edit_form.pricetype)}}
-                        </th>
-                        <th>
-                            {% if entity.pricetype!='intra'%} {{(0.21*total)|number_format(2,',',' ')}} {% endif %}
-                        </th>
-                        <th class="tiny"></th>
-                    </tr>
-                    <tr>
-                        <th class="right">
-                            Total {% if entity.pricetype!='intra'%} VAT incl. {% endif %}
-                        </th>
-                        <th>
-                            {% if entity.pricetype=='intra'%}
-                                {{total|number_format(2,'.',' ')}}
-                            {% else %}
-                                {{(total+0.21*total)|number_format(2,'.',' ')}}
-                            {% endif %}
-                        </th>
-                        <th></th>
-                    </tr>
-
-            </tfoot>
-        </table>
-    </div>
-     <div class="row-fluid">
-          {{form_row(edit_form.tentscomments)}}
     </div>
     <div class="row-fluid">
         <div class="actions">
@@ -433,132 +82,11 @@
             </a>
         </div>
     </div>
-    <h4>Conditions</h4>
-    <div class="row-fluid">
 
-         <table class="table table-bordered table-condensed table-striped">
-                    <thead>
-                        <tr>
-                            <th class="span9">Description</th>
-                            <th class="span1">Slice</th>
-
-                            <th class='span1'>Amount in &euro;</th>
-                            <th class='tiny'>Invoice</th>
-                            <th class='tiny'></th>
-                        </tr>
-                    </thead>
-                    <tbody class="slices" data-prototype="{{('
-                        <td class="span9">'~form_widget(edit_form.slices.vars.prototype.comments)~'</td>
-                        <td class="span1">'~form_widget(edit_form.slices.vars.prototype.slice)~'</td>
-                        <td class="span1">'~form_widget(edit_form.slices.vars.prototype.priceht)~'</td>
-                        <td class="span1"></td>
-                        <td><a class="delete_new_row" ><i class="icon icon-trash"></i></a></td>
-                    ')|e}}">
-
-                        {% for slice in edit_form.slices %}
-                        <tr {% if slice.vars.value.slice>100 or slice.vars.value.slice<=0 %} class="error" {% endif %} >
-                            <td>{{form_widget(slice.comments)}}</td>
-                            <td>{{form_widget(slice.slice)}}%</td>
-
-                            <td>{{form_widget(slice.priceht)}}<br/>
-                             </td>
-                            {% if slice.vars.value.invoiceid %}
-                             <td>
-                                <a class="red" href="{{path('invoice_edit',{'id':slice.vars.value.invoiceid.id})}}">{% if slice.vars.value.invoiceid.reference %}{{slice.vars.value.invoiceid.reference}} {% else %} draft {% endif %} </a>
-                            </td>
-                            <td></td>
-                             {% else %}
-                             <td>
-                                <a href="{{path('invoice_new_from_job',{'id':slice.vars.value.id})}}" class="btn btn-inverse"><i class="icon icon-plus"></i> Invoice</a>
-                            </td>
-                            <td>
-                                <a class="delete_row" data-rel="{{entity.id}}" data-type="job_slice" data-target="{{slice.vars.value.id}}"><i class="icon icon-trash"></i></a>
-                            </td>
-                            {% endif %}
-                        </tr>
-                        {% endfor %}
-
-                    </tbody>
-                     <tfoot>
-                <tr {% if entity.totalSlice!=100 or entity.totalSlicePriceht!=entity.price %} class="error" {% endif %}>
-                        <th class="right">
-
-                            <a id="add_slice_link" class="add_slice_link btn">Add row</a>
-                        </th>
-                        <th>
-                            {{entity.totalSlice}}%
-                        </th>
-                        <th>
-                            {{entity.totalSlicePriceht}}&euro;
-                        </th>
-                        <th class="tiny"></th>
-                        <th class='iiny'></th>
-                </tr>
-            </tfoot>
-                </table>
-    </div>
-     <div class="row-fluid">
-          {{form_row(edit_form.conditions)}}
-    </div>
-
-    <h4>Comments</h4>
-    <div class="row-fluid">
-
-        {% include "CaravaneOrganicBundle:Comment:embeded.edit.html.twig"  %}
-        {#{form_row(edit_form.comment)}#}
-    </div>
-
-
-    <div class="row-fluid">
-        <h4>Documents</h4>
-        <table class="table table-condensed table-bordered">
-                <thead>
-                    <tr>
-                        <th class="tiny"></th>
-                        <th class="tiny">Filename</th>
-                        <th class="tiny">Title</th>
-                        <th>Description</th>
-                        <th class="tiny" ></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for document in edit_form.document %}
-                        <tr>
-                            <td>
-                                <a href="{{asset(document.vars.value.path~'/'~document.vars.value.filename)}}" target="_blank"><img src="{{asset(document.vars.value.path~'/'~document.vars.value.filename)}}"  style="max-width:120px; maw-height:120px"></a>
-                            </td>
-                            <td>
-                               <a href="{{asset(document.vars.value.path~'/'~document.vars.value.filename)}}" target="_blank"> {{document.vars.value.filename}}</a>
-                            </td>
-                             <td>
-                                {{ form_widget(document.title)}}
-                            </td>
-                            <td>
-                                {{ form_widget(document.description)}}
-                            </td>
-                            <td>
-                                <a class="delete_document" data-rel="{{entity.id}}" data-type="job" data-target="{{document.vars.value.id}}"><i class="icon icon-trash"></i></a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-            </tbody>
-        </table>
-        {{ form_row(edit_form.files) }}
-    </div>
 
          <div style="display:none">
-        {{ form_widget(edit_form) }}
-    </div>
-
-
-     <div class="row-fluid">
-        <div class="actions">
-            <button type="submit" class="btn btn-inverse">Save</button>
-            <a href="{{ path('job') }}" class="btn">
-                    Back to the list
-            </a>
+            {{ form_widget(edit_form) }}
         </div>
-    </div>
 </form>
 </div>
 <div id="stockModal" data-target="{{entity.id}}" class="modal hide fade largeModal" tabindex="-1" role="dialog" aria-labelledby="stockModalLabel" aria-hidden="true">
