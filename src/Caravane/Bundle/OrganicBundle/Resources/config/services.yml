@@ -7,6 +7,10 @@ parameters:
     caravane_organic.listener.class: Caravane\Bundle\OrganicBundle\Listeners\EntitiesStatusUpdater
 
 services:
+    caravane.twig.caravane_extension:
+        class: Caravane\Bundle\OrganicBundle\Twig\CaravaneExtension
+        tags:
+            - { name: twig.extension }
     caravane_organic.client_manager:
         class: %caravane_organic.client.class%
         arguments: [client,em]
