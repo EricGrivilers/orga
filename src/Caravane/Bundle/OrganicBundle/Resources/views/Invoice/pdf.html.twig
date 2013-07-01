@@ -68,7 +68,7 @@
 		{% if entity.discount %}
 		<tr>
 			<td class='right'>{% if entity.discountDescription %} {{entity.discountDescription}} {% else %} <b>{{"Discount"|trans}}</b>{% endif %}</td>
-			<td class='right' ><b>- 
+			<td class='right' ><b>-
 				{{entity.discount}}%</b>
 			</td>
 		</tr>
@@ -126,10 +126,10 @@
     </tbody>
  </table>
 <br/>
-<br/>	
+<br/>
 
 <table class="main">
-	
+
 	<tr>
 		<td class="center 1col" style="width:178mm;border: 0.5mm solid #333;padding:2mm">
 			{% set ToPay = entity.priceHT %}
@@ -143,7 +143,7 @@
 <br/>
 <br/>
 <b><u>{{"Conditions"|trans}}</u></b><br/>
-{{entity.conditions}}
+{{entity.conditions|raw}}
 {% if entity.conditions1 %}
 	<br/>{{"Conditions de paiement"|trans}}: {{"comptant."|trans}}
 	<br/>{{"Communication à mentionner"|trans}}: <b>{{"Facture"|trans}} {{entity.reference}}</b>

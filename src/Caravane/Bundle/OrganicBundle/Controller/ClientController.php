@@ -222,7 +222,7 @@ class ClientController extends Controller
     public function autocompleteAction() {
         $keyword=$this->get('request')->query->get('query');
         $em = $this->getDoctrine()->getManager();
-        $clients = $em->getRepository('CaravaneOrganicBundle:Client')->autocomplete($keyword,'json');
+        $clients = $em->getRepository('CaravaneOrganicBundle:Client')->autocomplete($keyword,$this,'json');
         return new Response($clients);
 
     }

@@ -73,6 +73,7 @@ $(document).ready(function() {
     });
 
     $('#conditionChoices td').click(function() {
+        CKEDITOR.instances['caravane_bundle_organicbundle_invoicetype_conditions'].setData($(this).html())
         //$(this).closest('.row-fluid').find("#cke_1_contents").html($(this).html());
     });
 

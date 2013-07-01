@@ -412,10 +412,10 @@
             <div class="span6">
                 {{form_row(edit_form.conditions)}}
             </div>
-            <div class="span6">
+            <div class="span6 dash">
                 <table id="conditionChoices" class="table-striped table table-condensed table-bordered">
                     {% for condition in conditions %}
-                        <tr ><td>{{condition.conditions}}</td></tr>>
+                        <tr ><td>{{condition.conditions|raw}}</td></tr>
                     {% endfor %}
                 </table>
             </div>
