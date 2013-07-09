@@ -13,35 +13,36 @@ class InvoiceManager
     {
         $this->em=$em;
     	$this->invoice = $invoice;
-        
+
     }
-    
+
 
     public function fillClient() {
 
-       
+
         $invoice=$this->invoice;
 
-        $client=$invoice->getClientid();
-        
-      
-        $invoice->setCietype($client->getCietype());
-        $invoice->setClienttype($client->getClienttype());
+        if($client=$invoice->getClientid()) {
 
-        $invoice->setClienttitle($client->getClienttitle());
-        $invoice->setName($client->getName());
-        $invoice->setLastname($client->getLastname());
-        $invoice->setFirstname($client->getFirstname());
 
-        $invoice->setVat($client->getVat());
+            $invoice->setCietype($client->getCietype());
+            $invoice->setClienttype($client->getClienttype());
 
-        $invoice->setAddress($client->getAddress());
-        $invoice->setNumber($client->getNumber());
-        $invoice->setZip($client->getZip());
-        $invoice->setCity($client->getCity());
-        $invoice->setCountry($client->getCountry());
+            $invoice->setClienttitle($client->getClienttitle());
+            $invoice->setName($client->getName());
+            $invoice->setLastname($client->getLastname());
+            $invoice->setFirstname($client->getFirstname());
 
-        $invoice->setLanguage($client->getLanguage());
+            $invoice->setVat($client->getVat());
+
+            $invoice->setAddress($client->getAddress());
+            $invoice->setNumber($client->getNumber());
+            $invoice->setZip($client->getZip());
+            $invoice->setCity($client->getCity());
+            $invoice->setCountry($client->getCountry());
+
+            $invoice->setLanguage($client->getLanguage());
+        }
 /*
         if(!$invoice->getId()) {
             $this->em->persist($invoice);
@@ -59,7 +60,7 @@ class InvoiceManager
 
         $invoice=$this->invoice;
         $invoice=$this->fillClient();
-       
+
 
         $priceHt=0;
         foreach($invoice->getProducts() as $product) {
@@ -92,22 +93,22 @@ class InvoiceManager
 
     public function setReference() {
 
-       
+
         $invoice=$this->invoice;
         $reference=$this->em->getRepository('CaravaneOrganicBundle:Invoice')->getNewReference($invoice->getYear());
-        $invoice->setReference($reference); 
+        $invoice->setReference($reference);
 
         return $invoice->getReference();
     }
 
     public function setPaymentdate() {
 
-       
+
         $invoice=$this->invoice;
         if(is_null($invoice->getPaymentdate())) {
             $invoice->setPaymentDate(new \Datetime('now'));
         }
-        
+
 
         return $invoice->getPaymentdate();
     }

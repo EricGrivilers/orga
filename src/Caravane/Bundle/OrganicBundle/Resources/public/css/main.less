@@ -245,6 +245,7 @@ ul.offset {
 
 
 #searchSuggestion {
+	z-index:199999;
 	position:absolute;
 	width:300px;
 	border:1px solid #ccc;
@@ -256,9 +257,10 @@ ul.offset {
 	right:0;
 	ul,li {
 		margin:0;
-		padding:0;
+		padding:0 2px;
 		font-size:10px;
 		color:#333;
+		border-bottom:1px solid #ededed;
 		a {
 			padding:2px 5px;
 			font-size:12px;
@@ -291,4 +293,14 @@ ul.offset {
   border-radius: @radius 0 0 @radius;
     padding-left:@radius;
   border-right:0;
+}
+
+.dash {
+	height:300px;
+	overflow:hidden;
+	overflow-y:scroll;
+}
+
+#conditionChoices td {
+	cursor:pointer;
 }

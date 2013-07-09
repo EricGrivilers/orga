@@ -412,38 +412,12 @@
             <div class="span6">
                 {{form_row(edit_form.conditions)}}
             </div>
-            <div class="span6">
-                <div id="conditionChoices">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#conditions_nl" data-toggle="tab">nl</a></li>
-                        <li><a href="#conditions_fr" data-toggle="tab">fr</a></li>
-                        <li><a href="#conditions_en" data-toggle="tab">en</a></li>
-                    </ul>
-
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="conditions_nl">
-                            <table  class="table-striped table table-condensed table-bordered">
-                                {% for condition in conditions %}
-                                    <tr ><td class='tiny'><input type="checkbox" name="condition[]" value="{{condition.id}}" /></td><td>{{condition.nl|nl2br}}</td></tr>
-                                {% endfor %}
-                            </table>
-                        </div>
-                        <div class="tab-pane" id="conditions_fr">
-                            <table  class="table-striped table table-condensed table-bordered">
-                                {% for condition in conditions %}
-                                    <tr ><td class='tiny'><input type="checkbox" name="condition[]" value="{{condition.id}}" /></td><td>{{condition.fr|nl2br}}</td></tr>
-                                {% endfor %}
-                            </table>
-                        </div>
-                        <div class="tab-pane" id="conditions_en">
-                            <table  class="table-striped table table-condensed table-bordered">
-                                {% for condition in conditions %}
-                                    <tr ><td class='tiny'><input type="checkbox" name="condition[]" value="{{condition.id}}" /></td><td>{{condition.en|nl2br}}</td></tr>
-                                {% endfor %}
-                            </table>
-                        </div>
-                    </div>
-                </div>
+            <div class="span6 dash">
+                <table id="conditionChoices" class="table-striped table table-condensed table-bordered">
+                    {% for condition in conditions %}
+                        <tr ><td>{{condition.conditions|raw}}</td></tr>
+                    {% endfor %}
+                </table>
             </div>
         </div>
 

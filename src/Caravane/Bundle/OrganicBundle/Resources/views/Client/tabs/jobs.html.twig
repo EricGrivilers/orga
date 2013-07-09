@@ -1,0 +1,22 @@
+ <table class="table table-condensed table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Reference</th>
+                    <th>Price VAT Exc.</th>
+                    <th>Build</th>
+                    <th>Take off</th>
+                    <th>Offre</th>
+                    <th>Invoice</th>
+                </tr>
+            </thead>
+            {% for job in entity.jobs %}
+            <tr>
+                <td><a href="{{path('job_edit',{'id':job.id})}}">{{job.reference}}</a></td>
+                <td>{{job.price|number_format(2,',',' ')}}</td>
+                <td>{{job.startBuild|date}}</td>
+                <td>{{job.endBuild|date}}</td>
+                <td>{{job.offreid}}</td>
+                <td>{% for invoice in job.invoiceid %}<a href="{{path('invoice_edit',{'id':invoice.id} )}}">{{invoice.reference}}</a>{% endfor %}</td>
+            </tr>
+            {% endfor %}
+        </table>
