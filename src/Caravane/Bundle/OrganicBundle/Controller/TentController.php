@@ -107,8 +107,10 @@ class TentController extends Controller
     {
         $owner=new Client();
         $etats=$this->getEtats();
+        $categories=$this->getCategories();
+
         $entity = new Tent();
-        $form   = $this->createForm(new TentType($etats), $entity,array(
+        $form   = $this->createForm(new TentType($etats,$categories), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
 
@@ -125,8 +127,9 @@ class TentController extends Controller
     public function createAction(Request $request)
     {
         $etats=$this->getEtats();
+        $categories=$this->getCategories();
         $entity  = new Tent();
-        $form = $this->createForm(new TentType($etats), $entity,array(
+        $form = $this->createForm(new TentType($etats,$categories), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
         $form->bind($request);
@@ -161,6 +164,7 @@ class TentController extends Controller
     public function editAction($id)
     {
         $etats=$this->getEtats();
+        $categories=$this->getCategories();
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CaravaneOrganicBundle:Tent')->find($id);
@@ -169,7 +173,7 @@ class TentController extends Controller
             throw $this->createNotFoundException('Unable to find Tent entity.');
         }
 
-        $editForm = $this->createForm(new TentType($etats), $entity,array(
+        $editForm = $this->createForm(new TentType($etats,$categories), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
         $deleteForm = $this->createDeleteForm($id);
@@ -188,6 +192,7 @@ class TentController extends Controller
     public function updateAction(Request $request, $id)
     {
         $etats=$this->getEtats();
+        $categories=$this->getCategories();
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CaravaneOrganicBundle:Tent')->find($id);
@@ -197,7 +202,7 @@ class TentController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new TentType($etats), $entity,array(
+        $editForm = $this->createForm(new TentType($etats,$categories), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
         $editForm->bind($request);
@@ -257,6 +262,12 @@ class TentController extends Controller
         $em = $this->getDoctrine()->getManager();
         $etats=$em->getRepository('CaravaneOrganicBundle:Tent')->getEtats();
         return $etats;
+    }
+
+    private function getCategories() {
+        $em = $this->getDoctrine()->getManager();
+        $categories=$em->getRepository('CaravaneOrganicBundle:Tent')->getCategories();
+        return $categories;
     }
 
     private function createDeleteForm($id)

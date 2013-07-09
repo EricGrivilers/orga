@@ -13,9 +13,11 @@ class TentType extends AbstractType
 {
 
     private $etats=array();
+    private $categories=array("1"=>"bbb");
 
-    public function __construct($etats) {
+    public function __construct($etats,$categories) {
         $this->etats=$etats;
+        $this->categories=$categories;
 
     }
 
@@ -107,7 +109,14 @@ class TentType extends AbstractType
             //->add('updatedate')
            // ->add('public')
             ->add('winteroffreid')
-            ->add('productCategory')
+            ->add('productCategory','CaravaneUIFueluxComboBox',array(
+                'data_class'=>'Caravane\Bundle\OrganicBundle\Entity\ProductCategory',
+                "label"=>"Category",
+                "attr"=>array(
+                    'class'=>"span12",
+                    'choices'=>$this->categories
+                )
+            ))
           //  ->add('ownerid')
 
             ->add('files','filesupload',array(
