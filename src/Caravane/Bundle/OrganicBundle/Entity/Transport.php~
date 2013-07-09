@@ -34,6 +34,13 @@ class Transport
      */
     private $cost;
 
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="distance", type="decimal", length=50, nullable=true, scale=2 )
+     */
+    private $distance;
+
      /**
      * @var string
      *
