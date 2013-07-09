@@ -51,6 +51,7 @@
         <tr>
             <td>{{ entity.zip }}</td>
              <td><a href="{{ path('transport_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+            <td>{{ entity.distance }}</td>
             <td>{{ entity.cost }}</td>
               <td>
                 <a href="{{ path('transport_edit', { 'id': entity.id }) }}"><i class="icon icon-edit"></i></a>
