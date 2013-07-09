@@ -1,6 +1,8 @@
 transport:
     pattern:  /
     defaults: { _controller: "CaravaneOrganicBundle:Transport:index" }
+    options: 
+        expose: true
 
 transport_show:
     pattern:  /{id}/show
