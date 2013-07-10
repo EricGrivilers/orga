@@ -265,6 +265,7 @@ class InvoiceController extends Controller
         ));
         $deleteForm = $this->createDeleteForm($id);
 
+/**/
         return $this->render('CaravaneOrganicBundle:Invoice:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),

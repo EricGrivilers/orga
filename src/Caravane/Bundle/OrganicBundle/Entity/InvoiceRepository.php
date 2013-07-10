@@ -76,6 +76,7 @@ class InvoiceRepository extends EntityRepository
 		$query = $this->getEntityManager()->createQuery($dql);
 		return $query->getResult();
 
+/**/
 	}
 
 
