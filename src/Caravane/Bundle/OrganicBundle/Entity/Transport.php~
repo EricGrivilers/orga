@@ -128,4 +128,27 @@ class Transport
     {
         return $this->zip;
     }
+
+    /**
+     * Set distance
+     *
+     * @param float $distance
+     * @return Transport
+     */
+    public function setDistance($distance)
+    {
+        $this->distance = $distance;
+
+        return $this;
+    }
+
+    /**
+     * Get distance
+     *
+     * @return float 
+     */
+    public function getDistance()
+    {
+        return $this->distance;
+    }
 }

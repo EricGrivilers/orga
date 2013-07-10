@@ -3,6 +3,7 @@ Reference: Référence
 Facture de sell: Facture de vente
 Facture de rent: Facture de location
 Facture de winter: Facture d'hivernage 
+Client: Client
 Facture: Facture
 VAT: TVA
 
@@ -31,6 +32,7 @@ Mise en demeure: MISE EN DEMEURE
 
 FACTURE: FACTURE
 DATE: DATE
+ADRESSE: ADRESSE
 MONTANT: MONTANT
 MONTANT TVAC: MONTANT TVAC
 ECHEANCE: ECHEANCE
@@ -81,9 +83,12 @@ _JobConfirmOut:  Organic SA confirme avoir récupéré les materiaux ci-dessus e
 
 BON DE LIVRAISON: BON DE LIVRAISON
 BON DE COLLECTION: BON DE COLLECTION
+BON POUR ACCORD: BON POUR ACCORD
+REMARQUES: REMARQUES
 
 LIVRAISON: LIVRAISON
 COLLECTE: COLLECTE
+
 
 NOM ET SIGNATURE DU VENDEUR: NOM ET SIGNATURE DU VENDEUR
 NOM ET SIGNATURE DE L'ACHETEUR: NOM ET SIGNATURE DE L'ACHETEUR

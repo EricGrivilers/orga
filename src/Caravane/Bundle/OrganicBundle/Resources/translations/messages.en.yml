@@ -5,6 +5,7 @@ Facture de rent: Leasing invoice
 Facture de winter: Storage invoice
 Facture: Invoice
 VAT: VAT
+Client: Client
 
 _More conditions: General conditions appropiate the sales or rental of our products as mentioned in the annex of this invoice.
 
@@ -29,6 +30,7 @@ Mise en demeure: NOTICE
 
 FACTURE: INVOICE
 DATE: DATE
+ADRESSE: ADDRESS
 MONTANT: AMOUNT
 MONTANT TVAC: AMOUNT VAT incl.
 ECHEANCE: DUE DATE
@@ -80,6 +82,8 @@ _JobConfirmOut:  Organic SA confirme avoir récupéré les materiaux ci-dessus e
 
 BON DE LIVRAISON: DELIVERY
 BON DE COLLECTION: PICKUP
+BON POUR ACCORD: SIGNED AND AGREED
+REMARQUES: NOTES
 
 LIVRAISON: DELIVERY
 COLLECTE: PICKUP

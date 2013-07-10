@@ -415,7 +415,7 @@
             <div class="span6 dash">
                 <table id="conditionChoices" class="table-striped table table-condensed table-bordered">
                     {% for condition in conditions %}
-                        <tr ><td>{{condition.conditions|raw}}</td></tr>
+                        <tr ><td>{{condition|raw}}</td></tr>
                     {% endfor %}
                 </table>
             </div>

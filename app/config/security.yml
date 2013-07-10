@@ -31,11 +31,15 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/dashboard, role: ROLE_USER }
-        - { path: ^/quote, role: ROLE_USER }
+        - { path: ^/offer, role: ROLE_USER }
         - { path: ^/job, role: ROLE_USER }
         - { path: ^/invoice, role: ROLE_USER }
+        - { path: ^/planning, role: ROLE_USER }
+        - { path: ^/stock, role: ROLE_USER }
+        - { path: ^/transport, role: ROLE_USER }
         - { path: ^/client, role: ROLE_USER }
         - { path: ^/user, role: ROLE_USER }
-        - { path: ^/stock, role: ROLE_USER }
-        - { path: ^/agenda, role: ROLE_USER }
+
+
+        
 
