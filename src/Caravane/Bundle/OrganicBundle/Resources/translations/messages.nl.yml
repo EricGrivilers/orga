@@ -5,6 +5,7 @@ Facture de rent: Verhuur factuur
 Facture de winter: Storage invoice
 Facture: Factuur
 VAT: BTW
+Client: Klant
 
 _More conditions: Algemene voorwaarden die geldig zijn voor de aankoop of huur van onze produkten zoals vermeld bij de annex van deze factuur.
 
@@ -30,6 +31,7 @@ Mise en demeure: INGEBREKESTELLING
 
 FACTURE: FACTUUR
 DATE: DATUM
+ADRESSE: ADRES
 MONTANT: BEDRAG
 MONTANT TVAC: BEDRAG BTW INCL
 ECHEANCE: VERVALT DATUM
@@ -81,6 +83,8 @@ _JobConfirmOut:  Organic NV bevestigt de hierboven vermelde goederen in goede st
 
 BON DE LIVRAISON: LEVERINGSBON
 BON DE COLLECTION: AFHAALBON
+BON POUR ACCORD: VOOR AKKOORD
+REMARQUES: NOTE
 
 LIVRAISON: LEVERINGS
 COLLECTE: AFHAAL

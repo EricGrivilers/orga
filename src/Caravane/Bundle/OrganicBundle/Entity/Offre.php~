@@ -1694,4 +1694,37 @@ class Offre
     {
         return $this->transport2offre;
     }
+
+    /**
+     * Add condition
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Condition $condition
+     * @return Offre
+     */
+    public function addCondition(\Caravane\Bundle\OrganicBundle\Entity\Condition $condition)
+    {
+        $this->condition[] = $condition;
+
+        return $this;
+    }
+
+    /**
+     * Remove condition
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Condition $condition
+     */
+    public function removeCondition(\Caravane\Bundle\OrganicBundle\Entity\Condition $condition)
+    {
+        $this->condition->removeElement($condition);
+    }
+
+    /**
+     * Get condition
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCondition()
+    {
+        return $this->condition;
+    }
 }

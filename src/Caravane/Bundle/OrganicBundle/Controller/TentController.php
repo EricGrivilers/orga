@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Caravane\Bundle\OrganicBundle\Entity\Client;
 use Caravane\Bundle\OrganicBundle\Entity\Tent;
+use Caravane\Bundle\OrganicBundle\Entity\ProductCategory;
 use Caravane\Bundle\OrganicBundle\Form\TentType;
 
 use Caravane\Bundle\OrganicBundle\Managers\DocumentManager;
@@ -107,13 +108,16 @@ class TentController extends Controller
     {
         $owner=new Client();
         $etats=$this->getEtats();
+        $categories=$this->getCategories();
+
         $entity = new Tent();
-        $form   = $this->createForm(new TentType($etats), $entity,array(
+        $form   = $this->createForm(new TentType($etats,$categories), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
 
         return $this->render('CaravaneOrganicBundle:Tent:new.html.twig', array(
             'entity' => $entity,
+            'categories'=>$categories,
             'edit_form'   => $form->createView(),
         ));
     }
@@ -124,17 +128,39 @@ class TentController extends Controller
      */
     public function createAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $etats=$this->getEtats();
+        $categories=$this->getCategories();
         $entity  = new Tent();
-        $form = $this->createForm(new TentType($etats), $entity,array(
+        $form = $this->createForm(new TentType($etats,$categories), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
+ 
+
+        $cName=$request->request->get('category');
+        
+        if(!$productCategory=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findOneByName($cName)) {
+            $productCategory=new ProductCategory();
+            $productCategory->setName($cName);
+            $em->persist($productCategory);
+            $em->flush();
+        }
+       
+
+        $t=$request->request->get('caravane_bundle_organicbundle_tenttype');
+        $t['productCategory']=$productCategory->getId();
+        $request->request->set('caravane_bundle_organicbundle_tenttype', $t);
+
+
+
         $form->bind($request);
         if(!$entity->getOwnerid()->getId()) {
             $entity->setOwnerid(null);
         }
+
+
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            
             $entity->setInsertdate(new \Datetime("now"));
             $entity->setUpdatedate(new \Datetime("now"));
             $em->persist($entity);
@@ -150,6 +176,7 @@ class TentController extends Controller
 
         return $this->render('CaravaneOrganicBundle:Tent:new.html.twig', array(
             'entity' => $entity,
+            'categories'=>$categories,
             'edit_form'   => $form->createView(),
         ));
     }
@@ -161,6 +188,7 @@ class TentController extends Controller
     public function editAction($id)
     {
         $etats=$this->getEtats();
+        $categories=$this->getCategories();
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CaravaneOrganicBundle:Tent')->find($id);
@@ -169,13 +197,14 @@ class TentController extends Controller
             throw $this->createNotFoundException('Unable to find Tent entity.');
         }
 
-        $editForm = $this->createForm(new TentType($etats), $entity,array(
+        $editForm = $this->createForm(new TentType($etats,$categories), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('CaravaneOrganicBundle:Tent:edit.html.twig', array(
             'entity'      => $entity,
+            'categories'=>$categories,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -188,6 +217,7 @@ class TentController extends Controller
     public function updateAction(Request $request, $id)
     {
         $etats=$this->getEtats();
+        $categories=$this->getCategories();
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CaravaneOrganicBundle:Tent')->find($id);
@@ -197,11 +227,29 @@ class TentController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new TentType($etats), $entity,array(
+        $editForm = $this->createForm(new TentType($etats,$categories), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
+
+
+        $cName=$request->request->get('category');
+        
+        if(!$productCategory=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findOneByName($cName)) {
+            $productCategory=new ProductCategory();
+            $productCategory->setName($cName);
+            $em->persist($productCategory);
+            $em->flush();
+        }
+
+        $t=$request->request->get('caravane_bundle_organicbundle_tenttype');
+        $t['productCategory']=$productCategory->getId();
+        $request->request->set('caravane_bundle_organicbundle_tenttype', $t);
+        
+      
         $editForm->bind($request);
 
+
+   
         if(!$entity->getOwnerid()->getId()) {
             $entity->setOwnerid(null);
         }
@@ -218,12 +266,12 @@ class TentController extends Controller
             $documentManager=new DocumentManager($entity,$em);
             $documentManager->moveAttachedDocument('/docs/products/'.$entity->getId());
 
-
             return $this->redirect($this->generateUrl('tent_edit', array('id' => $id)));
         }
 
         return $this->render('CaravaneOrganicBundle:Tent:edit.html.twig', array(
             'entity'      => $entity,
+            'categories'=>$categories,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -257,6 +305,12 @@ class TentController extends Controller
         $em = $this->getDoctrine()->getManager();
         $etats=$em->getRepository('CaravaneOrganicBundle:Tent')->getEtats();
         return $etats;
+    }
+
+    private function getCategories() {
+        $em = $this->getDoctrine()->getManager();
+        $categories=$em->getRepository('CaravaneOrganicBundle:Tent')->getCategories();
+        return $categories;
     }
 
     private function createDeleteForm($id)

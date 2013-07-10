@@ -183,5 +183,18 @@ class TentRepository extends EntityRepository
 		return $etats;
 	}
 
+	public function getCategories() {
+		$em=$this->getEntityManager();
+		$dql="SELECT P FROM CaravaneOrganicBundle:Productcategory P ";
+		$dql.=" GROUP BY P.name ORDER BY P.name";
+		$query = $this->getEntityManager()->createQuery($dql);
+		$result=$query->getResult();
+		$categories=array();
+		foreach($result as $category) {
+			$categories[$category->getId()]=$category->getName();
+		}
+		return $categories;
+	}
+
 	
 }

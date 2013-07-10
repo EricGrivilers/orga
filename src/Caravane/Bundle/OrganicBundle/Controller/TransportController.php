@@ -22,6 +22,34 @@ class TransportController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+
+
+        $request=$this->get('request');
+        
+        if(!$ob=$request->query->get('ob')) {
+            $ob='name asc';
+        }
+         if(!$page=$request->query->get('page')) {
+            $page=1;
+        }
+        if(!$offset=$request->query->get('offset')) {
+            $offset=25;
+        }
+
+        $entities=$em->getRepository('CaravaneOrganicBundle:Transport')->listAll($ob,$page,$offset);
+        $nbpages=(Integer)(count($entities)/$offset)+1;
+
+        return $this->render('CaravaneOrganicBundle:Transport:index.html.twig', array(
+            'entities' => $entities,
+            'type'=>null,
+            'ob'=>$ob,
+            'page'=>$page,
+            "nbpages"=>$nbpages,
+            'offset'=>$offset
+        ));
+
+
+
         $entities = $em->getRepository('CaravaneOrganicBundle:Transport')->findAll();
 
         return $this->render('CaravaneOrganicBundle:Transport:index.html.twig', array(

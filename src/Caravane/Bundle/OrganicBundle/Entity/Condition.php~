@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Condiftion
  *
- * @ORM\Table()
+ * @ORM\Table("Conditions")
  * @ORM\Entity(repositoryClass="Caravane\Bundle\OrganicBundle\Entity\ConditionRepository")
  */
 class Condition

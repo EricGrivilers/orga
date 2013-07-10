@@ -34,6 +34,13 @@ class Transport
      */
     private $cost;
 
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="distance", type="decimal", length=50, nullable=true, scale=2 )
+     */
+    private $distance;
+
      /**
      * @var string
      *
@@ -120,5 +127,28 @@ class Transport
     public function getZip()
     {
         return $this->zip;
+    }
+
+    /**
+     * Set distance
+     *
+     * @param float $distance
+     * @return Transport
+     */
+    public function setDistance($distance)
+    {
+        $this->distance = $distance;
+
+        return $this;
+    }
+
+    /**
+     * Get distance
+     *
+     * @return float 
+     */
+    public function getDistance()
+    {
+        return $this->distance;
     }
 }
