@@ -54,9 +54,10 @@ _R2: <p>Beste klant,</p><p>De saldo factuur n°%reference% is vandaag nog niet b
 _R3:   <p>Beste klant,</p><p>De saldo factuur n° %reference% van %date% is tot op heden nog niet betaald. Onze voorwaarden melden "contant te betalen bij levering".</p><p>Wij hebben tot op heden geen betalingsbewijs mogen ontvangen, en rekening houdende met onze voorwaarden zijn we genoodzaakt om 15% extra kosten aan te rekenen. </p>
 
 
-
+Montant total à payer: Totaal te betalen bedrag
 
 Offre: Offerte
+Options: Opties
 
 Offre de sell: Verkoop voorstel
 Offre de rent: Verhuurofferte
@@ -91,7 +92,7 @@ BON DE LIVRAISON: LEVERINGSBON
 BON DE COLLECTION: AFHAALBON
 BON POUR ACCORD: VOOR AKKOORD
 A RAPPELER LORS DE LA FACTURATION: TE ONDERTEKENEN DOOR KLANT BIJ OPHAAL
-REMARQUES: NOTE
+REMARQUES: OPMERKING
 
 
 

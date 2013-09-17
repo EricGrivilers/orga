@@ -1,5 +1,5 @@
 Reference: Reference
-
+Options
 Facture de sell: Sales invoice
 Facture de rent: Leasing invoice
 Facture de winter: Storage invoice
@@ -52,10 +52,12 @@ _R2: <p>Cher Client, </p><p>La facture n°%reference% n’est pas payée à ce j
 _R3: <p>Cher Client, </p><p>La facture n°%reference% n’est pas payée à ce jour, la date d’échéance étant datée au %date%.</p><p>N’ayant pas réceptionné le paiement de cette facture, nous sommes obligés de vous facturer des frais supplémentaires de 15 %. </p>
 
 
+Montant total à payer: Total amount to pay
 
 
 
 Offre: Offer
+Options: Options
 
 Offre de sell: Sales offer
 Offre de rent: Leasing offer
@@ -89,7 +91,7 @@ BON DE LIVRAISON: DELIVERY
 BON DE COLLECTION: PICKUP
 BON POUR ACCORD: SIGNED AND AGREED
 A RAPPELER LORS DE LA FACTURATION: TO RECALL FOR INVOICE
-REMARQUES: OPMERKING
+REMARQUES: NOTES
 
 LIVRAISON: DELIVERY
 COLLECTE: PICKUP
