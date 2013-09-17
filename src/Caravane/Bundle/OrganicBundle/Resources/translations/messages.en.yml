@@ -10,6 +10,8 @@ Client: Client
 _More conditions: General conditions appropiate the sales or rental of our products as mentioned in the annex of this invoice.
 
 Description: Description
+Quantité: Quantity
+Prix unitaire: Unit price
 Montant HTVA: Amount VAT excl.
 
 Total VAT excl.: Total VAT excl.
@@ -29,9 +31,11 @@ Le paiement de votre acompte confirme votre commande: The payment of your deposi
 Mise en demeure: NOTICE
 
 LIEU ET DATES: PLACE AND DATE
+MATERIEL: MATERIAL
 FACTURE: INVOICE
 DATE: DATE
 ADRESSE: ADDRESS
+HEURE: HOUR
 MONTANT: AMOUNT
 MONTANT TVAC: AMOUNT VAT incl.
 ECHEANCE: DUE DATE
@@ -84,10 +88,11 @@ _JobConfirmOut:  Organic SA confirme avoir récupéré les materiaux ci-dessus e
 BON DE LIVRAISON: DELIVERY
 BON DE COLLECTION: PICKUP
 BON POUR ACCORD: SIGNED AND AGREED
-REMARQUES: NOTES
+A RAPPELER LORS DE LA FACTURATION: TO RECALL FOR INVOICE
+REMARQUES: OPMERKING
 
 LIVRAISON: DELIVERY
 COLLECTE: PICKUP
 
-NOM ET SIGNATURE DU VENDEUR: NOM ET SIGNATURE DU VENDEUR
-NOM ET SIGNATURE DE L'ACHETEUR: NOM ET SIGNATURE DE L'ACHETEUR
+NOM ET SIGNATURE DU VENDEUR: ORGANIC ( NAME AND SIGNATURE ) 
+NOM ET SIGNATURE DE L'ACHETEUR: CLIENT (NAME AND SIGNATURE )
