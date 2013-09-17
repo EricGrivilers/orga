@@ -7,7 +7,7 @@ Facture: Factuur
 VAT: BTW
 Client: Klant
 
-_More conditions: Algemene voorwaarden die geldig zijn voor de aankoop of huur van onze produkten zoals vermeld bij de annex van deze factuur.
+_More conditions: Algemene voorwaarden die geldig zijn voor de aankoop of huur van onze producten zoals vermeld in de bijlage van deze factuur.
 
 Description: Beschrijving
 Montant HTVA: Bedrag excl BTW
@@ -19,23 +19,25 @@ VAT incl.:  incl BTW
 Conditions: Verkoopsvoorwaarden
 Coordonnées bancaires: Bankgegevens
 
+Compte n°: Rekeningnummer
 
 Conditions de paiement: Betalingsvoorwaarden
 comptant: contant
-Communication à mentionner: Communicatie
+Communication à mentionner: Onze referentie
 Le paiement de votre acompte confirme votre commande: De betaling van uw voorschot, bevestigt uw bestelling
 
-1er RAPPEL: 1 Betalingsherinnering
+1er RAPPEL: 1ste Betalingsherinnering
 2nd RAPPEL: 2 Betalingsherinnering
 Mise en demeure: INGEBREKESTELLING
 
+LIEU ET DATES: PLAATS EN DATUM
 FACTURE: FACTUUR
 DATE: DATUM
 ADRESSE: ADRES
 MONTANT: BEDRAG
-MONTANT TVAC: BEDRAG BTW INCL
-ECHEANCE: VERVALT DATUM
-CONDITIONS PAIEMENT: VOORWARDEN
+MONTANT TVAC: BEDRAG INCL BTW
+ECHEANCE: VERVAL DATUM
+CONDITIONS PAIEMENT: VOORWAARDEN
 COMPTANT: CONTANT
 TOTAL: TOTAAL
 
