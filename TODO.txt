@@ -5,6 +5,30 @@
 ##
 #######
 
+RENAME TABLE  `organic_intranet_v3`.`extra_addresses` TO  `organic_intranet_v3`.`address` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_chat` TO  `organic_intranet_v3`.`chat` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_clients` TO  `organic_intranet_v3`.`client` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_documents` TO  `organic_intranet_v3`.`document` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_invoices` TO  `organic_intranet_v3`.`invoice` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_jobs` TO  `organic_intranet_v3`.`job` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_offre` TO  `organic_intranet_v3`.`offre` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_planning` TO  `organic_intranet_v3`.`planning` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_planning2job` TO  `organic_intranet_v3`.`planning2job` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_planning2offre` TO  `organic_intranet_v3`.`planning2offre` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_planning_logs` TO  `organic_intranet_v3`.`planning_logs` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_product2invoice` TO  `organic_intranet_v3`.`product2invoice` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_product2job` TO  `organic_intranet_v3`.`product2job` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_product2offre` TO  `organic_intranet_v3`.`product2offre` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_slices` TO  `organic_intranet_v3`.`slice` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_slice2job` TO  `organic_intranet_v3`.`slice2job` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_slice2offre` TO  `organic_intranet_v3`.`slice2offre` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_tents` TO  `organic_intranet_v3`.`tent` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_tent2job` TO  `organic_intranet_v3`.`tent2job` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_tent2offre` TO  `organic_intranet_v3`.`tent2offre` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_tents_colors` TO  `organic_intranet_v3`.`tents_colors` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_users` TO  `organic_intranet_v3`.`user` ;
+
+
 
 
 ALTER TABLE  `address` ENGINE = INNODB;
@@ -31,29 +55,45 @@ ALTER TABLE  `tents_colors` ENGINE = INNODB;
 ALTER TABLE  `user` ENGINE = INNODB;
 
 
-ALTER TABLE  `tent` CHANGE  `tentId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT
+ALTER TABLE  `client` CHANGE  `userId`  `userId` INT( 11 ) NULL DEFAULT NULL ;
 
+
+ALTER TABLE  `planning` CHANGE  `planningId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT ;
+ALTER TABLE  `address` CHANGE  `addressId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE  `chat` CHANGE  `chatId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE  `tent` CHANGE  `tentId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
 ALTER TABLE  `user` CHANGE  `userId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
-
 ALTER TABLE  `client` CHANGE  `clientId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
-
+ALTER TABLE  `offre` CHANGE  `offreId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE  `invoice` CHANGE  `invoiceId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
 ALTER TABLE  `invoice` CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL;
+ALTER TABLE  `job` CHANGE  `jobId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE  `document` CHANGE  `documentId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
 
 
-ALTER TABLE `product2offre` CHANGE `productId` `productId` INT(255) NULL, CHANGE `offreId` `offreId` INT(255) NULL, CHANGE `jobId` `jobId` INT(255) NULL;
 
-ALTER TABLE  `product2invoice` CHANGE  `productId`  `productId` INT( 255 ) NULL ,
-CHANGE  `invoiceId`  `invoiceId` INT( 255 ) NULL;
+ALTER TABLE  `job` CHANGE  `userId`  `userId` INT( 11 ) NULL DEFAULT NULL ;
 
-ALTER TABLE  `tent2job` CHANGE  `offreId`  `offreId` INT( 255 ) NULL ,
-CHANGE  `tentId`  `tentId` INT( 255 ) NULL;
 
-ALTER TABLE  `tent2offre` CHANGE  `offreId`  `offreId` INT( 255 ) NULL ,
-CHANGE  `tentId`  `tentId` INT( 255 ) NULL;
+ALTER TABLE  `slice` ADD  `id` INT( 11 ) NULL AUTO_INCREMENT FIRST ,
+ADD PRIMARY KEY (  `id` ) ;
 
-ALTER TABLE  `product2job` CHANGE  `productId`  `productId` INT( 255 ) NULL ,
-CHANGE  `offreId`  `offreId` INT( 255 ) NULL ,
-CHANGE  `jobId`  `jobId` INT( 255 ) NULL;
+
+
+ALTER TABLE `product2offre` CHANGE `productId` `productId` INT(11) NULL, CHANGE `offreId` `offreId` INT(11) NULL, CHANGE `jobId` `jobId` INT(11) NULL;
+
+ALTER TABLE  `product2invoice` CHANGE  `productId`  `productId` INT( 11 ) NULL ,
+CHANGE  `invoiceId`  `invoiceId` INT( 11 ) NULL;
+
+ALTER TABLE  `tent2job` CHANGE  `offreId`  `offreId` INT( 11 ) NULL ,
+CHANGE  `tentId`  `tentId` INT( 11 ) NULL;
+
+ALTER TABLE  `tent2offre` CHANGE  `offreId`  `offreId` INT( 11 ) NULL ,
+CHANGE  `tentId`  `tentId` INT( 11 ) NULL;
+
+ALTER TABLE  `product2job` CHANGE  `productId`  `productId` INT( 11 ) NULL ,
+CHANGE  `offreId`  `offreId` INT( 11 ) NULL ,
+CHANGE  `jobId`  `jobId` INT( 11 ) NULL;
 
 
 ALTER TABLE  `planning2job` CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL ,
@@ -67,8 +107,13 @@ CHANGE  `userId`  `userId` INT( 11 ) NOT NULL;
 
 ALTER TABLE  `planning2job` CHANGE  `userId`  `userId` INT( 11 ) NULL;
 
-ALTER TABLE  `planning2offre` CHANGE  `userId`  `userId` INT( 11 ) NULL;
 
+ALTER TABLE  `planning2offre` CHANGE  `planningId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT ;
+ALTER TABLE  `planning2offre` CHANGE  `userId`  `userId` INT( 11 ) NULL;
+ALTER TABLE  `chat` CHANGE  `userId`  `userId` INT( 100 ) NULL ;
+
+
+ALTER TABLE  `planning_logs` CHANGE  `planningId`  `id` INT( 11 ) NOT NULL AUTO_INCREMENT ;
 ALTER TABLE  `planning_logs` CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL ,
 CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL;
 
@@ -81,6 +126,10 @@ ALTER TABLE  `slice2job` CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NUL
 CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL ,
 CHANGE  `invoiceId`  `invoiceId` INT( 11 ) NULL DEFAULT NULL ,
 CHANGE  `sliceId`  `sliceId` INT( 11 ) NULL DEFAULT NULL;
+
+ALTER TABLE  `slice2job` ADD  `id` INT( 11 ) NOT NULL AUTO_INCREMENT FIRST ,
+ADD PRIMARY KEY (  `id` ) ;
+
 
 
 ALTER TABLE  `slice2offre` CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL ,
@@ -95,15 +144,63 @@ CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL;
 
 ALTER TABLE  `job` ADD  `toffreid` INT( 11 ) NOT NULL;
 
-UPDATE  `job` SET toffreid = offreId
+ALTER TABLE  `address` CHANGE  `clientId`  `clientId` INT( 11 ) NULL ;
+ALTER TABLE  `address` CHANGE  `clientId`  `clientId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `invoiceId`  `invoiceId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL ;
 
+
+ALTER TABLE  `client` CHANGE  `jobId`  `jobId` INT( 11 ) NULL ;
+ALTER TABLE  `client` CHANGE  `userId`  `userId` MEDIUMINT( 11 ) NULL ;
+
+ALTER TABLE  `job` CHANGE  `offreId`  `offreId` INT( 11 ) NULL ,
+CHANGE  `clientId`  `clientId` INT( 11 ) NULL ,
+CHANGE  `userId`  `userId` INT( 100 ) NULL ;
+
+ALTER TABLE  `offre` CHANGE  `clientId`  `clientId` INT( 11 ) NULL ,
+CHANGE  `userId`  `userId` INT( 11 ) NULL ;
+
+ALTER TABLE  `planning` CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `userId`  `userId` INT( 11 ) NULL ;
+
+ALTER TABLE  `planning_logs` CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `userId`  `userId` INT( 100 ) NULL ;
+
+ALTER TABLE  `invoice` CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `clientId`  `clientId` INT( 11 ) NULL ;
+
+ALTER TABLE  `job` CHANGE  `startBuild`  `startBuild` DATETIME NULL ,
+CHANGE  `endBuild`  `endBuild` DATETIME NULL ,
+CHANGE  `requestDate`  `requestDate` DATETIME NULL ;
+
+ALTER TABLE  `job` CHANGE  `price`  `price` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;
+
+
+ALTER TABLE  `product2job` CHANGE  `productId`  `productId` INT( 11 ) NULL DEFAULT NULL ;
+ALTER TABLE  `product2job` CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL ;
+
+ALTER TABLE  `product2offre` CHANGE  `productId`  `productId` INT( 11 ) NULL DEFAULT NULL ,
+CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL ;
+
+ALTER TABLE  `product2offre` CHANGE  `transportid`  `transportId` INT( 11 ) NULL DEFAULT NULL ;
+
+
+
+UPDATE  `job` SET toffreid = offreId
+UPDATE job SET price = replace(price, ',', '.');
+UPDATE job SET price = replace(price, '€', '');
+UPDATE `job` SET price="0.00" WHERE price="";
 
 UPDATE `product2offre` SET offreId=null WHERE offreId NOT IN (SELECT id FROM offre);
+
 UPDATE `product2invoice` SET invoiceId=null WHERE invoiceId NOT IN (SELECT id FROM invoice);
 
 UPDATE `product2job` SET jobId=null WHERE jobId NOT IN (SELECT id FROM job);
-
 UPDATE `product2job` SET offreId=null WHERE offreId NOT IN (SELECT id FROM offre);
+UPDATE `product2job` SET tentId=null WHERE tentId NOT IN (SELECT id FROM tent);
+
 
 UPDATE `product2offre` SET jobId=NULL WHERE jobId NOT IN(SELECT id FROM job);
 
@@ -121,12 +218,16 @@ UPDATE `tent2offre` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
 
 UPDATE `tent2offre` SET tentId=NULL WHERE tentId NOT IN (SELECT id FROM tent);
 
+UPDATE `product2offre` SET transportId=NULL WHERE transportId NOT IN (SELECT id FROM transport);
+
 
 
 UPDATE `address` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
 UPDATE `address` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
 UPDATE `address` SET clientId=NULL WHERE clientId NOT IN (SELECT id FROM client);
 UPDATE `address` SET invoiceId=NULL WHERE invoiceId NOT IN (SELECT id FROM invoice);
+
+
 
 UPDATE `chat` SET userId=NULL WHERE userId NOT IN (SELECT id FROM user);
 
@@ -145,6 +246,12 @@ UPDATE `job` SET userId=NULL WHERE userId NOT IN (SELECT id FROM user);
 
 UPDATE `offre` SET clientId=NULL WHERE clientId NOT IN (SELECT id FROM client);
 UPDATE `offre` SET userId=NULL WHERE userId NOT IN (SELECT id FROM user);
+
+UPDATE offre SET price = replace(price, ',', '.');
+UPDATE offre SET price = replace(price, '€', '');
+UPDATE `offre` SET price="0.00" WHERE price="";
+
+
 
 UPDATE `planning` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
 UPDATE `planning` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);

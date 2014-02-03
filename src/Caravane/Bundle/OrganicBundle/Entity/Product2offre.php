@@ -26,7 +26,7 @@ class Product2offre
      *
      * @ORM\Column(name="productId", type="integer", nullable=true)
      */
-    private $productid;
+    private $productId;
 
     /**
      * @var string
@@ -128,26 +128,26 @@ class Product2offre
     }
 
     /**
-     * Set productid
+     * Set productId
      *
-     * @param integer $productid
+     * @param integer $productId
      * @return Product2offre
      */
-    public function setProductid($productid)
+    public function setProductId($productId)
     {
-        $this->productid = $productid;
+        $this->productId = $productId;
 
         return $this;
     }
 
     /**
-     * Get productid
+     * Get productId
      *
      * @return integer
      */
-    public function getProductid()
+    public function getProductId()
     {
-        return $this->productid;
+        return $this->productId;
     }
 
     /**
