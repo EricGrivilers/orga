@@ -5,28 +5,28 @@
 ##
 #######
 
-RENAME TABLE  `extra_addresses` TO  `address` ;
-RENAME TABLE  `extra_chat` TO  `chat` ;
-RENAME TABLE  `extra_clients` TO  `client` ;
-RENAME TABLE  `extra_documents` TO  `document` ;
-RENAME TABLE  `extra_invoices` TO  `invoice` ;
-RENAME TABLE  `extra_jobs` TO  `job` ;
-RENAME TABLE  `extra_offres` TO  `offre` ;
-RENAME TABLE  `extra_planning` TO  `planning` ;
-RENAME TABLE  `extra_planning2job` TO  `planning2job` ;
-RENAME TABLE  `extra_planning2offre` TO  `planning2offre` ;
-RENAME TABLE  `extra_planning_logs` TO  `planning_logs` ;
-RENAME TABLE  `extra_product2invoice` TO  `product2invoice` ;
-RENAME TABLE  `extra_product2job` TO  `product2job` ;
-RENAME TABLE  `extra_product2offre` TO  `product2offre` ;
-RENAME TABLE  `extra_slices` TO  `slice` ;
-RENAME TABLE  `extra_slice2job` TO  `slice2job` ;
-RENAME TABLE  `extra_slice2offre` TO  `slice2offre` ;
-RENAME TABLE  `extra_tents` TO  `tent` ;
-RENAME TABLE  `extra_tent2job` TO  `tent2job` ;
-RENAME TABLE  `extra_tent2offre` TO  `tent2offre` ;
-RENAME TABLE  `extra_tents_colors` TO  `tents_colors` ;
-RENAME TABLE  `extra_users` TO  `user` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_addresses` TO  `organic_intranet_v3`.`address` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_chat` TO  `organic_intranet_v3`.`chat` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_clients` TO  `organic_intranet_v3`.`client` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_documents` TO  `organic_intranet_v3`.`document` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_invoices` TO  `organic_intranet_v3`.`invoice` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_jobs` TO  `organic_intranet_v3`.`job` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_offre` TO  `organic_intranet_v3`.`offre` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_planning` TO  `organic_intranet_v3`.`planning` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_planning2job` TO  `organic_intranet_v3`.`planning2job` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_planning2offre` TO  `organic_intranet_v3`.`planning2offre` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_planning_logs` TO  `organic_intranet_v3`.`planning_logs` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_product2invoice` TO  `organic_intranet_v3`.`product2invoice` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_product2job` TO  `organic_intranet_v3`.`product2job` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_product2offre` TO  `organic_intranet_v3`.`product2offre` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_slices` TO  `organic_intranet_v3`.`slice` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_slice2job` TO  `organic_intranet_v3`.`slice2job` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_slice2offre` TO  `organic_intranet_v3`.`slice2offre` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_tents` TO  `organic_intranet_v3`.`tent` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_tent2job` TO  `organic_intranet_v3`.`tent2job` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_tent2offre` TO  `organic_intranet_v3`.`tent2offre` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_tents_colors` TO  `organic_intranet_v3`.`tents_colors` ;
+RENAME TABLE  `organic_intranet_v3`.`extra_users` TO  `organic_intranet_v3`.`user` ;
 
 
 
@@ -164,10 +164,6 @@ ALTER TABLE  `planning` CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL ,
 CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL ,
 CHANGE  `userId`  `userId` INT( 11 ) NULL ;
 
-
-
-
-
 ALTER TABLE  `planning_logs` CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL ,
 CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL ,
 CHANGE  `userId`  `userId` INT( 100 ) NULL ;
@@ -188,27 +184,22 @@ ALTER TABLE  `product2job` CHANGE  `jobId`  `jobId` INT( 11 ) NULL DEFAULT NULL 
 ALTER TABLE  `product2offre` CHANGE  `productId`  `productId` INT( 11 ) NULL DEFAULT NULL ,
 CHANGE  `offreId`  `offreId` INT( 11 ) NULL DEFAULT NULL ;
 
+ALTER TABLE  `product2offre` CHANGE  `transportid`  `transportId` INT( 11 ) NULL DEFAULT NULL ;
 
 
 
-
-ALTER TABLE  `product2offre` CHANGE  `transportId`  `transportId` INT( 11 ) NULL DEFAULT NULL ;
-
-
-
-
-
-
-
-
-
-
+UPDATE  `job` SET toffreid = offreId
+UPDATE job SET price = replace(price, ',', '.');
+UPDATE job SET price = replace(price, '€', '');
+UPDATE `job` SET price="0.00" WHERE price="";
 
 UPDATE `product2offre` SET offreId=null WHERE offreId NOT IN (SELECT id FROM offre);
 
 UPDATE `product2invoice` SET invoiceId=null WHERE invoiceId NOT IN (SELECT id FROM invoice);
 
-
+UPDATE `product2job` SET jobId=null WHERE jobId NOT IN (SELECT id FROM job);
+UPDATE `product2job` SET offreId=null WHERE offreId NOT IN (SELECT id FROM offre);
+UPDATE `product2job` SET tentId=null WHERE tentId NOT IN (SELECT id FROM tent);
 
 
 UPDATE `product2offre` SET jobId=NULL WHERE jobId NOT IN(SELECT id FROM job);
@@ -227,7 +218,7 @@ UPDATE `tent2offre` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
 
 UPDATE `tent2offre` SET tentId=NULL WHERE tentId NOT IN (SELECT id FROM tent);
 
-
+UPDATE `product2offre` SET transportId=NULL WHERE transportId NOT IN (SELECT id FROM transport);
 
 
 
@@ -256,9 +247,9 @@ UPDATE `job` SET userId=NULL WHERE userId NOT IN (SELECT id FROM user);
 UPDATE `offre` SET clientId=NULL WHERE clientId NOT IN (SELECT id FROM client);
 UPDATE `offre` SET userId=NULL WHERE userId NOT IN (SELECT id FROM user);
 
-
-
-
+UPDATE offre SET price = replace(price, ',', '.');
+UPDATE offre SET price = replace(price, '€', '');
+UPDATE `offre` SET price="0.00" WHERE price="";
 
 
 
@@ -307,6 +298,8 @@ UPDATE `slice2offre` SET invoiceId=NULL WHERE invoiceId NOT IN (SELECT id FROM i
 
 
 
+UPDATE product2job SET tentId=null WHERE tentId NOT IN (SELECT id FROM tent);
+UPDATE product2offre SET tentId=null WHERE tentId NOT IN (SELECT id FROM tent);
 
 
 #######
@@ -316,28 +309,5 @@ UPDATE `slice2offre` SET invoiceId=NULL WHERE invoiceId NOT IN (SELECT id FROM i
 ##
 #######
 
-UPDATE  `job` SET toffreid = offreId
-UPDATE job SET price = replace(price, ',', '.');
-UPDATE job SET price = replace(price, '€', '');
-UPDATE `job` SET price="0.00" WHERE price="";
 
-UPDATE `product2job` SET jobId=null WHERE jobId NOT IN (SELECT id FROM job);
-UPDATE `product2job` SET offreId=null WHERE offreId NOT IN (SELECT id FROM offre);
-UPDATE `product2job` SET tentId=null WHERE tentId NOT IN (SELECT id FROM tent);
-
-UPDATE `product2offre` SET transportId=NULL WHERE transportId NOT IN (SELECT id FROM transport);
-
-UPDATE offre SET price = replace(price, ',', '.');
-UPDATE offre SET price = replace(price, '€', '');
-UPDATE `offre` SET price="0.00" WHERE price="";
-
-UPDATE product2job SET tentId=null WHERE tentId NOT IN (SELECT id FROM tent);
-UPDATE product2offre SET tentId=null WHERE tentId NOT IN (SELECT id FROM tent);
-
-
-
-
-UPDATE user SET username_canonical=email;
-UPDATE user SET email_canonical=email;
-UPDATE user SET username=email;
 
