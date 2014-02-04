@@ -6,7 +6,11 @@
 {% endblock reference %}
 
 {% block documentType %}
+	{% if entity.priceHT<0 %}
+	{{("Note de crédit"|trans}}{{invoice.creditNote ?":"~invoice.creditNote:""}}
+	{% else %}
 	{{("Facture de "~entity.offreType)|trans}}
+	{% endif %}
 {% endblock documentType %}
 
 {% block address %}

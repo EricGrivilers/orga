@@ -252,6 +252,21 @@ UPDATE offre SET price = replace(price, '€', '');
 UPDATE `offre` SET price="0.00" WHERE price="";
 
 
+UPDATE tent SET m2 = replace(m2, 'NaN', '');
+
+
+UPDATE tent SET weight = replace(weight, ',', '.');
+UPDATE tent SET length = replace(length, ',', '.');
+UPDATE tent SET width = replace(width, ',', '.');
+UPDATE tent SET m2 = replace(m2, ',', '.');
+
+UPDATE `tent` SET weight=0 WHERE weight<=0;
+UPDATE `tent` SET length=0 WHERE length<=0;
+UPDATE `tent` SET width=0 WHERE width<=0;
+UPDATE `tent` SET m2=0 WHERE m2<=0;
+
+
+
 
 UPDATE `planning` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
 UPDATE `planning` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
@@ -271,7 +286,7 @@ UPDATE `planning_logs` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
 UPDATE `planning_logs` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
 UPDATE `planning_logs` SET userId=NULL WHERE userId NOT IN (SELECT id FROM user);
 
-
+UPDATE `product2offre` SET transportId=NULL WHERE transportId NOT IN (SELECT id FROM transport);
 
 UPDATE `invoice` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
 UPDATE `invoice` SET clientId=NULL WHERE clientId NOT IN (SELECT id FROM client);
@@ -287,6 +302,7 @@ UPDATE `tent` SET ownerId=NULL WHERE ownerId NOT IN (SELECT id FROM client);
 UPDATE `tent` SET winterOffreId=NULL WHERE winterOffreId NOT IN (SELECT id FROM offre);
 
 
+
 UPDATE `slice2job` SET offreId=NULL WHERE offreId NOT IN (SELECT id FROM offre);
 UPDATE `slice2job` SET jobId=NULL WHERE jobId NOT IN (SELECT id FROM job);
 UPDATE `slice2job` SET invoiceId=NULL WHERE invoiceId NOT IN (SELECT id FROM invoice);
@@ -298,9 +314,19 @@ UPDATE `slice2offre` SET invoiceId=NULL WHERE invoiceId NOT IN (SELECT id FROM i
 
 
 
+ALTER TABLE  `tent` CHANGE  `length`  `length` VARCHAR( 10 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ,
+CHANGE  `width`  `width` VARCHAR( 10 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ,
+CHANGE  `m2`  `m2` VARCHAR( 15 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ,
+CHANGE  `weight`  `weight` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NULL ;
+
+
+
 UPDATE product2job SET tentId=null WHERE tentId NOT IN (SELECT id FROM tent);
 UPDATE product2offre SET tentId=null WHERE tentId NOT IN (SELECT id FROM tent);
 
+UPDATE `user` SET username=email WHERE username ='';
+UPDATE `user` SET username_canonical=email WHERE username_canonical ='';
+UPDATE `user` SET email_canonical=email WHERE email_canonical ='';
 
 #######
 ##
