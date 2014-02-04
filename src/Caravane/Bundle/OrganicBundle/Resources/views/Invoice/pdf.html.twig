@@ -142,7 +142,7 @@
 	        {% endif %}
 
 	        {% if entity.priceHT<0 %}
-	        <b>Total{% if entity.pricetype!='intra'%}{{"VAT incl."|trans}}{% endif %} {{ToPay|number_format(2,'.',' ')}} &euro;</b>
+	        <b>Total {% if entity.pricetype!='intra'%}{{"VAT incl."|trans}}{% endif %} {{ToPay|number_format(2,'.',' ')}} &euro;</b>
 	        {% else %}
 	       <b>{{"Montant total à payer"|trans}}  {% if entity.pricetype!='intra'%}{{"VAT incl."|trans}}{% endif %} {{ToPay|number_format(2,'.',' ')}} &euro;</b>
 	       {% endif %}
@@ -154,11 +154,16 @@
 <b><u>{{"Conditions"|trans}}</u></b><br/>
 {{entity.conditions|raw}}
 {% if entity.conditions1 %}
+	{% if entity.priceHT>0 %}
 	<br/>{{"Conditions de paiement"|trans}}: {{"comptant."|trans}}
+	
 	<br/>{{"Communication à mentionner"|trans}}: <b>{{"Facture"|trans}} {{entity.reference}}</b>
+	{% endif %}
 {% endif %}
 {% if entity.conditions2 %}
+{% if entity.priceHT>0 %}
 	<br/>{{"Le paiement de votre acompte confirme votre commande"|trans}}.
+	{% endif %}
 {% endif %}
 <br/><br/>
 
