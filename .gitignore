@@ -15,3 +15,4 @@ web/css/*
 .DS_Store
 composer.lock
 vendor/*
+__www
