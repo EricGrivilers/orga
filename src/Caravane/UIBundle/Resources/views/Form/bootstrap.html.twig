@@ -1,0 +1,56 @@
+{% block CaravaneUIBootstrapTypeahead_widget %}
+{% set label_field_value = form.parent.vars.value|access(form.vars.attr.label_field) %}
+
+	<input class="{{form.vars.attr.class}} typeahead" type="text" id="{{form.vars.id}}" value="{{label_field_value}}" data-provide="typeahead" name="{{form.vars.full_name}}" >
+
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#{{form.vars.id}}').typeahead({
+				minLength:3,
+				source: function (query, process) {
+					$.getJSON(
+					    Routing.generate('{{form.vars.attr.source_route}}'),
+					    { query: query },
+					    function (data) {
+						    labels=[]
+						    ids={}
+						    mapped={}
+						    $.each(data, function (i, item) {
+								mapped[item.label] = item.label;
+								labels.push(item.label);
+								ids[item.label]=item.value;
+							})
+							process(labels);
+					    }
+					);
+				},
+				updater:function (item) {
+					{% if form.vars.attr.updater %}
+						{{form.vars.attr.updater}}(ids[item],'{{form.vars.attr.target_field}}')
+					{% endif %}
+					return mapped[item]
+				}
+
+		    });
+		});
+	</script>
+{% endblock %}
+
+{% block CaravaneUIBootstrapRadioButton_widget %}
+
+	<div class="btn-group" data-toggle="buttons-radio" id="{{form.vars.id}}_widget">
+		{% for choice in form.vars.choices %}
+			<button type="button" class="btn {% if form.vars.data==choice.value %} active {% endif %}" data-toggle="button" data-target="#{{form.vars.id}}" data-value="{{choice.value}}" >{{choice.label}}</button>
+		{% endfor %}
+		<input name="{{form.vars.full_name}}" id="{{form.vars.id}}" type="hidden" value="{{form.vars.data}}" >
+    </div>
+    <script type='text/javascript'>
+    	$(function() {
+			$('#{{form.vars.id}}_widget button').click(function(){
+				target=$(this).attr('data-target');
+				$(target).attr('value', $(this).attr('data-value'));
+			})
+		});
+    </script>
+{% endblock %}

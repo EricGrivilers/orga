@@ -1,0 +1,7 @@
+twig:
+    form:
+        resources:
+            - 'CaravaneUIBundle:Form:fields.html.twig'
+            - 'CaravaneUIBundle:Form:bootstrap.html.twig'
+            - 'CaravaneUIBundle:Form:fuelux.html.twig'
+            - 'CaravaneUIBundle:Form:datepicker.html.twig'

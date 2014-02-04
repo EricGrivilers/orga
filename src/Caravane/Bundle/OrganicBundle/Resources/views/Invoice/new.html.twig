@@ -1,0 +1,5 @@
+{% extends "CaravaneOrganicBundle:Invoice:edit.html.twig" %}
+
+{% block form_header %}
+<form id='mainForm' action="{{ path('invoice_create') }}" method="post" {{ form_enctype(edit_form) }} data-entity="invoice" class="{{entity.status}}"  novalidate  >
+{% endblock form_header %}

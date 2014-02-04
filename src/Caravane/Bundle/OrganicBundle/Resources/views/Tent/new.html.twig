@@ -1,0 +1,4 @@
+{% extends "CaravaneOrganicBundle:Tent:edit.html.twig" %}
+{% block form_header %}
+<form action="{{ path('tent_create') }}" method="post" {{ form_enctype(edit_form) }} data-entity="tent" novalidate >
+{% endblock form_header %}

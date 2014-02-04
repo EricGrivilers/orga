@@ -1,0 +1,16 @@
+<h1>Planning creation</h1>
+
+<form action="{{ path('planning_create') }}" method="post" {{ form_enctype(form) }} novalidate >
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('planning') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>

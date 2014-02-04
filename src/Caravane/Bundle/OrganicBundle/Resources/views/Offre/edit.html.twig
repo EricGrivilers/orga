@@ -1,0 +1,145 @@
+{% extends "::base.html.twig" %}
+
+
+{% block body %}
+
+<div class="row-fluid">
+
+{% block form_header %}
+<form id='mainForm' action="{{ path('offre_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} data-entity="offre"  novalidate >
+{% endblock form_header %}
+
+
+
+<input type='hidden' name='clientid' id="clientid"  value="{% if entity.clientid %}{{entity.clientid.id}} {% endif %}"/>
+{% if form_errors(edit_form) %}
+{{ form_errors(edit_form) }}
+{% endif %}
+{% if customErrors %}
+{% for error in customErrors %}
+<div class="alert alert-error">{{error}}
+</div>
+{% endfor %}
+{% endif %}
+ <div class="row-fluid">
+        <div class="actions">
+            <button type="submit" class="btn btn-inverse">Save</button>
+            <a href="{{ path('offre') }}" class="btn">
+                    Back to the list
+            </a>
+            {% if entity.id %}
+                <div class="btn-group pull-right">
+                      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="drop_1">
+                        <img src="/images/icons/pdf.png">
+                        <span class="caret"></span>
+                      </a>
+                    <ul  class="dropdown-menu" role="menu" aria-labelledby="drop_1">
+                        {% for lg in ['en','fr','nl'] %}
+                            <li role="presentation">
+                                <a role="menuitem" href="{{path('offre_pdf',{'id':entity.id,'_locale':lg})}}" target="_blank" ><img src="/images/icons/pdf.png"> Offre {{lg}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+<div>
+    <ul class="nav nav-tabs">
+         <li class="active"><a href="#tab_summary" data-toggle="tab">Summary</a></li>
+        <li><a href="#tab_client" data-toggle="tab">Client</a></li>
+        <li><a href="#tab_job" data-toggle="tab">Job</a></li>
+        <li><a href="#tab_planning" data-toggle="tab">Planning</a></li>
+        <li><a href="#tab_products" data-toggle="tab">Products</a></li>
+        <li><a href="#tab_conditions" data-toggle="tab">Conditions</a></li>
+        <li><a href="#tab_documents" data-toggle="tab">Documents</a></li>
+        <li><a href="#tab_comments" data-toggle="tab">Comments</a></li>
+    </ul>
+</div>
+<div class="tab-content">
+      <div class="tab-pane active" id="tab_summary"> {% include "CaravaneOrganicBundle:Offre:tabs/summary.html.twig" %}</div>
+      <div class="tab-pane" id="tab_client"> {% include "CaravaneOrganicBundle:Offre:tabs/client.html.twig" %}</div>
+      <div class="tab-pane" id="tab_job">   {% include "CaravaneOrganicBundle:Offre:tabs/job.html.twig" %}</div>
+      <div class="tab-pane" id="tab_planning"> {% include "CaravaneOrganicBundle:Offre:tabs/planning.html.twig" %}</div>
+      <div class="tab-pane" id="tab_products">{% include "CaravaneOrganicBundle:Offre:tabs/products.html.twig" %}</div>
+      <div class="tab-pane" id="tab_conditions">{% include "CaravaneOrganicBundle:Offre:tabs/conditions.html.twig" %}</div>
+      <div class="tab-pane" id="tab_documents">{% include "CaravaneOrganicBundle:Offre:tabs/documents.html.twig" %}</div>
+      <div class="tab-pane" id="tab_comments">{% include "CaravaneOrganicBundle:Offre:tabs/comments.html.twig" %}</div>
+</div>
+
+
+
+    <div style="display:none">
+        {{ form_widget(edit_form) }}
+    </div>
+
+     <div class="row-fluid">
+        <div class="actions">
+            <button type="submit" class="btn btn-inverse">Save</button>
+            <a href="{{ path('offre') }}" class="btn">
+                    Back to the list
+            </a>
+        </div>
+    </div>
+</form>
+
+</div>
+<div id="stockModal" data-target="{{entity.id}}" class="modal hide fade largeModal" tabindex="-1" role="dialog" aria-labelledby="stockModalLabel" aria-hidden="true">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Stock</h3>
+          </div>
+          <div class="modal-body">
+                <div class='row-fluid' id="products">
+                    <ul class="nav nav-tabs" id="myTab">
+                        {% for category in productCategories %}
+                             <li {% if loop.index==1%} class='active' {% endif %}><a href="#cat{{category.id}}" data-toggle="tab" >{{category}}</a></li>
+                        {% endfor %}
+                    </ul>
+
+                    <div class="tab-content">
+                        {% if edit_form.plannings|length==4 %}
+                        {% for category in productCategories %}
+
+                             <div class="tab-pane {% if loop.index==1 %} active {% endif %}" id="cat{{category.id}}" >
+                                {{ render (controller("CaravaneOrganicBundle:Tent:getAvailable" , { 'entity':entity,'categoryId':category.id, 'startDate' : edit_form.plannings[1].vars.value.startDate ,'endDate': edit_form.plannings[3].vars.value.endDate} )) }}
+                             </div>
+                        {% endfor %}
+                        {% else %}
+                            <div class='alert alert-error'>No planning defined</div>
+                        {% endif %}
+                    </div>
+                </div>
+          </div>
+          <div class="modal-footer">
+
+
+          </div>
+    </div>
+
+
+
+
+
+
+    <div id="transportModal" data-target="{{entity.id}}" class="modal hide fade largeModal" tabindex="-1" role="dialog" aria-labelledby="transportModalLabel" aria-hidden="true">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Transport</h3>
+          </div>
+          <div class="modal-body">
+                <div class='row-fluid' id="transports">
+                     {{ render (controller("CaravaneOrganicBundle:Transport:getAvailable" )) }}
+                </div>
+          </div>
+          <div class="modal-footer">
+
+
+          </div>
+    </div>
+
+
+{% endblock body %}

@@ -1,0 +1,22 @@
+<table class="table table-condensed table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Reference</th>
+                    <th>Price VAT Exc.</th>
+                    <th>Date</th>
+                    <th>Job</th>
+                    <th>Slice</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            {% for invoice in entity.invoices %}
+            <tr>
+                <td><a href="{{path('invoice_edit',{'id':invoice.id})}}">{{invoice.reference}}</a></td>
+                <td>{{invoice.priceht|number_format(2,',',' ')}}</td>
+                <td>{{invoice.insertdate|date('Y-m-d')}}</td>
+                <td>{{invoice.jobid}}</td>
+                <td>{#{invoice.sliceId}#}</td>
+                <td>{{invoice.status}}</td>
+            </tr>
+            {% endfor %}
+        </table>

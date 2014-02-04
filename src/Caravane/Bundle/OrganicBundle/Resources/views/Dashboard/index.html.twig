@@ -1,0 +1,42 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<div class="row-fluid">
+
+	<div class="span4">
+    <h4>My offers</h4>
+            <div class="well dash">
+
+                <ul>
+                  {% for offre in offres %}
+                    <li><a href="{{path('offre_edit',{'id':offre.id})}}">{{offre.reference}}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+
+      </div>
+      <div class="span4">
+        <h4>My jobs</h4>
+            <div class="well dash">
+
+                <ul>
+                  {% for job in jobs %}
+                    <li><a href="{{path('job_edit',{'id':job.id})}}">{{job.reference}}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+      </div>
+      <div class="span4">
+        <h4>My messages</h4>
+        <div class="well dash">
+
+        <ul>
+          {% for message in messages %}
+            <li>On {{message.messagedate|date('Y-m-d H:i:s')}} {{message.userid.name}} wrote:<br/>
+              {{message.message|raw}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      </div>
+</div>
+{% endblock body %}

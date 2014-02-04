@@ -1,0 +1,4 @@
+{% extends "CaravaneOrganicBundle:Client:edit.html.twig" %}
+{% block form_header %}
+<form action="{{ path('client_create') }}" method="post" {{ form_enctype(edit_form) }} data-entity="client" novalidate >
+{% endblock form_header %}

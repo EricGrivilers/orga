@@ -1,0 +1,107 @@
+Reference: Referentie
+
+Facture de sell: Verkoop factuur
+Facture de rent: Verhuur factuur
+Facture de winter: Storage invoice
+Facture: Factuur
+VAT: BTW
+Client: Klant
+
+_More conditions: De klant bevestigt de hierboven goederen in goede staat en zonder gebreken te hebben ontvangen. Alle gebreken dienen hieronder vermeld te worden. Algemene voorwaarden die geldig zijn voor de aankoop of huur van onze producten zoals vermeld in bijlage.
+
+Description: Beschrijving
+Quantité: Hoeveelheid
+Prix unitaire: Prijs per eenheid
+Montant HTVA: Bedrag excl BTW
+
+Total VAT excl.: Totaal excl BTW
+Total: Totaal
+VAT incl.:  incl BTW
+
+Conditions: Verkoopsvoorwaarden
+Coordonnées bancaires: Bankgegevens
+
+Compte n°: Rekeningnummer
+
+Conditions de paiement: Betalingsvoorwaarden
+comptant: contant
+Communication à mentionner: Onze referentie
+Le paiement de votre acompte confirme votre commande: De betaling van uw voorschot, bevestigt uw bestelling
+
+1er RAPPEL: 1ste Betalingsherinnering
+2nd RAPPEL: 2 Betalingsherinnering
+Mise en demeure: INGEBREKESTELLING
+
+LIEU ET DATES: PLAATS EN DATUM
+MATERIEL: MATERIAAL
+FACTURE: FACTUUR
+DATE: DATUM
+ADRESSE: ADRES
+HEURE: UUR
+MONTANT: BEDRAG
+MONTANT TVAC: BEDRAG INCL BTW
+ECHEANCE: VERVAL DATUM
+CONDITIONS PAIEMENT: VOORWAARDEN
+COMPTANT: CONTANT
+TOTAL: TOTAAL
+
+Cordialement: Met vriendelijke groeten
+
+_R1: <p>Beste klant,</p><p>Hieronder, vindt u een rekeningoverzicht van de vervallen facturen.</p><p>Daar wij tot op heden geen betaling hebben mogen ontvangen, verzoeken wij u dringend tot betaling over te gaan van het openstaande bedrag.<br/>Mocht u inmiddels tot betaling zijn overgegaan, dan mag u deze herinnering als niet verzonden beschouwen.</p>
+
+_R2: <p>Beste klant,</p><p>De saldo factuur n°%reference% is vandaag nog niet betaald. Onze voorwarden is contant en de datum van de factuur was de %date%.</p><p>We danken U de betaling maken zo vlug mogelijk is, anders zullen we kosten van 15% aanrekennen. </p>
+
+_R3:   <p>Beste klant,</p><p>De saldo factuur n° %reference% van %date% is tot op heden nog niet betaald. Onze voorwaarden melden "contant te betalen bij levering".</p><p>Wij hebben tot op heden geen betalingsbewijs mogen ontvangen, en rekening houdende met onze voorwaarden zijn we genoodzaakt om 15% extra kosten aan te rekenen. </p>
+
+
+Montant total à payer: Totaal te betalen bedrag
+
+Offre: Offerte
+Options: Opties
+
+Offre de sell: Verkoop voorstel
+Offre de rent: Verhuurofferte
+Offre de winter: Hivernage
+
+Lieu: Plaats
+Dates: Datum
+Tente(s): Verhuur – voorstel
+
+Budget(s): Budget
+Option(s): Opties
+
+Montage: Opbouw
+Démontage: Afbouw
+Jour(s) de votre événement: Event
+Event date: Event date
+
+du: van
+au: tot
+
+Une assurance est à votre charge durant votre location: Une assurance est à votre charge durant votre location
+Nos prix s'entendent hors TVA: Onze prijzen zijn exclusief btw
+Validité de cette offre: Geldigheid van deze offerte
+jours date de l'offre: dagen
+Sincères salutations: Met vriendelijke groeten
+
+
+_JobConfirmIn:  De klant bevestigd de hierboven vermelde goederen in goede staat en zonder gebreken te hebben ontvangen. Alle gebreken dienen hieronder vermeld te worden.
+_JobConfirmOut:  Organic NV bevestigt de hierboven vermelde goederen in goede staat en zonder gebreken te hebben opgehaald. Alle gebreken dienen hieronder vermeld te worden.
+
+BON DE LIVRAISON: LEVERINGSBON
+BON DE COLLECTION: AFHAALBON
+BON POUR ACCORD: VOOR AKKOORD
+A RAPPELER LORS DE LA FACTURATION: TE ONDERTEKENEN DOOR KLANT BIJ OPHAAL
+REMARQUES: OPMERKING
+
+
+
+
+LIVRAISON: LEVERINGS
+COLLECTE: AFHAAL
+
+OFFRE reference: REFERENTIE OFFERTE
+JOB reference: REFERENTIE JOB
+
+NOM ET SIGNATURE DU VENDEUR: NAAM EN HANDTEKENING VAN DE VERHUURDER
+NOM ET SIGNATURE DE L'ACHETEUR: NAAM EN HANTEKENING VAN DE HUURDER

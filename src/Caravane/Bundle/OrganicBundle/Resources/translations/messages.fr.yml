@@ -1,0 +1,94 @@
+Reference: Référence
+
+Facture de sell: Facture de vente
+Facture de rent: Facture de location
+Facture de winter: Facture d'hivernage 
+Client: Client
+Facture: Facture
+VAT: TVA
+
+_More conditions: Conditions générales applicables pour la vente et la location de nos produits en annexe de cette facture.
+
+Total VAT excl.: Total hors TVA
+
+Description: Description
+Montant HTVA: Montant HTVA
+
+Total VAT excl.: Total HTVA
+Total: Total
+VAT incl.:  TTC
+
+Conditions: Conditions
+Coordonnées bancaires: Coordonnées bancaires
+
+Conditions de paiement: Conditions de paiement
+comptant: comptant
+Communication à mentionner: Communication à mentionner
+Le paiement de votre acompte confirme votre commande: Le paiement de votre acompte confirme votre commande
+
+1er RAPPEL: 1er RAPPEL
+2nd RAPPEL: 2nd RAPPEL
+Mise en demeure: MISE EN DEMEURE
+
+FACTURE: FACTURE
+DATE: DATE
+ADRESSE: ADRESSE
+MONTANT: MONTANT
+MONTANT TVAC: MONTANT TVAC
+ECHEANCE: ECHEANCE
+CONDITIONS PAIEMENT: CONDITIONS PAIEMENT
+COMPTANT: COMPTANT
+TOTAL: TOTAL
+
+Cordialement: Cordialement
+
+_R1: <p>Cher Client, </p><p>Votre compte en nos livres présente un solde en notre faveur dont vous trouverez le détail ci-dessous.</p><p>Nous vous remercions dès lors d’effectuer le paiement dès réception de la présente sur notre compte en mentionnant le(s) numéro(s) de facture.<br/>Dans le cas où votre règlement aurait été adressé entre temps, nous vous prions de ne pas tenir compte de la présente.</p>
+
+_R2: <p>Cher Client, </p><p>La facture n°%reference% n’est pas payée à ce jour, la date d’échéance étant datée au %date%.</p><p>Nous vous remercions d’effectuer le paiement dès réception de la présente sur notre compte. Dans le cas contraire, nous serons obligés de vous facturer des frais supplémentaires de 15 %.</p>
+
+_R3: <p>Cher Client, </p><p>La facture n°%reference% n’est pas payée à ce jour, la date d’échéance étant datée au %date%.</p><p>N’ayant pas réceptionné le paiement de cette facture, nous sommes obligés de vous facturer des frais supplémentaires de 15 %. </p>
+
+
+
+
+Offre: Offre
+
+Offre de sell: Offre de vente
+Offre de rent: Offre de location
+Offre de winter: Offre d'hivernage 
+
+Lieu: Lieu
+Dates: Dates
+Tente(s): Tente(s)
+
+Budget(s): Budget(s)
+Option(s): Option(s)
+
+Montage: Montage
+Démontage: Démontage
+Jour(s) de votre événement: Jour(s) de votre événement
+Event date: Jour de l'évènement
+
+du: du
+au: au
+
+Une assurance est à votre charge durant votre location: Une assurance est à votre charge durant votre location
+Nos prix s'entendent hors TVA: Nos prix s'entendent hors TVA
+Validité de cette offre: Validité de cette offre
+jours date de l'offre: jours date de l'offre
+
+
+_JobConfirmIn:   Le client confirme avoir reçu les materiaux mentionnés ci-dessus en bon état et sans défaut. Tous le défauts doivent être mentionnés ci-dessous.
+_JobConfirmOut:  Organic SA confirme avoir récupéré les materiaux ci-dessus en bon état et sans défaut. Tous le défauts doivent être mentionnés ci-dessous.
+
+BON DE LIVRAISON: BON DE LIVRAISON
+BON DE COLLECTION: BON DE COLLECTION
+BON POUR ACCORD: BON POUR ACCORD
+REMARQUES: REMARQUES
+
+LIVRAISON: LIVRAISON
+COLLECTE: COLLECTE
+
+
+NOM ET SIGNATURE DU VENDEUR: NOM ET SIGNATURE DU VENDEUR
+NOM ET SIGNATURE DE L'ACHETEUR: NOM ET SIGNATURE DE L'ACHETEUR

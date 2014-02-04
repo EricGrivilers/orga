@@ -1,0 +1,220 @@
+<page backtop="30mm" backbottom="30mm" backleft="0mm" backright="0mm" >
+		<page_header>
+				
+				<table class="main" >
+					<tr>
+						<td class="2col">
+							<img src="{{dir}}/web/bundles/caravaneorganic/images/logo.png" />
+						</td>
+						<td class="2col" >
+							{% if entity.clientid.clientType=='cie' %}
+								<b>{{entity.clientid.name}}</b>
+							{% endif %}
+								<br/>{{entity.clientid.clientTitle}} {{entity.clientid.firstname}} {{entity.clientid.lastname}}
+								<br/>
+								<br/>{{entity.clientid.address}} {{entity.clientid.number}}
+								<br/>{{entity.clientid.zip}} {{entity.clientid.city}}
+								<br/>{{entity.clientid.country}}
+								<br/>
+							{% if entity.clientid.vat %}
+								<br/><br/>{{"VAT"|trans}}: {{entity.clientid.vat}}
+							{% endif %}
+						</td>
+					</tr>
+				</table>
+				
+			</page_header>
+			<page_footer>
+				<table class="main">
+					<tr><td class="center">{{"_More conditions"|trans}}<br/></td></tr>
+					<tr>
+						<td class="center 1col grey">
+							Organic sa-nv - 71, Ikaroslaan - 1930 Zaventem - Belgium
+							<br/>
+							www.organic-concept.com - TVA/BTW: 0807.879.247
+							<br/>
+							ING - {{"Compte n°"|trans}} : 363-1068056-29 - IBAN : BE26 3631 0680 5629 - SWIFT : BBRUBEBB
+			<br/>
+			Fortis Bank - {{"Compte n°"|trans}} : 001-5712962-29 - IBAN : BE26 0015 7129 6229 - SWIFT : GEBABEBB
+							<br/>
+							Tel 00 32 2 709 09 50 - Fax 00 32 2 709 09 51 - info@organic-concept.com
+						</td>
+					</tr>
+				</table>
+			</page_footer>
+
+
+			<table class="grey main">
+				<tr>
+					<td class="grey 1col" style="width:185mm;text-align:center"><b>
+					{% if type=="in" %}
+						{{"BON DE LIVRAISON"|trans}}
+					{% elseif type=="out" %}
+						{{"BON DE COLLECTION"|trans}}
+					{% endif %}
+					</b></td>
+				</tr>
+			</table>
+			<br/>
+
+
+			<table class="grey main">
+				<tr>
+					<td class="grey 1col" style="width:185mm;text-align:center">
+						{{"A RAPPELER LORS DE LA FACTURATION"|trans}}
+					</td>
+				</tr>
+			</table>
+			<table class=" main bordered">
+				<tr>
+					<td style="width:58mm" class="borderedRight borderedBottom" >
+						{{"DATE"|trans}}
+					</td>
+					<td style="width:58mm" class="borderedRight borderedBottom">
+						{{"OFFRE reference"|trans}}
+					</td>
+					<td style="width:59mm" class="borderedBottom">
+						{{"JOB reference"|trans}}
+					</td>
+				</tr>
+				<tr>
+					<td class="borderedRight" >
+						{{entity.insertdate|date('d/m/Y H:i:s')}}
+					</td>
+					<td  class="borderedRight" >
+						{{entity.offreid?entity.offreid.reference:''}}
+					</td>
+					<td >
+						{{entity.reference}}
+					</td>
+				</tr>
+			</table>
+
+
+			<br/>
+			<br/>
+
+			{% set total=0 %}
+			<table class="main">
+				<thead>
+					<tr>
+						<th style="width:95mm">{{"Description"|trans}}</th>
+						<th style="width:25mm">{{"Quantité"|trans}}</th>
+						<th style="width:25mm">{{"Prix unitaire"|trans}}</th>
+						<th style="width:25mm">{{"Total"|trans}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for product in entity.products %}
+						
+							<tr>
+								<td style="width:95mm" class="borderedBottomLight" >{{product.description|nl2br}}</td>
+								<td style="width:25mm" class="borderedBottomLight" ></td>
+								<td style="width:25mm" class="right borderedBottomLight" ></td>
+								<td style="width:25mm" class="right borderedBottomLight" > {{product.price|number_format(2,'.',' ')}} &euro;</td>
+								
+
+							</tr>
+							{% set total=total+product.price %}
+						
+					{% endfor %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td style="width:95mm"></td>
+						<td style="width:25mm" ></td>
+						<th style="width:25mm" >{{"Total VAT incl."|trans}}</th>
+						<th style="width:25mm" class="right" >{{total|number_format(2,'.',' ')}} &euro;</th>
+					</tr>
+				</tfoot>
+			</table>
+
+			<br/>
+			{% if type=="in" %}
+				{{"_JobConfirmIn"|trans}}
+			{% elseif type=="out" %}
+				{{"_JobConfirmOut"|trans}}
+			{% endif %}
+
+			
+<br/>
+<br/>
+			<b><u>{{"REMARQUES"|trans}}</u></b>
+			<br/>
+			<table class="main">
+				<tr>
+					<td class="col1" style="width:185mm; height:20mm; border:1px solid #333">
+					</td>
+				</tr>
+			</table>
+
+			<br/>
+			<br/>
+			<table class="grey main">
+				<tr>
+					<td class="grey 1col" style="width:185mm;text-align:center">
+						{% if type=="in" %}
+							{{"LIVRAISON"|trans}}
+						{% elseif type=="out" %}
+							{{"COLLECTE"|trans}}
+						{% endif %}
+					</td>
+				</tr>
+			</table>
+			<table class=" main bordered">
+				<tr>
+					<td style="width:74mm" class="borderedRight borderedBottom" >
+						{{"ADRESSE"|trans}}
+					</td>
+					<td style="width:50mm" class="borderedRight borderedBottom" >
+						{{"DATE"|trans}}
+					</td>
+					<td style="width:51mm" class="borderedBottom"  >
+						{{"HEURE"|trans}}
+					</td>
+				</tr>
+				<tr>
+					<td  style="width:74mm" class="borderedRight" >
+						{{entity.address}} {{entity.number}} <br/> {{entity.zip}} {{entity.city}} <br/> {{entity.country}}
+					</td>
+					<td style="width:30mm" class="borderedRight" >
+						
+					</td>
+					<td style="width:30mm" >
+						
+					</td>
+				</tr>
+			</table>
+
+			<br/>
+			<br/>
+			
+			<br/>
+
+			<table class=" main bordered">
+				<tr>
+					<td style="width:90mm" class="borderedRight borderedBottom" >
+						{{"NOM ET SIGNATURE DU VENDEUR"|trans}}
+					</td>
+					<td style="width:90mm" class=" borderedBottom" >
+						{{"NOM ET SIGNATURE DE L'ACHETEUR"|trans}}
+					</td>
+					
+				</tr>
+				<tr>
+					<td style="height:20mm" class="borderedRight" >
+						
+					</td>
+					<td style="height:20mm" >
+						
+					</td>
+				</tr>
+			</table>
+
+	</page>
+
+	<page backtop="0mm" backbottom="0mm" backleft="0mm" backright="0mm">
+		
+	        {% include "CaravaneOrganicBundle:Default:cgv."~_locale~ ".html.twig" %}
+	    
+	</page>

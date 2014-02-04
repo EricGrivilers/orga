@@ -1,0 +1,149 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+
+<div class="row-fluid">
+    <div class="tools">
+        <div class="span10">
+        <ul class="nav nav-pills">
+
+          <li {% if type=='running' %}class="active" {% endif %} ><a href="{{path('offre',{'type': 'running','ob':ob,'page':1} )}}">Running</a></li>
+          <li {% if type=='confirmed' %}class="active" {% endif %} ><a href="{{path('offre',{'type':'confirmed','ob':ob,'page':1})}}">Confirmed</a></li>
+          <li {% if type=='canceled' %}class="active" {% endif %} ><a href="{{path('offre',{'type':'canceled','ob':ob,'page':1})}}">Canceled</a></li>
+          <li {% if type=='all' %}class="active" {% endif %} >
+            <a href="{{path('offre',{'type':'all','ob':ob,'page':1})}}">All</a>
+          </li>
+
+        </ul>
+</div>
+
+<div class="span2">
+     <a href="{{ path('offre_new') }}" class="btn btn-inverse ">
+            New offer
+        </a>
+    </div>
+    </div>
+</div>
+<div class="row-fluid">
+
+
+
+
+<table class="table table-bordered table-condensed table-striped">
+    <thead>
+        <tr>
+            <th><a data-orderby="reference" >Reference</a></th>
+            <th><a data-orderby="clientid" >Client</a></th>
+            <th><a data-orderby="offretype" >Type</a></th>
+             <th><a data-orderby="price" >Price VAT excl</a></th>
+             <th><a data-orderby="status" >Status</a></th>
+             <th >Invoice</th>
+             <th><a data-orderby="country" >Delivery</a></th>
+             <th><a data-orderby="insertdate" >Date</a></th>
+             <th>PDF</th>
+             <th><a data-orderby="issue" >Issues</a></th>
+             <th>Ed</th>
+            <th>Del</th>
+
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+    {% set row=loop.index %}
+        <tr {% if entity.issue>0 %} class="error" {% endif %}>
+            <td><a href="{{ path('offre_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
+            <td>{% if entity.clientid %} <a href="{{ path('client_edit', { 'id': entity.clientid.id }) }}">{{ entity.clientid.name }}</a> {% endif %}</td>
+            <td>{{ entity.offretype }}</td>
+            <td>{{ entity.price|number_format(2,',',' ') }}</td>
+             <td>{% if entity.status=='ok' %}Sent to client{% elseif entity.status=='ANNULÉ' or entity.status=='cancel' %} Canceled {% elseif entity.status=='draft' or entity.status=='' %}Draft {% elseif entity.jobid %}Job: <a href="{{path('job',{'id':entity.jobid.id})}}" class="red">{{entity.jobid.reference}}</a>{% elseif entity.status=='CONFIRMÉ' %}Confirmed{% else %}{{entity.status}}{% endif %}</td>
+             <td>{% if entity.clientid %}{{entity.clientid.country}}{% endif %}</td>
+             <td>{{entity.country}}</td>
+             <td>{{ entity.insertDate|date('d/m/Y') }}</td>
+
+             <td>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" id="drop{{row}}_1" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>
+                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop{{row}}_1">
+                        {% for lg in ['en','fr','nl'] %}
+                            <li role="presentation">
+                               <a role="menuitem" href="{{path('offre_pdf',{'id':entity.id,'_locale':lg})}}" target="_blank" > Offre {{lg}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </td>
+
+
+             <td>{% if entity.issue %}<span class="label label-important">{{ entity.issue }}</span>{% endif %}</td>
+              <td>
+                <a href="{{ path('offre_edit', { 'id': entity.id }) }}"><i class="icon icon-edit"></i></a>
+
+            </td>
+             <td>
+
+                        <a href="{{ path('offre_show', { 'id': entity.id }) }}"><i class="icon icon-trash"></i></a>
+
+
+            </td>
+
+{#}
+            <td><a href="{{ path('offre_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{% if entity.insertdate %}{{ entity.insertdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.updatedate %}{{ entity.updatedate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.reference }}</td>
+            <td>{{ entity.offretype }}</td>
+            <td>{{ entity.planningcomments }}</td>
+            <td>{{ entity.offrecomments }}</td>
+            <td>{{ entity.surface }}</td>
+            <td>{% if entity.startbuild %}{{ entity.startbuild|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.endbuild %}{{ entity.endbuild|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.requestdate %}{{ entity.requestdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.status }}</td>
+            <td>{{ entity.pricetype }}</td>
+            <td>{{ entity.price }}</td>
+            <td>{{ entity.pricecomments }}</td>
+            <td>{{ entity.conditions }}</td>
+            <td>{{ entity.conditionsslices }}</td>
+            <td>{{ entity.tents }}</td>
+            <td>{{ entity.tentscomments }}</td>
+            <td>{{ entity.address }}</td>
+            <td>{{ entity.number }}</td>
+            <td>{{ entity.zip }}</td>
+            <td>{{ entity.city }}</td>
+            <td>{{ entity.country }}</td>
+            <td>{{ entity.contact }}</td>
+            <td>{{ entity.phone }}</td>
+            <td>{{ entity.phone2 }}</td>
+            <td>{{ entity.mobile }}</td>
+            <td>{{ entity.fax }}</td>
+            <td>{{ entity.email }}</td>
+            <td>{{ entity.url }}</td>
+            <td>{{ entity.comments }}</td>
+            <td>{{ entity.introtext }}</td>
+            <td>{{ entity.issue }}</td>
+            <td>{{ entity.deleted }}</td>
+            <td>{{ entity.public }}</td>
+            <td>{{ entity.language }}</td>
+            <td>{{ entity.copyid }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('offre_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('offre_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>#}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</div>
+<div class="row-fluid">
+    <div class="row-fluid">
+    {% include "CaravaneOrganicBundle:Default:pagination.html.twig" %}
+</div>
+</div>
+{% endblock body %}

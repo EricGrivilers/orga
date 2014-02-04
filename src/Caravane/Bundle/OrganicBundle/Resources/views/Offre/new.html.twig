@@ -1,0 +1,5 @@
+{% extends "CaravaneOrganicBundle:Offre:edit.html.twig" %}
+
+{% block form_header %}
+<form id='mainForm' action="{{ path('offre_create') }}" method="post" data-entity='offre' {{ form_enctype(edit_form) }} novalidate>
+{% endblock form_header %}

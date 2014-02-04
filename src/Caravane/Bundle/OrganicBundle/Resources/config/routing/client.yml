@@ -1,0 +1,49 @@
+client:
+    pattern:  /
+    defaults: { _controller: "CaravaneOrganicBundle:Client:index" }
+    options:
+        expose: true
+
+client_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "CaravaneOrganicBundle:Client:show" }
+
+client_new:
+    pattern:  /new
+    defaults: { _controller: "CaravaneOrganicBundle:Client:new" }
+
+
+client_create:
+    pattern:  /create
+    defaults: { _controller: "CaravaneOrganicBundle:Client:create" }
+    requirements: { _method: post }
+
+client_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "CaravaneOrganicBundle:Client:edit" }
+    options:
+        expose: true
+
+client_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "CaravaneOrganicBundle:Client:update" }
+    requirements: { _method: post }
+
+client_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "CaravaneOrganicBundle:Client:delete" }
+    requirements: { _method: post }
+
+client_autocomplete:
+    pattern:  /autocomplete
+    defaults: { _controller: "CaravaneOrganicBundle:Client:autocomplete",_format: json }
+    requirements: { _method: get }
+    options:
+        expose: true
+
+client_get_data:
+    pattern:  /{id}/get_data
+    defaults: { _controller: "CaravaneOrganicBundle:Client:getData" }
+    requirements: { _method: post }
+    options:
+        expose: true

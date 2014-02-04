@@ -1,0 +1,39 @@
+{% block filesupload_widget %}
+    <div class="controls" >
+        <div >
+            {#<input type="hidden" name="caravane_bij_upload_files[{{form.vars.id}}]"  values=""  class="files" />#}
+            {#<input type="text" name="{{form.vars.full_name}}[]"  value=""  class="files" />#}
+            {#{form.vars.full_name}#}
+            {#<input type="text" name="{{form.vars.full_name}}[]"  id="{{form.vars.id}}" />#}
+                <input type="file" id="{{form.vars.id}}_upload" name="{#{form.vars.full_name}#}files[]" multiple="multiple" data-url="{{path('Caravane_bij_ulpload')}}"  data-folder="files" style="position:absolute;left:-9000px"  class="multipleupload"  data-var="{{form.vars.full_name}}"/>
+
+                <a onclick="$('#{{form.vars.id}}_upload').click()"  class="btn btn-inverse"><i class='icon icon-white icon-upload'></i> Add files</a>
+        </div>
+
+        <div class="progress progress-striped active">
+                <div class="bar bar-danger" style="width: 0%;"></div>
+        </div>
+        <div class="caravane_bij_upload_files_list" >
+                 {{ _self.uploadeFilesRow() }}
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% macro uploadeFilesRow() %}
+    <div class="uploaded_files_row" style="display:none">
+        <div class="row-fluid">
+            <div class="span3 uploaded_file_img">
+                <img />-
+            </div>
+            <div class="span6 uploaded_file_name">
+                -
+            </div>
+            <div class="span3 uploaded_file_img">
+                Complete
+            </div>
+        </div>
+    </div>
+{% endmacro %}

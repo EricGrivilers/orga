@@ -1,0 +1,150 @@
+{% block styles %}
+<style type="text/css">
+	<!--
+	table.main {
+		width:190mm;
+
+	}
+	td {
+		vertical-align:top;
+	}
+	.center {
+		text-align:center;
+	}
+	.left {
+		text-align:left;
+	}
+	.right {
+		text-align:right;
+	}
+	td.1col {
+		width:180mm;
+	}
+	td.2col {
+		width:95mm;
+	}
+	td.address {
+		padding-top:45mm;
+	}
+	td.price,th.price {
+		width:35mm;
+	}
+	td.description,th.description {
+		width:145mm;
+	}
+	th {
+		background:#ededed;
+	}
+	table.main td,table.main th {
+		padding:0 1mm;
+	}
+
+	.grey {
+		background:#ededed;
+	}
+
+	table.grey {
+		border:1px solid #ededed;
+	}
+	.marker {
+		position:absolute;
+		border-bottom:1px solid #ededed;
+		width:1mm;
+	}
+
+	table.bordered {
+		border:1px solid #333;
+	}
+
+	table.bordered td.borderedRight {
+		border-right:1px solid #333;
+	}
+	table.bordered td.borderedBottom {
+		border-bottom:1px solid #333;
+	}
+
+	td.borderedBottomLight {
+		border-bottom:1px solid #ccc;
+	}
+	-->
+</style>
+{% endblock styles %}
+
+{% block page1 %}
+	<page backtop="30mm" backbottom="30mm" backleft="0mm" backright="0mm" >
+		<div class="marker" style="height:49mm" >
+		</div>
+		<div class="marker" style="height:149mm" >
+		</div>
+		<page_header>
+			{% block page1_header %}
+			<table class="main" >
+				<tr>
+					<td class="2col">
+						<img src="{{dir}}/web/bundles/caravaneorganic/images/logo.png" />
+					</td>
+					<td class="2col" ><br/><br/><br/>{% block documentType %} {% endblock documentType %}</td>
+				</tr>
+			</table>
+			{% endblock page1_header %}
+		</page_header>
+		<page_footer>
+
+			{% block page1_footer %}
+			<table class="main">
+				{% block conditions %}
+				{% endblock conditions %}
+				<tr>
+					<td class="center 1col grey">
+						Organic sa-nv - 71, Ikaroslaan - 1930 Zaventem - Belgium
+						<br/>
+						www.organic-concept.com - TVA/BTW: 0807.879.247
+						<br/>
+						ING - {{"Compte n°"|trans}} : 363-1068056-29 - IBAN : BE26 3631 0680 5629 - SWIFT : BBRUBEBB
+			<br/>
+			Fortis Bank - {{"Compte n°"|trans}} : 001-5712962-29 - IBAN : BE26 0015 7129 6229 - SWIFT : GEBABEBB
+						<br/>
+						Tel 00 32 2 709 09 50 - Fax 00 32 2 709 09 51 - info@organic-concept.com
+					</td>
+				</tr>
+			</table>
+			{% endblock page1_footer %}
+		</page_footer>
+		
+			<table class="main">
+				<tr>
+					<td class="2col">
+						{% block reference %}
+					    {% endblock reference %}
+					</td>
+					<td class="2col address">
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						{% block address %}
+					    {% endblock address %}
+					</td>
+				</tr>
+			</table>
+			<br/>
+			
+	    {% block page1_body %}
+
+	    {% endblock page1_body %}
+	    <br/>
+			
+	    {% block bank_body %}
+	    	<b><u>{{"Coordonnées bancaires"|trans}}</u></b><br/><br/>
+
+			ING - {{"Compte n°"|trans}} 363-1068056-29 - IBAN : BE26 3631 0680 5629 - SWIFT : BBRUBEBB
+			<br/>
+			Fortis Bank - {{"Compte n°"|trans}} 001-5712962-29 - IBAN : BE26 0015 7129 6229 - SWIFT : GEBABEBB
+	    {% endblock bank_body %}
+	    <br/>
+	</page>
+{% endblock page1 %}
+
+{% block page2 %}
+	
+{% endblock page2 %}

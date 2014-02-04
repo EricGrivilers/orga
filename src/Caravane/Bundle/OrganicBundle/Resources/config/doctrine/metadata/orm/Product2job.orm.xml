@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Product2job" table="product2job">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="productid" type="integer" column="productId" nullable="false"/>
+    <field name="description" type="text" column="description" nullable="false"/>
+    <field name="price" type="float" column="price" nullable="false"/>
+    <field name="insertdate" type="datetime" column="insertDate" nullable="false"/>
+    <field name="updatedate" type="datetime" column="updateDate" nullable="false"/>
+    <field name="rank" type="smallint" column="rank" nullable="false"/>
+    <field name="isoption" type="boolean" column="isOption" nullable="false"/>
+    <field name="isfromoffre" type="boolean" column="isFromOffre" nullable="false"/>
+    <many-to-one field="offreid" target-entity="Offre">
+      <join-columns>
+        <join-column name="offreId" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="jobid" target-entity="Job">
+      <join-columns>
+        <join-column name="jobId" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

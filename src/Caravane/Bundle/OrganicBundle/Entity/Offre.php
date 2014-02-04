@@ -1,0 +1,1730 @@
+<?php
+
+namespace Caravane\Bundle\OrganicBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContext;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Offre
+ *
+ * @ORM\Table(name="offre")
+ * @ORM\Entity(repositoryClass="Caravane\Bundle\OrganicBundle\Entity\OffreRepository")
+ */
+class Offre
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="eventDate", type="datetime", nullable=true)
+     */
+    private $eventdate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="insertDate", type="datetime", nullable=false)
+     */
+    private $insertdate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updateDate", type="datetime", nullable=false)
+     */
+    private $updatedate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reference", type="string", length=50, nullable=false)
+     */
+    private $reference;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="offreType", type="string", length=10, nullable=false)
+     */
+    private $offretype;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="planningComments", type="text", nullable=true)
+     */
+    private $planningcomments;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="offreComments", type="text", nullable=true)
+     */
+    private $offrecomments;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="surface", type="string", length=100, nullable=true)
+     */
+    private $surface;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="startBuild", type="datetime", nullable=true)
+     */
+    private $startbuild;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="endBuild", type="datetime", nullable=true)
+     */
+    private $endbuild;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="requestDate", type="datetime", nullable=true)
+     */
+    private $requestdate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=30, nullable=false)
+     */
+    private $status;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="priceType", type="string", length=10, nullable=false)
+     */
+    private $pricetype;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="price", type="decimal", length=50, nullable=false, scale=2 )
+     */
+    private $price;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="priceComments", type="text", nullable=true)
+     */
+    private $pricecomments;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conditions", type="text", nullable=true)
+     */
+    private $conditions;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conditionsSlices", type="text", nullable=true)
+     */
+    private $conditionsslices;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tents", type="string", length=255, nullable=true)
+     */
+    private $tents;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tentsComments", type="text", nullable=true)
+     */
+    private $tentscomments;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=255, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="number", type="string", length=10, nullable=true)
+     */
+    private $number;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="zip", type="string", length=10, nullable=true)
+     */
+    private $zip;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=120, nullable=true)
+     */
+    private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="country", type="string", length=120, nullable=true)
+     */
+    private $country;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contact", type="string", length=255, nullable=true)
+     */
+    private $contact;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=20, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone2", type="string", length=20, nullable=true)
+     */
+    private $phone2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mobile", type="string", length=20, nullable=true)
+     */
+    private $mobile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fax", type="string", length=20, nullable=true)
+     */
+    private $fax;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=120, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
+     */
+    private $url;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comments", type="text", nullable=true)
+     */
+    private $comments;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="introText", type="text", nullable=true)
+     */
+    private $introtext;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="issue", type="boolean", nullable=true)
+     */
+    private $issue;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="deleted", type="string", length=255, nullable=true)
+     */
+    private $deleted;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="public", type="boolean", nullable=true)
+     */
+    private $public;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="language", type="string", length=2, nullable=true)
+     */
+    private $language;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="validity", type="string", length=2, nullable=true)
+     */
+    private $validity;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="userId", referencedColumnName="id")
+     * })
+     */
+    private $userid;
+
+    /**
+     * @var \Client
+     *
+     * @ORM\ManyToOne(targetEntity="Client")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="clientId", referencedColumnName="id")
+     * })
+     */
+    private $clientid;
+
+
+    /**
+     * @var \Job
+     *
+     * @ORM\OneToOne(targetEntity="Job",mappedBy="offreid",cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="jobId", referencedColumnName="id")
+     */
+    private $jobid;
+
+
+    /**
+     * @var \tents2offre
+     *
+     * @ORM\OneToMany(targetEntity="Tent2offre", mappedBy="offreid")
+     *
+     */
+    private $tents2offre;
+
+    /**
+     * @var \transport2offre
+     *
+     * @ORM\OneToMany(targetEntity="Transport2offre", mappedBy="offreid")
+     *
+     */
+    private $transport2offre;
+
+
+
+    /**
+     * @var \tents2offre
+     *
+     * @ORM\OneTomany(targetEntity="Planning2offre",mappedBy="offreid",cascade={"persist"})
+     *
+     */
+    private $plannings;
+
+
+    /**
+     * @var \Products
+     *
+     * @ORM\OneToMany(targetEntity="Product2offre",mappedBy="offreid")
+     * @ORM\OrderBy({"rank"="asc"})
+     */
+
+    private $products;
+
+
+     /**
+     * @var \SLices
+     *
+     * @ORM\ManyToMany(targetEntity="Condition")
+     */
+    private $condition;
+
+
+     /**
+     * @var \SLices
+     *
+     * @ORM\OneToMany(targetEntity="Slice2offre",mappedBy="offreid")
+     */
+
+    private $slices;
+
+
+
+    private $totalSlice;
+    private $totalSlicePriceht;
+
+
+     /**
+    *  @ORM\ManyToMany(targetEntity="Document",cascade={"persist"})
+    * @ORM\OrderBy({"rank" = "ASC"})
+    */
+    private $document;
+
+    private $files=array();
+
+
+
+     /**
+    *  @ORM\ManyToMany(targetEntity="Comment",cascade={"persist"})
+    * @ORM\OrderBy({"createdOn" = "ASC"})
+    */
+    private $comment;
+
+
+
+
+    public function getFiles() {
+        return $this->files;
+    }
+
+    public function setFiles($files) {
+        $rank=count($this->document)+1;
+         if(!is_null($files)) {
+            foreach($files as $file) {
+
+                $document=new \Caravane\Bundle\OrganicBundle\Entity\Document();
+                $document->setFilename($file);
+                $document->setRank($rank);
+                $rank++;
+
+                $this->addDocument($document);
+            }
+        }
+    }
+
+
+    public function __toString() {
+        return $this->reference;
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set insertdate
+     *
+     * @param \DateTime $insertdate
+     * @return Offre
+     */
+    public function setInsertdate($insertdate)
+    {
+        $this->insertdate = $insertdate;
+
+        return $this;
+    }
+
+    /**
+     * Get insertdate
+     *
+     * @return \DateTime
+     */
+    public function getInsertdate()
+    {
+        return $this->insertdate;
+    }
+
+    /**
+     * Set updatedate
+     *
+     * @param \DateTime $updatedate
+     * @return Offre
+     */
+    public function setUpdatedate($updatedate)
+    {
+        $this->updatedate = $updatedate;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedate
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedate()
+    {
+        return $this->updatedate;
+    }
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     * @return Offre
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
+
+    /**
+     * Set offretype
+     *
+     * @param string $offretype
+     * @return Offre
+     */
+    public function setOffretype($offretype)
+    {
+        $this->offretype = $offretype;
+
+        return $this;
+    }
+
+    /**
+     * Get offretype
+     *
+     * @return string
+     */
+    public function getOffretype()
+    {
+        return $this->offretype;
+    }
+
+    /**
+     * Set planningcomments
+     *
+     * @param string $planningcomments
+     * @return Offre
+     */
+    public function setPlanningcomments($planningcomments)
+    {
+        $this->planningcomments = $planningcomments;
+
+        return $this;
+    }
+
+    /**
+     * Get planningcomments
+     *
+     * @return string
+     */
+    public function getPlanningcomments()
+    {
+        return $this->planningcomments;
+    }
+
+    /**
+     * Set offrecomments
+     *
+     * @param string $offrecomments
+     * @return Offre
+     */
+    public function setOffrecomments($offrecomments)
+    {
+        $this->offrecomments = $offrecomments;
+
+        return $this;
+    }
+
+    /**
+     * Get offrecomments
+     *
+     * @return string
+     */
+    public function getOffrecomments()
+    {
+        return $this->offrecomments;
+    }
+
+    /**
+     * Set surface
+     *
+     * @param string $surface
+     * @return Offre
+     */
+    public function setSurface($surface)
+    {
+        $this->surface = $surface;
+
+        return $this;
+    }
+
+    /**
+     * Get surface
+     *
+     * @return string
+     */
+    public function getSurface()
+    {
+        return $this->surface;
+    }
+
+    /**
+     * Set startbuild
+     *
+     * @param \DateTime $startbuild
+     * @return Offre
+     */
+    public function setStartbuild($startbuild)
+    {
+        $this->startbuild = $this->plannings[1]->getStartdate();
+
+        return $this;
+    }
+
+    /**
+     * Get startbuild
+     *
+     * @return \DateTime
+     */
+    public function getStartbuild()
+    {
+        if($this->plannings) {
+            if($this->plannings[1]) {
+                $this->startbuild = $this->plannings[1]->getStartdate();
+            }
+        }
+
+        return $this->startbuild;
+    }
+
+    /**
+     * Set endbuild
+     *
+     * @param \DateTime $endbuild
+     * @return Offre
+     */
+    public function setEndbuild($endbuild)
+    {
+        $this->endbuild = $this->plannings[3]->getEnddate();
+
+        return $this;
+    }
+
+    /**
+     * Get endbuild
+     *
+     * @return \DateTime
+     */
+    public function getEndbuild()
+    {
+        if($this->plannings) {
+            if($this->plannings[3]) {
+                $this->endbuild = $this->plannings[3]->getEnddate();
+            }
+        }
+        return $this->endbuild;
+
+    }
+
+    /**
+     * Set requestdate
+     *
+     * @param \DateTime $requestdate
+     * @return Offre
+     */
+    public function setRequestdate($requestdate)
+    {
+        $this->requestdate = $requestdate;
+
+        return $this;
+    }
+
+    /**
+     * Get requestdate
+     *
+     * @return \DateTime
+     */
+    public function getRequestdate()
+    {
+        return $this->requestdate;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return Offre
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set pricetype
+     *
+     * @param string $pricetype
+     * @return Offre
+     */
+    public function setPricetype($pricetype)
+    {
+        $this->pricetype = $pricetype;
+
+        return $this;
+    }
+
+    /**
+     * Get pricetype
+     *
+     * @return string
+     */
+    public function getPricetype()
+    {
+        return $this->pricetype;
+    }
+
+    /**
+     * Set price
+     *
+     * @param string $price
+     * @return Offre
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return string
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set pricecomments
+     *
+     * @param string $pricecomments
+     * @return Offre
+     */
+    public function setPricecomments($pricecomments)
+    {
+        $this->pricecomments = $pricecomments;
+
+        return $this;
+    }
+
+    /**
+     * Get pricecomments
+     *
+     * @return string
+     */
+    public function getPricecomments()
+    {
+        return $this->pricecomments;
+    }
+
+    /**
+     * Set conditions
+     *
+     * @param string $conditions
+     * @return Offre
+     */
+    public function setConditions($conditions)
+    {
+        $this->conditions = $conditions;
+
+        return $this;
+    }
+
+    /**
+     * Get conditions
+     *
+     * @return string
+     */
+    public function getConditions()
+    {
+        return $this->conditions;
+    }
+
+    /**
+     * Set conditionsslices
+     *
+     * @param string $conditionsslices
+     * @return Offre
+     */
+    public function setConditionsslices($conditionsslices)
+    {
+        $this->conditionsslices = $conditionsslices;
+
+        return $this;
+    }
+
+    /**
+     * Get conditionsslices
+     *
+     * @return string
+     */
+    public function getConditionsslices()
+    {
+        return $this->conditionsslices;
+    }
+
+    /**
+     * Set tents
+     *
+     * @param string $tents
+     * @return Offre
+     */
+    public function setTents($tents)
+    {
+        $this->tents = $tents;
+
+        return $this;
+    }
+
+    /**
+     * Get tents
+     *
+     * @return string
+     */
+    public function getTents()
+    {
+        return $this->tents;
+    }
+
+    /**
+     * Set tentscomments
+     *
+     * @param string $tentscomments
+     * @return Offre
+     */
+    public function setTentscomments($tentscomments)
+    {
+        $this->tentscomments = $tentscomments;
+
+        return $this;
+    }
+
+    /**
+     * Get tentscomments
+     *
+     * @return string
+     */
+    public function getTentscomments()
+    {
+        return $this->tentscomments;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return Offre
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set number
+     *
+     * @param string $number
+     * @return Offre
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return string
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * Set zip
+     *
+     * @param string $zip
+     * @return Offre
+     */
+    public function setZip($zip)
+    {
+        $this->zip = $zip;
+
+        return $this;
+    }
+
+    /**
+     * Get zip
+     *
+     * @return string
+     */
+    public function getZip()
+    {
+        return $this->zip;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return Offre
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     * @return Offre
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set contact
+     *
+     * @param string $contact
+     * @return Offre
+     */
+    public function setContact($contact)
+    {
+        $this->contact = $contact;
+
+        return $this;
+    }
+
+    /**
+     * Get contact
+     *
+     * @return string
+     */
+    public function getContact()
+    {
+        return $this->contact;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return Offre
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set phone2
+     *
+     * @param string $phone2
+     * @return Offre
+     */
+    public function setPhone2($phone2)
+    {
+        $this->phone2 = $phone2;
+
+        return $this;
+    }
+
+    /**
+     * Get phone2
+     *
+     * @return string
+     */
+    public function getPhone2()
+    {
+        return $this->phone2;
+    }
+
+    /**
+     * Set mobile
+     *
+     * @param string $mobile
+     * @return Offre
+     */
+    public function setMobile($mobile)
+    {
+        $this->mobile = $mobile;
+
+        return $this;
+    }
+
+    /**
+     * Get mobile
+     *
+     * @return string
+     */
+    public function getMobile()
+    {
+        return $this->mobile;
+    }
+
+    /**
+     * Set fax
+     *
+     * @param string $fax
+     * @return Offre
+     */
+    public function setFax($fax)
+    {
+        $this->fax = $fax;
+
+        return $this;
+    }
+
+    /**
+     * Get fax
+     *
+     * @return string
+     */
+    public function getFax()
+    {
+        return $this->fax;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Offre
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return Offre
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set comments
+     *
+     * @param string $comments
+     * @return Offre
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Get comments
+     *
+     * @return string
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Set introtext
+     *
+     * @param string $introtext
+     * @return Offre
+     */
+    public function setIntrotext($introtext)
+    {
+        $this->introtext = $introtext;
+
+        return $this;
+    }
+
+    /**
+     * Get introtext
+     *
+     * @return string
+     */
+    public function getIntrotext()
+    {
+        return $this->introtext;
+    }
+
+    /**
+     * Set issue
+     *
+     * @param boolean $issue
+     * @return Offre
+     */
+    public function setIssue($issue)
+    {
+        $this->issue = $issue;
+
+        return $this;
+    }
+
+    /**
+     * Get issue
+     *
+     * @return boolean
+     */
+    public function getIssue()
+    {
+        return $this->issue;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param string $deleted
+     * @return Offre
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return string
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * Set public
+     *
+     * @param boolean $public
+     * @return Offre
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+
+        return $this;
+    }
+
+    /**
+     * Get public
+     *
+     * @return boolean
+     */
+    public function getPublic()
+    {
+        return $this->public;
+    }
+
+    /**
+     * Set language
+     *
+     * @param string $language
+     * @return Offre
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * Get language
+     *
+     * @return string
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * Set copyid
+     *
+     * @param boolean $copyid
+     * @return Offre
+     */
+    public function setCopyid($copyid)
+    {
+        $this->copyid = $copyid;
+
+        return $this;
+    }
+
+    /**
+     * Get copyid
+     *
+     * @return boolean
+     */
+    public function getCopyid()
+    {
+        return $this->copyid;
+    }
+
+    /**
+     * Set userid
+     *
+     * @param \Caravane\UserBundle\Entity\User $userid
+     * @return Offre
+     */
+    public function setUserid(\Caravane\UserBundle\Entity\User $userid = null)
+    {
+        $this->userid = $userid;
+
+        return $this;
+    }
+
+    /**
+     * Get userid
+     *
+     * @return \Caravane\UserBundle\Entity\User
+     */
+    public function getUserid()
+    {
+        return $this->userid;
+    }
+
+    /**
+     * Set clientid
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Client $clientid
+     * @return Offre
+     */
+    public function setClientid(\Caravane\Bundle\OrganicBundle\Entity\Client $clientid = null)
+    {
+        $this->clientid = $clientid;
+
+        return $this;
+    }
+
+    /**
+     * Get clientid
+     *
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Client
+     */
+    public function getClientid()
+    {
+        return $this->clientid;
+    }
+
+
+
+
+    /**
+     * Set jobid
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Job $jobid
+     * @return Offre
+     */
+    public function setJobid(\Caravane\Bundle\OrganicBundle\Entity\Job $jobid)
+    {
+        $this->jobid = $jobid;
+
+        return $this;
+    }
+
+    /**
+     * Get jobid
+     *
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Job
+     */
+    public function getJobid()
+    {
+        return $this->jobid;
+    }
+
+    /**
+     * Add tents2offre
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre
+     * @return Offre
+     */
+    public function addTents2offre(\Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre)
+    {
+        $this->tents2offre[] = $tents2offre;
+
+        return $this;
+    }
+
+    /**
+     * Remove tents2offre
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre
+     */
+    public function removeTents2offre(\Caravane\Bundle\OrganicBundle\Entity\Tent2Offre $tents2offre)
+    {
+        $this->tents2offre->removeElement($tents2offre);
+    }
+
+    /**
+     * Get tents2offre
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTents2offre()
+    {
+        return $this->tents2offre;
+    }
+
+
+
+    /**
+     * Add plannings
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Planning2offre $plannings
+     * @return Offre
+     */
+    public function addPlanning(\Caravane\Bundle\OrganicBundle\Entity\Planning2offre $plannings)
+    {
+        $this->plannings[] = $plannings;
+
+        return $this;
+    }
+
+    /**
+     * Remove plannings
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Planning2offre $plannings
+     */
+    public function removePlanning(\Caravane\Bundle\OrganicBundle\Entity\Planning2offre $plannings)
+    {
+        $this->plannings->removeElement($plannings);
+    }
+
+    /**
+     * Get plannings
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlannings()
+    {
+        return $this->plannings;
+    }
+
+
+
+
+
+
+    /**
+     * Add products
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2offre $products
+     * @return Offre
+     */
+    public function addProduct(\Caravane\Bundle\OrganicBundle\Entity\Product2offre $products)
+    {
+        $this->products[] = $products;
+
+        return $this;
+    }
+
+    /**
+     * Remove products
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Product2offre $products
+     */
+    public function removeProduct(\Caravane\Bundle\OrganicBundle\Entity\Product2offre $products)
+    {
+        $this->products->removeElement($products);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+
+
+    /**
+     * Add slices
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Slice2offre $slices
+     * @return Offre
+     */
+    public function addSlice(\Caravane\Bundle\OrganicBundle\Entity\Slice2offre $slices)
+    {
+        $this->slices[] = $slices;
+
+        return $this;
+    }
+
+    /**
+     * Remove slices
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Slice2offre $slices
+     */
+    public function removeSlice(\Caravane\Bundle\OrganicBundle\Entity\Slice2offre $slices)
+    {
+        $this->slices->removeElement($slices);
+    }
+
+    /**
+     * Get slices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSlices()
+    {
+        return $this->slices;
+    }
+
+
+    public function setTotalSlice($totalSlice) {
+        $this->totalSlice=$totalSlice;
+    }
+    public function getTotalSlice() {
+        $this->totalSlice=0;
+
+            foreach($this->slices as $slice) {
+                $this->totalSlice+=$slice->getSlice();
+            }
+
+
+        return $this->totalSlice;
+    }
+
+     public function setTotalSlicePriceht($totalSlicePriceht) {
+        $this->totalSlicePriceht=$totalSlicePriceht;
+    }
+    public function getTotalSlicePriceht() {
+        $this->totalSlicePriceht=0;
+
+        foreach($this->slices as $slice) {
+            $this->totalSlicePriceht+=$slice->getPriceht();
+        }
+        return $this->totalSlicePriceht;
+    }
+
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tents2offre = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->plannings = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->slices = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
+     * Set validity
+     *
+     * @param string $validity
+     * @return Offre
+     */
+    public function setValidity($validity)
+    {
+        $this->validity = $validity;
+
+        return $this;
+    }
+
+    /**
+     * Get validity
+     *
+     * @return string
+     */
+    public function getValidity()
+    {
+        return $this->validity;
+    }
+
+    /**
+     * Set eventdate
+     *
+     * @param \DateTime $eventdate
+     * @return Offre
+     */
+    public function setEventdate($eventdate)
+    {
+        $this->eventdate = $eventdate;
+
+        return $this;
+    }
+
+    /**
+     * Get eventdate
+     *
+     * @return \DateTime
+     */
+    public function getEventdate()
+    {
+        return $this->eventdate;
+    }
+
+    /**
+     * Add document
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Document $document
+     * @return Offre
+     */
+    public function addDocument(\Caravane\Bundle\OrganicBundle\Entity\Document $document)
+    {
+        $this->document[] = $document;
+
+        return $this;
+    }
+
+    /**
+     * Remove document
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Document $document
+     */
+    public function removeDocument(\Caravane\Bundle\OrganicBundle\Entity\Document $document)
+    {
+        $this->document->removeElement($document);
+    }
+
+    /**
+     * Get document
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDocument()
+    {
+        return $this->document;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Comment $comment
+     * @return Offre
+     */
+    public function addComment(\Caravane\Bundle\OrganicBundle\Entity\Comment $comment)
+    {
+        $this->comment[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Comment $comment
+     */
+    public function removeComment(\Caravane\Bundle\OrganicBundle\Entity\Comment $comment)
+    {
+        $this->comment->removeElement($comment);
+    }
+
+    /**
+     * Get comment
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Add transport2offre
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Transport2offre $transport2offre
+     * @return Offre
+     */
+    public function addTransport2offre(\Caravane\Bundle\OrganicBundle\Entity\Transport2offre $transport2offre)
+    {
+        $this->transport2offre[] = $transport2offre;
+
+        return $this;
+    }
+
+    /**
+     * Remove transport2offre
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Transport2offre $transport2offre
+     */
+    public function removeTransport2offre(\Caravane\Bundle\OrganicBundle\Entity\Transport2offre $transport2offre)
+    {
+        $this->transport2offre->removeElement($transport2offre);
+    }
+
+    /**
+     * Get transport2offre
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTransport2offre()
+    {
+        return $this->transport2offre;
+    }
+
+    /**
+     * Add condition
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Condition $condition
+     * @return Offre
+     */
+    public function addCondition(\Caravane\Bundle\OrganicBundle\Entity\Condition $condition)
+    {
+        $this->condition[] = $condition;
+
+        return $this;
+    }
+
+    /**
+     * Remove condition
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Condition $condition
+     */
+    public function removeCondition(\Caravane\Bundle\OrganicBundle\Entity\Condition $condition)
+    {
+        $this->condition->removeElement($condition);
+    }
+
+    /**
+     * Get condition
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCondition()
+    {
+        return $this->condition;
+    }
+}

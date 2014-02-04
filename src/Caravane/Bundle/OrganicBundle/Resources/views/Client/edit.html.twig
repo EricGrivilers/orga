@@ -1,0 +1,74 @@
+{% extends "::base.html.twig" %}
+
+
+{% block body %}
+
+<div class="row-fluid">
+{% block form_header %}
+<form action="{{ path('client_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} data-entity='client'  novalidate >
+{% endblock form_header %}
+
+
+
+{% if form_errors(edit_form) %}
+    <div class="alert alert-error">
+        {{ form_errors(edit_form) }}
+    </div>
+{% endif %}
+{% if customErrors %}
+    {% for error in customErrors %}
+        <div class="alert alert-error">{{error}}
+        </div>
+    {% endfor %}
+{% endif %}
+    <div class="row-fluid">
+        <div class="actions">
+            <button type="submit" class="btn btn-inverse">Save</button>
+            <a href="{{ path('client') }}" class="btn">
+                    Back to the list
+            </a>
+        </div>
+    </div>
+
+
+<div>
+    <ul class="nav nav-tabs">
+         <li class="active"><a href="#tab_client" data-toggle="tab">Client</a></li>
+        <li><a href="#tab_tents" data-toggle="tab">Tents</a></li>
+        <li><a href="#tab_offres" data-toggle="tab">Offres</a></li>
+        <li><a href="#tab_jobs" data-toggle="tab">Jobs</a></li>
+        <li><a href="#tab_invoices" data-toggle="tab">Invoices</a></li>
+    </ul>
+</div>
+<div class="tab-content">
+      <div class="tab-pane active" id="tab_client"> {% include "CaravaneOrganicBundle:Client:tabs/client.html.twig" %}</div>
+      <div class="tab-pane" id="tab_tents"> {% include "CaravaneOrganicBundle:Client:tabs/tents.html.twig" %}</div>
+      <div class="tab-pane" id="tab_offres">   {% include "CaravaneOrganicBundle:Client:tabs/offres.html.twig" %}</div>
+      <div class="tab-pane" id="tab_jobs"> {% include "CaravaneOrganicBundle:Client:tabs/jobs.html.twig" %}</div>
+      <div class="tab-pane" id="tab_invoices">{% include "CaravaneOrganicBundle:Client:tabs/invoices.html.twig" %}</div>
+</div>
+
+
+
+
+
+
+    <div class="row-fluid">
+        <div class="actions">
+            <button type="submit" class="btn btn-inverse">Save</button>
+            <a href="{{ path('client') }}" class="btn">
+                    Back to the list
+            </a>
+        </div>
+    </div>
+
+
+
+
+    {{ form_rest(edit_form) }}
+
+</form>
+
+
+</div>
+{% endblock body %}

@@ -1,0 +1,15 @@
+<a class="btn add_comment" data-prototype="{{('<div><div>'~form_widget(edit_form.comment.vars.prototype.subject)~'</div><div>'~form_widget(edit_form.comment.vars.prototype.content)~'</div></div>')|e}}" ><i class='icon icon-plus'></i> Add comment</a>
+{% set c=0 %}
+{% for comment in edit_form.comment %}
+	<div class="well comment">
+		{#{dump(entity.comment[c])}#}
+		<div >{{comment.vars.value.subject}} <span>posted {% if entity.comment[c].createdOn %} on {{entity.comment[c].createdOn|date('d/m/Y')}} {% endif %} {% if entity.comment[c].userid %} by {{entity.comment[i].userid.firstname}} {% endif %}</span></div>
+		<div>{{comment.vars.value.content}}</div>
+		
+		<input type="hidden" name="{{comment.subject.vars.full_name}}" value="{{comment.vars.value.subject}}" />
+		<input type="hidden" name="{{comment.content.vars.full_name}}" value="{{comment.vars.value.content}}" />
+
+
+	</div>
+	{% set c=c+1 %}
+{% endfor %}

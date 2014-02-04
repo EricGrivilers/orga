@@ -1,0 +1,32 @@
+transport:
+    pattern:  /
+    defaults: { _controller: "CaravaneOrganicBundle:Transport:index" }
+    options: 
+        expose: true
+
+transport_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "CaravaneOrganicBundle:Transport:show" }
+
+transport_new:
+    pattern:  /new
+    defaults: { _controller: "CaravaneOrganicBundle:Transport:new" }
+
+transport_create:
+    pattern:  /create
+    defaults: { _controller: "CaravaneOrganicBundle:Transport:create" }
+    requirements: { _method: post }
+
+transport_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "CaravaneOrganicBundle:Transport:edit" }
+
+transport_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "CaravaneOrganicBundle:Transport:update" }
+    requirements: { _method: post|put }
+
+transport_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "CaravaneOrganicBundle:Transport:delete" }
+    requirements: { _method: post|delete }
