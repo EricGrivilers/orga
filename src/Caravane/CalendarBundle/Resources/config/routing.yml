@@ -1,5 +1,0 @@
-fullcalendar_loader:
-    pattern: /fc-load-events
-    defaults: { _controller: CaravaneOrganicBundle:Planning:loadEvents }
-    options:
-        expose: true

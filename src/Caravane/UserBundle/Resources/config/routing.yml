@@ -1,4 +1,0 @@
-caravane_user_user:
-    resource: "@CaravaneUserBundle/Resources/config/routing/user.yml"
-    prefix:   /user
-
