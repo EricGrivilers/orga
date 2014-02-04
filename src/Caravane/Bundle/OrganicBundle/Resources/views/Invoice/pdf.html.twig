@@ -140,7 +140,12 @@
 	        {% if entity.pricetype!='intra'%}
 	            {% set ToPay = entity.priceHT+(entity.priceHT*0.21) %}
 	        {% endif %}
+
+	        {% if entity.priceHT<0 %}
+	        <b>Total{% if entity.pricetype!='intra'%}{{"VAT incl."|trans}}{% endif %} {{ToPay|number_format(2,'.',' ')}} &euro;</b>
+	        {% else %}
 	       <b>{{"Montant total à payer"|trans}}  {% if entity.pricetype!='intra'%}{{"VAT incl."|trans}}{% endif %} {{ToPay|number_format(2,'.',' ')}} &euro;</b>
+	       {% endif %}
 		</td>
 	</tr>
 </table>
