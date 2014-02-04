@@ -10,6 +10,7 @@
 	{{"Note de crédit"|trans}}{{entity.creditNote ?" / "~entity.creditNote:""}}
 	{% else %}
 	{{("Facture de "~entity.offreType)|trans}}
+	{% endif %}
 {% endblock documentType %}
 
 {% block address %}
