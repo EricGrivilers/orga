@@ -7,7 +7,7 @@
 
 {% block documentType %}
 	{% if entity.priceHT<0 %}
-	{{("Note de crédit"|trans}}{{invoice.creditNote ?":"~invoice.creditNote:""}}
+	{{"Note de crédit"|trans}}{{entity.creditNote ?":"~entity.creditNote:""}}
 	{% else %}
 	{{("Facture de "~entity.offreType)|trans}}
 	{% endif %}
