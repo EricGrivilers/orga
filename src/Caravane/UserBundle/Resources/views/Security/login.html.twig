@@ -16,10 +16,13 @@
     <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
     <input type="password" id="password" name="_password" required="required" />
     <p>
-    <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> 
+    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
     {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
 </p>
 
     <input type="submit" class="btn btn-inverse"id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+
+
+    <p style="color:red;font-size:14px">First time on this new  version ? Please set up a new password <a href="/resetting/request">here</a></p>
 </form>
 {% endblock fos_user_content %}
