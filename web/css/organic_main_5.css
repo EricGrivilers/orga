@@ -1,0 +1,38 @@
+body, p, a, td { font-size:12px; }
+.well {
+  padding:10px;
+  font-size:12px;
+}
+.navbar { margin-bottom:10px; }
+.navbar-inverse .navbar-inner { border-radius:0; }
+.tools {
+  margin:10px 0;
+  text-align:right;
+}
+.actions {
+  margin:10px 0;
+  text-align:left;
+}
+table.table-condensed tr td { padding:2px; }
+table.table-condensed tr td a { color:#333; }
+table.table-condensed tr td a.red { color:#e1001a; }
+table.table-condensed tr td li { list-style:none; }
+tr.error { border:1px dashed red; }
+th.tiny, td.tiny { width:30px; }
+th.right, td.right { text-align:right; }
+a.red, .red { color:#e1001a; }
+#reportrange, .reportrange {
+  background:#fff;
+  -webkit-box-shadow:0 1px 3px rgba(0,0,0,0.25), inset 0 -1px 0 rgba(0,0,0,0.1);
+  -moz-box-shadow:0 1px 3px rgba(0,0,0,0.25), inset 0 -1px 0 rgba(0,0,0,0.1);
+  box-shadow:0 1px 3px rgba(0,0,0,0.25), inset 0 -1px 0 rgba(0,0,0,0.1);
+  color:#333;
+  padding:8px;
+  line-height:18px;
+  cursor:pointer;
+  float:left;
+}
+#reportrange .ranges ul li.red, .reportrange .ranges ul li.red { color:red; }
+.reportrange span { font-size:13px; }
+.reportrange span.static { color:#bbb; }
+form div.error .btn-group, form div.error select, form div.error textarea, form div.error input { border:1px solid red; }

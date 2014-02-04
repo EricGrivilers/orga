@@ -1,0 +1,231 @@
+
+
+---> modifs à faire server side pour changement
+
+ATTENTIOn : unicité ds product2job
+
+- ajouter .tpl au nom de fichier ds la table templates
+- remplir la table invoices des données client +aprés avoir ajouté champ clientType et clientTitle et cieType cf plus bas (+ change field tva to vat)
+- ajouter champ isFromJob ds product2invoice
+
+- dupliquer product2offre vers product2job. De cette nouvelle table supprimer les entrée où isOption=1, et les entrées ou jobId=0 OU jobId IS NULL
+- dupliquer les tables slices,planning en slice2offre, slice2job, planning2offre, planning2job  !!!auto increment qd copie table
+
+- supprimer de ces nouvelles tables ...2job les lignes où jobId=0 ou jobId IS NULL
+- supprimer les ref offreId de ces tables si ...2job, supprimer les ref jobId de ces tables si ...2offre
+- supprimer/refaire les unicités ???
+- supprimler la clé planningId des tables planning
+- //supprimer invoiceId de la table slice2offre
+
+- changer les champs de prix en float 10,2
+
+- vérifier comment se mettent les conditions par defaut ds les offres
+
+-a jouter un champ issue aux tentes
+
+
+
+
+-------- tents --------------
+
+ - vérifier liste tentes en hivernage 
+ * - vérifier l'ajout de client
+ * - upload docs
+
+
+
+
+
+--------- jobs------------
+
+ * - ajouter langue
+ * - possibiliter d'ajout de slice si ttes factures émises
+ * - bouton facturation -> OK
+
+- upload docs
+
+
+---------- offres ------------
+
+- textes par defaut en 2 langues -> OK
+ * - switch client type -> OK
+ * - clients autocomplete + new => foire pour part
+ * 
+ * - extraire gestion des slices => ok
+- upload docs
+
+
+
+----------- clients
+
+- verifier créer nouveau client =>ok
+- TVA unique => ok
+
+
+
+----------- planning
+
+- changer ds table elements calendar en planning
+
+
+
+
+----------- dashboard--------
+
+
+comme atuel=> rpartir les actions ds les differentes classes
+
+
+
+--------------- remplissage db invoices
+
+
+
+
+/*
+
+
+
+
+
+UPDATE  `organic`.`extra_templates` SET  `filename` =  'template.tpl' WHERE  `extra_templates`.`templateId` =1 LIMIT 1 ;
+UPDATE  `organic`.`extra_templates` SET  `filename` =  'template2.tpl' WHERE  `extra_templates`.`templateId` =2 LIMIT 1 ;
+
+ALTER TABLE  `extra_invoices` CHANGE  `tva`  `vat` VARCHAR( 30 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL
+
+ALTER TABLE  `extra_invoices` ADD  `clientType` VARCHAR( 5 ) NOT NULL AFTER  `content` ,
+ADD  `clientTitle` VARCHAR( 5 ) NOT NULL AFTER  `clientType` ;
+
+ALTER TABLE  `extra_invoices` ADD  `cieType` VARCHAR( 15 ) NOT NULL AFTER  `content`
+
+ALTER TABLE  `extra_product2invoice` ADD  `isFromJob` TINYINT( 1 ) NOT NULL AFTER  `isFromOffre`
+
+
+ALTER TABLE  `extra_tents` ADD  `issue` INT( 4 ) NOT NULL AFTER  `winterOffreId`
+
+
+
+
+CREATE TABLE  `organic`.`extra_product2job` (
+`productId` INT( 255 ) NOT NULL ,
+ `offreId` INT( 255 ) NOT NULL ,
+ `jobId` INT( 255 ) NOT NULL ,
+ `description` TEXT COLLATE utf8_unicode_ci NOT NULL ,
+ `price` FLOAT( 10, 2 ) NOT NULL ,
+ `insertDate` DATETIME NOT NULL ,
+ `updateDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+ `rank` SMALLINT( 6 ) NOT NULL ,
+ `isOption` TINYINT( 1 ) NOT NULL ,
+ `isFromOffre` TINYINT( 1 ) NOT NULL ,
+UNIQUE KEY  `productId_2` (  `productId` ,  `offreId` ,  `isOption` )
+) ENGINE = MYISAM DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
+
+INSERT INTO  `organic`.`extra_product2job` 
+SELECT * 
+FROM  `organic`.`extra_product2offre` ;
+
+
+
+CREATE TABLE  `organic`.`extra_slice2offre` (
+`offreId` INT( 255 ) DEFAULT NULL ,
+ `jobId` INT( 255 ) DEFAULT NULL ,
+ `invoiceId` INT( 255 ) DEFAULT NULL ,
+ `sliceId` INT( 20 ) NOT NULL ,
+ `slice` DOUBLE( 10, 5 ) NOT NULL ,
+ `priceHT` DOUBLE( 10, 2 ) NOT NULL ,
+ `comments` TEXT COLLATE utf8_bin NOT NULL ,
+ `status` VARCHAR( 20 ) COLLATE utf8_bin NOT NULL ,
+UNIQUE KEY  `offreId` (  `offreId` ,  `jobId` ,  `invoiceId` ,  `sliceId` )
+) ENGINE = MYISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
+
+INSERT INTO  `organic`.`extra_slice2offre` 
+SELECT * 
+FROM  `organic`.`extra_slices` ;
+
+
+CREATE TABLE  `organic`.`extra_slice2job` (
+`offreId` INT( 255 ) DEFAULT NULL ,
+ `jobId` INT( 255 ) DEFAULT NULL ,
+ `invoiceId` INT( 255 ) DEFAULT NULL ,
+ `sliceId` INT( 20 ) NOT NULL ,
+ `slice` DOUBLE( 10, 5 ) NOT NULL ,
+ `priceHT` DOUBLE( 10, 2 ) NOT NULL ,
+ `comments` TEXT COLLATE utf8_bin NOT NULL ,
+ `status` VARCHAR( 20 ) COLLATE utf8_bin NOT NULL ,
+UNIQUE KEY  `offreId` (  `offreId` ,  `jobId` ,  `invoiceId` ,  `sliceId` )
+) ENGINE = MYISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
+
+INSERT INTO  `organic`.`extra_slice2job` 
+SELECT * 
+FROM  `organic`.`extra_slices` ;
+
+
+
+
+
+
+
+CREATE TABLE  `organic`.`extra_planning2offre` (
+`planningId` INT( 255 ) NOT NULL AUTO_INCREMENT ,
+ `jobId` INT( 255 ) DEFAULT NULL ,
+ `offreId` INT( 255 ) DEFAULT NULL ,
+ `planningType` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+ `startDate` DATETIME NOT NULL ,
+ `endDate` DATETIME NOT NULL ,
+ `userId` INT( 100 ) NOT NULL ,
+ `etat` VARCHAR( 50 ) NOT NULL ,
+PRIMARY KEY (  `planningId` ) ,
+UNIQUE KEY  `offreId` (  `offreId` ,  `planningType` ) ,
+UNIQUE KEY  `jobId` (  `jobId` ,  `planningType` )
+) ENGINE = MYISAM DEFAULT CHARSET = latin1 AUTO_INCREMENT =2574;
+
+INSERT INTO  `organic`.`extra_planning2offre` 
+SELECT * 
+FROM  `organic`.`extra_planning` ;
+
+
+CREATE TABLE  `organic`.`extra_planning2job` (
+`planningId` INT( 255 ) NOT NULL AUTO_INCREMENT ,
+ `jobId` INT( 255 ) DEFAULT NULL ,
+ `offreId` INT( 255 ) DEFAULT NULL ,
+ `planningType` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ,
+ `startDate` DATETIME NOT NULL ,
+ `endDate` DATETIME NOT NULL ,
+ `userId` INT( 100 ) NOT NULL ,
+ `etat` VARCHAR( 50 ) NOT NULL ,
+PRIMARY KEY (  `planningId` ) ,
+UNIQUE KEY  `offreId` (  `offreId` ,  `planningType` ) ,
+UNIQUE KEY  `jobId` (  `jobId` ,  `planningType` )
+) ENGINE = MYISAM DEFAULT CHARSET = latin1 AUTO_INCREMENT =2574;
+
+INSERT INTO  `organic`.`extra_planning2job` 
+SELECT * 
+FROM  `organic`.`extra_planning` ;
+
+
+
+
+		$db=new DB;
+		$db->query="SELECT I.invoiceId,C.* FROM #__invoices I LEFT JOIN #__clients C ON C.clientId=I.clientId";
+		$db->setQuery();
+		echo $db->query."<br/>";
+		$invoices=$db->output;
+		foreach($invoices as $i) {
+			$db=new DB;
+			$db->query="UPDATE #__invoices SET 
+			name=\"".$i['name']."\",
+			lastname=\"".$i['lastname']."\",
+			firstname=\"".$i['firstname']."\",
+			number=\"".$i['number']."\",
+			address=\"".$i['address']."\",
+			city=\"".$i['city']."\",
+			zip=\"".$i['zip']."\",
+			country=\"".$i['country']."\", 
+			vat=\"".$i['vat']."\",
+			clientType=\"".$i['clientType']."\",
+			clientTitle=\"".$i['clientTitle']."\"  
+			WHERE invoiceId='".$i['invoiceId']."'";
+			$db->setQuery();
+			echo $db->query."<br/>";
+		}
+		*/

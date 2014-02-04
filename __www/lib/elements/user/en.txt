@@ -1,0 +1,8 @@
+You didn't fill all required fields.	You didn't fill all required fields.
+Confirmation password doesn't match.	Confirmation password doesn't match.
+A mail has been sent to you. Click the link provided to confirm your registration.	A mail has been sent to you. Click the link provided to confirm your registration.
+required fields	required fields
+Your account has been confirmed. You are logged!	Your account has been confirmed. You are logged!
+erreur confirm	This confirmation code doesn't exists or you've already confirmed your registration. 
+You must confirm, please check your mails.	You must confirm, please check your mails.
+Unknown user	Unknown user
