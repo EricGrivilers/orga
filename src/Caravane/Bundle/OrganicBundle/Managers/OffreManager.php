@@ -53,8 +53,8 @@ class OffreManager
                     $entity->setEndbuild($planning->getEnddate());
                 }
             }
-            
-            
+
+
             $priceHt=0;
             foreach($entity->getProducts() as $product) {
                 $product->setOffreid($entity);
@@ -175,6 +175,7 @@ class OffreManager
             $planning2job->setStartdate($p->getStartdate());
             $planning2job->setEnddate($p->getEnddate());
             $planning2job->setEtat($p->getEtat());
+            $planning2job->setJobid($job);
             $planning2job->setUserid($p->getUserid());
             $em->persist($planning2job);
         }
@@ -207,13 +208,13 @@ class OffreManager
         }
         $entity->setJobid($job);
       $em->flush();
-     
+
 
         return $job;
 
     }
 
-   
+
 
 }
 
