@@ -39,7 +39,8 @@ class UserController extends Controller
         $nbpages=(Integer)(count($entities)/25)+1;
 
 
-        return $this->render('CaravaneUserBundle:User:index.html.twig', array(
+
+return $this->render('CaravaneUserBundle:User:index.html.twig', array(
             'entities' => $entities,
             'type'=>$type,
             'ob'=>$ob,

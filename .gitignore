@@ -11,6 +11,9 @@ www/app
 www/js/*
 www/css/*
 web/js/*
+web/bundles/*
 web/css/*
 .DS_Store
 composer.lock
+vendor/*
+__www
