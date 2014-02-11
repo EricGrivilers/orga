@@ -17,8 +17,17 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
+
+caravane_cron:
+    pattern: /cron
+    defaults: { _controller: "CaravaneOrganicBundle:Invoice:cron" }
+    requirements: { _method: get }
+
+    
 bijupload_routing:
     resource: "@CaravaneBIJUploadBundle/Resources/config/routing.yml"
+
+
 
 caravane_ui:
     resource: "@CaravaneUIBundle/Controller/"
@@ -40,6 +49,7 @@ caravane_organic:
 caravane_user:
     resource: "@CaravaneUserBundle/Resources/config/routing.yml"
     prefix:   /
+
 
 
 

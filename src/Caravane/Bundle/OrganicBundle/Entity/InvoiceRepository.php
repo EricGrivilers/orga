@@ -113,4 +113,46 @@ class InvoiceRepository extends EntityRepository
 
 	}
 
+	public function findDues($step=1, $delta=15) {
+		$today=new \Datetime();
+		$today->modify('-'.$delta.' days');
+		$sql="SELECT C FROM CaravaneOrganicBundle:Invoice C
+				WHERE C.reference!='' 
+				AND C.status!='paid'  
+				AND C.priceht>0 
+				AND C.invoicedate<?1 
+				AND ( C.paymentdate='0000-00-00' OR C.paymentdate IS NULL) ";
+		switch($step) {
+			default:
+			case "1":
+				$sql.="
+				AND C.r1=0
+				AND ( C.r1date='0000-00-00' OR C.r1date IS NULL) ";
+			break;
+
+			case 2:
+				$sql.="
+				AND C.r1=1
+				AND ( C.r1date!='0000-00-00' OR C.r1date IS NOT NULL )  
+				AND C.r2=0
+				AND ( C.r2date='0000-00-00' OR C.r2date IS NULL) ";
+			break;
+
+			case 3:
+				$sql.="
+				AND C.r2=1
+				AND ( C.r2date!='0000-00-00' OR C.r2date IS NOT NULL) 
+				AND C.med=0
+				AND ( C.meddate='0000-00-00' OR C.meddate IS NULL) ";
+			break;
+
+		}
+
+		$sql.="ORDER BY C.reference";
+		$query = $this->getEntityManager()->createQuery($sql);
+		$query->setParameter(1,  $today->format('Y-m-d H:i:s'));
+		$result=$query->getResult();
+		return $result;
+	}
+
 }

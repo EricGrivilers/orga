@@ -1,10 +1,14 @@
 web/bundles/
+app/cache
+app/logs
 app/cache/*
 app/logs/*
 build/
 vendor
 composer.phar
 web/docs/*
+www
+www/*
 www/docs/*
 www/cache/*
 www/app

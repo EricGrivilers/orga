@@ -441,5 +441,33 @@ class InvoiceController extends Controller
 
     }
 
+    public function cronAction() {
+        $em=$this->getDoctrine()->getManager();
+        $r1=$em->getRepository('CaravaneOrganicBundle:Invoice')->findDues(1,15);
+        $r2=$em->getRepository('CaravaneOrganicBundle:Invoice')->findDues(2,8);
+        $med=$em->getRepository('CaravaneOrganicBundle:Invoice')->findDues(3,15);
+
+        echo "r1:<br/>";
+        foreach($r1 as $invoice) {
+            echo $invoice->getReference();
+            echo " | ".$invoice->getPaymentDate()->format('Y-m-d H:i:s');
+            echo "<br/>";
+        }
+         echo "r2:<br/>";
+        foreach($r2 as $invoice) {
+            echo $invoice->getReference();
+            echo " | ".$invoice->getPaymentDate()->format('Y-m-d H:i:s');
+            echo "<br/>";
+        }
+         echo "med:<br/>";
+        foreach($med as $invoice) {
+            echo $invoice->getReference();
+
+            echo " | ".$invoice->getPaymentDate()->format('Y-m-d H:i:s');
+            echo "<br/>";
+        }
+        return null;
+    }
+
 
 }

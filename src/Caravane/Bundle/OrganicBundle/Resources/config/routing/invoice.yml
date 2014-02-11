@@ -58,4 +58,3 @@ invoice_remove_product:
     options:
         expose: true
 
-
