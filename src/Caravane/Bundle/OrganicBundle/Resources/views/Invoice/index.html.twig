@@ -60,7 +60,7 @@
     <tbody>
     {% for entity in entities %}
     {% set row= loop.index %}
-        <tr {% if entity.status!='paid' and entity.priceht>0 %} class="error" {% endif %} >
+        <tr {% if entity.status!='paid' and entity.priceht>0 and entity.reference!='' %} class="error" {% endif %} >
             <td><a href="{{ path('invoice_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
             <td>{% if entity.clientid %} <a href="{{ path('client_edit', { 'id': entity.clientid.id }) }}">{{ entity.clientid.name }}</a> {% endif %}</td>
             <td>{{ entity.offretype }}</td>

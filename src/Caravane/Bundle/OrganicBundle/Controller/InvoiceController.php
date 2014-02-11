@@ -442,31 +442,84 @@ class InvoiceController extends Controller
     }
 
     public function cronAction() {
+
+        $invoices=array();
         $em=$this->getDoctrine()->getManager();
         $r1=$em->getRepository('CaravaneOrganicBundle:Invoice')->findDues(1,15);
         $r2=$em->getRepository('CaravaneOrganicBundle:Invoice')->findDues(2,8);
         $med=$em->getRepository('CaravaneOrganicBundle:Invoice')->findDues(3,15);
 
+        $invoices['r1']=$r1;
+        $invoices['r2']=$r2;
+        $invoices['med']=$med;
+
+/*
         echo "r1:<br/>";
         foreach($r1 as $invoice) {
             echo $invoice->getReference();
-            echo " | ".$invoice->getPaymentDate()->format('Y-m-d H:i:s');
+            if($invoice->getPaymentDate()) { echo " | ".$invoice->getPaymentDate()->format('Y-m-d H:i:s');}
+            echo " | ".$invoice->getStatus();
             echo "<br/>";
         }
          echo "r2:<br/>";
         foreach($r2 as $invoice) {
             echo $invoice->getReference();
-            echo " | ".$invoice->getPaymentDate()->format('Y-m-d H:i:s');
+            if($invoice->getPaymentDate()) { echo " | ".$invoice->getPaymentDate()->format('Y-m-d H:i:s');}
+            echo " | ".$invoice->getStatus();
             echo "<br/>";
         }
          echo "med:<br/>";
         foreach($med as $invoice) {
             echo $invoice->getReference();
-
-            echo " | ".$invoice->getPaymentDate()->format('Y-m-d H:i:s');
+            if($invoice->getPaymentDate()) { echo " | ".$invoice->getPaymentDate()->format('Y-m-d H:i:s');}
+            echo " | ".$invoice->getStatus();
             echo "<br/>";
         }
-        return null;
+*/
+        if(count($r1)>0 || count($r2)>0 || count($med)>0) {
+            $message = \Swift_Message::newInstance()
+            ->setSubject('Reminders')
+            ->setFrom("organic@caravanemedia.com")
+            ->setTo("didier@organic-concept.com")
+            ->setCc("eric@caravanemedia.com")
+            ->setBody($this->container->get('templating')->render('CaravaneOrganicBundle:Invoice:email.cron.html.twig',
+                array('invoices' => $invoices)),
+                'text/html'
+            );
+            if($this->container->get('mailer')->send($message)) {
+                foreach($invoices as $k=>$it) {
+                    foreach($it as $invoice) {
+                        if($k=='r1') {
+                            //echo "r1<br/>";
+                            $invoice->setR1(true);
+                        }
+                        else if ($k=='r2') {
+                            //echo "r2<br/>";
+                            $invoice->setR2(true);
+                        }
+                        else if($k=='med'){
+                            //echo "med<br/>";
+                            $invoice->setMed(true);
+                        }
+                        $em->persist($invoice);
+                        //echo "<br/>";
+                            //echo $invoice->getId();
+                    }
+                }
+                $em->flush();
+            }
+        }
+
+
+
+        
+
+
+
+
+
+
+        return new Response('');
     }
 
 
