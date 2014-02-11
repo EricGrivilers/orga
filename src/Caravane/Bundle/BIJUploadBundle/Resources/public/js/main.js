@@ -1,7 +1,7 @@
 caravane_bij_upload = {}
 
 $(function () {
-console.log('fup');
+//console.log('fup');
     files=[]
     $('.multipleupload').fileupload({
         dataType: 'json',
@@ -10,7 +10,7 @@ console.log('fup');
             data.submit();
         },*/
         done: function (e, data) {
-          console.log('done');
+          //console.log('done');
           widget=$('#'+this.id).closest('.controls');
             $.each(data.result.files, function (index, file) {
                 //theClone=$('#caravane_bij_upload_files .uploaded_files_row:first').clone();
@@ -28,7 +28,7 @@ console.log('fup');
         },
 
         progressall: function (e, data) {
-          console.log('progresall');
+         // console.log('progresall');
           widget=$('#'+this.id).closest('.controls');
           var progressa = parseInt(data.loaded / data.total * 100, 10);
           //$('#caravane_bij_upload_progress .bar').css(
@@ -39,7 +39,7 @@ console.log('fup');
        },
        stop: function(e) {
         //alert(this.id);
-        console.log('stop');
+        //console.log('stop');
           inputVar=$('#'+this.id).data('var');
           widget=$('#'+this.id).closest('.controls');
           //$('#caravane_bij_upload_progress .bar').css('width','0%');
