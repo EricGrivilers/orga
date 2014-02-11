@@ -2,9 +2,9 @@ parameters:
     database_driver:   pdo_mysql
     database_host:     localhost
     database_port:     ~
-    database_name:     organic_intranet_v2
-    database_user:     organic
-    database_password: loukahugo
+    database_name:     organic_intranet_v3
+    database_user:     root
+    database_password: CbkrF
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
