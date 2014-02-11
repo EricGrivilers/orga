@@ -31,7 +31,7 @@ class JobController extends Controller
      * Lists all Job entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
 
 
@@ -39,7 +39,7 @@ class JobController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        if($_GET['fill']=='1234') {
+        if($request->query->get('fill')=='1234') {
            $conn = $this->get('database_connection');
 
             $entities=$em->getRepository('CaravaneOrganicBundle:Job')->findAll();
