@@ -341,7 +341,7 @@ class Invoice
      /**
      * @var \Client
      *
-     * @ORM\OneTomany(targetEntity="Product2invoice",mappedBy="invoiceid")
+     * @ORM\OneToMany(targetEntity="Product2invoice",mappedBy="invoiceid")
      * @ORM\OrderBy({"rank"="asc"})
      */
 
@@ -1281,13 +1281,7 @@ class Invoice
     public function getPriceTTC() {
         return $this->priceht+round($this->priceht*21/100,2);
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+   
 
     /**
      * Add products
@@ -1451,4 +1445,13 @@ class Invoice
     {
         return $this->condition;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->condition = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }
