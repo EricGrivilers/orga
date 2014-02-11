@@ -72,26 +72,35 @@ class DefaultController extends Controller
             if($tent->getOffreid()) {
                 if($offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($tent->getOffreid())) {
                     if($tent->getTentid()) {
-                        $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
-                        $product->setOffreid($offre);
-                        $product->setInsertdate(new \Datetime('now'));
-                        $product->setUpdatedate(new \Datetime('now'));
-                        $product->setIsoption(false);
+                        if(!$product=$em->getRepository('CaravaneOrganicBundle:Product2offre')->findBy(array('tentid'=>$tent->getTentid(),'offreid'=>$offre->getId()))) {
+                                 $rank=count($offre->getProducts())+1;
+                                 $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
+                                $product->setOffreid($offre);
+                                $product->setInsertdate(new \Datetime('now'));
+                                $product->setUpdatedate(new \Datetime('now'));
+                                $product->setIsoption(false);
 
-                        $product->setDescription($tent->getTentid()->getName()."(".$tent->getTentid()->getReference().")");
-                        $product->setTentid($tent->getTentid());
-                        $datas=array();
-                        $datas['etat']=$tent->getEtat();
-                        $datas['plancher']=$tent->getPlancher();
-                        $datas['surfaceplancher']=$tent->getSurfaceplancher();
-                        $datas['sol']=$tent->getSol();
-                        $datas['canalisation']=$tent->getCanalisation();
-                        $datas['other']=$tent->getOther();
-                        $product->setDatas(json_encode($datas));
+                                $product->setRank($rank);
+                                $product->setProductid($rank);
+                                $product->setDescription($tent->getTentid()->getName()."(".$tent->getTentid()->getReference().")");
+                                $product->setTentid($tent->getTentid());
+                                $datas=array();
+                                $datas['etat']=$tent->getEtat();
+                                $datas['plancher']=$tent->getPlancher();
+                                $datas['surfaceplancher']=$tent->getSurfaceplancher();
+                                $datas['sol']=$tent->getSol();
+                                $datas['canalisation']=$tent->getCanalisation();
+                                $datas['other']=$tent->getOther();
+                                $product->setDatas(json_encode($datas));
 
-                        $product->setPrice(0);
+                                $product->setPrice(0);
 
-                        $em->persist($product);
+                                $em->persist($product);
+                        }
+                           else {
+                            echo "exists";
+                        }
+
                     }
 
 
@@ -119,26 +128,40 @@ class DefaultController extends Controller
 
                     if($tent->getTentid()) {
                         //echo 'ok';
-                        $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2job();
-                        $product->setJobid($job);
-                        $product->setInsertdate(new \Datetime('now'));
-                        $product->setUpdatedate(new \Datetime('now'));
-                        //$product->setIsoption(false);
 
-                        $product->setDescription($tent->getTentid()->getName()."(".$tent->getTentid()->getReference().")");
-                        $product->setTentid($tent->getTentid());
-                        $datas=array();
-                        $datas['etat']=$tent->getEtat();
-                        $datas['plancher']=$tent->getPlancher();
-                        $datas['surfaceplancher']=$tent->getSurfaceplancher();
-                        $datas['sol']=$tent->getSol();
-                        $datas['canalisation']=$tent->getCanalisation();
-                        $datas['other']=$tent->getOther();
-                        $product->setDatas(json_encode($datas));
 
-                        $product->setPrice(0);
 
-                        $em->persist($product);
+
+
+                        if(!$product=$em->getRepository('CaravaneOrganicBundle:Product2job')->findBy(array('tentid'=>$tent->getTentid(),'jobid'=>$job->getId()))) {
+                            $rank=count($job->getProducts())+1;
+                            $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2job();
+                            $product->setJobid($job);
+                            $product->setInsertdate(new \Datetime('now'));
+                            $product->setUpdatedate(new \Datetime('now'));
+                            //$product->setIsoption(false);
+
+                            $product->setDescription($tent->getTentid()->getName()."(".$tent->getTentid()->getReference().")");
+                            $product->setTentid($tent->getTentid());
+                            $product->setRank($rank);
+                            $product->setProductid($rank);
+                            $datas=array();
+                            $datas['etat']=$tent->getEtat();
+                            $datas['plancher']=$tent->getPlancher();
+                            $datas['surfaceplancher']=$tent->getSurfaceplancher();
+                            $datas['sol']=$tent->getSol();
+                            $datas['canalisation']=$tent->getCanalisation();
+                            $datas['other']=$tent->getOther();
+                            $product->setDatas(json_encode($datas));
+
+                            $product->setPrice(0);
+
+                            $em->persist($product);
+                        }
+                        else {
+                            echo "exists";
+                        }
+
                     }
 
 

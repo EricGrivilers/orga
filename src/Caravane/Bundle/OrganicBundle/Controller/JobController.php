@@ -39,59 +39,6 @@ class JobController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        if($request->query->get('fill')=='1234') {
-           $conn = $this->get('database_connection');
-
-            $entities=$em->getRepository('CaravaneOrganicBundle:Job')->findAll();
-            foreach($entities as $entity) {
-                $id=$entity->getId();
-                echo $entity->getId()."<br/>";
-                $sql="SELECT tentId FROM tent2job WHERE jobId='".$id."' ";
-                $tents = $conn->query($sql);
-                foreach($tents as $t) {
-                   var_dump($t);
-                    if($t['tentId']>0) {
-
-
-                        if($tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($t['tentId'])) {
-                            echo " : ".$t['tentId']." - ".$tent->getId()."<br/>";
-                            $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2job();
-                            $product->setJobid($entity);
-                            //$product->setInsertdate(new \Datetime('now'));
-                            //$product->setUpdatedate(new \Datetime('now'));
-
-
-                            $product->setDescription($tent->getName()."(".$tent->getReference().")");
-                            $product->setTentid($tent);
-                            $datas=array();
-                            //$datas['etat']=$tent->getEtat();
-                            $datas['plancher']='0';
-                            $datas['surfaceplancher']='';
-                            $datas['sol']='';
-                            $datas['canalisation']='0';
-                            $datas['other']='';
-
-                            $product->setDatas(json_encode($datas));
-                            $product->setPrice(0);
-
-                            $em->persist($product);
-                            $em->persist($entity);
-                            
-
-                        }
-                    }
-
-                        
-                   
-                }
-
-                echo "----<br/>";
-            }
-            $em->flush();
-        }
-
-
-
         $request=$this->get('request');
         if(!$type=$request->query->get('type')) {
             $type='';

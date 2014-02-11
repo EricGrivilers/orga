@@ -1,5 +1,5 @@
 web/bundles/
-app/cache
+app/cache/*
 app/logs
 app/cache/*
 app/logs/*
@@ -21,3 +21,4 @@ web/css/*
 composer.lock
 vendor/*
 __www
+app/config/parameters.yml
