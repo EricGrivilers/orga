@@ -480,7 +480,7 @@ class InvoiceController extends Controller
             $message = \Swift_Message::newInstance()
             ->setSubject('Reminders')
             ->setFrom("organic@caravanemedia.com")
-            ->setTo("didier@organic-concept.com")
+            ->setTo($this->container->getParameter('contact_email'))
             ->setCc("eric@caravanemedia.com")
             ->setBody($this->container->get('templating')->render('CaravaneOrganicBundle:Invoice:email.cron.html.twig',
                 array('invoices' => $invoices)),
@@ -512,7 +512,7 @@ class InvoiceController extends Controller
 
 
 
-        
+
 
 
 
