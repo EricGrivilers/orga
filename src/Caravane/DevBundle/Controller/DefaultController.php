@@ -172,4 +172,30 @@ class DefaultController extends Controller
         return new Response('ok');
 
     }
+
+
+     /**
+     * @Route("reorder_products")
+     * @Template()
+     */
+    public function reorderProductsAction() {
+        $em = $this -> getDoctrine() -> getEntityManager();
+        $jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAll();
+
+        foreach($jobs as $job) {
+            $p2j=$em->getRepository('CaravaneOrganicBundle:Product2job')->findBy(array('jobid'=>$job->getId()), array('rank'=>'asc'));
+            $rank=1;
+
+            foreach($p2j as $p) {
+                $p->setRank($rank);
+                $p->setProductid($rank);
+                $em->persist($p);
+
+                $rank++;
+            }
+            
+        }
+        $em->flush();
+        return new Response('ok');
+    }
 }
