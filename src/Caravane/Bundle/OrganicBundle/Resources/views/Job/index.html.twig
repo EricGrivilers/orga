@@ -8,13 +8,13 @@
         <ul class="nav nav-pills">
 
          <li {% if type=='' %}class="active" {% endif %} >
-            <a href="{{path('job',{'ob':ob})}}">All</a>
+            <a href="{{path('job',{'type':'','ob':ob, 'page':1})}}">All</a>
           </li>
            <li {% if type=='running' %}class="active" {% endif %} >
-            <a href="{{path('job',{'ob':ob})}}">Running</a>
+            <a href="{{path('job',{'type': 'running','ob':ob, 'page':1})}}">Running</a>
           </li>
            <li {% if type=='closed' %}class="active" {% endif %} >
-            <a href="{{path('job',{'ob':ob})}}">Closed</a>
+            <a href="{{path('job',{'type': 'closed','ob':ob, 'page':1})}}">Closed</a>
           </li>
 
         </ul>
