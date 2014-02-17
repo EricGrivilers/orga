@@ -86,6 +86,9 @@ class InvoiceManager
         }
 
 
+        if(!$invoice->getYear()) {
+            $invoice->setYear(date('Y'));
+        }
         $this->em->persist($invoice);
         $this->em->flush();
         return $invoice;
