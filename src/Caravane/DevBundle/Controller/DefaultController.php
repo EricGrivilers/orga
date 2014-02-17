@@ -273,18 +273,6 @@ class DefaultController extends Controller
 
         $jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAll();
 
-         foreach($jobs as $job) {
-            if(!$job->getOffreid()) {
-                if($job=$em->getRepository('CaravaneOrganicBundle:Job')->find($offre->getJobid()->getId())) {
-                    if(!$job->getOffreid()) {
-                        echo $job->getId()." : ".$offre->getId()."<br/>";
-                        $job->setOffreid($offre);
-                        $em->persist($job);
-                        $em->flush();
-                    }
-                }
-            }
-         }
 
           return new Response('ok');
     }
