@@ -135,17 +135,17 @@ class TentController extends Controller
         $form = $this->createForm(new TentType($etats,$categories), $entity,array(
             'em' => $this->getDoctrine()->getEntityManager(),
         ));
- 
+
 
         $cName=$request->request->get('category');
-        
+
         if(!$productCategory=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findOneByName($cName)) {
             $productCategory=new ProductCategory();
             $productCategory->setName($cName);
             $em->persist($productCategory);
             $em->flush();
         }
-       
+
 
         $t=$request->request->get('caravane_bundle_organicbundle_tenttype');
         $t['productCategory']=$productCategory->getId();
@@ -160,9 +160,10 @@ class TentController extends Controller
 
 
         if ($form->isValid()) {
-            
+
             $entity->setInsertdate(new \Datetime("now"));
             $entity->setUpdatedate(new \Datetime("now"));
+            $entity->setPublic(true);
             $em->persist($entity);
 
 
@@ -233,7 +234,7 @@ class TentController extends Controller
 
 
         $cName=$request->request->get('category');
-        
+
         if(!$productCategory=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findOneByName($cName)) {
             $productCategory=new ProductCategory();
             $productCategory->setName($cName);
@@ -244,12 +245,12 @@ class TentController extends Controller
         $t=$request->request->get('caravane_bundle_organicbundle_tenttype');
         $t['productCategory']=$productCategory->getId();
         $request->request->set('caravane_bundle_organicbundle_tenttype', $t);
-        
-      
+
+
         $editForm->bind($request);
 
 
-   
+
         if(!$entity->getOwnerid()->getId()) {
             $entity->setOwnerid(null);
         }
