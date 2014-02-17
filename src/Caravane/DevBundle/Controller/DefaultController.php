@@ -193,7 +193,7 @@ class DefaultController extends Controller
 
                 $rank++;
             }
-            
+
         }
         $em->flush();
         return new Response('ok');
@@ -218,7 +218,7 @@ class DefaultController extends Controller
 
                 $rank++;
             }
-            
+
         }
         $em->flush();
         return new Response('ok');
@@ -243,9 +243,32 @@ class DefaultController extends Controller
 
                 $rank++;
             }
-            
+
         }
         $em->flush();
         return new Response('ok');
+    }
+
+
+     /**
+     * @Route("offre2job")
+     * @Template()
+     */
+    public function setOffre2jobAction() {
+         $em = $this -> getDoctrine() -> getEntityManager();
+         $offres=$em->getRepository('CaravaneOrganicBundle:Offre')->findAll();
+
+         foreach($offres as $offre) {
+            if($offre->getJobid()) {
+                if($job=$em->getRepository('CaravaneOrganicBundle:Job')->find($offre->getJobid()->getId())) {
+                    if(!$job->getOffreid()) {
+                        echo $job->getId()." : ".$offre->getId()."<br/>";
+                    }
+                }
+            }
+
+         }
+
+          return new Response('ok');
     }
 }

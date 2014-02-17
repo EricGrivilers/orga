@@ -150,6 +150,8 @@ class OffreManager
         $job->setLanguage($entity->getLanguage());
         $job->setUserid($entity->getUserid());
         $job->setClientid($entity->getClientid());
+
+         $job->setOffreid($entity);
        // $job->setOffreid($entity);
         $job->setPublic(true);
         $job->setReference('temp');
