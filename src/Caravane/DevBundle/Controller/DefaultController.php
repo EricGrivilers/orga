@@ -175,15 +175,65 @@ class DefaultController extends Controller
 
 
      /**
-     * @Route("reorder_products")
+     * @Route("reorder_products_offre")
      * @Template()
      */
-    public function reorderProductsAction() {
+    public function reorderProductsOffreAction() {
+        $em = $this -> getDoctrine() -> getEntityManager();
+        $offres=$em->getRepository('CaravaneOrganicBundle:Offre')->findAll();
+
+        foreach($offres as $offre) {
+            $p2j=$em->getRepository('CaravaneOrganicBundle:Product2offre')->findBy(array('offreid'=>$offre->getId()), array('rank'=>'asc'));
+            $rank=1;
+
+            foreach($p2j as $p) {
+                $p->setRank($rank);
+                $p->setProductid($rank);
+                $em->persist($p);
+
+                $rank++;
+            }
+            
+        }
+        $em->flush();
+        return new Response('ok');
+    }
+
+     /**
+     * @Route("reorder_products_job")
+     * @Template()
+     */
+    public function reorderProductsJobAction() {
         $em = $this -> getDoctrine() -> getEntityManager();
         $jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAll();
 
         foreach($jobs as $job) {
             $p2j=$em->getRepository('CaravaneOrganicBundle:Product2job')->findBy(array('jobid'=>$job->getId()), array('rank'=>'asc'));
+            $rank=1;
+
+            foreach($p2j as $p) {
+                $p->setRank($rank);
+                $p->setProductid($rank);
+                $em->persist($p);
+
+                $rank++;
+            }
+            
+        }
+        $em->flush();
+        return new Response('ok');
+    }
+
+     /**
+     * @Route("reorder_products_invoice")
+     * @Template()
+     */
+    public function reorderProductsInvoiceAction() {
+        $em = $this -> getDoctrine() -> getEntityManager();
+        $invoices=$em->getRepository('CaravaneOrganicBundle:Invoice')->findAll();
+
+        foreach($invoices as $invoice) {
+            $p2j=$em->getRepository('CaravaneOrganicBundle:Product2invoice')->findBy(array('invoiceid'=>$invoice->getId()), array('rank'=>'asc'));
             $rank=1;
 
             foreach($p2j as $p) {
