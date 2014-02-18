@@ -31,6 +31,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
+        {% if entity.enabled %}
         <tr>
             <td>{{ entity.iso }}</td>
             <td>{{ entity.firstname }}</td>
@@ -43,6 +44,7 @@
             <td><a href="{{ path('user_edit', { 'id': entity.id }) }}">edit</a>
             </td>
         </tr>
+        {% endif %}
     {% endfor %}
     </tbody>
 </table>
