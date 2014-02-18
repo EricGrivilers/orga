@@ -36,7 +36,7 @@
                             <ul  class="dropdown-menu" role="menu" aria-labelledby="drop_1">
                                 {% for lg in ['en','fr','nl'] %}
                                     <li role="presentation">
-                                        <a role="menuitem" href="{{path('job_pdf',{'id':entity.id,'_locale':lg})}}" target="_blank" ><img src="/images/icons/pdf.png"> Offre {{lg}}</a>
+                                        <a role="menuitem" href="{{path('job_pdf',{'id':entity.id,'_locale':lg})}}" target="_blank" ><img src="/images/icons/pdf.png"> Job {{lg}}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
