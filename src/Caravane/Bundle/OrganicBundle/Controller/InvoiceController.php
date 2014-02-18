@@ -162,6 +162,21 @@ class InvoiceController extends Controller
         $slice->setStatus('ready');
         $em->persist($slice);
         $em->flush();
+
+
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('New invoice requested')
+            ->setFrom("organic@caravanemedia.com")
+            ->setTo($this->container->getParameter('contact_email'))
+            ->setCc("eric@caravanemedia.com")
+            ->setBody($this->container->get('templating')->render('CaravaneOrganicBundle:Invoice:email.new.html.twig',
+                array('invoice' => $entity)),
+                'text/html'
+            );
+        $this->container->get('mailer')->send($message);
+
+
         return $this->redirect($this->generateUrl('invoice_edit', array('id' => $entity->getId())));
         /*$form   = $this->createForm(new InvoiceType($statusChoices), $entity,array(
             'em' => $em,
