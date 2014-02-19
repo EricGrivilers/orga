@@ -118,6 +118,23 @@ function pagination() {
         });
     }
 
+    $('table.table tbody tr td a i.icon-trash').click(function(e) {
+        e.stopPropagation();
+        reference=$(this).closest('a').data('rel');
+        if(confirm("Are you sure you want to delete "+reference+" ?")) {
+            row=$(this).closest('tr');
+
+            deleteUrl=$(this).closest('a').attr('href');
+            $.post(deleteUrl,function(data) {
+                if(data=="deleted") {
+                    row.remove();
+                }
+            }) ;
+            return false;
+        }
+        
+        return false;
+    });
 
 }
 

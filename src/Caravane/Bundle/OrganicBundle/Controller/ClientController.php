@@ -204,7 +204,7 @@ class ClientController extends Controller
         $form = $this->createDeleteForm($id);
         $form->bind($request);
 
-        if ($form->isValid()) {
+        //if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('CaravaneOrganicBundle:Client')->find($id);
 
@@ -212,9 +212,12 @@ class ClientController extends Controller
                 throw $this->createNotFoundException('Unable to find Client entity.');
             }
 
-            $em->remove($entity);
+            $entity->setPublic(false);
+            $em->persist($entity);
+           // $em->remove($entity);
             $em->flush();
-        }
+            return new Response("deleted");
+       // }
 
         return $this->redirect($this->generateUrl('client'));
     }

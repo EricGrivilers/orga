@@ -141,7 +141,7 @@
                 
             </td>
              <td>
-                <a href="{{ path('tent_show', { 'id': entity.id }) }}"><i class="icon icon-trash"></i></a>
+                <a href="{{ path('tent_delete', { 'id': entity.id }) }}" data-rel="{{entity.reference}}" ><i class="icon icon-trash"></i></a>
             </td>
         </tr>
     {% endfor %}

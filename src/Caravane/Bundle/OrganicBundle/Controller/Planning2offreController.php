@@ -165,7 +165,9 @@ class Planning2offreController extends PlanningController
                 throw $this->createNotFoundException('Unable to find Planning entity.');
             }
 
-            $em->remove($entity);
+            $entity->setPublic(false);
+            $em->persist($entity);
+           // $em->remove($entity);
             $em->flush();
         }
 
