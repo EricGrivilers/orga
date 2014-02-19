@@ -53,7 +53,7 @@
              <th>MD</th>
 
              <th>Ed</th>
-            <th>Del</th>
+            {#<th>Del</th>#}
 
         </tr>
     </thead>
@@ -146,12 +146,12 @@
                 <a href="{{ path('invoice_edit', { 'id': entity.id }) }}"><i class="icon icon-edit"></i></a>
 
             </td>
-             <td>
+             {#<td>
+                    {% if entity.reference=='' %}
+                        <a href="{{ path('invoice_delete', { 'id': entity.id }) }}"><i class="icon icon-trash"></i></a>
+                    {% endif %}
 
-                        <a href="{{ path('invoice_show', { 'id': entity.id }) }}"><i class="icon icon-trash"></i></a>
-
-
-            </td>
+            </td>#}
 
         </tr>
     {% endfor %}
