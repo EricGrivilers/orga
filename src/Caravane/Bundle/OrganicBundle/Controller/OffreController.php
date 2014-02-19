@@ -299,6 +299,17 @@ class OffreController extends Controller
             $documentManager->moveAttachedDocument('/docs/offres/'.$entity->getId());
 
 
+            $rank=1;
+            if($products=$em->getRepository('CaravaneOrganicBundle:Product2offre')->findBy(array('offreid'=>$entity->getId()))) {
+                foreach($products as $product) {
+                    $product->setRank($rank);
+                    $product->setProductid($rank);
+                    $em->persist($product);
+                    $rank++;
+                }
+                $em->flush();
+            }
+
             return $this->redirect($this->generateUrl('offre_edit', array('id' => $id)));
         }
 
@@ -388,6 +399,7 @@ class OffreController extends Controller
         $offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
         $tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($tentid);
 
+        $rank=$this->getRank($offre);
         if($tent) {
             $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
             $product->setOffreid($offre);
@@ -409,6 +421,10 @@ class OffreController extends Controller
             $product->setPrice(0);
             $product->setIsoption($request->request->get('option'));
 
+            $product->setRank($rank);
+            $product->setproductid($rank);
+
+
             $em->persist($product);
             $offre->addProduct($product);
             $em->persist($offre);
@@ -423,6 +439,7 @@ class OffreController extends Controller
         $offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
         $transport=$em->getRepository('CaravaneOrganicBundle:Transport')->find($transportid);
 
+        $rank=$this->getRank($offre);
         if($transport) {
 
             $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
@@ -435,7 +452,8 @@ class OffreController extends Controller
             $product->setPrice($transport->getCost());
             $product->setDescription($transport->getName()."(".$transport->getZip().")");
 
-
+            $product->setRank($rank);
+            $product->setproductid($rank);
 
             $em->persist($product);
             $offre->addProduct($product);
@@ -513,6 +531,7 @@ class OffreController extends Controller
         foreach($list as $productId) {
             $product=$em->getRepository('CaravaneOrganicBundle:Product2offre')->find($productId);
             $product->setRank($rank);
+            $product->setProductid($rank);
             $rank++;
             $em->persist($product);
         }
@@ -521,6 +540,16 @@ class OffreController extends Controller
 
 
 
+    }
+
+    private function getRank($offre) {
+        $em=$this->getDoctrine()->getManager();
+        $rank=0;
+        if($products=$em->getRepository('CaravaneOrganicBundle:Product2offre')->findBy(array('offreid'=>$offre->getId()))) {
+            $rank=count($products);
+        }
+        $rank++;
+        return $rank;
     }
 
 }

@@ -264,6 +264,18 @@ class JobController extends Controller
             $documentManager=new DocumentManager($entity,$em);
             $documentManager->moveAttachedDocument('/docs/jobs/'.$entity->getId());
 
+            $rank=1;
+            if($products=$em->getRepository('CaravaneOrganicBundle:Product2job')->findBy(array('jobid'=>$entity->getId()))) {
+                foreach($products as $product) {
+                    $product->setRank($rank);
+                    $product->setProductid($rank);
+                    $em->persist($product);
+                    $rank++;
+                }
+                $em->flush();
+            }
+
+
             return $this->redirect($this->generateUrl('job_edit', array('id' => $id)));
         }
 
@@ -353,6 +365,8 @@ class JobController extends Controller
         $em = $this->getDoctrine()->getManager();
         $job=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
         $tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($tentid);
+
+        $rank=$this->getRank($job);
         if($tent) {
             $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2job();
             $product->setJobid($job);
@@ -373,6 +387,9 @@ class JobController extends Controller
             $product->setDatas(json_encode($datas));
             $product->setPrice(0);
 
+            $product->setRank($rank);
+            $product->setproductid($rank);
+            
             $em->persist($product);
             $em->persist($job);
             $em->flush();
@@ -389,25 +406,27 @@ class JobController extends Controller
 
     public function addTransportProductAction(Request $request,$id,$transportid) {
         $em = $this->getDoctrine()->getManager();
-        $offre=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
+        $job=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
         $transport=$em->getRepository('CaravaneOrganicBundle:Transport')->find($transportid);
 
+        $rank=$this->getRank($job);
         if($transport) {
 
             $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2job();
 
-            $product->setJobid($offre);
+            $product->setJobid($job);
 
             $product->setInsertdate(new \Datetime('now'));
             $product->setUpdatedate(new \Datetime('now'));
             $product->setPrice($transport->getCost());
             $product->setDescription($transport->getName()."(".$transport->getZip().")");
 
-
+            $product->setRank($rank);
+            $product->setproductid($rank);
 
             $em->persist($product);
-            $offre->addProduct($product);
-            $em->persist($offre);
+            $job->addProduct($product);
+            $em->persist($job);
             $em->flush();
         }
 
@@ -469,6 +488,17 @@ class JobController extends Controller
 
 
 
+    }
+
+
+     private function getRank($job) {
+        $em=$this->getDoctrine()->getManager();
+        $rank=0;
+        if($products=$em->getRepository('CaravaneOrganicBundle:Product2job')->findBy(array('jobid'=>$job->getId()))) {
+            $rank=count($products);
+        }
+        $rank++;
+        return $rank;
     }
 
 }

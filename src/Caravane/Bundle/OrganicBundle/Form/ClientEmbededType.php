@@ -39,12 +39,14 @@ class ClientEmbededType extends AbstractType
                 )
             ))
             ->add('firstname',"text",array(
+                'required'=>false,
                 "attr"=>array(
                     "class"=>"span12"
                 )
             ))
 
             ->add('clienttitle','choice',array(
+                'required'=>false,
                 "choices"=>array("M."=>"M.","Mme"=>"Mme"),
                 "label"=>"Title",
                 "attr"=>array(
@@ -60,7 +62,7 @@ class ClientEmbededType extends AbstractType
                     "EBVBA"=>"EBVBA",
                     "INC"=>"INC",
                     "NV"=>"NV",
-                    "S.P.R.L. "=>"S.P.R.L. ",
+                    "SPRL"=>"SPRL",
                     "SA"=>"SA",
                     "SARL"=>"SARL",
                     "SCRL"=>"SCRL",
@@ -70,6 +72,7 @@ class ClientEmbededType extends AbstractType
                     "VZW"=>"VZW",
                     "privé"=>"privé"
                 ),
+                'required'=>false,
                 "label"=>"Type",
                 'attr'=>array(
                     'class'=>'span12'
@@ -82,22 +85,26 @@ class ClientEmbededType extends AbstractType
                 )
             ))
             ->add('address',"text",array(
+                'required'=>false,
                 "attr"=>array(
                     "class"=>"span12"
                 )
             ))
             ->add('number',"text",array(
+                'required'=>false,
                 "label"=>"Number/Box",
                 "attr"=>array(
                     "class"=>"span4"
                 )
             ))
             ->add('zip',"text",array(
+                'required'=>false,
                 "attr"=>array(
                     "class"=>"span4"
                 )
             ))
             ->add('city',"text",array(
+                'required'=>false,
                 "attr"=>array(
                     "class"=>"span12"
                 )
@@ -109,32 +116,38 @@ class ClientEmbededType extends AbstractType
                 )
             ))
             ->add('phone',"text",array(
+                'required'=>false,
                 "attr"=>array(
                     "class"=>"span12"
                 )
             ))
             ->add('phone2',"text",array(
+                'required'=>false,
                 "attr"=>array(
                     "class"=>"span12"
                 ),
                 "label"=>"Other"
             ))
             ->add('mobile',"text",array(
+                'required'=>false,
                 "attr"=>array(
                     "class"=>"span12"
                 )
             ))
             ->add('fax',"text",array(
+                'required'=>false,
                 "attr"=>array(
                     "class"=>"span12"
                 )
             ))
             ->add('email',"text",array(
+                'required'=>false,
                 "attr"=>array(
                     "class"=>"span12"
                 )
             ))
             ->add('url',"text",array(
+                'required'=>false,
                 "label"=>"Website",
                 "attr"=>array(
                     "class"=>"span12"
