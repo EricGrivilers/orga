@@ -265,7 +265,7 @@ class JobController extends Controller
             $documentManager->moveAttachedDocument('/docs/jobs/'.$entity->getId());
 
             $rank=1;
-            if($products=$em->getRepository('CaravaneOrganicBundle:Product2job')->findBy(array('jobid'=>$entity->getId()))) {
+            if($products=$em->getRepository('CaravaneOrganicBundle:Product2job')->findBy(array('jobid'=>$entity->getId()),array('rank'=>'asc') )) {
                 foreach($products as $product) {
                     $product->setRank($rank);
                     $product->setProductid($rank);
@@ -389,7 +389,7 @@ class JobController extends Controller
 
             $product->setRank($rank);
             $product->setproductid($rank);
-            
+
             $em->persist($product);
             $em->persist($job);
             $em->flush();
@@ -494,7 +494,7 @@ class JobController extends Controller
      private function getRank($job) {
         $em=$this->getDoctrine()->getManager();
         $rank=0;
-        if($products=$em->getRepository('CaravaneOrganicBundle:Product2job')->findBy(array('jobid'=>$job->getId()))) {
+        if($products=$em->getRepository('CaravaneOrganicBundle:Product2job')->findBy( array('jobid'=>$job->getId()),array('rank'=>'asc') )) {
             $rank=count($products);
         }
         $rank++;

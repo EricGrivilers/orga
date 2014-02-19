@@ -300,7 +300,7 @@ class OffreController extends Controller
 
 
             $rank=1;
-            if($products=$em->getRepository('CaravaneOrganicBundle:Product2offre')->findBy(array('offreid'=>$entity->getId()))) {
+            if($products=$em->getRepository('CaravaneOrganicBundle:Product2offre')->findBy(array('offreid'=>$entity->getId()),array('rank'=>'asc') )) {
                 foreach($products as $product) {
                     $product->setRank($rank);
                     $product->setProductid($rank);
@@ -545,7 +545,7 @@ class OffreController extends Controller
     private function getRank($offre) {
         $em=$this->getDoctrine()->getManager();
         $rank=0;
-        if($products=$em->getRepository('CaravaneOrganicBundle:Product2offre')->findBy(array('offreid'=>$offre->getId()))) {
+        if($products=$em->getRepository('CaravaneOrganicBundle:Product2offre')->findBy(array('offreid'=>$offre->getId()),array('rank'=>'asc') )) {
             $rank=count($products);
         }
         $rank++;

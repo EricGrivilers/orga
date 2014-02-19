@@ -159,6 +159,7 @@ function initProduct() {
         var link=$(this);
         $.post(Routing.generate($(this).attr('data-type')+'_remove_product',{'id':$(this).attr('data-rel'),'productid':$(this).attr('data-target')}),function(data) {
             link.closest('tr').remove();
+            window.location.reload();
         });
     });
 
@@ -319,7 +320,8 @@ function initOffre() {
 
              $.post(Routing.generate(entity+'_add_tent',{'id':entityId,'tentid':tentid}),{'option':option},function(data) {
                // alert(data);
-                $('form').submit();
+               window.location.reload();
+               // $('form').submit();
             })
         });
 
@@ -338,7 +340,8 @@ function initOffre() {
             //alert(Routing.generate(entity+'_add_transport',{'id':entityId,'transportid':transportid}));
              $.post(Routing.generate(entity+'_add_transport',{'id':entityId,'transportid':transportid}),{'option':option},function(data) {
                // alert(data);
-                $('form').submit();
+               window.location.reload();
+              //  $('form').submit();
             })
         });
 
