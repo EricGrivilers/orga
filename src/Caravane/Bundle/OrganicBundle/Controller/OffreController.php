@@ -111,6 +111,7 @@ class OffreController extends Controller
             $planning->setStartdate(new \Datetime('now'));
             $planning->setEnddate(new \Datetime('now'));
             $planning->setEtat('TO DO');
+
             $entity->addPlanning($planning);
         }
         $client=new \Caravane\Bundle\OrganicBundle\Entity\Client();
@@ -169,7 +170,7 @@ class OffreController extends Controller
             $em->persist($client);
             $entity->setClientid($client);
 
-
+            $entity->setPublic(true);
             $offreManager=new offreManager($entity,$em);
             $offreManager->persist();
 
@@ -286,7 +287,7 @@ class OffreController extends Controller
             $offreManager=new offreManager($entity,$em);
             $offreManager->persist();
 
-
+            $entity->setPublic(true);
             if($entity->getStatus()=='CONFIRMÉ' && $entity->getJobid()=='') {
 
                 $job=$offreManager->createJob();
