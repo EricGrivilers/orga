@@ -145,8 +145,8 @@ class TentRepository extends EntityRepository
 
 		$query = $this->getEntityManager()->createQuery($dql);
 		
-			$query->setFirstResult(($page-1)*25)
-                       ->setMaxResults(25);
+		//	$query->setFirstResult(($page-1)*25)
+        //               ->setMaxResults(25);
        
 
 		$tents = new Paginator($query, $fetchJoinCollection = true);
