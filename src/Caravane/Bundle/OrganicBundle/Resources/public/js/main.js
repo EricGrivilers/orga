@@ -118,7 +118,7 @@ function pagination() {
         });
     }
 
-    $('table.table tbody tr td a i.icon-trash').click(function(e) {
+    $('table.table-list tbody tr td a i.icon-trash').click(function(e) {
         e.stopPropagation();
         reference=$(this).closest('a').data('rel');
         if(confirm("Are you sure you want to delete "+reference+" ?")) {
