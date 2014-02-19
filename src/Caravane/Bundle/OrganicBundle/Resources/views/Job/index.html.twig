@@ -60,8 +60,8 @@
             <td>{{ entity.offretype }}</td>
              <td>{% if entity.clientid %}{{entity.clientid.country}}{% endif %}</td>
              <td>{{entity.country}}</td>
-             <td>{{ entity.startBuild|date('d/m/Y H:i') }}</td>
-             <td>{{ entity.endBuild|date('d/m/Y H:i') }}</td>
+             <td>{{ entity.startBuild?entity.startBuild|date('d/m/Y H:i'):'' }}</td>
+             <td>{{ entity.endBuild?entity.endBuild|date('d/m/Y H:i'):'' }}</td>
              <td>{{entity.status}}</td>
 
              <td>{% for invoice in entity.invoiceid %} <li><a href="{{path('invoice_edit',{'id':invoice.id})}}" class='red' >{{invoice}}</a></li>{% endfor %}</td>

@@ -35,6 +35,7 @@
             <th><a data-orderby="reference" >Reference</a></th>
             <th><a data-orderby="clientid" >Client</a></th>
             <th><a data-orderby="offretype" >Type</a></th>
+            <th><a data-orderby="eventDate" >Event Date (build</a></th>
              <th><a data-orderby="price" >Price VAT excl</a></th>
              <th><a data-orderby="status" >Status</a></th>
              <th >Invoice</th>
@@ -54,6 +55,7 @@
             <td><a href="{{ path('offre_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
             <td>{% if entity.clientid %} <a href="{{ path('client_edit', { 'id': entity.clientid.id }) }}">{{ entity.clientid.name }}</a> {% endif %}</td>
             <td>{{ entity.offretype }}</td>
+            <td>{{ entity.eventDate?entity.eventDate|date('d/m/Y'):'' }} {{entity.startBuild?"("~(entity.startBuild|date('d/m/Y'))~")":''}}</td>
             <td>{{ entity.price|number_format(2,',',' ') }}</td>
              <td>{% if entity.status=='ok' %}Sent to client{% elseif entity.status=='ANNULÉ' or entity.status=='cancel' %} Canceled {% elseif entity.status=='draft' or entity.status=='' %}Draft {% elseif entity.jobid %}Job: <a href="{{path('job_edit',{'id':entity.jobid.id})}}" class="red">{{entity.jobid.reference}}</a>{% elseif entity.status=='CONFIRMÉ' %}Confirmed{% else %}{{entity.status}}{% endif %}</td>
              <td>{% if entity.clientid %}{{entity.clientid.country}}{% endif %}</td>
