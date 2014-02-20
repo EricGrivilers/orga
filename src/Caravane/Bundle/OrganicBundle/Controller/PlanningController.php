@@ -236,24 +236,26 @@ class PlanningController extends Controller
                 $hasInplace=false;
                 foreach($job->getPlannings() as $p) {
                     if($p->getPlanningtype()!="inplace" ) {
+                        if($p->getStartdate() && $p->getEnddate() ) {
+                            $return_events[] = array(
+                                'start'=>$p->getStartdate()->format("Y-m-d\TH:i:sP"),
+                                'end'=>$p->getEnddate()->format("Y-m-d\TH:i:sP"),
+                                'className'=>$p->getPlanningtype()." ".$job->getOffreType(),
+                                'title'=>$p->getStartdate()->format("H:i")." - ".$job->getReference(),
+                                'client'=>$job->getClientid()->getName(),
+                                'url'=>$this->generateUrl('job_edit',array('id'=>$job->getId())),
+                                'content'=>$this->renderView('CaravaneOrganicBundle:Job:popover.html.twig', array('job'=>$job))
+                            );
+                            if($p->getPlanningtype()=="build") {
+                                $startBuild=$p->getStartdate();
 
-
-                        $return_events[] = array(
-                            'start'=>$p->getStartdate()->format("Y-m-d\TH:i:sP"),
-                            'end'=>$p->getEnddate()->format("Y-m-d\TH:i:sP"),
-                            'className'=>$p->getPlanningtype()." ".$job->getOffreType(),
-                            'title'=>$p->getStartdate()->format("H:i")." - ".$job->getReference(),
-                            'client'=>$job->getClientid()->getName(),
-                            'url'=>$this->generateUrl('job_edit',array('id'=>$job->getId())),
-                            'content'=>$this->renderView('CaravaneOrganicBundle:Job:popover.html.twig', array('job'=>$job))
-                        );
-                        if($p->getPlanningtype()=="build") {
-                            $startBuild=$p->getStartdate();
-
+                            }
+                             if($p->getPlanningtype()=="unbuild") {
+                                $startUnbuild=$p->getStartdate();
+                            }
                         }
-                         if($p->getPlanningtype()=="unbuild") {
-                            $startUnbuild=$p->getStartdate();
-                        }
+
+                        
                     }
                 }
                 if($request->query->get('show_inplace')=='true') {
