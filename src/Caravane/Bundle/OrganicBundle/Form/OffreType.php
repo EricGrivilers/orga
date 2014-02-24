@@ -70,7 +70,7 @@ class OffreType extends AbstractType
                 )
             ))
              ->add('pricetype','choice',array(
-                'choices'=>array('intra'=>"Intracomm.",'htva'=>"TVA (21%)")
+                'choices'=>array('htva'=>"TVA (21%)",'intra'=>"Intracomm.")
             ))
         /*    ->add('price','number',array(
                 'precision' => 2,

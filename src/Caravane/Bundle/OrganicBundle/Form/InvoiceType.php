@@ -52,7 +52,7 @@ class InvoiceType extends AbstractType
                 )
             ))
             ->add('pricetype','choice',array(
-                'choices'=>array('intra'=>"Intracomm.",'htva'=>"TVA (21%)")
+                'choices'=>array('htva'=>"TVA (21%)",'intra'=>"Intracomm.")
             ))
 
             ->add('discount')
@@ -82,8 +82,8 @@ class InvoiceType extends AbstractType
                     "class"=>"span4"
                 )
             ))
-           
-            
+
+
      /*       ->add('r1')
             ->add('r1date')
             ->add('r2')
