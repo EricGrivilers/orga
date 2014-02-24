@@ -117,17 +117,17 @@ class InvoiceRepository extends EntityRepository
 		$today=new \Datetime();
 		$today->modify('-'.$delta.' days');
 		$sql="SELECT C FROM CaravaneOrganicBundle:Invoice C
-				WHERE C.reference!='' 
-				AND C.status!='paid'  
-				AND C.priceht>0 
+				WHERE C.reference!=''
+				AND C.status!='paid'
+				AND C.priceht>0
 				AND ( C.paymentdate='0000-00-00' OR C.paymentdate IS NULL) ";
 
-				
+
 		switch($step) {
 			default:
 			case 1:
 				$sql.="
-				AND C.invoicedate<?1  
+				AND C.invoicedate<?1
 				AND C.r1=0
 				AND ( C.r1date='0000-00-00' OR C.r1date IS NULL) ";
 			break;
@@ -135,8 +135,8 @@ class InvoiceRepository extends EntityRepository
 			case 2:
 				$sql.="
 				AND C.r1=1
-				AND C.r1date<?1  
-				AND C.r1date!='0000-00-00' AND C.r1date IS NOT NULL 
+				AND C.r1date<?1
+				AND C.r1date!='0000-00-00' AND C.r1date IS NOT NULL
 				AND C.r2=0
 				AND ( C.r2date='0000-00-00' OR C.r2date IS NULL) ";
 			break;
@@ -144,8 +144,8 @@ class InvoiceRepository extends EntityRepository
 			case 3:
 				$sql.="
 				AND C.r1=1
-				AND C.r2date<?1  
-				AND C.r1date!='0000-00-00' AND C.r1date IS NOT NULL  
+				AND C.r2date<?1
+				AND C.r1date!='0000-00-00' AND C.r1date IS NOT NULL
 				AND C.r2=1
 				AND C.r2date!='0000-00-00' AND C.r2date IS NOT NULL
 				AND C.med=0
@@ -156,6 +156,7 @@ class InvoiceRepository extends EntityRepository
 
 		$sql.="ORDER BY C.reference";
 
+echo $sql;
 		//echo $today->format('Y-m-d')."<br/>";
 		//echo htmlentities($sql)."<br/><br/>";
 		$query = $this->getEntityManager()->createQuery($sql);

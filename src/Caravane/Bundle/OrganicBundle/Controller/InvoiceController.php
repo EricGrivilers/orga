@@ -534,7 +534,7 @@ class InvoiceController extends Controller
 
 
 
-        return new Response('');
+        return new Response('ok');
     }
 
 
