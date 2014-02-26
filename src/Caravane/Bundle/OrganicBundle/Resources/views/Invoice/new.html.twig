@@ -2,4 +2,5 @@
 
 {% block form_header %}
 <form id='mainForm' action="{{ path('invoice_create') }}" method="post" {{ form_enctype(edit_form) }} data-entity="invoice" class="{{entity.status}}"  novalidate  >
+	<input type="hidden" id="hash"  name="hash" />
 {% endblock form_header %}

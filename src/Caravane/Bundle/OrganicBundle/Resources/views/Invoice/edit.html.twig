@@ -6,7 +6,7 @@
 
 {% block form_header %}
 <form id='mainForm' action="{{ path('invoice_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} data-entity="invoice"  class="{{entity.status}}" novalidate >
-
+<input type="hidden" id="hash"  name="hash" />
 {% endblock form_header %}
 <input type='hidden' name='clientid' id="clientid"  value="{% if entity.clientid %}{{entity.clientid.id}} {% endif %}"/>
 
@@ -241,7 +241,7 @@
                 <tr>
                         <th class="right">
 
-                            <a id="add_product_link" class="add_product_link btn">Add row</a>
+                            <a data-rel="{{entity.id}}" id="add_product_link" class="add_product_link btn">Add row</a>
                             <a href="#transportModal" class="btn openTransportModal" data-isoption='0'>Add transport row</a>
 
                         </th>

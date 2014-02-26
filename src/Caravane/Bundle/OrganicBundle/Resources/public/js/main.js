@@ -70,13 +70,16 @@ $(document).ready(function() {
     initSearch();
 
     var url = document.location.toString();
+    formAction=$('#mainForm').attr('action');
     if (url.match('#')) {
         $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
+        $('#hash').val('#'+url.split('#')[1]);
     } 
 
     // Change hash for page-reload
     $('.nav-tabs a').on('shown', function (e) {
         window.location.hash = e.target.hash;
+        $('#hash').val( e.target.hash);
     })
 
 
@@ -181,14 +184,15 @@ function initProduct() {
     });
 
     $('.add_product_link').click(function(e) {
+        entity=$('#mainForm').data('entity');
+        url=Routing.generate(entity+'_add_product',{'id':$(this).data('rel')});
+        $.post(url,{'option':$(this).data('isoption')},function(data) {
+            window.location.reload();
+        });
+/*
          e.preventDefault();
          target=$(this).closest('table').find('tbody');
-       /* if($(this).data('isoption')) {
-            target=$('tbody#options');
-        }
-        else (
-            target=$('tbody#products');
-        )*/
+      
         var prototype =$('table tbody#products').data('prototype');
         var index=target.find('tr').length;
         var newForm = prototype.replace(/__name__/g, index);
@@ -196,11 +200,13 @@ function initProduct() {
          var $newFormLi = $('<tr></tr>').append(newForm);
          target.append($newFormLi);
          target.find('input:hidden').val($(this).data('isoption'));
-
+         $newFormLi.find('textarea:eq(0)').html('new product');
+         $(this).closest('form').submit();
 
          $('a.delete_new_row').click(function() {
             $(this).closest('tr').remove();
         });
+*/
     });
 
     $('a.delete_document').click(function() {

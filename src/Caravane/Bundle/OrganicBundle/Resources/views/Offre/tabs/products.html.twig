@@ -77,7 +77,7 @@
                 <tr>
                         <th class="right">
 
-                            <a id="add_product_link" class="add_product_link btn" data-isoption='0'>Add free row</a>
+                            <a data-rel="{{entity.id}}" id="add_product_link" class="add_product_link btn" data-isoption='0'>Add free row</a>
                             <a href="#transportModal" class="btn openTransportModal" data-isoption='0'>Add transport row</a>
                              {% if entity.id and entity.plannings %}
                                 <a href="#stockModal"  class="btn openStockModal"  data-isoption='0'>Add from stock</a>
@@ -183,7 +183,7 @@
                 <tr>
                         <th class="right">
 
-                            <a id="add_option_link" class="add_product_link btn" data-isoption='1'>Add free row</a>
+                            <a data-rel="{{entity.id}}" id="add_option_link" class="add_product_link btn" data-isoption='1'>Add free row</a>
                             <a href="#transportModal" class="btn openTransportModal" data-isoption='1'>Add transport row</a>
 
                             {% if entity.id and entity.plannings %}

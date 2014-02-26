@@ -2,4 +2,5 @@
 
 {% block form_header %}
 <form id='mainForm' action="{{ path('offre_create') }}" method="post" data-entity='offre' {{ form_enctype(edit_form) }} novalidate>
+	<input type="hidden" id="hash"  name="hash" />
 {% endblock form_header %}

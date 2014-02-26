@@ -219,6 +219,33 @@ class InvoiceController extends Controller
             return new Response('ok');
         }
 
+
+    public function addProductAction(Request $request,$id) {
+        $em = $this->getDoctrine()->getManager();
+        $invoice=$em->getRepository('CaravaneOrganicBundle:Invoice')->find($id);
+        $products=$em->getRepository('CaravaneOrganicBundle:Product2invoice')->findByInvoiceid($id);
+        $rank=$this->getRank($invoice);
+        
+        $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2invoice();
+        $product->setInvoiceid($invoice);
+        $product->setProductid($rank);
+        $product->setRank($rank);
+        $product->setDescription('New product');
+        $product->setPrice(0);
+        $product->setInsertdate(new \Datetime('now'));
+        $product->setUpdatedate(new \Datetime('now'));
+
+
+        $em->persist($product);
+        $invoice->addProduct($product);
+        $em->persist($invoice);
+        $em->flush();
+        return new Response('ok');
+
+    }
+
+
+
     /**
      * Creates a new Invoice entity.
      *
@@ -535,6 +562,18 @@ class InvoiceController extends Controller
 
 
         return new Response('ok');
+    }
+
+
+
+     private function getRank($invoice) {
+        $em=$this->getDoctrine()->getManager();
+        $rank=0;
+        if($products=$em->getRepository('CaravaneOrganicBundle:Product2invoice')->findBy( array('invoiceid'=>$invoice->getId()),array('rank'=>'asc') )) {
+            $rank=count($products);
+        }
+        $rank++;
+        return $rank;
     }
 
 

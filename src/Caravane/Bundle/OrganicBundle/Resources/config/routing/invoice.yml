@@ -27,6 +27,12 @@ invoice_add_transport:
     options:
         expose: true
 
+invoice_add_product:
+    pattern:  /{id}/add_product
+    defaults: { _controller: "CaravaneOrganicBundle:Invoice:addProduct" }
+    options:
+        expose: true
+
 
 invoice_new:
     pattern:  /new

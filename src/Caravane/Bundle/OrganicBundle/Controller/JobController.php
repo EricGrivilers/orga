@@ -434,6 +434,31 @@ class JobController extends Controller
     }
 
 
+    public function addProductAction(Request $request,$id) {
+        $em = $this->getDoctrine()->getManager();
+        $job=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
+        $products=$em->getRepository('CaravaneOrganicBundle:Product2job')->findByJobid($id);
+        $rank=$this->getRank($job);
+        
+        $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2job();
+        $product->setJobid($job);
+        $product->setProductid($rank);
+        $product->setRank($rank);
+        $product->setDescription('New product');
+        $product->setPrice(0);
+        $product->setInsertdate(new \Datetime('now'));
+        $product->setUpdatedate(new \Datetime('now'));
+
+
+        $em->persist($product);
+        $job->addProduct($product);
+        $em->persist($job);
+        $em->flush();
+        return new Response('ok');
+
+    }
+
+
     public function pdfAction(Request $request, $id,$_locale='all') {
         $templating=$this->container->get('templating');
         $html2pdf=$this->get('html2pdf');

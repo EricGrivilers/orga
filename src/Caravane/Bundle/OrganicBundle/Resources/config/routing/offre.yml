@@ -57,6 +57,12 @@ offre_add_transport:
     options:
         expose: true
 
+offre_add_product:
+    pattern:  /{id}/add_product
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:addProduct" }
+    options:
+        expose: true
+
 offre_slice_remove_product:
     pattern:  /{id}/remove_slice/{productid}
     defaults: { _controller: "CaravaneOrganicBundle:Offre:removeSlice" }

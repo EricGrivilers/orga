@@ -465,6 +465,30 @@ class OffreController extends Controller
         return new Response('ok');
     }
 
+    public function addProductAction(Request $request,$id) {
+        $em = $this->getDoctrine()->getManager();
+        $offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
+        $products=$em->getRepository('CaravaneOrganicBundle:Product2offre')->findByOffreid($id);
+        $rank=$this->getRank($offre);
+
+        $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
+        $product->setOffreid($offre);
+        $product->setProductid($rank);
+        $product->setRank($rank);
+        $product->setDescription('New product');
+        $product->setPrice(0);
+        $product->setInsertdate(new \Datetime('now'));
+        $product->setUpdatedate(new \Datetime('now'));
+        $product->setIsoption($request->request->get('option'));
+
+        $em->persist($product);
+        $offre->addProduct($product);
+        $em->persist($offre);
+        $em->flush();
+        return new Response('ok');
+
+    }
+
 
     public function resolveIssueAction() {
         $em = $this->getDoctrine()->getManager();
