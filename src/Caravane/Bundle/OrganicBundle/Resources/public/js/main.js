@@ -68,6 +68,18 @@ $(document).ready(function() {
     initOffre();
     initSlice();
     initSearch();
+
+    var url = document.location.toString();
+    if (url.match('#')) {
+        $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
+    } 
+
+    // Change hash for page-reload
+    $('.nav-tabs a').on('shown', function (e) {
+        window.location.hash = e.target.hash;
+    })
+
+
     $('select.status').change(function() {
         $(this).closest('form').submit();
     });
@@ -86,6 +98,9 @@ $(document).ready(function() {
             });
 
             $.post($(this).data('update'),{'list':lis},function(data) {
+                if(data=='ok') {
+                     window.location.reload();
+                }
                 //alert(data);
             });
 
@@ -97,6 +112,8 @@ $(document).ready(function() {
 
 
 function pagination() {
+
+
     if($('#CaravaneUiPaginationOb').length>0) {
         ob=$('#CaravaneUiPaginationOb').val();
         tA=ob.split(' ');
