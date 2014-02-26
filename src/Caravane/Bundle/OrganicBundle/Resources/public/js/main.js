@@ -72,14 +72,19 @@ $(document).ready(function() {
     var url = document.location.toString();
     formAction=$('#mainForm').attr('action');
     if (url.match('#')) {
-        $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
-        $('#hash').val('#'+url.split('#')[1]);
+        var hash=url.split('#')[1];
+        if(hash=='transportModal') {
+            hash='tab_products';
+            window.location.hash="#"+hash;
+        }
+        $('.nav-tabs a[href=#'+hash+']').tab('show') ;
+        $('#hash').val('#'+hash);
     } 
 
     // Change hash for page-reload
     $('.nav-tabs a').on('shown', function (e) {
         window.location.hash = e.target.hash;
-        $('#hash').val( e.target.hash);
+        $('#hash').val(e.target.hash);
     })
 
 
@@ -343,6 +348,7 @@ function initOffre() {
 
              $.post(Routing.generate(entity+'_add_tent',{'id':entityId,'tentid':tentid}),{'option':option},function(data) {
                // alert(data);
+               window.location.hash = "#tab_products";
                window.location.reload();
                // $('form').submit();
             })
@@ -363,6 +369,7 @@ function initOffre() {
             //alert(Routing.generate(entity+'_add_transport',{'id':entityId,'transportid':transportid}));
              $.post(Routing.generate(entity+'_add_transport',{'id':entityId,'transportid':transportid}),{'option':option},function(data) {
                // alert(data);
+                window.location.hash = "#tab_products";
                window.location.reload();
               //  $('form').submit();
             })
