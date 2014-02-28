@@ -33,7 +33,7 @@ class ClientEmbededType extends AbstractType
                 "attr"=>array(
                     "class"=>"span12",
                     "source_route"=>"client_autocomplete",
-                    "label_field"=>"name",
+                    "label_field"=>"lastname",
                     "updater"=>"fillClient",
                     'target_field'=>"#clientid"
                 )
