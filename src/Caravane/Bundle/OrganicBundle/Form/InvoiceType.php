@@ -27,7 +27,7 @@ class InvoiceType extends AbstractType
            // ->add('year')
             ->add('offretype','choice',array(
                 "label"=>"Type",
-                'choices'=>array('sell'=>"Sell",'rent'=>"Rent",'winter'=>"Winter storage")
+                'choices'=>array('rent'=>"Rent",'sell'=>"Sell",'winter'=>"Winter storage")
             ))
             ->add('slice','number',array(
                 "attr"=>array(

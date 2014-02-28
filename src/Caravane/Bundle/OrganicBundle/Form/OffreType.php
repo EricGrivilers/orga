@@ -37,7 +37,7 @@ class OffreType extends AbstractType
             ))
              ->add('offretype','choice',array(
                 "label"=>"Type",
-                'choices'=>array('sell'=>"Sell",'rent'=>"Rent",'winter'=>"Winter storage"),
+                'choices'=>array('rent'=>"Rent",'sell'=>"Sell",'winter'=>"Winter storage"),
                 'attr'=>array(
                     'class'=>'span12'
                 )
