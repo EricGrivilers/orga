@@ -559,7 +559,9 @@ class InvoiceController extends Controller
                 echo "error";
             }
         }
-
+        else {
+            echo "no mail";
+        }
 
 
 
