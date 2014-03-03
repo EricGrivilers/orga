@@ -519,6 +519,7 @@ class InvoiceController extends Controller
         }
 */
         if(count($r1)>0 || count($r2)>0 || count($med)>0) {
+            echo "count ok";
             $message = \Swift_Message::newInstance()
             ->setSubject('Reminders')
             ->setFrom("organic@caravanemedia.com")
@@ -530,6 +531,7 @@ class InvoiceController extends Controller
                 'text/html'
             );
             if($this->container->get('mailer')->send($message)) {
+                echo "message ok";
                 foreach($invoices as $k=>$it) {
                     foreach($it as $invoice) {
                         if($k=='r1') {
