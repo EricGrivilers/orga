@@ -555,6 +555,9 @@ class InvoiceController extends Controller
                 }
                 $em->flush();
             }
+            else {
+                echo "error";
+            }
         }
 
 
