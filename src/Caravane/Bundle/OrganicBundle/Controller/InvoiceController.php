@@ -485,6 +485,7 @@ class InvoiceController extends Controller
 
     public function cronAction() {
 
+echo "cron";
         $invoices=array();
         $em=$this->getDoctrine()->getManager();
         $r1=$em->getRepository('CaravaneOrganicBundle:Invoice')->findDues(1,15);
@@ -533,6 +534,7 @@ class InvoiceController extends Controller
             if($this->container->get('mailer')->send($message)) {
                 echo "message ok";
                 foreach($invoices as $k=>$it) {
+                    echo "---rrrr";
                     foreach($it as $invoice) {
                         if($k=='r1') {
                             echo "r1<br/>";
