@@ -10,7 +10,7 @@ Command:
 </h2>
 <ul>
 	{% for invoice in invoiceType %}
-		<li><a href="http://{{ app.request.host }}{{path('invoice_edit',{'id':invoice.id})}}">{{invoice.reference}} ({{invoice.clientid.name}}) on {{invoice.invoicedate|date('d/m/Y')}}</a></li>
+		<li><a href="http://{{ app.request.host }}{{path('invoice_edit',{'id':invoice.id})}}">{{invoice.reference}} ({{invoice.clientid?invoice.clientid.name:''}}) on {{invoice.invoicedate|date('d/m/Y')}}</a></li>
 	{% endfor %}
 </ul>
 {% endfor %}
