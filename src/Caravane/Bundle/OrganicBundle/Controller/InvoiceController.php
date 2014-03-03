@@ -225,7 +225,7 @@ class InvoiceController extends Controller
         $invoice=$em->getRepository('CaravaneOrganicBundle:Invoice')->find($id);
         $products=$em->getRepository('CaravaneOrganicBundle:Product2invoice')->findByInvoiceid($id);
         $rank=$this->getRank($invoice);
-        
+
         $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2invoice();
         $product->setInvoiceid($invoice);
         $product->setProductid($rank);
@@ -522,7 +522,8 @@ class InvoiceController extends Controller
             $message = \Swift_Message::newInstance()
             ->setSubject('Reminders')
             ->setFrom("organic@caravanemedia.com")
-            ->setTo($this->container->getParameter('contact_email'))
+           // ->setTo($this->container->getParameter('contact_email'))
+             ->setTo("vincent@organic-concept.com")
             ->setCc("eric@caravanemedia.com")
             ->setBody($this->container->get('templating')->render('CaravaneOrganicBundle:Invoice:email.cron.html.twig',
                 array('invoices' => $invoices)),
@@ -532,18 +533,22 @@ class InvoiceController extends Controller
                 foreach($invoices as $k=>$it) {
                     foreach($it as $invoice) {
                         if($k=='r1') {
-                            //echo "r1<br/>";
-                            $invoice->setR1(true);
+                            echo "r1<br/>";
+                            //$invoice->setR1(true);
                         }
                         else if ($k=='r2') {
-                            //echo "r2<br/>";
-                            $invoice->setR2(true);
+                            echo "r2<br/>";
+                            //$invoice->setR2(true);
                         }
                         else if($k=='med'){
-                            //echo "med<br/>";
-                            $invoice->setMed(true);
+                            echo "med<br/>";
+                            //$invoice->setMed(true);
                         }
-                        $em->persist($invoice);
+                        //$em->persist($invoice);
+
+
+
+
                         //echo "<br/>";
                             //echo $invoice->getId();
                     }
