@@ -523,7 +523,7 @@ echo "cron";
             echo "count ok";
             $message = \Swift_Message::newInstance()
             ->setSubject('Reminders')
-            ->setFrom("organic@caravanemedia.com")
+            ->setFrom("info@caravanemedia.com")
            // ->setTo($this->container->getParameter('contact_email'))
              ->setTo("vincent@organic-concept.com")
             ->setCc("eric@caravanemedia.com")
@@ -538,17 +538,17 @@ echo "cron";
                     foreach($it as $invoice) {
                         if($k=='r1') {
                             echo "r1<br/>";
-                            //$invoice->setR1(true);
+                            $invoice->setR1(true);
                         }
                         else if ($k=='r2') {
                             echo "r2<br/>";
-                            //$invoice->setR2(true);
+                            $invoice->setR2(true);
                         }
                         else if($k=='med'){
                             echo "med<br/>";
-                            //$invoice->setMed(true);
+                            $invoice->setMed(true);
                         }
-                        //$em->persist($invoice);
+                        $em->persist($invoice);
 
 
 

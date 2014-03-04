@@ -181,8 +181,11 @@ class ClientController extends Controller
 
         if ($editForm->isValid()) {
             $entity->setUpdateDate(new \Datetime("now"));
+
+
             $em->persist($entity);
             $em->flush();
+
 
             return $this->redirect($this->generateUrl('client_edit', array('id' => $id)));
         }
