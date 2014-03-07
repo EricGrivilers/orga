@@ -87,7 +87,6 @@ class Client
      * @var string
      *
      * @ORM\Column(name="vat", type="string", length=50, nullable=true)
-     * @Assert\NotBlank(groups="is_cie_group")
      */
     private $vat;
 

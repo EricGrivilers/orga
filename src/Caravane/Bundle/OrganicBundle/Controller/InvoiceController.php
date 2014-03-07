@@ -523,7 +523,7 @@ echo "cron";
             echo "count ok";
             $message = \Swift_Message::newInstance()
             ->setSubject('Reminders')
-            ->setFrom("info@caravanemedia.com")
+            ->setFrom("organic@caravanemedia.com")
            // ->setTo($this->container->getParameter('contact_email'))
              ->setTo("vincent@organic-concept.com")
             ->setCc("eric@caravanemedia.com")

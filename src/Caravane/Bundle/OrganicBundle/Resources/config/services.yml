@@ -42,6 +42,11 @@ services:
             - { name: doctrine.event_listener, event: postPersist, method: postPersist }
             - { name: doctrine.event_listener, event: preUpdate, method: preUpdate }
 
+    twig.text_extension:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - name: twig.extension
+
 
 #    fos_elastica.index.website.invoice
 #        class:
