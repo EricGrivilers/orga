@@ -52,7 +52,9 @@ class OffreRepository extends EntityRepository
 
 
 	public function findAllBetweenDates(\Datetime $startDate=null,\Datetime $endDate=null) {
-
+		if(!$startDate || !$endDate) {
+			return array();
+		}
 		$em=$this->getEntityManager();
 
 		$dql="SELECT O FROM CaravaneOrganicBundle:Offre O ";

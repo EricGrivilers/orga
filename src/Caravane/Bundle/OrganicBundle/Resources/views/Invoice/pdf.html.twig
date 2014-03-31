@@ -2,7 +2,7 @@
 
 {% block reference %}
   {{"Reference"|trans}} {{entity.reference}}<br/>
-  Zaventem, {{"le"|trans}} {{entity.invoiceDate|date('d/m/Y')}}
+  Zaventem, {{entity.invoiceDate|date('d/m/Y')}}
 {% endblock reference %}
 
 {% block documentType %}

@@ -45,7 +45,9 @@ class JobRepository extends EntityRepository
 
 
 	public function findAllBetweenDates(\Datetime $startDate=null,\Datetime $endDate=null) {
-
+		if(!$startDate || !$endDate) {
+			return array();
+		}
 		$em=$this->getEntityManager();
 
 		$dql="SELECT J FROM CaravaneOrganicBundle:Job J ";

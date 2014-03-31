@@ -51,7 +51,10 @@ caravane_user:
     prefix:   /
 
 
-
+#JMSTranslationBundle_ui:
+#    resource: @JMSTranslationBundle/Controller/
+#    type:     annotation
+#    prefix:   /_trans
 
 # Internal routing configuration to handle ESI
 # ****** WARNING ******

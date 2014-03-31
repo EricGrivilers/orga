@@ -35,7 +35,7 @@
 							<br/>
 							ING - {{"Compte n°"|trans}} : 363-1068056-29 - IBAN : BE26 3631 0680 5629 - SWIFT : BBRUBEBB
 			<br/>
-			Fortis Bank - {{"Compte n°"|trans}} : 001-5712962-29 - IBAN : BE26 0015 7129 6229 - SWIFT : GEBABEBB
+			BNP Paribas - {{"Compte n°"|trans}} : 001-5712962-29 - IBAN : BE26 0015 7129 6229 - SWIFT : GEBABEBB
 							<br/>
 							Tel 00 32 2 709 09 50 - Fax 00 32 2 709 09 51 - info@organic-concept.com
 						</td>
@@ -98,9 +98,9 @@
 			<table class="main">
 				<thead>
 					<tr>
-						<th style="width:95mm">{{"Description"|trans}}</th>
-						<th style="width:25mm">{{"Quantité"|trans}}</th>
-						<th style="width:25mm">{{"Prix unitaire"|trans}}</th>
+						<th style="width:145mm">{{"Description"|trans}}</th>
+						{#<th style="width:25mm">{{"Quantité"|trans}}</th>
+						<th style="width:25mm">{{"Prix unitaire"|trans}}</th>#}
 						<th style="width:25mm">{{"Total"|trans}}</th>
 					</tr>
 				</thead>
@@ -109,8 +109,8 @@
 						
 							<tr>
 								<td style="width:95mm" class="borderedBottomLight" >{{product.description|nl2br}}</td>
-								<td style="width:25mm" class="borderedBottomLight" ></td>
-								<td style="width:25mm" class="right borderedBottomLight" ></td>
+								{#<td style="width:25mm" class="borderedBottomLight" ></td>
+								<td style="width:25mm" class="right borderedBottomLight" ></td>#}
 								<td style="width:25mm" class="right borderedBottomLight" > {{product.price|number_format(2,'.',' ')}} &euro;</td>
 								
 
@@ -121,9 +121,9 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td style="width:95mm"></td>
-						<td style="width:25mm" ></td>
-						<th style="width:25mm" >{{"Total VAT incl."|trans}}</th>
+						<td style="width:145mm"></td>
+						{#<td style="width:25mm" ></td>
+						<th style="width:25mm" >{{"Total VAT incl."|trans}}</th>#}
 						<th style="width:25mm" class="right" >{{total|number_format(2,'.',' ')}} &euro;</th>
 					</tr>
 				</tfoot>

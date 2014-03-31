@@ -19,7 +19,7 @@ monolog:
             level: debug
 
 
-swiftmailer:
-    transport: smtp
-    host:      "mail.caravanemedia.com"
-    port: 5025
+#swiftmailer:
+#    transport: smtp
+#    host:      "mail.caravanemedia.com"
+#    port: 5025

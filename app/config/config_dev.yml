@@ -22,10 +22,10 @@ monolog:
 assetic:
     use_controller: true
 
-swiftmailer:
-    transport: smtp
-    host:      "mail.caravanemedia.com"
-    port: 5025
-    delivery_address: eric@135.be
+#swiftmailer:
+#    transport: smtp
+#    host:      "mail.caravanemedia.com"
+#    port: 5025
+    delivery_address: ericgrivilers@gmail.com
 
 
