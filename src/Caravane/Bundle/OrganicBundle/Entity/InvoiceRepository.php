@@ -129,7 +129,7 @@ class InvoiceRepository extends EntityRepository
 			case 1:
 				$sql.="
 				AND C.invoicedate<?1
-				AND C.r1=0
+				
 				AND ( C.r1date='0000-00-00' OR C.r1date IS NULL) ";
 			break;
 
@@ -138,7 +138,7 @@ class InvoiceRepository extends EntityRepository
 				AND C.r1=1
 				AND C.r1date<?1
 				AND C.r1date!='0000-00-00' AND C.r1date IS NOT NULL
-				AND C.r2=0
+				
 				AND ( C.r2date='0000-00-00' OR C.r2date IS NULL) ";
 			break;
 
@@ -149,7 +149,7 @@ class InvoiceRepository extends EntityRepository
 				AND C.r1date!='0000-00-00' AND C.r1date IS NOT NULL
 				AND C.r2=1
 				AND C.r2date!='0000-00-00' AND C.r2date IS NOT NULL
-				AND C.med=0
+				
 				AND ( C.meddate='0000-00-00' OR C.meddate IS NULL) ";
 			break;
 
@@ -157,12 +157,15 @@ class InvoiceRepository extends EntityRepository
 
 		$sql.="ORDER BY C.reference";
 
-echo $sql;
+		//echo "<textarea>".$sql."</textarea>";
+		//echo $today->format('Y-m-d');
+		
 		//echo $today->format('Y-m-d')."<br/>";
 		//echo htmlentities($sql)."<br/><br/>";
 		$query = $this->getEntityManager()->createQuery($sql);
 		$query->setParameter(1,  $today->format('Y-m-d'));
 		$invoices=$query->getResult();
+
 		return $invoices;
 	}
 

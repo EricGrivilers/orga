@@ -445,6 +445,20 @@ class InvoiceController extends Controller
                     'filename'=>$entity->getReference()."-".$type."-".$_locale.".pdf"
                 );
                 $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Invoice:pdf.".$type.".html.twig",$file,$_locale,$force);
+                switch($type) {
+                    default:
+                    case "r1":
+                        $entity->setR1date(new \Datetime('now'));
+                    break;
+                    case "r2":
+                        $entity->setR2date(new \Datetime('now'));
+                    break;
+                    case "med":
+                        $entity->setMeddate(new \Datetime('now'));
+                    break;
+                }
+                $em->persist($entity);
+                $em->flush();
             }
             else {
 
@@ -485,7 +499,7 @@ class InvoiceController extends Controller
 
     public function cronAction() {
 
-echo "cron";
+
         $invoices=array();
         $em=$this->getDoctrine()->getManager();
         $r1=$em->getRepository('CaravaneOrganicBundle:Invoice')->findDues(1,15);
@@ -496,29 +510,7 @@ echo "cron";
         $invoices['r2']=$r2;
         $invoices['med']=$med;
 
-/*
-        echo "r1:<br/>";
-        foreach($r1 as $invoice) {
-            echo $invoice->getReference();
-            if($invoice->getPaymentDate()) { echo " | ".$invoice->getPaymentDate()->format('Y-m-d H:i:s');}
-            echo " | ".$invoice->getStatus();
-            echo "<br/>";
-        }
-         echo "r2:<br/>";
-        foreach($r2 as $invoice) {
-            echo $invoice->getReference();
-            if($invoice->getPaymentDate()) { echo " | ".$invoice->getPaymentDate()->format('Y-m-d H:i:s');}
-            echo " | ".$invoice->getStatus();
-            echo "<br/>";
-        }
-         echo "med:<br/>";
-        foreach($med as $invoice) {
-            echo $invoice->getReference();
-            if($invoice->getPaymentDate()) { echo " | ".$invoice->getPaymentDate()->format('Y-m-d H:i:s');}
-            echo " | ".$invoice->getStatus();
-            echo "<br/>";
-        }
-*/
+
         if(count($r1)>0 || count($r2)>0 || count($med)>0) {
             echo "count ok";
             $message = \Swift_Message::newInstance()
@@ -537,15 +529,17 @@ echo "cron";
                     echo "---rrrr";
                     foreach($it as $invoice) {
                         if($k=='r1') {
-                            echo "r1<br/>";
+                            echo "r1 ".$invoice->getReference()." (".$invoice->getInvoicedate()->format('Y-m-d').")<br/>";
                             $invoice->setR1(true);
                         }
                         else if ($k=='r2') {
-                            echo "r2<br/>";
+                            echo "r2 ".$invoice->getReference()." (".$invoice->getInvoicedate()->format('Y-m-d').")<br/>";
+                            
                             $invoice->setR2(true);
                         }
                         else if($k=='med'){
-                            echo "med<br/>";
+                            echo "med ".$invoice->getReference()." (".$invoice->getInvoicedate()->format('Y-m-d').")<br/>";
+                            
                             $invoice->setMed(true);
                         }
                         $em->persist($invoice);
