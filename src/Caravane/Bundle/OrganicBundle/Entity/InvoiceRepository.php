@@ -120,6 +120,7 @@ class InvoiceRepository extends EntityRepository
 		$sql="SELECT C FROM CaravaneOrganicBundle:Invoice C
 				WHERE C.reference!=''
 				AND C.status!='paid'
+				AND C.status!='draft'
 				AND C.priceht>0
 				AND ( C.paymentdate='0000-00-00' OR C.paymentdate IS NULL) ";
 
@@ -128,7 +129,7 @@ class InvoiceRepository extends EntityRepository
 			default:
 			case 1:
 				$sql.="
-				AND C.invoicedate<?1
+				AND (C.invoicedate<?1 OR C.insertdate<?1) 
 				
 				AND ( C.r1date='0000-00-00' OR C.r1date IS NULL) ";
 			break;
@@ -157,7 +158,7 @@ class InvoiceRepository extends EntityRepository
 
 		$sql.="ORDER BY C.reference";
 
-		//echo "<textarea>".$sql."</textarea>";
+		echo "<textarea>".$sql."</textarea>";
 		//echo $today->format('Y-m-d');
 		
 		//echo $today->format('Y-m-d')."<br/>";
