@@ -156,7 +156,7 @@ class InvoiceRepository extends EntityRepository
 
 		}
 
-		$sql.="ORDER BY C.reference";
+		$sql.="AND C.invoiceDate>?2 ORDER BY C.reference";
 
 		echo "<textarea>".$sql."</textarea>";
 		//echo $today->format('Y-m-d');
@@ -165,6 +165,7 @@ class InvoiceRepository extends EntityRepository
 		//echo htmlentities($sql)."<br/><br/>";
 		$query = $this->getEntityManager()->createQuery($sql);
 		$query->setParameter(1,  $today->format('Y-m-d'));
+		$query->setParameter(2,  '2012-12-31');
 		$invoices=$query->getResult();
 
 		return $invoices;
