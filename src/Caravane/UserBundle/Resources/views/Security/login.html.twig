@@ -8,7 +8,7 @@
 {% endif %}
 
 <form action="{{ path("fos_user_security_check") }}" method="post">
-<p style="text-align:center;color:red;font-size:14px">First time on this new  version ? Please set up a new password:<br/> <a href="/resetting/request">click here</a></p>
+
   
   <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
@@ -24,7 +24,7 @@
 
     <input type="submit" class="btn btn-inverse"id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
 
-<p style="text-align:center;color:red;font-size:14px">First time on this new  version ? Please set up a new password:<br/> <a href="/resetting/request">click here</a></p>
+<p ><a href="/resetting/request">Set up a new password</a></p>
 
 </form>
 {% endblock fos_user_content %}
