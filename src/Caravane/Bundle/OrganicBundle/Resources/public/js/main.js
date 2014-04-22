@@ -428,7 +428,16 @@ function initOffre() {
 }
 
 
+function fillOffreAddressFromClient() {
 
+    from='caravane_bundle_organicbundle_offretype_clientid_';
+    to='caravane_bundle_organicbundle_offretype_';
+    $("#tab_job input[id*='"+to+"']").each(function() {
+        i=$(this).attr('id').replace(to,from);
+        $(this).val($('#'+i).val());
+    });
+    
+}
 
 
 function initSearch() {
