@@ -194,15 +194,22 @@ class InvoiceController extends Controller
 
        public function addTransportProductAction(Request $request,$id,$transportid) {
             $em = $this->getDoctrine()->getManager();
-            $offre=$em->getRepository('CaravaneOrganicBundle:Invoice')->find($id);
+            $invoice=$em->getRepository('CaravaneOrganicBundle:Invoice')->find($id);
             $transport=$em->getRepository('CaravaneOrganicBundle:Transport')->find($transportid);
+            $rank=$this->getRank($invoice);
+
+            echo $transport->getId();
+            echo $transport->getCost();
+            echo $transport->getname();
+
 
             if($transport) {
 
                 $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2invoice();
 
-                $product->setInvoiceid($offre);
-
+                $product->setInvoiceid($invoice);
+                $product->setProductid($rank);
+                $product->setRank($rank);
                 $product->setInsertdate(new \Datetime('now'));
                 $product->setUpdatedate(new \Datetime('now'));
                 $product->setPrice($transport->getCost());
@@ -211,12 +218,12 @@ class InvoiceController extends Controller
 
 
                 $em->persist($product);
-                $offre->addProduct($product);
-                $em->persist($offre);
+                $invoice->addProduct($product);
+                $em->persist($invoice);
                 $em->flush();
             }
 
-            return new Response('ok');
+            return new Response('ok transport');
         }
 
 

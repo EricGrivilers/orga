@@ -184,7 +184,8 @@ function initProduct() {
         var link=$(this);
         $.post(Routing.generate($(this).attr('data-type')+'_remove_product',{'id':$(this).attr('data-rel'),'productid':$(this).attr('data-target')}),function(data) {
             link.closest('tr').remove();
-            window.location.reload();
+            $('#mainForm').submit();
+            //window.location.reload();
         });
     });
 
@@ -192,7 +193,8 @@ function initProduct() {
         entity=$('#mainForm').data('entity');
         url=Routing.generate(entity+'_add_product',{'id':$(this).data('rel')});
         $.post(url,{'option':$(this).data('isoption')},function(data) {
-            window.location.reload();
+            $('#mainForm').submit();
+           // window.location.reload();
         });
 /*
          e.preventDefault();
@@ -348,10 +350,12 @@ function initOffre() {
 
              $.post(Routing.generate(entity+'_add_tent',{'id':entityId,'tentid':tentid}),{'option':option},function(data) {
                // alert(data);
-               window.location.hash = "#tab_products";
-               window.location.reload();
+               //window.location.hash = "#tab_products";
+               //window.location.reload();
                // $('form').submit();
+               $('#mainForm').submit();
             })
+            $('#stockModal').modal('hide');
         });
 
     });
@@ -368,11 +372,14 @@ function initOffre() {
             entityId=$(this).closest('.modal').data('target');
             //alert(Routing.generate(entity+'_add_transport',{'id':entityId,'transportid':transportid}));
              $.post(Routing.generate(entity+'_add_transport',{'id':entityId,'transportid':transportid}),{'option':option},function(data) {
-               // alert(data);
-                window.location.hash = "#tab_products";
-               window.location.reload();
+
+                //window.location.hash = "#tab_products";
+
+                $('#mainForm').submit();
+               //window.location.reload();
               //  $('form').submit();
             })
+             $('#transportModal').modal('hide');
         });
 
     });
