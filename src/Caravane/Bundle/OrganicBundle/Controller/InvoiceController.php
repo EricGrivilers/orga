@@ -194,15 +194,22 @@ class InvoiceController extends Controller
 
        public function addTransportProductAction(Request $request,$id,$transportid) {
             $em = $this->getDoctrine()->getManager();
-            $offre=$em->getRepository('CaravaneOrganicBundle:Invoice')->find($id);
+            $invoice=$em->getRepository('CaravaneOrganicBundle:Invoice')->find($id);
             $transport=$em->getRepository('CaravaneOrganicBundle:Transport')->find($transportid);
+            $rank=$this->getRank($invoice);
+
+            echo $transport->getId();
+            echo $transport->getCost();
+            echo $transport->getname();
+
 
             if($transport) {
 
                 $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2invoice();
 
-                $product->setInvoiceid($offre);
-
+                $product->setInvoiceid($invoice);
+                $product->setProductid($rank);
+                $product->setRank($rank);
                 $product->setInsertdate(new \Datetime('now'));
                 $product->setUpdatedate(new \Datetime('now'));
                 $product->setPrice($transport->getCost());
@@ -211,12 +218,12 @@ class InvoiceController extends Controller
 
 
                 $em->persist($product);
-                $offre->addProduct($product);
-                $em->persist($offre);
+                $invoice->addProduct($product);
+                $em->persist($invoice);
                 $em->flush();
             }
 
-            return new Response('ok');
+            return new Response('ok transport');
         }
 
 
@@ -445,6 +452,20 @@ class InvoiceController extends Controller
                     'filename'=>$entity->getReference()."-".$type."-".$_locale.".pdf"
                 );
                 $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Invoice:pdf.".$type.".html.twig",$file,$_locale,$force);
+                switch($type) {
+                    default:
+                    case "r1":
+                        $entity->setR1date(new \Datetime('now'));
+                    break;
+                    case "r2":
+                        $entity->setR2date(new \Datetime('now'));
+                    break;
+                    case "med":
+                        $entity->setMeddate(new \Datetime('now'));
+                    break;
+                }
+                $em->persist($entity);
+                $em->flush();
             }
             else {
 
@@ -496,29 +517,7 @@ class InvoiceController extends Controller
         $invoices['r2']=$r2;
         $invoices['med']=$med;
 
-/*
-        echo "r1:<br/>";
-        foreach($r1 as $invoice) {
-            echo $invoice->getReference();
-            if($invoice->getPaymentDate()) { echo " | ".$invoice->getPaymentDate()->format('Y-m-d H:i:s');}
-            echo " | ".$invoice->getStatus();
-            echo "<br/>";
-        }
-         echo "r2:<br/>";
-        foreach($r2 as $invoice) {
-            echo $invoice->getReference();
-            if($invoice->getPaymentDate()) { echo " | ".$invoice->getPaymentDate()->format('Y-m-d H:i:s');}
-            echo " | ".$invoice->getStatus();
-            echo "<br/>";
-        }
-         echo "med:<br/>";
-        foreach($med as $invoice) {
-            echo $invoice->getReference();
-            if($invoice->getPaymentDate()) { echo " | ".$invoice->getPaymentDate()->format('Y-m-d H:i:s');}
-            echo " | ".$invoice->getStatus();
-            echo "<br/>";
-        }
-*/
+
         if(count($r1)>0 || count($r2)>0 || count($med)>0) {
             echo "count ok";
             $message = \Swift_Message::newInstance()
@@ -537,15 +536,17 @@ class InvoiceController extends Controller
                     echo "---rrrr";
                     foreach($it as $invoice) {
                         if($k=='r1') {
-                            echo "r1<br/>";
+                            echo "r1 ".$invoice->getReference()." (".$invoice->getInvoicedate()->format('Y-m-d').")<br/>";
                             $invoice->setR1(true);
                         }
                         else if ($k=='r2') {
-                            echo "r2<br/>";
+                            echo "r2 ".$invoice->getReference()." (".$invoice->getInvoicedate()->format('Y-m-d').")<br/>";
+                            
                             $invoice->setR2(true);
                         }
                         else if($k=='med'){
-                            echo "med<br/>";
+                            echo "med ".$invoice->getReference()." (".$invoice->getInvoicedate()->format('Y-m-d').")<br/>";
+                            
                             $invoice->setMed(true);
                         }
                         $em->persist($invoice);

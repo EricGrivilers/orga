@@ -310,8 +310,8 @@ class OffreController extends Controller
                 }
                 $em->flush();
             }
-
-            return $this->redirect($this->generateUrl('offre_edit', array('id' => $id)));
+            $request->request->get('hash')?$hash=$request->request->get('hash'):$hash='';
+            return $this->redirect($this->generateUrl('offre_edit', array('id' => $id)).$hash);
         }
 
         return $this->render('CaravaneOrganicBundle:Offre:edit.html.twig', array(

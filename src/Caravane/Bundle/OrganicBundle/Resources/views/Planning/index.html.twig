@@ -3,7 +3,12 @@
 {% block body %}
 <div class="row-fluid">
     <div class="tools">
-        <div class="span10">
+      <div class="span6">
+        <div style="text-align:left">
+          <span class="label" style='background:#3366cc'>preview</span> <span class="label"  style='background:#C80017'>build</span> <span class="label" style='background:#dedede'>inplace</span> <span class="label" style='background:#159d22'>unbuild</span> <span class="label" style='background:#fff200'>sell/winter</span>
+        </div>
+      </div>
+        <div class="span6">
         {#<ul class="nav nav-pills">
 
            <li {% if user=='any' %}class="active" {% endif %} >
@@ -29,9 +34,7 @@
         </select>
        </form>
     </div>
-    <div class="span2">
-        {# <a href="{{ path('client_new') }}" class="btn btn-inverse ">New client</a>#}
-    </div>
+    
     </div>
 </div>
 <div class="row-fluid">
