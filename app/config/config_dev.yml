@@ -22,7 +22,7 @@ monolog:
 assetic:
     use_controller: true
 
-#swiftmailer:
+swiftmailer:
 #    transport: smtp
 #    host:      "mail.caravanemedia.com"
 #    port: 5025
