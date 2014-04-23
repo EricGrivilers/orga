@@ -485,7 +485,7 @@ class InvoiceController extends Controller
 
     public function cronAction() {
 
-echo "cron";
+
         $invoices=array();
         $em=$this->getDoctrine()->getManager();
         $r1=$em->getRepository('CaravaneOrganicBundle:Invoice')->findDues(1,15);
