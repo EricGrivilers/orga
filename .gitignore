@@ -2,6 +2,8 @@ web/bundles/
 app/cache/*
 app/logs
 app/cache/*
+app/cache/dev/*
+app/cache/dev/annotations/*
 app/logs/*
 build/
 vendor

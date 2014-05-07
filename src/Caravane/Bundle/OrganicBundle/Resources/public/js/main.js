@@ -79,7 +79,7 @@ $(document).ready(function() {
         }
         $('.nav-tabs a[href=#'+hash+']').tab('show') ;
         $('#hash').val('#'+hash);
-    } 
+    }
 
     // Change hash for page-reload
     $('.nav-tabs a').on('shown', function (e) {
@@ -157,7 +157,7 @@ function pagination() {
             }) ;
             return false;
         }
-        
+
         return false;
     });
 
@@ -184,8 +184,8 @@ function initProduct() {
         var link=$(this);
         $.post(Routing.generate($(this).attr('data-type')+'_remove_product',{'id':$(this).attr('data-rel'),'productid':$(this).attr('data-target')}),function(data) {
             link.closest('tr').remove();
-            $('#mainForm').submit();
-            //window.location.reload();
+            //$('#mainForm').submit();
+            window.location.reload();
         });
     });
 
@@ -199,7 +199,7 @@ function initProduct() {
 /*
          e.preventDefault();
          target=$(this).closest('table').find('tbody');
-      
+
         var prototype =$('table tbody#products').data('prototype');
         var index=target.find('tr').length;
         var newForm = prototype.replace(/__name__/g, index);
@@ -436,7 +436,7 @@ function fillOffreAddressFromClient() {
         i=$(this).attr('id').replace(to,from);
         $(this).val($('#'+i).val());
     });
-    
+
 }
 
 

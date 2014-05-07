@@ -1,6 +1,6 @@
 <page backtop="30mm" backbottom="30mm" backleft="0mm" backright="0mm" >
 		<page_header>
-				
+
 				<table class="main" >
 					<tr>
 						<td class="2col">
@@ -22,7 +22,7 @@
 						</td>
 					</tr>
 				</table>
-				
+
 			</page_header>
 			<page_footer>
 				<table class="main">
@@ -33,9 +33,10 @@
 							<br/>
 							www.organic-concept.com - TVA/BTW: 0807.879.247
 							<br/>
-							ING - {{"Compte n°"|trans}} : IBAN: BE71 7350 3583 9969 - BIC: KREDBEBB
+
+							KBC - {{"Compte n°"|trans}} :  IBAN BE71 7350 3583 9969 - BIC: KREDBEBB
 			<br/>
-			KBC - {{"Compte n°"|trans}} :  IBAN: BE26 3631 0680 5629 - BIC: BBRUBEBB
+			ING - {{"Compte n°"|trans}} : IBAN: BE26 3631 0680 5629 - BIC: BBRUBEBB
 							<br/>
 							Tel 00 32 2 709 09 50 - info@organic-concept.com
 						</td>
@@ -106,17 +107,17 @@
 				</thead>
 				<tbody>
 					{% for product in entity.products %}
-						
+
 							<tr>
 								<td style="width:95mm" class="borderedBottomLight" >{{product.description|nl2br}}</td>
 								{#<td style="width:25mm" class="borderedBottomLight" ></td>
 								<td style="width:25mm" class="right borderedBottomLight" ></td>#}
 								<td style="width:25mm" class="right borderedBottomLight" > {{product.price|number_format(2,'.',' ')}} &euro;</td>
-								
+
 
 							</tr>
 							{% set total=total+product.price %}
-						
+
 					{% endfor %}
 				</tbody>
 				<tfoot>
@@ -136,7 +137,7 @@
 				{{"_JobConfirmOut"|trans}}
 			{% endif %}
 
-			
+
 <br/>
 <br/>
 			<b><u>{{"REMARQUES"|trans}}</u></b>
@@ -178,17 +179,17 @@
 						{{entity.address}} {{entity.number}} <br/> {{entity.zip}} {{entity.city}} <br/> {{entity.country}}
 					</td>
 					<td style="width:30mm" class="borderedRight" >
-						
+
 					</td>
 					<td style="width:30mm" >
-						
+
 					</td>
 				</tr>
 			</table>
 
 			<br/>
 			<br/>
-			
+
 			<br/>
 
 			<table class=" main bordered">
@@ -199,14 +200,14 @@
 					<td style="width:90mm" class=" borderedBottom" >
 						{{"NOM ET SIGNATURE DE L'ACHETEUR"|trans}}
 					</td>
-					
+
 				</tr>
 				<tr>
 					<td style="height:20mm" class="borderedRight" >
-						
+
 					</td>
 					<td style="height:20mm" >
-						
+
 					</td>
 				</tr>
 			</table>
@@ -214,7 +215,7 @@
 	</page>
 
 	<page backtop="0mm" backbottom="0mm" backleft="0mm" backright="0mm">
-		
+
 	        {% include "CaravaneOrganicBundle:Default:cgv."~_locale~ ".html.twig" %}
-	    
+
 	</page>
