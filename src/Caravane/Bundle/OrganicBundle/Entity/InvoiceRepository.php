@@ -156,7 +156,7 @@ class InvoiceRepository extends EntityRepository
 
 		}
 
-		$sql.="AND C.invoicedate>?2 ORDER BY C.reference";
+		$sql.="AND ( C.invoicedate>?2 OR C.insertdate >?2) ORDER BY C.reference";
 
 		echo "<textarea>".$sql."</textarea>";
 		//echo $today->format('Y-m-d');

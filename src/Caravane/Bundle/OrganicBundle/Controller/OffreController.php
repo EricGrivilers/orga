@@ -567,6 +567,8 @@ class OffreController extends Controller
 
     }
 
+    
+
     private function getRank($offre) {
         $em=$this->getDoctrine()->getManager();
         $rank=0;
