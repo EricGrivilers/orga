@@ -55,6 +55,8 @@ _R3: <p>Cher Client, </p><p>La facture n°%reference% n’est pas payée à ce j
 
 Montant total à payer: Total amount to pay
 
+Mme: Mrs
+M.: Mr
 
 
 Offre: Offer
@@ -62,7 +64,7 @@ Options: Options
 
 Offre de sell: Sales offer
 Offre de rent: Leasing offer
-Offre de winter: Strorage offer 
+Offre de winter: Strorage offer
 
 Lieu: Location
 Dates: Dates
@@ -97,5 +99,5 @@ REMARQUES: NOTES
 LIVRAISON: DELIVERY
 COLLECTE: PICKUP
 
-NOM ET SIGNATURE DU VENDEUR: ORGANIC ( NAME AND SIGNATURE ) 
+NOM ET SIGNATURE DU VENDEUR: ORGANIC ( NAME AND SIGNATURE )
 NOM ET SIGNATURE DE L'ACHETEUR: CLIENT (NAME AND SIGNATURE )

@@ -4,7 +4,7 @@ Note de crédit: Credit note
 
 Facture de sell: Facture de vente
 Facture de rent: Facture de location
-Facture de winter: Facture d'hivernage 
+Facture de winter: Facture d'hivernage
 Client: Client
 Facture: Facture
 VAT: TVA
@@ -51,13 +51,15 @@ _R2: <p>Cher Client, </p><p>La facture n°%reference% n’est pas payée à ce j
 _R3: <p>Cher Client, </p><p>La facture n°%reference% n’est pas payée à ce jour, la date d’échéance étant datée au %date%.</p><p>N’ayant pas réceptionné le paiement de cette facture, nous sommes obligés de vous facturer des frais supplémentaires de 15 %. </p>
 
 
+Mme: Mme
+M.: M.
 
 
 Offre: Offre
 
 Offre de sell: Offre de vente
 Offre de rent: Offre de location
-Offre de winter: Offre d'hivernage 
+Offre de winter: Offre d'hivernage
 
 Lieu: Lieu
 Dates: Dates

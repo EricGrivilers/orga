@@ -17,7 +17,7 @@
 	{% if entity.clientType=='cie' %}
 		<b>{{entity.name}}</b>
 	{% endif %}
-	<br/>{{entity.clientTitle}} {{entity.firstname}} {{entity.lastname}}
+	<br/>{{entity.clientTitle|trans}} {{entity.firstname}} {{entity.lastname}}
 	<br/>
 	<br/>{{entity.address}} {{entity.number}}
 	<br/>{{entity.zip}} {{entity.city}}
@@ -156,7 +156,7 @@
 {% if entity.conditions1 %}
 	{% if entity.priceHT>0 %}
 	<br/>{{"Conditions de paiement"|trans}}: {{"comptant."|trans}}
-	
+
 	<br/>{{"Communication à mentionner"|trans}}: <b>{{"Facture"|trans}} {{entity.reference}}</b>
 	{% endif %}
 {% endif %}
