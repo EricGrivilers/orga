@@ -1,7 +1,7 @@
 {% extends "CaravaneOrganicBundle:Default:pdf.html.twig" %}
 
 {% block reference %}
- 
+
   {% if entity.userid %}
 	  {{entity.userid.firstname}}  {{entity.userid.lastname}}<br/>
 	  {{entity.userid.email}}<br/>
@@ -46,9 +46,9 @@
 {% if entity.clientid.clientType=='cie' %}
 	<b>{{entity.clientid.name}}</b><br/>
 {% endif %}
-	{{entity.clientid.clientTitle}} {{entity.clientid.firstname}} {{entity.clientid.lastname}}
+	{{entity.clientid.clientTitle|trans}} {{entity.clientid.firstname}} {{entity.clientid.lastname}}
 	<br/>{{entity.clientid.address}} {{entity.clientid.number}}
-	<br/>{{entity.clientid.email}} - {{entity.clientid.phone}}  - {{entity.clientid.mobile}} 
+	<br/>{{entity.clientid.email}} - {{entity.clientid.phone}}  - {{entity.clientid.mobile}}
 </p>
 
 

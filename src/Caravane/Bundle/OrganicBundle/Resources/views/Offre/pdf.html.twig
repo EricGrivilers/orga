@@ -21,7 +21,7 @@
 {% if entity.clientid.clientType=='cie' %}
 	<b>{{entity.clientid.name}}</b>
 {% endif %}
-	<br/>{{entity.clientid.clientTitle}} {{entity.clientid.firstname}} {{entity.clientid.lastname}}
+	<br/>{{entity.clientid.clientTitle|trans}} {{entity.clientid.firstname}} {{entity.clientid.lastname}}
 	<br/>
 	<br/>{{entity.clientid.address}} {{entity.clientid.number}}
 	<br/>{{entity.clientid.zip}} {{entity.clientid.city}}
