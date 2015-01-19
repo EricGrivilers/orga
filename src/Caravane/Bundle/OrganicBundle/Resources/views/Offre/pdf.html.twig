@@ -279,10 +279,12 @@
 					<td style="height:30mm;"  >
 						<p>
 							{{"Sincères salutations"|trans}},<br/><br/>
+							{% if entity.userid.email is defined %}
 							{{entity.userid.firstname}} {{entity.userid.lastname}}<br/>
 							 {{entity.userid.email}}<br/>
 							{{entity.userid.phone}}<br/>
 							{{entity.userid.mobile}}
+						{% endif %}
 
 							</p>
 					</td>
