@@ -32,7 +32,7 @@
 
         <ul>
           {% for message in messages %}
-            <li>On {{message.messagedate|date('Y-m-d H:i:s')}} {{message.userid.name}} wrote:<br/>
+            <li>On {{message.messagedate|date('Y-m-d H:i:s')}} {{message.userid.name is defined?message.userid.name:''}} wrote:<br/>
               {{message.message|raw}}</li>
           {% endfor %}
         </ul>
