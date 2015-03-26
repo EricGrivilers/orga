@@ -142,5 +142,16 @@ fos_elastica:
 #            excluded_dirs: [cache, data, logs]
 
 
+ivory_ck_editor:
+    configs:
+        minimum:
+            toolbar: "minimum"
 
+    toolbars:
+        configs:
+            minimum: [ "@editing", "/", "@basicstyles" , "/", "@paragraph" ]
+        items:
+            editing: [ 'find', 'selection', 'spellchecker' ]
+            basicstyles:     [ 'basicstyles', 'cleanup' ]
+            paragraph:     [ 'list', 'indent', 'blocks', 'align' ]
 

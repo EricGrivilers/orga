@@ -14,8 +14,8 @@
                         </th>
                         <th>In charge
                         </th>
-                        <th>Status
-                        </th>
+                        {#<th>Status
+                        </th>#}
                     </tr>
                 </thead>
                 <tbody >
@@ -30,7 +30,7 @@
         </div>
         {#{dump(planning)}#}</td>
                         <td>{{form_widget(planning.userid)}}</td>
-                        <td>{{form_widget(planning.etat)}}</td>
+                        {#<td>{{form_widget(planning.etat)}}</td>#}
                     </tr>
                 {% endfor %}
             </tbody>

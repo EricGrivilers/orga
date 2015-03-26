@@ -46,7 +46,7 @@ class Planning2offre
     /**
      * @var string
      *
-     * @ORM\Column(name="etat", type="string", length=50, nullable=false)
+     * @ORM\Column(name="etat", type="string", length=50, nullable=true)
      */
     private $etat;
 
@@ -57,6 +57,7 @@ class Planning2offre
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="userId", referencedColumnName="id")
      * })
+     * @ORM\OrderBy({"firstname" = "ASC", "lastname" = "ASC"})
      */
     private $userid;
 

@@ -56,6 +56,7 @@ class Planning
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="userId", referencedColumnName="id")
      * })
+     * @ORM\OrderBy({"firstname" = "ASC", "lastname" = "ASC"})
      */
     private $userid;
 

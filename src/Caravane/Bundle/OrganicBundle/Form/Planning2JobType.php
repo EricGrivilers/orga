@@ -46,10 +46,7 @@ class Planning2JobType extends AbstractType
             ))
             ->add('userid','entity',array(
                 'class'=>'Caravane\UserBundle\Entity\User',
-                'required'=>false,
-                'attr'=>array(
-                    'class'=>'col-md-12'
-                )
+                'required'=>false
             ))
             //->add('jobid')
             //->add('offreid')
