@@ -40,11 +40,15 @@
         "stof/doctrine-extensions-bundle": "dev-master",
         "avalanche123/imagine-bundle": "v2.1",
         "adesigns/calendar-bundle": "dev-master",
-        "blueimp/jQuery-File-Upload":"dev-master",
+        "blueimp/jQuery-File-Upload": "dev-master",
         "egeloen/ckeditor-bundle": "~2.0",
         "ensepar/html2pdf-bundle" : "~2.0",
         "liuggio/excelbundle": "~2.0",
-        "jms/translation-bundle": "dev-master"
+        "jms/translation-bundle": "dev-master",
+        "ExactTarget/fuelux": "dev-master",
+        "biggora/bootstrap-ajax-typeahead": "dev-master",
+        "voidberg/html5sortable": "dev-master",
+        "dangrossman/bootstrap-daterangepicker": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
@@ -79,6 +83,54 @@
                 "version":"dev-master",
                 "source":{
                     "url":"git://github.com/blueimp/jQuery-File-Upload.git",
+                    "type":"git",
+                    "reference":"origin/master"
+                }
+            }
+        },
+        {
+            "type":"package",
+            "package":{
+                "name":"ExactTarget/fuelux",
+                "version":"dev-master",
+                "source":{
+                    "url": "git://github.com/ExactTarget/fuelux.git",
+                    "type":"git",
+                    "reference":"origin/master"
+                }
+            }
+        },
+        {
+            "type":"package",
+            "package":{
+                "name":"biggora/bootstrap-ajax-typeahead",
+                "version":"dev-master",
+                "source":{
+                    "url": "git://github.com/biggora/bootstrap-ajax-typeahead.git",
+                    "type":"git",
+                    "reference":"origin/master"
+                }
+            }
+        },
+        {
+            "type":"package",
+            "package":{
+                "name":"voidberg/html5sortable",
+                "version":"dev-master",
+                "source":{
+                    "url": "git://github.com/voidberg/html5sortable.git",
+                    "type":"git",
+                    "reference":"origin/master"
+                }
+            }
+        },
+        {
+            "type":"package",
+            "package":{
+                "name":"dangrossman/bootstrap-daterangepicker",
+                "version":"dev-master",
+                "source":{
+                    "url": "git://github.com/dangrossman/bootstrap-daterangepicker.git",
                     "type":"git",
                     "reference":"origin/master"
                 }

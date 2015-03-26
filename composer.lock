@@ -4,8 +4,19 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d2089b527ced3225243476316e88f791",
+    "hash": "4f6e91ea66e3d26d84f9321d012bf63f",
     "packages": [
+        {
+            "name": "ExactTarget/fuelux",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/ExactTarget/fuelux.git",
+                "reference": "origin/master"
+            },
+            "type": "library",
+            "time": "2015-03-25 15:11:02"
+        },
         {
             "name": "adesigns/calendar-bundle",
             "version": "dev-master",
@@ -138,6 +149,17 @@
                 "transliterator"
             ],
             "time": "2014-09-04 13:06:40"
+        },
+        {
+            "name": "biggora/bootstrap-ajax-typeahead",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/biggora/bootstrap-ajax-typeahead.git",
+                "reference": "origin/master"
+            },
+            "type": "library",
+            "time": "2015-01-17 13:45:55"
         },
         {
             "name": "blueimp/jQuery-File-Upload",
@@ -296,6 +318,17 @@
             "description": "jQuery JavaScript Library",
             "homepage": "http://jquery.com",
             "time": "2014-12-23 06:48:45"
+        },
+        {
+            "name": "dangrossman/bootstrap-daterangepicker",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/dangrossman/bootstrap-daterangepicker.git",
+                "reference": "origin/master"
+            },
+            "type": "library",
+            "time": "2015-03-16 14:37:36"
         },
         {
             "name": "doctrine/annotations",
@@ -2851,12 +2884,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "c68d47e3bcdfca74d92ab9d9382e276adf451424"
+                "reference": "48c76189fb0a76a20a4a67a750b513ed06074b55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/c68d47e3bcdfca74d92ab9d9382e276adf451424",
-                "reference": "c68d47e3bcdfca74d92ab9d9382e276adf451424",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/48c76189fb0a76a20a4a67a750b513ed06074b55",
+                "reference": "48c76189fb0a76a20a4a67a750b513ed06074b55",
                 "shasum": ""
             },
             "require": {
@@ -2902,7 +2935,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-03-25 09:01:40"
+            "time": "2015-03-26 11:09:50"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -3354,12 +3387,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "7e2a8b7663ae0ebb59f9608c4a909392e89166d2"
+                "reference": "2981d01baa27594acaef32cf8b2eef7a13ffee4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/7e2a8b7663ae0ebb59f9608c4a909392e89166d2",
-                "reference": "7e2a8b7663ae0ebb59f9608c4a909392e89166d2",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/2981d01baa27594acaef32cf8b2eef7a13ffee4b",
+                "reference": "2981d01baa27594acaef32cf8b2eef7a13ffee4b",
                 "shasum": ""
             },
             "require": {
@@ -3463,7 +3496,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-03-25 08:38:47"
+            "time": "2015-03-26 11:16:49"
         },
         {
             "name": "twig/extensions",
@@ -3517,12 +3550,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "7ee4aec238949225a25f174318dc84167e5f360d"
+                "reference": "67920147a81d5bd5bcd052b239ff85bae789f5a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7ee4aec238949225a25f174318dc84167e5f360d",
-                "reference": "7ee4aec238949225a25f174318dc84167e5f360d",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/67920147a81d5bd5bcd052b239ff85bae789f5a3",
+                "reference": "67920147a81d5bd5bcd052b239ff85bae789f5a3",
                 "shasum": ""
             },
             "require": {
@@ -3566,7 +3599,18 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-03-17 17:21:28"
+            "time": "2015-03-26 12:33:23"
+        },
+        {
+            "name": "voidberg/html5sortable",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/voidberg/html5sortable.git",
+                "reference": "origin/master"
+            },
+            "type": "library",
+            "time": "2014-11-26 15:45:35"
         },
         {
             "name": "willdurand/jsonp-callback-validator",
@@ -3670,7 +3714,11 @@
         "jms/translation-bundle": 20,
         "stof/doctrine-extensions-bundle": 20,
         "adesigns/calendar-bundle": 20,
-        "blueimp/jquery-file-upload": 20
+        "blueimp/jquery-file-upload": 20,
+        "exacttarget/fuelux": 20,
+        "biggora/bootstrap-ajax-typeahead": 20,
+        "voidberg/html5sortable": 20,
+        "dangrossman/bootstrap-daterangepicker": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

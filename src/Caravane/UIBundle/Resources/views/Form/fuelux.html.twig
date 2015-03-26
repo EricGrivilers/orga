@@ -1,13 +1,18 @@
 {% block CaravaneUIFueluxComboBox_widget %}
 
 
-{#{dump(form)}#}
-	<div class="input-append dropdown combobox">
-		<input class="{{form.vars.attr.class}}" type="text" name="{{form.vars.full_name}}" id="{{form.vars.id}}" value="{{form.vars.value}}" ><button class="btn dropdown-toggle" data-toggle="dropdown"><i class="caret"></i></button>
-		<ul class="dropdown-menu">
-			{% for choice in form.vars.attr.choices %}
-			<li><a href="#">{{choice}}</a></li>
-			{% endfor %}
-		</ul>
+	<div class="input-group input-append dropdown combobox" data-initialize="combobox" >
+	  <input type="text" class="form-control" type="text" name="{{form.vars.full_name}}" id="{{form.vars.id}}" value="{{form.vars.value}}">
+	  <div class="input-group-btn">
+	    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+	    <ul class="dropdown-menu dropdown-menu-right">
+	    	{% for choice in form.vars.attr.choices %}
+	      		<li data-value="{{choice}}"><a href="#">{{choice}}</a></li>
+	      	{% endfor %}
+	    </ul>
+	  </div>
 	</div>
+
+
+
 {% endblock %}

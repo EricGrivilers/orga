@@ -1,8 +1,10 @@
 <div class="row">
-     {{form_row(edit_form.surface)}}
+    <div class="col-md-12">
+        {{form_row(edit_form.surface)}}
+    </div>
 </div>
-    <div class="row">
-
+<div class="row">
+    <div class="col-md-12">
         <table class="table table-bordered table-condensed table-striped table-sortable" data-option="0">
             <thead>
                 <tr>
@@ -134,110 +136,120 @@
             </tfoot>
         </table>
     </div>
-     <div class="row">
-          {{form_row(edit_form.tentscomments)}}
+</div>
+<div class="row">
+    <div class="col-md-12">
+        {{form_row(edit_form.tentscomments)}}
     </div>
+</div>
+
+<div classss="row">
+    <div class="col-md-12">
 
 
+        <h4>Options</h4>
+        <div class="row">
+            <div class="col-md-12">
+              {{form_row(edit_form.tentscomments)}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
 
+                <table class="table table-bordered table-condensed table-striped table-sortable" data-option="1">
+                    <thead>
+                        <tr>
+                            <th>
+                                Product
+                            </th>
+                            <th>
+                                Price in &euro; VAT excl.
+                            </th>
+                            <th class="tiny"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="products "  {% if entity.id %} data-update="{{path('offre_sort_products',{'id':entity.id})}}" {% endif %}  >
 
-    <h4>Options</h4>
-    <div class="row">
-          {{form_row(edit_form.tentscomments)}}
-    </div>
-    <div class="row">
+                        {% for product in edit_form.products  %}
+                               {% if product.isoption.vars.data==true %}
+                            <tr  data-entity="{{product.vars.value.id}}">
+                                <td class="col-md-9">
 
-        <table class="table table-bordered table-condensed table-striped table-sortable" data-option="1">
-            <thead>
-                <tr>
-                    <th>
-                        Product
-                    </th>
-                    <th>
-                        Price in &euro; VAT excl.
-                    </th>
-                    <th class="tiny"></th>
-                </tr>
-            </thead>
-            <tbody class="products "  {% if entity.id %} data-update="{{path('offre_sort_products',{'id':entity.id})}}" {% endif %}  >
-
-                {% for product in edit_form.products  %}
-                       {% if product.isoption.vars.data==true %}
-                    <tr  data-entity="{{product.vars.value.id}}">
-                        <td class="col-md-9">
-
-                            {{form_widget(product.description)}}
-                            {{form_widget(product.datas)}}
-                        </td>
-                        <td class="col-md-3">
-                            {{form_widget(product.price)}}
-                        </td>
-                        <td>{{form_widget(product.isoption)}}<a class="delete_row" data-rel="{{entity.id}}" data-type="offre" data-target="{{product.vars.value.id}}"><i class="fa fa-trash"></i></a></td>
-                    </tr>
-                    {% endif %}
-                {% endfor %}
-
-
-            </tbody>
-             <tfoot>
-                <tr>
-                        <th class="right">
-
-                            <a data-rel="{{entity.id}}" id="add_option_link" class="add_product_link btn" data-isoption='1'>Add free row</a>
-                            <a href="#transportModal" class="btn openTransportModal" data-isoption='1'>Add transport row</a>
-
-                            {% if entity.id and entity.plannings %}
-                                <a href="#stockModal"  class="btn openStockModal" data-isoption='1'>Add from stock</a>
-                            {% else %}
-                                <a href="#stockModal"  class="btn disabled" data-isoption='1'>Add from stock</a>
-                                <br/> You must give planning dates and save this offer to be able to add product from stock
+                                    {{form_widget(product.description)}}
+                                    {{form_widget(product.datas)}}
+                                </td>
+                                <td class="col-md-3">
+                                    {{form_widget(product.price)}}
+                                </td>
+                                <td>{{form_widget(product.isoption)}}<a class="delete_row" data-rel="{{entity.id}}" data-type="offre" data-target="{{product.vars.value.id}}"><i class="fa fa-trash"></i></a></td>
+                            </tr>
                             {% endif %}
-                        </th>
-                        <th>
-
-                        </th>
-                        <th class="tiny"></th>
-                </tr>
-                    <tr>
-                        <th class="right">
-                            Total VAT excl.
-                        </th>
-                        <th>
-                            {% set total=0 %}
-                            {% for p in entity.products %}
-                                 {% if p.isoption==true %}
-                                    {% set total=total + p.price %}
-                                {% endif %}
-                            {% endfor %}
-                            {{total|number_format(2,',',' ')}}
-                        </th>
-                        <th class="tiny"></th>
-                </tr>
+                        {% endfor %}
 
 
-                    <tr>
-                        <th class="right">
-                            {% if entity.pricetype!='intra'%} VAT {% endif %}
-                        </th>
-                        <th>
-                            {% if entity.pricetype!='intra'%} {{(0.21*total)|number_format(2,',',' ')}} {% endif %}
-                        </th>
-                        <th class="tiny"></th>
-                    </tr>
-                    <tr>
-                        <th class="right">
-                            Total {% if entity.pricetype!='intra'%} VAT incl. {% endif %}
-                        </th>
-                        <th>
-                            {% if entity.pricetype=='intra'%}
-                                {{total|number_format(2,'.',' ')}}
-                            {% else %}
-                                {{(total+0.21*total)|number_format(2,'.',' ')}}
-                            {% endif %}
-                        </th>
-                        <th></th>
-                    </tr>
+                    </tbody>
+                     <tfoot>
+                        <tr>
+                                <th class="right">
 
-            </tfoot>
-        </table>
+                                    <a data-rel="{{entity.id}}" id="add_option_link" class="add_product_link btn" data-isoption='1'>Add free row</a>
+                                    <a href="#transportModal" class="btn openTransportModal" data-isoption='1'>Add transport row</a>
+
+                                    {% if entity.id and entity.plannings %}
+                                        <a href="#stockModal"  class="btn openStockModal" data-isoption='1'>Add from stock</a>
+                                    {% else %}
+                                        <a href="#stockModal"  class="btn disabled" data-isoption='1'>Add from stock</a>
+                                        <br/> You must give planning dates and save this offer to be able to add product from stock
+                                    {% endif %}
+                                </th>
+                                <th>
+
+                                </th>
+                                <th class="tiny"></th>
+                        </tr>
+                            <tr>
+                                <th class="right">
+                                    Total VAT excl.
+                                </th>
+                                <th>
+                                    {% set total=0 %}
+                                    {% for p in entity.products %}
+                                         {% if p.isoption==true %}
+                                            {% set total=total + p.price %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {{total|number_format(2,',',' ')}}
+                                </th>
+                                <th class="tiny"></th>
+                        </tr>
+
+
+                            <tr>
+                                <th class="right">
+                                    {% if entity.pricetype!='intra'%} VAT {% endif %}
+                                </th>
+                                <th>
+                                    {% if entity.pricetype!='intra'%} {{(0.21*total)|number_format(2,',',' ')}} {% endif %}
+                                </th>
+                                <th class="tiny"></th>
+                            </tr>
+                            <tr>
+                                <th class="right">
+                                    Total {% if entity.pricetype!='intra'%} VAT incl. {% endif %}
+                                </th>
+                                <th>
+                                    {% if entity.pricetype=='intra'%}
+                                        {{total|number_format(2,'.',' ')}}
+                                    {% else %}
+                                        {{(total+0.21*total)|number_format(2,'.',' ')}}
+                                    {% endif %}
+                                </th>
+                                <th></th>
+                            </tr>
+
+                    </tfoot>
+                </table>
+            </div>
+        </div>
     </div>
+</div>

@@ -26,11 +26,14 @@
     </div>
     <div class="well">
         <div class="row">
+            <div class="col-md-4">
                 {{ form_row(edit_form.eventdate)}}
+            </div>
         </div>
     </div>
     <div class="well">
         <div class="row">
+
             {% set ToPay = entity.price %}
             {% if entity.pricetype!='intra'%}
                 {% set ToPay = entity.price+(entity.price*0.21) %}

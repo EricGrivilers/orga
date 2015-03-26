@@ -27,15 +27,17 @@
                             </div>
                             <div class="col-md-4">
                                 {{form_row(edit_form.productCategory)}}
-
-                                <div class="input-append dropdown combobox">
-                            <input class="col-md-12" type="text" name="category" id="category" value="{{entity.productCategory}}"><button class="btn dropdown-toggle" data-toggle="dropdown"><i class="caret"></i></button>
-                            <ul class="dropdown-menu">
+                                <div class="input-group input-append dropdown combobox" data-initialize="combobox" >
+                                    <input type="text" class="form-control" type="text" name="category" id="category" value="{{entity.productCategory}}">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                        <ul class="dropdown-menu dropdown-menu-right">
                                             {% for category in categories %}
-                                            <li><a href="#">{{category}}</a></li>
+                                                <li data-value="{{category}}"><a href="#">{{category}}</a></li>
                                             {% endfor %}
                                         </ul>
-                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-4">
                                 {{form_row(edit_form.name)}}

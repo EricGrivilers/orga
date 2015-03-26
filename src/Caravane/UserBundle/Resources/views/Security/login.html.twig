@@ -13,18 +13,19 @@
   <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
     <label for="username">Email (@organic)</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control" />
 
     <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
-    <input type="password" id="password" name="_password" required="required" />
+    <input type="password" id="password" name="_password" required="required" class="form-control" />
     <p>
-    <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> 
-    {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
-</p>
+        <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> 
+        {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+    </p>
+    <p>
+        <input type="submit" class="btn btn-primary"id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+    </p>
 
-    <input type="submit" class="btn btn-primary"id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
-
-<p ><a href="/resetting/request">Set up a new password</a></p>
+<p >Password lost? <a href="/resetting/request">Set up a new password</a></p>
 
 </form>
 {% endblock fos_user_content %}

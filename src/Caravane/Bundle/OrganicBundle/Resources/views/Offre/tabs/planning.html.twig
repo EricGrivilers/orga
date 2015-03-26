@@ -1,5 +1,6 @@
  <div class="well">
-        <div class="row">
+    <div class="row">
+        <div class="col-md-12">
             <table class="table">
                 <thead>
                     <tr>
@@ -33,7 +34,9 @@
                     </tr>
                 {% endfor %}
             </tbody>
-            </table>
+        </table>
+
+        {{form_row(edit_form.planningcomments)}}
         </div>
-         {{form_row(edit_form.planningcomments)}}
     </div>
+</div>

@@ -7,14 +7,14 @@ $('#reportrange').daterangepicker(
     	buttonClasses:"btn-inverse",
     	startDate:$('#startDate').val(),
     	endDate:$('#endDate').val(),
-    	minDate:Date.today(),
+    	minDate: moment().subtract(29, 'days'),
         ranges: {
-            'Today': ['today', 'today'],
-            'Tomorrow': ['tomorrow', 'tomorrow'],
-            'Next weekend': [Date.saturday(),Date.saturday().add({ days: +1 })],
-            'Next 7 days': ['today',Date.today().add({ days: +6 })],
-            'Next week': [Date.monday().add({ days: +7 }),Date.monday().add({ days: +13 })],
-            'Next month': [Date.today().moveToFirstDayOfMonth().add({ months: +1 }), Date.today().moveToLastDayOfMonth().add({ months: +1 })],
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         },
         locale: {
         	customRangeLabel:"Custom dates"
@@ -34,7 +34,7 @@ $('.reportrange').daterangepicker(
         buttonClasses:"btn-inverse",
         startDate:$(this).closest('.widget').find('input.startDate').val(),
         endDate:$(this).closest('.widget').find('input.endDate').val(),
-        minDate:Date.today(),
+        minDate: moment().subtract(29, 'days'),
         format : 'MM/dd/yyyy hh:mm:ss',
         locale: {
             customRangeLabel:"Custom dates"
