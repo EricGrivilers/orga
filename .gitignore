@@ -12,30 +12,9 @@
 /composer.phar
 
 
-web/bundles/
-app/cache/*
-app/logs
-app/cache/*
-app/cache/dev/*
-app/cache/prod/*
-app/cache/dev/annotations/*
-app/logs/*
-build/
-vendor
-composer.phar
-web/docs/*
-www
-www/*
-www/docs/*
-www/cache/*
-www/app
-www/js/*
-www/css/*
-web/js/*
-web/bundles/*
-web/css/*
+/web/docs/*
+/www/
+
 .DS_Store
-composer.lock
-vendor/*
-__www
-app/config/parameters.yml
+
+/__www
