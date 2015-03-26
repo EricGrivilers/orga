@@ -21,7 +21,7 @@ class ClientEmbededType extends AbstractType
             ->add('name',"CaravaneUIBootstrapTypeahead",array(
                 'label'=>"Company name",
                 "attr"=>array(
-                    "class"=>"span12",
+                    "class"=>"col-md-12",
                     "source_route"=>"client_autocomplete",
                     "label_field"=>"name",
                     "updater"=>"fillClient",
@@ -31,7 +31,7 @@ class ClientEmbededType extends AbstractType
             ->add('lastname',"CaravaneUIBootstrapTypeahead",array(
                 'label'=>"Lastname",
                 "attr"=>array(
-                    "class"=>"span12",
+                    "class"=>"col-md-12",
                     "source_route"=>"client_autocomplete",
                     "label_field"=>"lastname",
                     "updater"=>"fillClient",
@@ -41,7 +41,7 @@ class ClientEmbededType extends AbstractType
             ->add('firstname',"text",array(
                 'required'=>false,
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
 
@@ -50,7 +50,7 @@ class ClientEmbededType extends AbstractType
                 "choices"=>array("M."=>"M.","Mme"=>"Mme"),
                 "label"=>"Title",
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
             ->add('cietype','choice',array(
@@ -75,88 +75,88 @@ class ClientEmbededType extends AbstractType
                 'required'=>false,
                 "label"=>"Type",
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             ->add('vat',"text",array(
                 "label"=>"VAT",
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             ->add('address',"text",array(
                 'required'=>false,
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('number',"text",array(
                 'required'=>false,
                 "label"=>"Number/Box",
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
             ->add('zip',"text",array(
                 'required'=>false,
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
             ->add('city',"text",array(
                 'required'=>false,
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('country','country',array(
                 'required'=>false,
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             ->add('phone',"text",array(
                 'required'=>false,
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('phone2',"text",array(
                 'required'=>false,
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 ),
                 "label"=>"Other"
             ))
             ->add('mobile',"text",array(
                 'required'=>false,
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('fax',"text",array(
                 'required'=>false,
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('email',"text",array(
                 'required'=>false,
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('url',"text",array(
                 'required'=>false,
                 "label"=>"Website",
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('language','choice',array(
                 "choices"=>array('en'=>'en','fr'=>'fr','nl'=>'nl'),
                 "attr"=>array(
-                    "class"=>"span6"
+                    "class"=>"col-md-6"
                 )
             ))
         ;

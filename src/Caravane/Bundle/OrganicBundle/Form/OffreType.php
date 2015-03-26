@@ -26,38 +26,38 @@ class OffreType extends AbstractType
                 'format' => 'dd/MM/yyyy hh:mm:ss',
                 'label'=>"Event date",
                 'attr'=>array(
-                    'class'=>'span3 datepicker'
+                    'class'=>'col-md-3 datepicker'
                 )
             ))
             ->add('validity','choice',array(
                 'choices'=>array('14'=>'14 days','21'=>'21 days','30'=>'1 month'),
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
              ->add('offretype','choice',array(
                 "label"=>"Type",
                 'choices'=>array('rent'=>"Rent",'sell'=>"Sell",'winter'=>"Winter storage"),
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             ->add('planningcomments','ckeditor',array(
                 'label'=>"Planning comments",
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             ->add('offrecomments','ckeditor',array(
                 'label'=>"Comments",
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             ->add('surface','text',array(
                 'label'=>"Wished surface",
                 'attr'=>array(
-                    'class'=>"span3"
+                    'class'=>"col-md-3"
                 )
             ))
            // ->add('startbuild')
@@ -66,7 +66,7 @@ class OffreType extends AbstractType
             ->add('status','choice',array(
                 'choices'=> $this->statusChoices,
                 'attr'=>array(
-                    'class'=>'span12 status'
+                    'class'=>'col-md-12 status'
                 )
             ))
              ->add('pricetype','choice',array(
@@ -75,19 +75,19 @@ class OffreType extends AbstractType
         /*    ->add('price','number',array(
                 'precision' => 2,
                 "attr"=>array(
-                    "class"=>"span12 price"
+                    "class"=>"col-md-12 price"
                 )
             ))*/
             ->add('pricecomments','textarea',array(
                 'label'=>'Comments',
                 'attr'=>array(
-                    'class'=>"span12"
+                    'class'=>"col-md-12"
                 )
             ))
             ->add('conditions','ckeditor',array(
                 'label'=>"Conditions comments",
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
          //   ->add('conditionsslices')
@@ -95,73 +95,73 @@ class OffreType extends AbstractType
             ->add('tentscomments','ckeditor',array(
                 'label'=>"Stock/products comments",
                 'attr'=>array(
-                    'class'=>"span12"
+                    'class'=>"col-md-12"
                 )
             ))
             ->add('address',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('number',"text",array(
                 "label"=>"Number/Box",
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
             ->add('zip',"text",array(
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
             ->add('city',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('country')
             ->add('phone',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('phone2',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 ),
                 "label"=>"Other"
             ))
             ->add('mobile',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('fax',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('email',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('url',"text",array(
                 "label"=>"Website",
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('comments','ckeditor',array(
                 'label'=>"Notes",
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             ->add('introtext','ckeditor',array(
                 'label'=>"Offre introducting text",
                 'attr'=>array(
-                    'class'=>"span12"
+                    'class'=>"col-md-12"
                 )
             ))
             //->add('issue')
@@ -170,7 +170,7 @@ class OffreType extends AbstractType
            /*  ->add('language','choice',array(
                 "choices"=>array('en'=>'en','fr'=>'fr','nl'=>'nl'),
                 "attr"=>array(
-                    "class"=>"span6"
+                    "class"=>"col-md-6"
                 )
             ))
             */
@@ -181,12 +181,15 @@ class OffreType extends AbstractType
 
                 'class'=>'Caravane\UserBundle\Entity\User',
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             ->add('clientid',new ClientEmbededType())
 
-            ->add('files','filesupload',array(
+            /*->add('files','filesupload',array(
+                    'data_class'=>null
+                ))*/
+            ->add('files','file',array(
                     'data_class'=>null
                 ))
 

@@ -1,6 +1,6 @@
     <div class="well">
-        <div class="row-fluid">
-            <div class="span4">
+        <div class="row">
+            <div class="col-md-4">
                 <div>
                     <label>Reference</label> <label><b>{{entity.reference}}</b></label>
                 </div>
@@ -9,11 +9,11 @@
                 </div>
 
             </div>
-            <div class="span4">
+            <div class="col-md-4">
                {{ form_row(edit_form.offretype)}}
                {{ form_row(edit_form.userid)}}
             </div>
-            <div class="span4">
+            <div class="col-md-4">
 
                {{ form_row(edit_form.status)}}
 
@@ -25,20 +25,20 @@
         </div>
     </div>
     <div class="well">
-        <div class="row-fluid">
+        <div class="row">
                 {{ form_row(edit_form.eventdate)}}
         </div>
     </div>
     <div class="well">
-        <div class="row-fluid">
+        <div class="row">
             {% set ToPay = entity.price %}
             {% if entity.pricetype!='intra'%}
                 {% set ToPay = entity.price+(entity.price*0.21) %}
             {% endif %}
-            <div class="span6">
+            <div class="col-md-6">
                 <h4 style="text-align:center">Total amount {{ToPay|number_format(2,',',' ')}} {% if entity.pricetype!='intra'%}VAT incl.{% endif %}</h4>
             </div>
-             <div class="span6">
+             <div class="col-md-6">
                 {{ form_row(edit_form.pricecomments)}}
             </div>
         </div>

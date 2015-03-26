@@ -22,11 +22,11 @@ class Slice2JobType extends AbstractType
             ))
            ->add('priceht','text',array(
             'attr'=>array(
-            'class'=>'span12 price')
+            'class'=>'col-md-12 price')
             ))
            ->add('comments','text',array(
             'attr'=>array(
-            'class'=>'span12')
+            'class'=>'col-md-12')
             ))
         //   ->add('status')
 

@@ -1,135 +1,140 @@
- <div class="row-fluid">
-     {{form_row(edit_form.surface)}}
-</div>
-    <div class="row-fluid">
-
-        <table class="table table-bordered table-condensed table-striped table-sortable">
-            <thead>
-                <tr>
-                    <th>
-                        Product
-                    </th>
-                    <th>
-                        Price in &euro; VAT excl.
-                    </th>
-                    <th class="tiny"></th>
-                </tr>
-            </thead>
-            <tbody class="products"  {% if entity.id %} data-update="{{path('job_sort_products',{'id':entity.id})}}" {% endif %} id="products"  data-prototype="{{('
-                        <td class="span9">'~form_widget(edit_form.products.vars.prototype.description)~' '~form_widget(edit_form.products.vars.prototype.datas)~'</td>
-                        <td class="span3">'~form_widget(edit_form.products.vars.prototype.price)~'</td>
-                        <td><a class="delete_new_row" ><i class="icon icon-trash"></i></a></td>
-                    ')|e}}">
-                    {% set c=0 %}
-                {% for product in edit_form.products  %}
-
-
-
-                    <tr data-productid="{{c}}" data-entity="{{product.vars.value.id}}" >
-                        <td class="span9">
-                            {{form_widget(product.description)}}
-                            {% if product.vars.value.tentid %}
-
-                               {% if product.vars.value.tentid.productCategory=='Tent' %}
-                                <div class='row-fluid' class="additionalDatasRow" style="background:#ccc">
-                                    <div class="span4">
-                                         Reference:  <b>{{product.vars.value.tentid.reference}}</b>
-                                         <br/>Name:  <b>{{product.vars.value.tentid.name}}</b>
-                                         <br/>Color:  <b>{{product.vars.value.tentid.color}}</b>
-                                         {% if product.vars.value.tentid.ownerid %}
-                                            <br/>Owner <b>{{product.vars.value.tentid.ownerid.name}}</b>
-                                        {% endif %}
-                                        <br/>Width: <b>{{product.vars.value.tentid.width}}</b> m x length: <b>{{product.vars.value.tentid.length}}</b> m ( <b>{{product.vars.value.tentid.m2}}</b> m2)
-
-                                    </div>
-                                    {% if product.vars.value.datasAsObject %}
-                                        <div class="span4">
-
-                                            Floor <input class="additionalData" type='checkbox' data-attribute="plancher" value='1' {% if product.vars.value.datasAsObject.plancher %} checked="checked"  {% endif %} />
-                                              area <input data-attribute="surfaceplancher"  type='text' value="{{product.vars.value.datasAsObject.surfaceplancher}}" class="span10 additionalData"  />
-                                       <br/>
-                                            Ground<br/> <input class="additionalData" data-attribute="sol" type='text' value="{{product.vars.value.datasAsObject.sol}}" class="span10"  />
-                                        <br/>
-                                            Pipeline  <input class="additionalData" data-attribute="canalisation" type='checkbox'  value='1' {% if product.vars.value.datasAsObject.canalisation %} checked="checked"  {% endif %} />
-                                        </div>
-                                        <div class="span4">
-                                            Other<br/> <textarea data-attribute="other" class="span12 additionalData">{{product.vars.value.datasAsObject.other}}</textarea>
-                                        </div>
-                                    {% endif %}
-                                </div>
-
-
-                               {% endif %}
-                            {% endif %}
-                            {{form_widget(product.datas)}}
-                        </td>
-                        <td class="span3">
-                            {{form_widget(product.price)}}
-                        </td>
-                        <td><a class="delete_row" data-rel="{{entity.id}}" data-type="job" data-target="{{product.vars.value.id}}"><i class="icon icon-trash"></i></a></td>
-                    </tr>
-
-                    {% set c=c+1 %}
-                {% endfor %}
-
-
-            </tbody>
-             <tfoot>
-                <tr>
-                        <th class="right">
-
-                            <a data-rel="{{entity.id}}" id="add_product_link" class="add_product_link btn" data-isoption='0'>Add free row</a>
-                            <a href="#transportModal" class="btn openTransportModal" data-isoption='0'>Add transport row</a>
-                            <a   class="btn openStockModal"  data-isoption='0'>Add from stock</a>
-                        </th>
-                        <th>
-
-                        </th>
-                        <th class="tiny"></th>
-                </tr>
-                    <tr>
-                        <th class="right">
-                            Total VAT excl.
-                        </th>
-                        <th>
-                            {% set total=0 %}
-                            {% for p in entity.products %}
-
-                                    {% set total=total + p.price %}
-
-                            {% endfor %}
-                            {{total|number_format(2,',',' ')}}
-                        </th>
-                        <th class="tiny"></th>
-                </tr>
-
-
-                    <tr>
-                        <th class="right">
-                             {{form_widget(edit_form.pricetype)}}
-                        </th>
-                        <th>
-                            {% if entity.pricetype!='intra'%} {{(0.21*total)|number_format(2,',',' ')}} {% endif %}
-                        </th>
-                        <th class="tiny"></th>
-                    </tr>
-                    <tr>
-                        <th class="right">
-                            Total {% if entity.pricetype!='intra'%} VAT incl. {% endif %}
-                        </th>
-                        <th>
-                            {% if entity.pricetype=='intra'%}
-                                {{total|number_format(2,'.',' ')}}
-                            {% else %}
-                                {{(total+0.21*total)|number_format(2,'.',' ')}}
-                            {% endif %}
-                        </th>
-                        <th></th>
-                    </tr>
-
-            </tfoot>
-        </table>
+ <div class="row">
+    <div class="col-md-12">
+        {{form_row(edit_form.surface)}}
     </div>
-     <div class="row-fluid">
+</div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-condensed table-striped table-sortable">
+                <thead>
+                    <tr>
+                        <th>
+                            Product
+                        </th>
+                        <th>
+                            Price in &euro; VAT excl.
+                        </th>
+                        <th class="tiny"></th>
+                    </tr>
+                </thead>
+                <tbody class="products"  {% if entity.id %} data-update="{{path('job_sort_products',{'id':entity.id})}}" {% endif %} id="products"  data-prototype="{{('
+                            <td class="col-md-9">'~form_widget(edit_form.products.vars.prototype.description)~' '~form_widget(edit_form.products.vars.prototype.datas)~'</td>
+                            <td class="col-md-3">'~form_widget(edit_form.products.vars.prototype.price)~'</td>
+                            <td><a class="delete_new_row" ><i class="fa fa-trash"></i></a></td>
+                        ')|e}}">
+                        {% set c=0 %}
+                    {% for product in edit_form.products  %}
+
+
+
+                        <tr data-productid="{{c}}" data-entity="{{product.vars.value.id}}" >
+                            <td class="col-md-9">
+                                {{form_widget(product.description)}}
+                                {% if product.vars.value.tentid %}
+
+                                   {% if product.vars.value.tentid.productCategory=='Tent' %}
+                                    <div class='row' class="additionalDatasRow" style="background:#ccc">
+                                        <div class="col-md-4">
+                                             Reference:  <b>{{product.vars.value.tentid.reference}}</b>
+                                             <br/>Name:  <b>{{product.vars.value.tentid.name}}</b>
+                                             <br/>Color:  <b>{{product.vars.value.tentid.color}}</b>
+                                             {% if product.vars.value.tentid.ownerid %}
+                                                <br/>Owner <b>{{product.vars.value.tentid.ownerid.name}}</b>
+                                            {% endif %}
+                                            <br/>Width: <b>{{product.vars.value.tentid.width}}</b> m x length: <b>{{product.vars.value.tentid.length}}</b> m ( <b>{{product.vars.value.tentid.m2}}</b> m2)
+
+                                        </div>
+                                        {% if product.vars.value.datasAsObject %}
+                                            <div class="col-md-4">
+
+                                                Floor <input class="additionalData" type='checkbox' data-attribute="plancher" value='1' {% if product.vars.value.datasAsObject.plancher %} checked="checked"  {% endif %} />
+                                                  area <input data-attribute="surfaceplancher"  type='text' value="{{product.vars.value.datasAsObject.surfaceplancher}}" class="col-md-10 additionalData"  />
+                                           <br/>
+                                                Ground<br/> <input class="additionalData" data-attribute="sol" type='text' value="{{product.vars.value.datasAsObject.sol}}" class="col-md-10"  />
+                                            <br/>
+                                                Pipeline  <input class="additionalData" data-attribute="canalisation" type='checkbox'  value='1' {% if product.vars.value.datasAsObject.canalisation %} checked="checked"  {% endif %} />
+                                            </div>
+                                            <div class="col-md-4">
+                                                Other<br/> <textarea data-attribute="other" class="col-md-12 additionalData">{{product.vars.value.datasAsObject.other}}</textarea>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+
+                                   {% endif %}
+                                {% endif %}
+                                {{form_widget(product.datas)}}
+                            </td>
+                            <td class="col-md-3">
+                                {{form_widget(product.price)}}
+                            </td>
+                            <td><a class="delete_row" data-rel="{{entity.id}}" data-type="job" data-target="{{product.vars.value.id}}"><i class="fa fa-trash"></i></a></td>
+                        </tr>
+
+                        {% set c=c+1 %}
+                    {% endfor %}
+
+
+                </tbody>
+                 <tfoot>
+                    <tr>
+                            <th class="right">
+
+                                <a data-rel="{{entity.id}}" id="add_product_link" class="add_product_link btn" data-isoption='0'>Add free row</a>
+                                <a href="#transportModal" class="btn openTransportModal" data-isoption='0'>Add transport row</a>
+                                <a   class="btn openStockModal"  data-isoption='0'>Add from stock</a>
+                            </th>
+                            <th>
+
+                            </th>
+                            <th class="tiny"></th>
+                    </tr>
+                        <tr>
+                            <th class="right">
+                                Total VAT excl.
+                            </th>
+                            <th>
+                                {% set total=0 %}
+                                {% for p in entity.products %}
+
+                                        {% set total=total + p.price %}
+
+                                {% endfor %}
+                                {{total|number_format(2,',',' ')}}
+                            </th>
+                            <th class="tiny"></th>
+                    </tr>
+
+
+                        <tr>
+                            <th class="right">
+                                 {{form_widget(edit_form.pricetype)}}
+                            </th>
+                            <th>
+                                {% if entity.pricetype!='intra'%} {{(0.21*total)|number_format(2,',',' ')}} {% endif %}
+                            </th>
+                            <th class="tiny"></th>
+                        </tr>
+                        <tr>
+                            <th class="right">
+                                Total {% if entity.pricetype!='intra'%} VAT incl. {% endif %}
+                            </th>
+                            <th>
+                                {% if entity.pricetype=='intra'%}
+                                    {{total|number_format(2,'.',' ')}}
+                                {% else %}
+                                    {{(total+0.21*total)|number_format(2,'.',' ')}}
+                                {% endif %}
+                            </th>
+                            <th></th>
+                        </tr>
+
+                </tfoot>
+            </table>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col-md-12">
           {{form_row(edit_form.tentscomments)}}
+        </div>
     </div>

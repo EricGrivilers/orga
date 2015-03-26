@@ -270,7 +270,7 @@ class InvoiceController extends Controller
 
 
         $form = $this->createForm(new InvoiceType($statusChoices), $entity,array(
-            'em' => $this->getDoctrine()->getEntityManager(),
+            'em' => $this->getDoctrine()->getManager(),
         ));
         $form->bind($request);
 
@@ -310,7 +310,7 @@ class InvoiceController extends Controller
         }
 
         $editForm = $this->createForm(new InvoiceType($statusChoices), $entity,array(
-            'em' => $this->getDoctrine()->getEntityManager(),
+            'em' => $this->getDoctrine()->getManager(),
         ));
         $deleteForm = $this->createDeleteForm($id);
 
@@ -358,7 +358,7 @@ class InvoiceController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new InvoiceType($statusChoices), $entity,array(
-            'em' => $this->getDoctrine()->getEntityManager(),
+            'em' => $this->getDoctrine()->getManager(),
         ));
         $editForm->bind($request);
 

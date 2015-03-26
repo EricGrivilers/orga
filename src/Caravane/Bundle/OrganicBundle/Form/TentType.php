@@ -32,14 +32,14 @@ class TentType extends AbstractType
         $builder
             ->add('name','text',array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('reference')
             ->add('kit')
          /*   ->add('owner','CaravaneUIBootstrapTypeahead',array(
                 "attr"=>array(
-                    "class"=>"span12",
+                    "class"=>"col-md-12",
                     //"data"=>$owner->getName(),
                     "source_route"=>"client_autocomplete"
                 )
@@ -48,7 +48,7 @@ class TentType extends AbstractType
             ->add($builder->create('ownerid', 'CaravaneUIBootstrapTypeahead',array(
                 "label"=>"Owner",
                 "attr"=>array(
-                    "class"=>"span12",
+                    "class"=>"col-md-12",
                     //"data"=>$owner->getName(),
                     "source_route"=>"client_autocomplete",
                     "label_field"=>"ownerid",
@@ -61,33 +61,33 @@ class TentType extends AbstractType
 ->add('ownerid',new ClientEmbededType())
             ->add('color','text',array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('length','text',array(
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
             ->add('width','text',array(
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
             ->add('height','text',array(
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
             ->add('m2','text',array(
                 "label"=>"Surface",
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
             ->add('weight','text',array(
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
             ->add('piquets')
@@ -95,14 +95,14 @@ class TentType extends AbstractType
             ->add('etat','CaravaneUIFueluxComboBox',array(
                 "label"=>"Status",
                 "attr"=>array(
-                    'class'=>"span12",
+                    'class'=>"col-md-12",
                     'choices'=>$this->etats
                 )
             ))
 
             ->add('comments','ckeditor',array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('winter')
@@ -115,7 +115,7 @@ class TentType extends AbstractType
                 'data_class'=>'Caravane\Bundle\OrganicBundle\Entity\ProductCategory',
                 "label"=>"Category",
                 "attr"=>array(
-                    'class'=>"span12",
+                    'class'=>"col-md-12",
                     'choices'=>$this->categories
                 )
             ))
@@ -129,7 +129,7 @@ class TentType extends AbstractType
                 ))
           //  ->add('ownerid')
 
-            ->add('files','filesupload',array(
+            ->add('files','file',array(
                     'data_class'=>null
                 ))
 

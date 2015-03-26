@@ -17,7 +17,7 @@ class CommentEmbedType extends AbstractType
         ->add('content','textarea',array(
             'label'=>'Message',
             "attr"=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
         ;

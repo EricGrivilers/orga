@@ -2,9 +2,9 @@
 
 {% block body %}
 
-<div class="row-fluid">
+<div class="row">
     <div class="tools">
-        <div class="span10">
+        <div class="col-md-10">
             {#
         <ul class="nav nav-pills">
 
@@ -19,7 +19,7 @@
         #}
 </div>
 
-<div class="span2">
+<div class="col-md-2">
      <a href="{{ path('transport_new') }}" class="btn btn-inverse ">
             New transport
         </a>
@@ -27,7 +27,9 @@
     </div>
 </div>
 
-<div class="row-fluid">
+<div class="row">
+
+    <div class="col-md-12">
 
 
 
@@ -54,12 +56,12 @@
             <td>{{ entity.distance }}</td>
             <td>{{ entity.cost }}</td>
               <td>
-                <a href="{{ path('transport_edit', { 'id': entity.id }) }}"><i class="icon icon-edit"></i></a>
+                <a href="{{ path('transport_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i></a>
 
             </td>
              <td>
 
-                        <a href="{{ path('transport_edit', { 'id': entity.id }) }}"><i class="icon icon-trash"></i></a>
+                        <a href="{{ path('transport_edit', { 'id': entity.id }) }}"><i class="fa fa-trash"></i></a>
 
 
             </td>
@@ -118,15 +120,16 @@
     </tbody>
 </table>
 
+
+
+    </div>
 </div>
 
-<div class="row-fluid">
-    <div class="row-fluid">
-    {% include "CaravaneOrganicBundle:Default:pagination.html.twig" %}
+<div class="row">
+    <div class="col-md-12">
+        {% include "CaravaneOrganicBundle:Default:pagination.html.twig" %}
+    </div>
 </div>
-
-</div>
-
 {% endblock body %}
 
 

@@ -1,5 +1,6 @@
 <div class="well">
-        <div class="row-fluid">
+    <div class="row">
+        <div class="col-md-12">
             <table class="table">
                 <thead>
                     <tr>
@@ -81,8 +82,11 @@
                         <td>{{form_widget(planning.etat)}}</td>
                     </tr>
                 {% endfor %#}
-            </tbody>
+                </tbody>
             </table>
-        </div>
-         {{form_row(edit_form.planningcomments)}}
+
+        
+            {{form_row(edit_form.planningcomments)}}
+         </div>
     </div>
+</div>

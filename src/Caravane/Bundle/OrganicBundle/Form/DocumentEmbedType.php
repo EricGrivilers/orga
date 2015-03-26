@@ -16,7 +16,7 @@ class DocumentEmbedType extends AbstractType
         ->add('title')
         ->add('description','textarea',array(
             "attr"=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
         ;

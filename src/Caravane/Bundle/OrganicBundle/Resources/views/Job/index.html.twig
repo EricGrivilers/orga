@@ -2,9 +2,9 @@
 
 {% block body %}
 
-<div class="row-fluid">
+<div class="row">
     <div class="tools">
-        <div class="span10">
+        <div class="col-md-10">
         <ul class="nav nav-pills">
 
          <li {% if type=='' %}class="active" {% endif %} >
@@ -20,12 +20,14 @@
         </ul>
 </div>
 
-<div class="span2">
+<div class="col-md-2">
 
     </div>
     </div>
 </div>
-<div class="row-fluid">
+<div class="row">
+
+    <div class="col-md-12">
 
 
 
@@ -84,12 +86,12 @@
 
              <td>{% if entity.issue %}<span class="label label-important">{{ entity.issue }}</span>{% endif %}</td>
               <td>
-                <a href="{{ path('job_edit', { 'id': entity.id }) }}"><i class="icon icon-edit"></i></a>
+                <a href="{{ path('job_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i></a>
 
             </td>
              <td>
 
-                        <a href="{{ path('job_delete', { 'id': entity.id }) }}" data-rel="{{entity.reference}}" ><i class="icon icon-trash"></i></a>
+                        <a href="{{ path('job_delete', { 'id': entity.id }) }}" data-rel="{{entity.reference}}" ><i class="fa fa-trash"></i></a>
 
 
             </td>
@@ -148,10 +150,12 @@
     </tbody>
 </table>
 
+    </div>
 </div>
-<div class="row-fluid">
-    <div class="row-fluid">
-    {% include "CaravaneOrganicBundle:Default:pagination.html.twig" %}
-</div>
+
+<div class="row">
+    <div class="col-md-12">
+        {% include "CaravaneOrganicBundle:Default:pagination.html.twig" %}
+    </div>
 </div>
 {% endblock body %}

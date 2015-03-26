@@ -1,5 +1,5 @@
 body,p,a,td {
-	font-size:12px;
+	/*font-size:12px;*/
 }
 
 .well {
@@ -9,13 +9,20 @@ body,p,a,td {
 
 .navbar {
 	margin-bottom:10px;
+	border:0 !important;
+	border-radius:0;
 }
 .navbar-inverse .navbar-inner {
 	border-radius:0;
-	border:0;
+	border:0 !important;
 }
 
-.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+.navbar-inverse .navbar-nav > li > a,
+a.navbar-brand {
+	color: #ffffff !important;
+}
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus,
+ {
 	color: #fff;
 	text-decoration: none;
 	background-color: #262e49;

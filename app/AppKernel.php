@@ -22,13 +22,16 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
+            
             new Ensepar\Html2pdfBundle\EnseparHtml2pdfBundle(),
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            
             new Caravane\Bundle\OrganicBundle\CaravaneOrganicBundle(),
             new Caravane\Bundle\BIJUploadBundle\CaravaneBIJUploadBundle(),
             new Caravane\UserBundle\CaravaneUserBundle(),
             new Caravane\DevBundle\CaravaneDevBundle(),
             new Caravane\UIBundle\CaravaneUIBundle(),
-            new Caravane\CKEditorBundle\CaravaneCKEditorBundle(),
+            //new Caravane\CKEditorBundle\CaravaneCKEditorBundle(),
             new Caravane\CalendarBundle\CaravaneCalendarBundle()
         );
 

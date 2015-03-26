@@ -112,7 +112,7 @@ class TentController extends Controller
 
         $entity = new Tent();
         $form   = $this->createForm(new TentType($etats,$categories), $entity,array(
-            'em' => $this->getDoctrine()->getEntityManager(),
+            'em' => $this->getDoctrine()->getManager(),
         ));
 
         return $this->render('CaravaneOrganicBundle:Tent:new.html.twig', array(
@@ -133,7 +133,7 @@ class TentController extends Controller
         $categories=$this->getCategories();
         $entity  = new Tent();
         $form = $this->createForm(new TentType($etats,$categories), $entity,array(
-            'em' => $this->getDoctrine()->getEntityManager(),
+            'em' => $this->getDoctrine()->getManager(),
         ));
 
 
@@ -199,7 +199,7 @@ class TentController extends Controller
         }
 
         $editForm = $this->createForm(new TentType($etats,$categories), $entity,array(
-            'em' => $this->getDoctrine()->getEntityManager(),
+            'em' => $this->getDoctrine()->getManager(),
         ));
         $deleteForm = $this->createDeleteForm($id);
 
@@ -229,7 +229,7 @@ class TentController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new TentType($etats,$categories), $entity,array(
-            'em' => $this->getDoctrine()->getEntityManager(),
+            'em' => $this->getDoctrine()->getManager(),
         ));
 
 

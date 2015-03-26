@@ -1,4 +1,6 @@
-<table class="table table-condensed table-bordered">
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-condensed table-bordered">
                 <thead>
                     <tr>
                         <th class="tiny"></th>
@@ -24,10 +26,12 @@
                                 {{ form_widget(document.description)}}
                             </td>
                             <td>
-                                <a class="delete_document" data-rel="{{entity.id}}" data-type="job" data-target="{{document.vars.value.id}}"><i class="icon icon-trash"></i></a>
+                                <a class="delete_document" data-rel="{{entity.id}}" data-type="job" data-target="{{document.vars.value.id}}"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     {% endfor %}
             </tbody>
         </table>
         {{ form_row(edit_form.files) }}
+    </div>
+</div>

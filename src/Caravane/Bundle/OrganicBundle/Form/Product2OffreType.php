@@ -17,13 +17,13 @@ class Product2OffreType extends AbstractType
             //->add('reference')
             ->add('description','textarea',array(
                "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('price','number',array(
                 'precision' => 2,
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('isoption','hidden')

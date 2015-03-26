@@ -22,7 +22,7 @@ class ClientType extends AbstractType
 /*              ->add($builder->create('clientid', 'CaravaneUIBootstrapTypeahead',array(
                 "label"=>"Client",
                 "attr"=>array(
-                    "class"=>"span12",
+                    "class"=>"col-md-12",
                     //"data"=>$owner->getName(),
                     "source_route"=>"client_autocomplete",
                     "label_field"=>"name",
@@ -34,7 +34,7 @@ class ClientType extends AbstractType
             ->add('name',"CaravaneUIBootstrapTypeahead",array(
                 'label'=>"Company name",
                 "attr"=>array(
-                    "class"=>"span12",
+                    "class"=>"col-md-12",
                     "source_route"=>"client_autocomplete",
                     "label_field"=>"name",
                     "updater"=>"fillClient",
@@ -44,7 +44,7 @@ class ClientType extends AbstractType
             ->add('lastname',"CaravaneUIBootstrapTypeahead",array(
                 'label'=>"Lastname",
                 "attr"=>array(
-                    "class"=>"span12",
+                    "class"=>"col-md-12",
                     "source_route"=>"client_autocomplete",
                     "label_field"=>"lastname",
                     "updater"=>"fillClient",
@@ -57,24 +57,24 @@ class ClientType extends AbstractType
             /*->add('name',"text",array(
                 'label'=>"Company name",
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))*/
             ->add('firstname',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
           /*  ->add('lastname',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))*/
             ->add('clienttitle','choice',array(
                 "choices"=>array("M."=>"M.","Mme"=>"Mme"),
                 "label"=>"Title",
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
             ->add('cietype','choice',array(
@@ -98,82 +98,82 @@ class ClientType extends AbstractType
                 ),
                 "label"=>"Type",
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             ->add('vat',"text",array(
                 "label"=>"VAT",'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             ->add('address',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('number',"text",array(
                 "label"=>"Number/Box",
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
             ->add('zip',"text",array(
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
             ->add('city',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('country','country',array(
                 'required'=>false,
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             ->add('phone',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('phone2',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 ),
                 "label"=>"Other"
             ))
             ->add('mobile',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('fax',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('email',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('url',"text",array(
                 "label"=>"Website",
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('language','choice',array(
                 "choices"=>array('en'=>'en','fr'=>'fr','nl'=>'nl'),
                 "attr"=>array(
-                    "class"=>"span6"
+                    "class"=>"col-md-6"
                 )
             ))
             ->add('origin',"textarea",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             //->add('insertdate')
@@ -184,7 +184,7 @@ class ClientType extends AbstractType
                 "class"=>"CaravaneUserBundle:User",
                 "label"=>"Account manager",
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 ),
                 "required"=>false
             ))

@@ -36,7 +36,7 @@ class InvoiceType extends AbstractType
             ))
             ->add('sliceDescription','textarea',array(
                 "attr"=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             //->add('cslice')
@@ -48,7 +48,7 @@ class InvoiceType extends AbstractType
            ->add('priceht','number',array(
                 'precision' => 2,
                 "attr"=>array(
-                    "class"=>"span12 price"
+                    "class"=>"col-md-12 price"
                 )
             ))
             ->add('pricetype','choice',array(
@@ -58,7 +58,7 @@ class InvoiceType extends AbstractType
             ->add('discount')
             ->add('discountDescription',"text",array(
                 "attr"=>array(
-                    /*"class"=>"span12",
+                    /*"class"=>"col-md-12",
                     "style"=>"text-align:right",*/
                     "placeholder"=>"Discount"
                 )
@@ -79,7 +79,7 @@ class InvoiceType extends AbstractType
                 "choices"=>array("M."=>"M.","Mme"=>"Mme"),
                 "label"=>"Title",
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
 
@@ -94,7 +94,7 @@ class InvoiceType extends AbstractType
       /*        ->add('language','choice',array(
                 "choices"=>array('en'=>'en','fr'=>'fr','nl'=>'nl'),
                 "attr"=>array(
-                    "class"=>"span6"
+                    "class"=>"col-md-6"
                 )
             ))
             */
@@ -126,7 +126,7 @@ class InvoiceType extends AbstractType
             ->add($builder->create('clientid', 'CaravaneUIBootstrapTypeahead',array(
                 "label"=>"Client",
                 "attr"=>array(
-                    "class"=>"span12",
+                    "class"=>"col-md-12",
                     //"data"=>$owner->getName(),
                     "source_route"=>"client_autocomplete",
                     "label_field"=>"name",

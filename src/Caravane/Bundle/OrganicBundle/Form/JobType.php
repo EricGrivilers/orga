@@ -33,26 +33,26 @@ class JobType extends AbstractType
                 'widget'=>'single_text',
                 'label'=>"Event date",
                 'attr'=>array(
-                    'class'=>'span3 datepicker'
+                    'class'=>'col-md-3 datepicker'
                 )
             ))
 
             ->add('planningcomments','ckeditor',array(
                 'label'=>"Planning comments",
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             ->add('offrecomments','ckeditor',array(
                 'label'=>"Comments",
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             ->add('surface','text',array(
                 'label'=>"Wished area",
                 'attr'=>array(
-                    'class'=>"span3"
+                    'class'=>"col-md-3"
                 )
             ))
            // ->add('startbuild')
@@ -60,13 +60,13 @@ class JobType extends AbstractType
             ->add('buildnotes','ckeditor',array(
                 'label'=>"Building notes",
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             ->add('unbuildnotes','ckeditor',array(
                 'label'=>"Unbuilding notes",
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
          //   ->add('requestdate')
@@ -83,13 +83,13 @@ class JobType extends AbstractType
             ->add('pricecomments','textarea',array(
                 'label'=>'Comments',
                 'attr'=>array(
-                    'class'=>"span12"
+                    'class'=>"col-md-12"
                 )
             ))
             ->add('conditions','ckeditor',array(
                 'label'=>"Conditions comments",
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
           //  ->add('conditionsslices')
@@ -97,67 +97,67 @@ class JobType extends AbstractType
             ->add('tentscomments','ckeditor',array(
                 'label'=>"Stock/products comments",
                 'attr'=>array(
-                    'class'=>"span12"
+                    'class'=>"col-md-12"
                 )
             ))
             ->add('address',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('number',"text",array(
                 "label"=>"Number/Box",
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
             ->add('zip',"text",array(
                 "attr"=>array(
-                    "class"=>"span4"
+                    "class"=>"col-md-4"
                 )
             ))
             ->add('city',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('country')
             ->add('phone',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('phone2',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 ),
                 "label"=>"Other"
             ))
             ->add('mobile',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('fax',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('email',"text",array(
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('url',"text",array(
                 "label"=>"Website",
                 "attr"=>array(
-                    "class"=>"span12"
+                    "class"=>"col-md-12"
                 )
             ))
             ->add('comments','ckeditor',array(
                 'label'=>"Notes",
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
            // ->add('public')
@@ -167,7 +167,7 @@ class JobType extends AbstractType
             //->add('copyid')
             ->add('userid','entity',array(
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 ),
                 'required' => false,
                 'label'=>"Account",
@@ -179,7 +179,7 @@ class JobType extends AbstractType
                 'required'=>false
             ))
 
-             ->add('files','filesupload',array(
+             ->add('files','file',array(
                     'data_class'=>null
                 ))
 

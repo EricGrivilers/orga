@@ -15,7 +15,7 @@ class DefaultController extends Controller
      */
     public function updateTableAction()
     {
-        $em = $this -> getDoctrine() -> getEntityManager();
+        $em = $this -> getDoctrine() -> getManager();
         $conn = $this->get('database_connection');
 
         $offres=$em->getRepository('CaravaneOrganicBundle:Offre')->findAll();
@@ -40,7 +40,7 @@ class DefaultController extends Controller
      * @Template()
      */
     public function fillSlice2InvoiceAction() {
-        $em = $this -> getDoctrine() -> getEntityManager();
+        $em = $this -> getDoctrine() -> getManager();
         $invoices=$em->getRepository('CaravaneOrganicBundle:Invoice')->findAll();
 
         foreach($invoices as $invoice) {
@@ -65,7 +65,7 @@ class DefaultController extends Controller
      * @Template()
      */
     public function fillProduct2offreAction() {
-        $em = $this -> getDoctrine() -> getEntityManager();
+        $em = $this -> getDoctrine() -> getManager();
         $tent2offre=$em->getRepository('CaravaneOrganicBundle:Tent2offre')->findAll();
 
         foreach($tent2offre as $tent) {
@@ -118,7 +118,7 @@ class DefaultController extends Controller
      * @Template()
      */
     public function fillProduct2jobAction() {
-        $em = $this -> getDoctrine() -> getEntityManager();
+        $em = $this -> getDoctrine() -> getManager();
         $tent2job=$em->getRepository('CaravaneOrganicBundle:Tent2job')->findAll();
 
         foreach($tent2job as $tent) {
@@ -179,7 +179,7 @@ class DefaultController extends Controller
      * @Template()
      */
     public function reorderProductsOffreAction() {
-        $em = $this -> getDoctrine() -> getEntityManager();
+        $em = $this -> getDoctrine() -> getManager();
         $offres=$em->getRepository('CaravaneOrganicBundle:Offre')->findAll();
 
         foreach($offres as $offre) {
@@ -204,7 +204,7 @@ class DefaultController extends Controller
      * @Template()
      */
     public function reorderProductsJobAction() {
-        $em = $this -> getDoctrine() -> getEntityManager();
+        $em = $this -> getDoctrine() -> getManager();
         $jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAll();
 
         foreach($jobs as $job) {
@@ -229,7 +229,7 @@ class DefaultController extends Controller
      * @Template()
      */
     public function reorderProductsInvoiceAction() {
-        $em = $this -> getDoctrine() -> getEntityManager();
+        $em = $this -> getDoctrine() -> getManager();
         $invoices=$em->getRepository('CaravaneOrganicBundle:Invoice')->findAll();
 
         foreach($invoices as $invoice) {
@@ -255,7 +255,7 @@ class DefaultController extends Controller
      * @Template()
      */
     public function setOffre2jobAction() {
-         $em = $this -> getDoctrine() -> getEntityManager();
+         $em = $this -> getDoctrine() -> getManager();
          $offres=$em->getRepository('CaravaneOrganicBundle:Offre')->findAll();
 
          foreach($offres as $offre) {

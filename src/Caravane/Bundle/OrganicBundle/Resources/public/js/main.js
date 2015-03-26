@@ -94,7 +94,7 @@ $(document).ready(function() {
 
     $('#conditionChoices td').click(function() {
         CKEDITOR.instances['caravane_bundle_organicbundle_invoicetype_conditions'].setData($(this).html())
-        //$(this).closest('.row-fluid').find("#cke_1_contents").html($(this).html());
+        //$(this).closest('.row').find("#cke_1_contents").html($(this).html());
     });
 
     $('table.table-sortable tbody').sortable({
@@ -130,7 +130,7 @@ function pagination() {
         currentSens=='asc'?icon='up':icon='down';
         currentField=$("thead th a[data-orderby='"+currentOb+"']");
 
-        currentField.html(currentField.text()+" <i class='icon icon-chevron-"+icon+"'></i>");
+        currentField.html(currentField.text()+" <i class='fa fa-chevron-"+icon+"'></i>");
         /*currentField.click(function() {
             currentSens=='asc'?currentSens='desc':currentSens='asc';
             document.location=Routing.generate($('#CaravaneUiPaginationRoute').val(),{'type':$('#CaravaneUiPaginationType').val(),'ob':currentOb+" "+currentSens,'page':$('#CaravaneUiPaginationPage').val()});

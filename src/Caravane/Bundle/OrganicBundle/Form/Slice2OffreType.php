@@ -22,14 +22,14 @@ class Slice2OffreType extends AbstractType
             ))
            ->add('priceht','text',array(
             'attr'=>array(
-            'class'=>'span12 price')
+            'class'=>'col-md-12 price')
             ))
            ->add('comments','text',
                 array(
                     'required'=>false,
                     'attr'=>array(
                         'placeholder'=>"Description",
-                        'class'=>'span12'
+                        'class'=>'col-md-12'
                     )
                 )
             )

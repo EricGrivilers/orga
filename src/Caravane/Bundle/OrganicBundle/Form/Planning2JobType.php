@@ -15,13 +15,13 @@ class Planning2JobType extends AbstractType
             ->add('startdate','datetime',array(
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy HH:mm:ss',
-                'attr' => array('class' => 'startDate span12')
+                'attr' => array('class' => 'startDate col-md-12')
 
             ))
              ->add('enddate','datetime',array(
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy HH:mm:ss',
-                'attr' => array('class' => 'endDate span12')
+                'attr' => array('class' => 'endDate col-md-12')
 
             ))
             //->add('enddate')
@@ -41,14 +41,14 @@ class Planning2JobType extends AbstractType
             ->add('etat','choice',array(
                 'choices'=>array('TO DO','OK'),
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                     )
             ))
             ->add('userid','entity',array(
                 'class'=>'Caravane\UserBundle\Entity\User',
                 'required'=>false,
                 'attr'=>array(
-                    'class'=>'span12'
+                    'class'=>'col-md-12'
                 )
             ))
             //->add('jobid')
