@@ -12,6 +12,7 @@ use Caravane\Bundle\OrganicBundle\Form\InvoiceType;
 use Caravane\Bundle\OrganicBundle\Managers\ClientManager;
 use Caravane\Bundle\OrganicBundle\Managers\InvoiceManager;
 use Caravane\Bundle\OrganicBundle\Managers\PdfManager;
+use Caravane\Bundle\OrganicBundle\Managers\ExportManager;
 
 /**
  * Invoice controller.
@@ -579,6 +580,137 @@ class InvoiceController extends Controller
         return new Response('ok');
     }
 
+
+
+    public function exportAction() {
+
+
+        $filename = "invoices";
+
+        $fields = array(
+            "id"=>"ID",
+            "reference"=>"Reference",
+            "invoicedate"=>"Date",
+            "year"=>"Year",
+            "jobId"=>"Job",
+            "offreType"=>"Type",
+            "slice"=>"Percent slice",
+            "sliceDescription"=>"Slice description",
+            "cSlice"=>"Slice nb",
+            //"nbSlices"=>"",
+            "clientId"=>"Client",
+            "status"=>"Status",
+            "paymentDate"=>"Payment date",
+            "priceHT"=>"Price HT",
+            "priceType"=>"Price type",
+            "creditNote"=>"Is credit note",
+            "comments"=>"Comments",
+            "conditions"=>"Conditions",
+            "conditions1"=>"Conditions 1",
+            "conditions2"=>"Conditions 2",
+            "content"=>"Content",
+            
+            "clientType"=>"Client type",
+            "cieType"=>"Cie type",
+            "clientTitle"=>"Title",
+            "name"=>"Name",
+            "lastname"=>"Lastname",
+            "firstname"=>"Firstname",
+            "vat"=>"VAT",
+            "address"=>"Street",
+            "number"=>"Number",
+            "zip"=>"Postal Code",
+            "city"=>"City",
+            "country"=>"Country",
+            "account"=>"Account amnager",
+            "r1"=>"Reminder 1",
+            "r1Date"=>"Reminder 1 date",
+            "r2"=>"Reminder 2",
+            "r2Date"=>"Reminder 2 date",
+            "med"=>"Commandment",
+            "medDate"=>"Commandment date",
+            "language"=>"Language",
+            //"sliceid"=>"Slice",
+            
+            "discount"=>"Discount",
+            "discountDescription"=>"Discount description",
+            "insertDate"=>"Creation date"
+
+        );
+
+        
+
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('CaravaneOrganicBundle:Invoice')->findAll();
+        
+        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+        $exportManager=new ExportManager;
+
+        $r=1;
+        $l=0;
+        foreach($fields as $k=>$value) {
+            $col = $exportManager->num2alpha($l).$r;
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $value);
+            $l++;
+        }
+
+        foreach($entities as $entity) {
+            $r++;
+            $l=0;
+            foreach($fields as $k=>$v) {
+                $getter="get".ucwords($k);
+                $value="";
+                if($k=="account") {
+                    if($entity->getJobId()) {
+                        if($entity->getJobId()->getUserId()) {
+                            $value = $entity->getJobId()->getUserId()->getName();
+                        }
+                    }
+                }
+                else if($entity->$getter()) {
+                    if($k=='insertDate' || $k=='paymentDate' || $k=="r1Date" || $k=="r2Date" || $k=="medDate" || $k=="invoicedate" ) {
+                        //echo $getter."<br/>";
+                        $value=$entity->$getter()->format('Y-m-d');
+                        if($value=='-0001-11-30') {
+                            $value="";
+                        }   
+                    }
+                   
+                    else if($k=='jobId') {
+                        $value=$entity->getJobId()->getReference();
+                    }
+                    else if($k=='clientId') {
+                        $value=$entity->getClientId()->getName();
+                    }
+                    else if($k=='sliceid') {
+                        $value=$entity->getSliceId()->getSlice();
+                    }
+                    else {
+                        $value=$entity->$getter();
+                    }
+                } 
+                $col = $exportManager->num2alpha($l).$r;
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $value);
+                $l++;
+            }
+        }
+        
+        $phpExcelObject->getActiveSheet()->setTitle('Clients');
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $phpExcelObject->setActiveSheetIndex(0);
+
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;'.$filename.'-'.date('Y-m-d').'.xls');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+
+        return $response;
+    }
 
 
      private function getRank($invoice) {

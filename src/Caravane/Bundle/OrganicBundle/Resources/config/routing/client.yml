@@ -41,6 +41,12 @@ client_autocomplete:
     options:
         expose: true
 
+
+client_export:
+    pattern:  /export
+    defaults: { _controller: "CaravaneOrganicBundle:Client:export" }
+
+
 client_get_data:
     pattern:  /{id}/get_data
     defaults: { _controller: "CaravaneOrganicBundle:Client:getData" }

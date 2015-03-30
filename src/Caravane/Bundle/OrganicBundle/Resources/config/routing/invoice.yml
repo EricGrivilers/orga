@@ -43,6 +43,11 @@ invoice_create:
     defaults: { _controller: "CaravaneOrganicBundle:Invoice:create" }
     requirements: { _method: post }
 
+invoice_export:
+    pattern:  /export
+    defaults: { _controller: "CaravaneOrganicBundle:Invoice:export" }
+
+
 invoice_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "CaravaneOrganicBundle:Invoice:edit" }

@@ -10,6 +10,7 @@ use Caravane\Bundle\OrganicBundle\Entity\Client;
 use Caravane\Bundle\OrganicBundle\Form\ClientType;
 
 use Caravane\Bundle\OrganicBundle\Managers\ClientManager;
+use Caravane\Bundle\OrganicBundle\Managers\ExportManager;
 /**
  * Client controller.
  *
@@ -241,6 +242,99 @@ class ClientController extends Controller
         ;
     }
 
+    public function exportAction() {
+
+
+        $filename = "clients";
+
+        $fields = array(
+            "id" => "ID",
+            "reference" => "Reference",
+            "clientType" => "Type",
+            "isOwner" => "Is owner",
+            "name" => "Name",
+            "firstname" => "Firstname",
+            "lastname" => "lastname",
+            "clientTitle" => "Title",
+            "cieType" => "Cie type",
+            "vat" => "VAT",
+            "address" => "Street",
+            "number" => "Number",
+            "zip" => "Postal Code",
+            "city" => "City",
+            "country" => "Country",
+            "phone" => "Phone",
+            "phone2" => "Phone2",
+            "mobile" => "Mobile",
+            "fax" => "Fax",
+            "email" => "Email",
+            "url" => "Website",
+            "language" => "Language",
+            "userId" => "Account Manager",
+            "origin" => "Origin",
+            "insertDate" => "Creation date",
+            "updateDate" => "Last update"
+        );
+
+        
+
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('CaravaneOrganicBundle:Client')->findBy(array('public'=>true));
+        
+        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+        $exportManager=new ExportManager;
+
+        $r=1;
+        $l=0;
+        foreach($fields as $k=>$value) {
+            $col = $exportManager->num2alpha($l).$r;
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $value);
+            $l++;
+        }
+
+        foreach($entities as $entity) {
+            $r++;
+            $l=0;
+            foreach($fields as $k=>$v) {
+                $getter="get".ucwords($k);
+                $value="";
+                if($entity->$getter()) {
+                    if($k=='insertDate' || $k=='updateDate') {
+                        $value=$entity->$getter()->format('Y-m-d');
+                    }
+                    else if($k=='userId') {
+                        $value=$entity->getUserId()->getName();
+                    }
+                    else {
+                        $value=$entity->$getter();
+                    }
+                } 
+                $col = $exportManager->num2alpha($l).$r;
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $value);
+                $l++;
+            }
+        }
+        
+        $phpExcelObject->getActiveSheet()->setTitle('Clients');
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $phpExcelObject->setActiveSheetIndex(0);
+
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;'.$filename.'-'.date('Y-m-d').'.xls');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+
+        return $response;
+    }
+
+
+
+
     public function getDataAction($id) {
         $em = $this->getDoctrine()->getManager();
         $datas=array();
@@ -264,6 +358,8 @@ class ClientController extends Controller
         return new Response('ok');
 
     }
+
+
 
 
 }

@@ -23,6 +23,10 @@ offre_create:
     defaults: { _controller: "CaravaneOrganicBundle:Offre:create" }
     requirements: { _method: post }
 
+offre_export:
+    pattern:  /export
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:export" }
+
 offre_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "CaravaneOrganicBundle:Offre:edit" }

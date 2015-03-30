@@ -12,6 +12,8 @@ use Caravane\Bundle\OrganicBundle\Managers\PdfManager;
 use Caravane\Bundle\OrganicBundle\Managers\DocumentManager;
 
 use Caravane\Bundle\OrganicBundle\Entity\Product2job;
+use Caravane\Bundle\OrganicBundle\Managers\ExportManager;
+
 
 /**
  * Job controller.

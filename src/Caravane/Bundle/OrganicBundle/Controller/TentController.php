@@ -12,6 +12,8 @@ use Caravane\Bundle\OrganicBundle\Entity\ProductCategory;
 use Caravane\Bundle\OrganicBundle\Form\TentType;
 
 use Caravane\Bundle\OrganicBundle\Managers\DocumentManager;
+use Caravane\Bundle\OrganicBundle\Managers\ExportManager;
+
 
 /**
  * Tent controller.

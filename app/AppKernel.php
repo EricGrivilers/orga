@@ -25,7 +25,8 @@ class AppKernel extends Kernel
             
             new Ensepar\Html2pdfBundle\EnseparHtml2pdfBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
-            
+            new Liuggio\ExcelBundle\LiuggioExcelBundle(),
+
             new Caravane\Bundle\OrganicBundle\CaravaneOrganicBundle(),
             new Caravane\Bundle\BIJUploadBundle\CaravaneBIJUploadBundle(),
             new Caravane\UserBundle\CaravaneUserBundle(),

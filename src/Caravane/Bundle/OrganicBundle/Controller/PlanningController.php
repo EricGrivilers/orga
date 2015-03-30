@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Caravane\Bundle\OrganicBundle\Entity\Planning;
 use Caravane\Bundle\OrganicBundle\Form\PlanningType;
 
+use Caravane\Bundle\OrganicBundle\Managers\ExportManager;
+
 
 /**
  * Planning controller.
