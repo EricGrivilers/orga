@@ -4,26 +4,35 @@
 
 <div class="row">
     <div class="tools">
-        <div class="col-md-10">
+        <div class="col-md-8">
             <ul class="nav nav-pills">
 
              <li {% if type=='' %}class="active" {% endif %} >
-                <a href="{{path('job',{'type':'','ob':ob, 'page':1})}}">All</a>
+                <a href="{{path('job',{'type':'','ob':ob, 'page':1,'user':userId})}}">All</a>
               </li>
                <li {% if type=='running' %}class="active" {% endif %} >
-                <a href="{{path('job',{'type': 'running','ob':ob, 'page':1})}}">Running</a>
+                <a href="{{path('job',{'type': 'running','ob':ob, 'page':1,'user':userId})}}">Running</a>
               </li>
                <li {% if type=='closed' %}class="active" {% endif %} >
-                <a href="{{path('job',{'type': 'closed','ob':ob, 'page':1})}}">Closed</a>
+                <a href="{{path('job',{'type': 'closed','ob':ob, 'page':1,'user':userId})}}">Closed</a>
               </li>
 
             </ul>
         </div>
 
-        <div class="col-md-2">
-
-            
-            <a href="{{ path('job_export') }}" class="btn btn-default "><i class="fa fa-download"></i> Export</a>
+        <div class="col-md-4">
+          <form class="form-inline" action="{{path('job')}}" method="get">
+              <select name="user" onchange="submit()" class="form-control">
+                  <option value="any">Any user</option>
+                  {% for u in users %}
+                      <option value="{{u.id}}" {% if userId!=null %}
+                      {% if u.id==userId %} selected {% endif %}
+                      {% endif %}
+                      >{{u.name}}</option>
+                  {% endfor %}
+              </select>
+              <a href="{{ path('job_export') }}" class="btn btn-default "><i class="fa fa-download"></i> Export</a>
+          </form>
         </div>
     </div>
 </div>

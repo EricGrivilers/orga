@@ -35,12 +35,11 @@ class JobController extends Controller
      */
     public function indexAction(Request $request)
     {
-
-
-
-
         $em = $this->getDoctrine()->getManager();
 
+         $users=$em->getRepository('CaravaneUserBundle:User')->findBy(array('enabled'=>true));
+         $user=null;
+         $userId=null;
         $request=$this->get('request');
         if(!$type=$request->query->get('type')) {
             $type='';
@@ -55,7 +54,20 @@ class JobController extends Controller
             $offset=25;
         }
 
-        $entities=$em->getRepository('CaravaneOrganicBundle:Job')->listAll($type,$ob,$page,$offset);
+        if($request->query->get('user')) {
+            if($request->query->get('user')=='any') {
+                $userId=null;
+            }
+            else {
+                if(!$user=$em->getRepository('CaravaneUserBundle:User')->find($request->query->get('user'))) {
+                   $user=$this->getUser();
+                }
+                $userId=$user->getId();
+            }
+        }
+
+
+        $entities=$em->getRepository('CaravaneOrganicBundle:Job')->listAll($type,$ob,$page,$offset, $userId);
         $nbpages=(Integer)(count($entities)/$offset)+1;
 
         return $this->render('CaravaneOrganicBundle:Job:index.html.twig', array(
@@ -64,7 +76,9 @@ class JobController extends Controller
             'ob'=>$ob,
             'page'=>$page,
             "nbpages"=>$nbpages,
-            'offset'=>$offset
+            'offset'=>$offset,
+            'userId'=>$userId,
+            "users"=>$users
         ));
     }
 

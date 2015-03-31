@@ -4,24 +4,36 @@
 
 <div class="row">
     <div class="tools">
-        <div class="col-md-10">
+        <div class="col-md-8">{{path('offre',{'type': 'running','ob':ob,'page':1,'user':userId} )}}
         <ul class="nav nav-pills">
 
-          <li {% if type=='running' %}class="active" {% endif %} ><a href="{{path('offre',{'type': 'running','ob':ob,'page':1} )}}">Running</a></li>
-          <li {% if type=='confirmed' %}class="active" {% endif %} ><a href="{{path('offre',{'type':'confirmed','ob':ob,'page':1})}}">Confirmed</a></li>
-          <li {% if type=='canceled' %}class="active" {% endif %} ><a href="{{path('offre',{'type':'canceled','ob':ob,'page':1})}}">Canceled</a></li>
+          <li {% if type=='running' %}class="active" {% endif %} ><a href="{{path('offre',{'type': 'running','ob':ob,'page':1,'user':userId} )}}">Running</a></li>
+          <li {% if type=='confirmed' %}class="active" {% endif %} ><a href="{{path('offre',{'type':'confirmed','ob':ob,'page':1, 'user':userId})}}">Confirmed</a></li>
+          <li {% if type=='canceled' %}class="active" {% endif %} ><a href="{{path('offre',{'type':'canceled','ob':ob,'page':1, 'user':userId})}}">Canceled</a></li>
           <li {% if type=='all' %}class="active" {% endif %} >
-            <a href="{{path('offre',{'type':'all','ob':ob,'page':1})}}">All</a>
+            <a href="{{path('offre',{'type':'all','ob':ob,'page':1, 'user':userId})}}">All</a>
           </li>
 
         </ul>
 </div>
 
-<div class="col-md-2">
-     <a href="{{ path('offre_new') }}" class="btn btn-primary "><i class="fa fa-plus"></i>
-            New offer
+<div class="col-md-4">
+    {{userId}}
+    <form class="form-inline" action="{{path('offre')}}" method="get">
+        <select name="user" onchange="submit()" class="form-control">
+            <option value="any">Any user</option>
+            {% for u in users %}
+                <option value="{{u.id}}" {% if userId!=null %}
+                {% if u.id==userId %} selected {% endif %}
+                {% endif %}
+                >{{u.name}}</option>
+            {% endfor %}
+        </select>
+         <a href="{{ path('offre_new') }}" class="btn btn-primary "><i class="fa fa-plus"></i>
+                New offer
         </a>
         <a href="{{ path('offre_export') }}" class="btn btn-default "><i class="fa fa-download"></i> Export</a>
+    </form>
     </div>
     </div>
 </div>

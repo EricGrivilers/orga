@@ -8,7 +8,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class JobRepository extends EntityRepository
 {
 
-	public function listAll($type=null,$ob=null,$page=1,$offset=25) {
+	public function listAll($type=null,$ob=null,$page=1,$offset=25, $userId=null) {
 		$dql = "SELECT C FROM CaravaneOrganicBundle:Job C ";
 		$dql.=" WHERE C.public=1 ";
 		/*if($type) {
@@ -27,6 +27,9 @@ class JobRepository extends EntityRepository
 
 		}
 		*/
+		if($userId) {
+			$dql.=" AND C.userid = ".$userId." ";
+		}
 		if($ob) {
 			$dql.=" ORDER BY C.".$ob." ";
 		}

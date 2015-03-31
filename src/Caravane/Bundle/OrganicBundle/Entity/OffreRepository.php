@@ -13,7 +13,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class OffreRepository extends EntityRepository
 {
 
-	public function listAll($type=null,$ob=null,$page=1,$offset=25) {
+	public function listAll($type=null,$ob=null,$page=1,$offset=25, $userId=null) {
 		$dql = "SELECT O FROM CaravaneOrganicBundle:Offre O ";
 
 		$dql.=" WHERE O.public=1 ";
@@ -34,7 +34,9 @@ class OffreRepository extends EntityRepository
 			}
 
 		}
-
+		if($userId) {
+			$dql.=" AND O.userid = ".$userId." ";
+		}
 		if($ob) {
 			$dql.=" ORDER BY O.".$ob." ";
 		}
