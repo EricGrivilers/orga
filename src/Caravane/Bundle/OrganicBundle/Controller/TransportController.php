@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Caravane\Bundle\OrganicBundle\Entity\Transport;
 use Caravane\Bundle\OrganicBundle\Form\TransportType;
 
+use Caravane\Bundle\OrganicBundle\Managers\ExportManager;
+
 /**
  * Transport controller.
  *
@@ -221,4 +223,68 @@ class TransportController extends Controller
             'entities'=>$entities
         ));
     }
+
+
+    public function exportAction() {
+
+
+        $filename = "clients";
+
+        $fields = array(
+            "id"=>"ID",
+            "name"=>"Name",
+            "cost"=>"Cost",
+            "distance"=>"Distance",
+            "zip"=>"Postal code"
+        );
+
+        
+
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('CaravaneOrganicBundle:Transport')->findAll();
+        
+        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+        $exportManager=new ExportManager;
+
+        $r=1;
+        $l=0;
+        foreach($fields as $k=>$value) {
+            $col = $exportManager->num2alpha($l).$r;
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $value);
+            $l++;
+        }
+
+        foreach($entities as $entity) {
+            $r++;
+            $l=0;
+            foreach($fields as $k=>$v) {
+                $getter="get".ucwords($k);
+                $value="";
+                if($entity->$getter()) {
+                    $value=$entity->$getter();
+                } 
+                $col = $exportManager->num2alpha($l).$r;
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $value);
+                $l++;
+            }
+        }
+        
+        $phpExcelObject->getActiveSheet()->setTitle('Clients');
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $phpExcelObject->setActiveSheetIndex(0);
+
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;'.$filename.'-'.date('Y-m-d').'.xls');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+
+        return $response;
+    }
+
+
 }

@@ -288,4 +288,128 @@ class PlanningController extends Controller
 
         return $response;
     }
+
+
+    public function exportAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        if($userId=$request->query->get('u')) {
+            $user= $em->getRepository('CaravaneUserBundle:User')->find($userId);
+        }
+        if(!$month=$request->query->get('m')) {
+            $month= date('Y-m');
+        }
+        
+        $filename = "clients";
+
+        $fields = array(
+            "jobid"=>"Job",
+            "offreid"=>"Offre",
+            "planningtype"=>"Action",
+            "startdate"=>"From",
+            "enddate"=>"To",
+        );
+
+        
+
+        
+        $jobentities = $em->getRepository('CaravaneOrganicBundle:Planning2Job')->findAllByMonth($month);
+        $offreentities = $em->getRepository('CaravaneOrganicBundle:Planning2Offre')->findAllByMonth($month);
+        
+        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+        $exportManager=new ExportManager;
+
+        $r=1;
+        $l=0;
+        foreach($fields as $k=>$value) {
+            $col = $exportManager->num2alpha($l).$r;
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $value);
+            $l++;
+        }
+
+        foreach($jobentities as $entity) {
+            $r++;
+            $l=0;
+            foreach($fields as $k=>$v) {
+                $getter="get".ucwords($k);
+                $value="";
+                if($k=='offreid') {
+                    /*if($job=$entity->getJobId()) {
+                        if($offre=$job->getOffreId()) {
+                            $value=$offre->getReference();
+                        }
+                        
+                    }*/
+                    $value="";
+                }
+                else if($entity->$getter()) {
+                    if($k=='startdate' || $k=='enddate') {
+                        $value=$entity->$getter()->format('Y-m-d');
+                    }
+                    else if($k=='jobid') {
+                        $value=$entity->$getter()->getReference();
+                    }
+                    else {
+                        $value=$entity->$getter();
+                    }
+                    
+                }
+                else {
+                    $value="";
+                }
+                $col = $exportManager->num2alpha($l).$r;
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $value);
+                $l++;
+            }
+            $col = $exportManager->num2alpha($l).$r;
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, "Job");
+        }
+
+        foreach($offreentities as $entity) {
+            $r++;
+            $l=0;
+            foreach($fields as $k=>$v) {
+                $getter="get".ucwords($k);
+                $value="";
+                if($k=='jobid') {
+                    $value="";
+                }
+                else if($entity->$getter()) {
+                    if($k=='startdate' || $k=='enddate') {
+                        $value=$entity->$getter()->format('Y-m-d');
+                    }
+                     else if($k=='offreid') {
+                        $value=$entity->$getter()->getReference();
+                    }
+                    else {
+                        $value=$entity->$getter();
+                    }
+                    
+                }
+                else {
+                    $value="";
+                }
+                $col = $exportManager->num2alpha($l).$r;
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $value);
+                $l++;
+            }
+            $col = $exportManager->num2alpha($l).$r;
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, "Job");
+        }
+        
+        $phpExcelObject->getActiveSheet()->setTitle('Planning');
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $phpExcelObject->setActiveSheetIndex(0);
+
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;'.$filename.'-'.date('Y-m-d').'.xls');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+
+        return $response;
+    }
 }

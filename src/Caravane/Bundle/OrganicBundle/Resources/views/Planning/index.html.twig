@@ -2,29 +2,28 @@
 
 {% block body %}
 <div class="row">
-    <div class="tools">
-      <div class="col-md-6">
-        <div style="text-align:left">
-          <span class="label" style='background:#3366cc'>preview</span> <span class="label"  style='background:#C80017'>build</span> <span class="label" style='background:#dedede'>inplace</span> <span class="label" style='background:#159d22'>unbuild</span> <span class="label" style='background:#fff200'>sell/winter</span>
-        </div>
+  <div class="tools">
+    <div class="col-md-6">
+      <div style="text-align:left">
+        <span class="label" style='background:#3366cc'>preview</span> <span class="label"  style='background:#C80017'>build</span> <span class="label" style='background:#dedede'>inplace</span> <span class="label" style='background:#159d22'>unbuild</span> <span class="label" style='background:#fff200'>sell/winter</span>
       </div>
-        <div class="col-md-6">
-        {#<ul class="nav nav-pills">
+    </div>
+    <div class="col-md-6">
+    {#<ul class="nav nav-pills">
 
-           <li {% if user=='any' %}class="active" {% endif %} >
-            <a href="{{path('planning',{'user':'any'})}}">All</a>
-          </li>
-           <li {% if user=='' %}class="active" {% endif %} >
-            <a href="{{path('planning',{'user':''})}}">My planning</a>
-          </li>
-        </ul>#}
-        <form action="{{path('planning')}}" methgod="get" class="form-inline">
-        <label class="checkbox">
-              <input type="checkbox" name="show_inplace" id="show_inplace"  value="1" {% if show_inplace %}checked='checked' {% endif %} onchange="submit()" /> Show in place
+    <li {% if user=='any' %}class="active" {% endif %} >
+    <a href="{{path('planning',{'user':'any'})}}">All</a>
+    </li>
+    <li {% if user=='' %}class="active" {% endif %} >
+    <a href="{{path('planning',{'user':''})}}">My planning</a>
+    </li>
+    </ul>#}
+      <form action="{{path('planning')}}" methgod="get" class="form-inline">
+        <label class="checkbox_">
+          <input type="checkbox" name="show_inplace" id="show_inplace"  value="1" {% if show_inplace %}checked='checked' {% endif %} onchange="submit()" /> Show in place
         </label>
-        <select id="planning_user" name="user" onchange="submit()">
-
-            <option value="any">Any user</option>
+        <select id="planning_user" name="user" onchange="submit()" class="form-control">
+          <option value="any">Any user</option>
           {% for u in users %}
             <option value="{{u.id}}" {% if user!=null %}
             {% if u.id==user.id %} selected {% endif %}
@@ -32,15 +31,17 @@
             >{{u.name}}</option>
           {% endfor %}
         </select>
-       </form>
+        <a href="{{ path('planning_export') }}" class="btn btn-default export_planning"><i class="fa fa-download"></i> Export</a>
+      </form>
+
+
     </div>
-    
-    </div>
+
+  </div>
 </div>
 <div class="row">
   <div class="col-md-12">
     {% include "CaravaneCalendarBundle::calendar.html.twig" %}
-
   </div>
 </div>
 

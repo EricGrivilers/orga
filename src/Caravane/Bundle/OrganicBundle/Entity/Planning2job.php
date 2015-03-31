@@ -9,7 +9,7 @@ use \Caravane\Bundle\OrganicBundle\Entity\Planning;
  * Planning2job
  *
  * @ORM\Table(name="planning2job")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Caravane\Bundle\OrganicBundle\Entity\Planning2JobRepository")
  */
 class Planning2job
 {

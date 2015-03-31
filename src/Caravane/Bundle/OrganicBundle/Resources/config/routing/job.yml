@@ -22,6 +22,11 @@ job_create:
     defaults: { _controller: "CaravaneOrganicBundle:Job:create" }
     requirements: { _method: post }
 
+job_export:
+    pattern:  /export
+    defaults: { _controller: "CaravaneOrganicBundle:Job:export" }
+
+
 job_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "CaravaneOrganicBundle:Job:edit" }

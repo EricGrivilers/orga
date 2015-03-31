@@ -518,6 +518,145 @@ class JobController extends Controller
     }
 
 
+   public function exportAction() {
+
+
+        $filename = "offers";
+
+        $fields = array(
+            "id"=>"ID",
+            "clientId"=>"Client",
+           
+            "reference"=>"Reference",
+            "offreType"=>"Type",
+            "status"=>"Status",
+            "offreComments"=>"Comments",
+            "surface"=>"Surface",
+            "eventDate"=>"Event date",
+            "startBuild"=>"From",
+            "endBuild"=>"To",
+            "buildNotes"=>"Build notes",
+            "unbuildNotes"=>"Unbuild notes",
+            "planningComments"=>"Planning comments",
+            "requestDate"=>"Request date",
+            
+            "userId"=>"Account manager",
+            "priceType"=>"Price type",
+            "price"=>"Price",
+            "priceComments"=>"Price comments",
+            "conditions"=>"Conditions",
+            "conditionsSlices"=>"",
+            "tents"=>"Stock products",
+            "tentsComments"=>"Products comments",
+            "contact"=>"Contact",
+            "address"=>"Street",
+            "number"=>"Number",
+            "zip"=>"Postal code",
+            "city"=>"City",
+            "country"=>"Country",
+            "phone"=>"Phone",
+            "phone2"=>"Phone2",
+            "mobile"=>"Mobile",
+            "fax"=>"Fax",
+            "email"=>"Email",
+            "url"=>"Website",
+            "comments"=>"Place comments",
+             "language"=>"Language",
+           // "introText"=>"",
+            "issue"=>"Issues", 
+            //"deleted"=>"",
+            //"public"=>"",
+           
+            
+             "offreId"=>"Offre",
+            "insertDate"=>"Creation date",
+            "updateDate"=>"Last update",
+
+        );
+
+        
+
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('CaravaneOrganicBundle:Job')->findBy(array('public'=>true));
+        
+        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+        $exportManager=new ExportManager;
+
+        $r=1;
+        $l=0;
+        foreach($fields as $k=>$value) {
+            $col = $exportManager->num2alpha($l).$r;
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $value);
+            $l++;
+        }
+
+        foreach($entities as $entity) {
+            $r++;
+            $l=0;
+            foreach($fields as $k=>$v) {
+                $getter="get".ucwords($k);
+                $value="";
+                if($entity->$getter()) {
+                    if($k=='insertDate' || $k=='updateDate' || $k=="startBuild" || $k=="endBuild" || $k=="requestDate" || $k=="eventDate") {
+                        $value=$entity->$getter()->format('Y-m-d');
+                    }
+                    else if($k=='userId') {
+                        if($entity->getUserId()) {
+                            $value=$entity->getUserId()->getName();
+                        }
+                    }
+                    else if($k=='offreId') {
+                        if($entity->getOffreId()) {
+                            $value=$entity->getOffreId()->getReference();
+                        }        
+                    }
+                    else if($k=='clientId') {
+                        if($entity->getClientId()) {
+                            $value=$entity->getClientId()->getReference();
+                        }
+                        
+                    }
+                    else if($k=='tents') {
+                        $tents=array();
+                        if($tTents=explode(", ",$entity->getTents())) {
+                            foreach($tTents as $x=>$t) {
+                                if($tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($t)) {
+                                    $tents[]=$tent->getReference();
+                                }
+                            }
+                        }
+                        
+                        $value=implode(",",$tents);
+                    }
+                    else {
+                        $value=$entity->$getter();
+                    }
+                } 
+                $col = $exportManager->num2alpha($l).$r;
+                //echo $col." : ".$getter." : ".$value." <br/>";
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, (string)$value);
+                $l++;
+            }
+           
+        }
+        
+        $phpExcelObject->getActiveSheet()->setTitle($filename);
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $phpExcelObject->setActiveSheetIndex(0);
+
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;'.$filename.'-'.date('Y-m-d').'.xls');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+
+        return $response;
+    }
+
      private function getRank($job) {
         $em=$this->getDoctrine()->getManager();
         $rank=0;

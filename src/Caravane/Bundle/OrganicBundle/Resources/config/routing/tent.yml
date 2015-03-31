@@ -17,6 +17,10 @@ tent_create:
     defaults: { _controller: "CaravaneOrganicBundle:Tent:create" }
     requirements: { _method: post }
 
+tent_export:
+    pattern:  /export
+    defaults: { _controller: "CaravaneOrganicBundle:Tent:export" }
+
 tent_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "CaravaneOrganicBundle:Tent:edit" }

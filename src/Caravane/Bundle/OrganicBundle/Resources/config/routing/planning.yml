@@ -17,6 +17,11 @@ planning_create:
     defaults: { _controller: "CaravaneOrganicBundle:Planning:create" }
     requirements: { _method: post }
 
+planning_export:
+    pattern:  /export
+    defaults: { _controller: "CaravaneOrganicBundle:Planning:export" }
+
+
 planning_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "CaravaneOrganicBundle:Planning:edit" }

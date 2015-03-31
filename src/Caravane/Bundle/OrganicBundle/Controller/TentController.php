@@ -425,4 +425,103 @@ class TentController extends Controller
             'entity'=>$entity
         ));
     }
+
+
+
+
+
+    public function exportAction() {
+
+
+        $filename = "clients";
+
+        $fields = array(
+            "id"=>"ID",
+            "name"=>"Name",
+            "reference"=>"Reference",
+            "kit"=>"Kit",
+            "owner"=>"Owner",
+            "ownerId"=>"Owner reference",
+            "color"=>"Color",
+            "length"=>"Length",
+            "width"=>"Width",
+            "height"=>"Height",
+            "m2"=>"Surface",
+            "weight"=>"Weight",
+            "piquets"=>"Piquet",
+            //"status"=>"Status",
+            "etat"=>"State",
+            "comments"=>"Comments",
+            "winter"=>"Winter",
+            "winterOffreId"=>"Winter offer",
+            "issue"=>"Issues",
+            "insertDate" => "Creation date",
+            "updateDate" => "Last update"
+        );
+
+        
+
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('CaravaneOrganicBundle:Tent')->findBy(array('public'=>true));
+        
+        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+        $exportManager=new ExportManager;
+
+        $r=1;
+        $l=0;
+        foreach($fields as $k=>$value) {
+            $col = $exportManager->num2alpha($l).$r;
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $value);
+            $l++;
+        }
+
+        foreach($entities as $entity) {
+            $r++;
+            $l=0;
+            foreach($fields as $k=>$v) {
+                $getter="get".ucwords($k);
+                $value="";
+                if($entity->$getter()) {
+                    if($k=='insertDate' || $k=='updateDate') {
+                        $value=$entity->$getter()->format('Y-m-d');
+                    }
+                    else if($k=='clientId') {
+                        $value=$entity->getClientId()->getReference();
+                    }
+                    else if($k=='client') {
+                        $value=$entity->getClientId()->getName();
+                    }
+                    else if($k=='ownerId') {
+                        $value=$entity->getOwnerId()->getReference();
+                    }
+                    else if($k=='winterOffreId') {
+                        $value=$entity->getWinterOffreId()->getReference();
+                    }
+                    
+                    else {
+                        $value=$entity->$getter();
+                    }
+                } 
+                $col = $exportManager->num2alpha($l).$r;
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $value);
+                $l++;
+            }
+        }
+        
+        $phpExcelObject->getActiveSheet()->setTitle('Clients');
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $phpExcelObject->setActiveSheetIndex(0);
+
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;'.$filename.'-'.date('Y-m-d').'.xls');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+
+        return $response;
+    }
 }

@@ -5,24 +5,26 @@
 <div class="row">
     <div class="tools">
         <div class="col-md-10">
-        <ul class="nav nav-pills">
+            <ul class="nav nav-pills">
 
-         <li {% if type=='' %}class="active" {% endif %} >
-            <a href="{{path('job',{'type':'','ob':ob, 'page':1})}}">All</a>
-          </li>
-           <li {% if type=='running' %}class="active" {% endif %} >
-            <a href="{{path('job',{'type': 'running','ob':ob, 'page':1})}}">Running</a>
-          </li>
-           <li {% if type=='closed' %}class="active" {% endif %} >
-            <a href="{{path('job',{'type': 'closed','ob':ob, 'page':1})}}">Closed</a>
-          </li>
+             <li {% if type=='' %}class="active" {% endif %} >
+                <a href="{{path('job',{'type':'','ob':ob, 'page':1})}}">All</a>
+              </li>
+               <li {% if type=='running' %}class="active" {% endif %} >
+                <a href="{{path('job',{'type': 'running','ob':ob, 'page':1})}}">Running</a>
+              </li>
+               <li {% if type=='closed' %}class="active" {% endif %} >
+                <a href="{{path('job',{'type': 'closed','ob':ob, 'page':1})}}">Closed</a>
+              </li>
 
-        </ul>
-</div>
+            </ul>
+        </div>
 
-<div class="col-md-2">
+        <div class="col-md-2">
 
-    </div>
+            
+            <a href="{{ path('job_export') }}" class="btn btn-default "><i class="fa fa-download"></i> Export</a>
+        </div>
     </div>
 </div>
 <div class="row">

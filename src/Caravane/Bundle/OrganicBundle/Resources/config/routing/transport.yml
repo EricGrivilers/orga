@@ -17,6 +17,10 @@ transport_create:
     defaults: { _controller: "CaravaneOrganicBundle:Transport:create" }
     requirements: { _method: post }
 
+transport_export:
+    pattern:  /export
+    defaults: { _controller: "CaravaneOrganicBundle:Transport:export" }
+
 transport_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "CaravaneOrganicBundle:Transport:edit" }
