@@ -24,7 +24,7 @@ class PlanningController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $users=$em->getRepository('CaravaneUserBundle:User')->findAll();
+        $users=$em->getRepository('CaravaneUserBundle:User')->findBy(array('enabled'=>true));
 /*
         $entities = $em->getRepository('CaravaneOrganicBundle:Planning')->findAll();
 

@@ -5,6 +5,7 @@ namespace Caravane\Bundle\OrganicBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class ClientType extends AbstractType
 {
@@ -186,7 +187,12 @@ class ClientType extends AbstractType
                 "attr"=>array(
                     "class"=>"col-md-12"
                 ),
-                "required"=>false
+                "required"=>false,
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.enabled =1')
+                        ->orderBy('u.firstname', 'ASC');
+                },
             ))
         ;
     }

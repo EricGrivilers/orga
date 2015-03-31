@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use Caravane\Bundle\OrganicBundle\Form\ClientType;
+use Doctrine\ORM\EntityRepository;
 
 class OffreType extends AbstractType
 {
@@ -182,7 +183,12 @@ class OffreType extends AbstractType
                 'class'=>'Caravane\UserBundle\Entity\User',
                 'attr'=>array(
                     'class'=>'col-md-12'
-                )
+                ),
+                 'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.enabled =1')
+                        ->orderBy('u.firstname', 'ASC');
+                },
             ))
             ->add('clientid',new ClientEmbededType())
 

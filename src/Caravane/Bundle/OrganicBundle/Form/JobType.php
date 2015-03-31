@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use Caravane\Bundle\OrganicBundle\Form\ClientType;
+use Doctrine\ORM\EntityRepository;
 
 
 class JobType extends AbstractType
@@ -172,7 +173,12 @@ class JobType extends AbstractType
                 'required' => false,
                 'label'=>"Account",
 
-                'class'=>'Caravane\UserBundle\Entity\User'
+                'class'=>'Caravane\UserBundle\Entity\User',
+                 'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.enabled =1')
+                        ->orderBy('u.firstname', 'ASC');
+                },
             ))
            // ->add('offreid')
             ->add('clientid',new ClientEmbededType(),array(

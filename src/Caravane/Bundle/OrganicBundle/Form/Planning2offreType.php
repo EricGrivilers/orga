@@ -5,6 +5,7 @@ namespace Caravane\Bundle\OrganicBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class Planning2offreType extends AbstractType
 {
@@ -49,7 +50,12 @@ class Planning2offreType extends AbstractType
                 'required'=>false,
                 'attr'=>array(
                     'class'=>'col-md-12'
-                )
+                ),
+                 'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.enabled =1')
+                        ->orderBy('u.firstname', 'ASC');
+                },
             ))
             //->add('jobid')
             //->add('offreid')
