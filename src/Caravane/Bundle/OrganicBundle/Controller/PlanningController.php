@@ -362,6 +362,12 @@ class PlanningController extends Controller
             }
             $col = $exportManager->num2alpha($l).$r;
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, "Job");
+            $l++;
+            $col = $exportManager->num2alpha($l).$r;
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $entity->getJobId()->getUserId()->getName());
+            $l++;
+            $col = $exportManager->num2alpha($l).$r;
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $entity->getJobId()->getClientId()->getName());
         }
 
         foreach($offreentities as $entity) {
@@ -393,7 +399,13 @@ class PlanningController extends Controller
                 $l++;
             }
             $col = $exportManager->num2alpha($l).$r;
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, "Job");
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, "Offer");
+            $l++;
+            $col = $exportManager->num2alpha($l).$r;
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $entity->getOffreId()->getUserId()->getName());
+            $l++;
+            $col = $exportManager->num2alpha($l).$r;
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $entity->getOffreId()->getClientId()->getName());
         }
         
         $phpExcelObject->getActiveSheet()->setTitle('Planning');
