@@ -30,6 +30,9 @@
                         Back to the list
                 </a>
                 {% if entity.id %}
+                  <a href="{{ path('offre_duplicate', {'id':entity.id}) }}" class="btn btn-default "><i class="fa fa-copy"></i>
+                          Duplicate offer
+                  </a>
                     <div class="btn-group pull-right">
                           <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="drop_1">
                             <img src="/images/icons/pdf.png">

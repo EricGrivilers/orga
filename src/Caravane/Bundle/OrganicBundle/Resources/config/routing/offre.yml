@@ -31,6 +31,10 @@ offre_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "CaravaneOrganicBundle:Offre:edit" }
 
+offre_duplicate:
+    pattern:  /{id}/duplicate
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:duplicate" }
+
 offre_update:
     pattern:  /{id}/update
     defaults: { _controller: "CaravaneOrganicBundle:Offre:update" }

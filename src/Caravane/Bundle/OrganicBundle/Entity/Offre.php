@@ -1351,7 +1351,7 @@ class Offre
      * @param \Caravane\Bundle\OrganicBundle\Entity\Job $jobid
      * @return Offre
      */
-    public function setJobid(\Caravane\Bundle\OrganicBundle\Entity\Job $jobid)
+    public function setJobid(\Caravane\Bundle\OrganicBundle\Entity\Job $jobid = null)
     {
         $this->jobid = $jobid;
 
@@ -1726,5 +1726,13 @@ class Offre
     public function getCondition()
     {
         return $this->condition;
+    }
+
+
+    public function clearId()
+    {
+        $this->id = null; // également essayé avec "", 0, valeur de l'auto-incrément, true, false, -1
+     
+        return $this;
     }
 }

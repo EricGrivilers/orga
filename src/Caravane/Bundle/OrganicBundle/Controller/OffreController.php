@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Caravane\Bundle\OrganicBundle\Entity\Offre;
 use Caravane\Bundle\OrganicBundle\Entity\Client;
+use Caravane\Bundle\OrganicBundle\Entity\Job;
 use Caravane\Bundle\OrganicBundle\Form\OffreType;
 
 
@@ -723,6 +724,42 @@ class OffreController extends Controller
 
         return $response;
     }
+
+
+
+
+    /**
+     * Creates a new Offre entity.
+     *
+     */
+    public function duplicateAction(Request $request, $id)
+    {
+        $em = $em=$this->getDoctrine()->getManager();;
+        if($sourceOffre = $em->getRepository('CaravaneOrganicBundle:Offre')->find($id)) {
+            $sourceOffre->setReference('');
+            if($sourceOffre->getJobid()) {
+                $job = new Job();
+                $sourceOffre->setJobid(null);
+            }
+            $sourceOffre->setStatus('draft');
+            $sourceOffre->setInsertDate(new \Datetime('now'));
+            $sourceOffre->setUpdateDate(new \Datetime('now'));
+            $productCategories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
+
+            $form   = $this->createForm(new OffreType(), $sourceOffre);
+
+            return $this->render('CaravaneOrganicBundle:Offre:new.html.twig', array(
+                'entity' => $sourceOffre,
+                'edit_form'   => $form->createView(),
+                'productCategories' =>$productCategories,
+                'customErrors'=>$this->customErrors
+            ));
+
+        }
+        throw $this->createNotFoundException('Unable to find Offre entity.');
+    }
+
+
 
     private function getRank($offre) {
         $em=$this->getDoctrine()->getManager();
