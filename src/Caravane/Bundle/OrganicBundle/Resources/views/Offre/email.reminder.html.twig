@@ -1,0 +1,14 @@
+Following Offers are still valida during next 3 days:
+
+{% for offre in offres %}
+##########
+
+Reference: {{offre.reference}}
+Client: {{offre.clientid.name }}
+Updated on: {{offre.updatedate|date('Y-m-d')}}
+Valid limitation: {{offre.validity}} days
+
+##########
+
+
+{% endfor %}

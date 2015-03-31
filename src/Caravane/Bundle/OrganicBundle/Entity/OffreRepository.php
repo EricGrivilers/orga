@@ -101,4 +101,27 @@ class OffreRepository extends EntityRepository
 		}
 
 	}
+
+
+
+
+	public function getValids() {
+		$date=new \Datetime('now');
+		$to = $date->format('Y-m-d H:i:s');
+		$date->modify("-30 days");
+		$from = $date->format('Y-m-d H:i:s');
+		
+		//echo $from;
+		//echo $to;
+		$qb = $this->getEntityManager()->getRepository("CaravaneOrganicBundle:Offre")->createQueryBuilder('O')
+		->select("O");
+		$qb->where("O.updatedate BETWEEN '".$from."' AND '".$to."'");
+
+		$query=  $qb->getQuery();
+
+
+
+		$entities = $query->getResult();
+		return $entities;
+	}
 }
