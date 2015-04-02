@@ -45,7 +45,7 @@ class Job
     /**
      * @var string
      *
-     * @ORM\Column(name="reference", type="string", length=50, nullable=false)
+     * @ORM\Column(name="reference", type="string", length=100, nullable=false)
      */
     private $reference;
 

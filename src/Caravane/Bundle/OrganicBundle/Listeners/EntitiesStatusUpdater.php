@@ -44,6 +44,7 @@ class EntitiesStatusUpdater {
         }
         if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Job) {
             $jobManager=new JobManager($entity,$entityManager);
+            $jobManager->postPersist();
             $mails=$jobManager->checkAvailability($this->container);
             if(!empty($mails)) {
                 foreach($mails as $mail) {

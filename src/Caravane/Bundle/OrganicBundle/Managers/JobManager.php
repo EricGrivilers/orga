@@ -22,17 +22,33 @@ class JobManager
 
 
         $entity=$this->entity;
-        if($entity->getReference()=='temp' || $entity->getReference()=='') {
-            $entity->setReference(date('Ym')."-".$entity->getId()."-O".strtoupper(substr($entity->getOffretype(),0,1))."-".$entity->getUserid()->getIso());
+        $plannings=$entity->getPlannings();
+        foreach($plannings as $planning) {
+            if($planning->getPlanningtype()=='build') {
+                $eventDate=$planning->getStartdate();
+            }
         }
-        $ta=explode('-',$entity->getReference());
-        $entity->setReference($ta[0]."-".$entity->getId()."-O".strtoupper(substr($entity->getOffretype(),0,1))."-".$ta[3]);
+
+        //date('Ym')."-".$entity->getId()."-O".strtoupper(substr($entity->getOffretype(),0,1))."-".$entity->getUserid()->getIso()."_".$this->slugify($entity->getClientId()->getName())."_".$eventDate->format('Y-m-d')."_".$this->slugify($entity->getZip()."-".$entity->getCity());
+        //ID Job + Nom du client + date de l'event + lieu de l'event
+
+
+        $name=$this->slugify($entity->getClientId()->getName())."_".$eventDate->format('Y-m-d')."_".$this->slugify($entity->getZip()."-".$entity->getCity());
+        if($entity->getReference()=='temp' || $entity->getReference()=='') {
+            //$entity->setReference(date('Ym')."-".$entity->getId()."-O".strtoupper(substr($entity->getOffretype(),0,1))."-".$entity->getUserid()->getIso());
+            $entity->setReference(date('Ym')."-".$entity->getId()."-J".strtoupper(substr($entity->getOffretype(),0,1))."-".$entity->getUserid()->getIso()."_".$name );
+        }
+        $tb=explode('_',$entity->getReference());
+        $ta=explode('-',$tb[0]);
+        $entity->setReference( $ta[0]."-".$entity->getId()."-J".strtoupper(substr($entity->getOffretype(),0,1))."-".$ta[3]."_".$name );
+        //$entity->setReference($ta[0]."-".$entity->getId()."-O".strtoupper(substr($entity->getOffretype(),0,1))."-".$ta[3]);
 
         return $entity->getReference();
     }
 
 
     public function postPersist() {
+
          $entity=$this->entity;
          $em=$this->em;
          $this->changeReference();
@@ -110,6 +126,35 @@ class JobManager
         $em->flush();
         return $mails;
 
+    }
+
+
+    public function slugify($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('#[^\\pL\d]+#u', '-', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // transliterate
+        if (function_exists('iconv'))
+        {
+            $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+        }
+
+        // lowercase
+        $text = strtolower($text);
+
+        // remove unwanted characters
+        $text = preg_replace('#[^-\w]+#', '', $text);
+
+        if (empty($text))
+        {
+            return 'n-a';
+        }
+
+        return $text;
     }
 
 }

@@ -477,7 +477,8 @@ class JobController extends Controller
 
     public function pdfAction(Request $request, $id,$_locale='all') {
         $templating=$this->container->get('templating');
-        $html2pdf=$this->get('html2pdf');
+        //$html2pdf = $this->get('html2pdf_factory');
+        $html2pdf = $this->get('html2pdf_factory');
         $em = $this->getDoctrine()->getManager();
         $entity=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
 

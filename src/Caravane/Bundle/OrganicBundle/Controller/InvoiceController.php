@@ -426,7 +426,7 @@ class InvoiceController extends Controller
 
     public function pdfAction(Request $request, $id,$_locale='all',$type='inv') {
         $templating=$this->container->get('templating');
-        $html2pdf=$this->get('html2pdf');
+        $html2pdf = $this->get('html2pdf_factory');
         $em = $this->getDoctrine()->getManager();
         $entity=$em->getRepository('CaravaneOrganicBundle:Invoice')->find($id);
 
