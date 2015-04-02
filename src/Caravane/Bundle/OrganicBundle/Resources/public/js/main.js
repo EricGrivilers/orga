@@ -1,6 +1,6 @@
 
 
-
+/*
 
 $('#reportrange').daterangepicker(
     {
@@ -21,37 +21,66 @@ $('#reportrange').daterangepicker(
         }
     },
     function(start, end) {
-    	$('#startDate').val(start.toString('yyyy-MM-dd hh:mm:ss'));
-    	$('#endDate').val(end.toString('yyyy-MM-dd hh:mm:ss'));
-        $('#reportrange span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
+    	$('#startDate').val(start.format('yyyy-MM-dd hh:mm:ss'));
+    	$('#endDate').val(end.format('yyyy-MM-dd hh:mm:ss'));
+        $('#reportrange span').html(start.format('MMMM d, yyyy') + ' - ' + end.format('MMMM d, yyyy'));
         $('#rangeDateForm').submit();
     }
 );
 
+*/
 
-$('.reportrange').daterangepicker(
+function setRanges() {
+    $('.reportrange').daterangepicker(
     {
-        buttonClasses:"btn-primary",
-        startDate:$(this).closest('.widget').find('input.startDate').val(),
+        buttonClasses:"btn",
+        applyClass: 'btn-primary',
+        cancelClass: 'btn-default',
+        startDate: moment('15/01/2014 00:00').toDate(),
         endDate:$(this).closest('.widget').find('input.endDate').val(),
         minDate: moment().subtract(29, 'days'),
-        format : 'MM/dd/yyyy hh:mm:ss',
+        timePicker: true,
+        showDropdowns: true,
+        format : "DD/MM/YYYY HH:mm",
+        timePickerIncrement: 30,
+        timePicker12Hour: false,
+        timePickerSeconds: false,
         locale: {
             customRangeLabel:"Custom dates"
         }
     },
-    function(start, end) {
+    function(start, end, label) {
         startDateField=this.element.closest('.widget').find('input.startDate');
         endDateField=this.element.closest('.widget').find('input.endDate');
 
-        startDateField.val(start.toString('dd/MM/yyyy hh:mm:ss'));
-        endDateField.val(end.toString('dd/MM/yyyy hh:mm:ss'));
+        startDateField.val(start.format('DD/MM/YYYY HH:mm'));
+        endDateField.val(end.format('DD/MM/YYYY HH:mm'));
         //this.element.css('color','1px solid blue');
         //this.element.find(" ~ .reportrange").css('color','1px solid red');
-        this.element.find('span.display').html("<span class='static'>From</span> "+start.toString('dd/MM/yyyy hh:mm:ss') + " <span class='static'>to</span> " + end.toString('dd/MM/yyyy hh:mm:ss'));
+        this.element.find('span.display').html("<span class='static'>From</span> "+start.format('DD/MM/YYYY HH:mm') + " <span class='static'>to</span> " + end.format('DD/MM/YYYY HH:mm'));
         //$('#rangeDateForm').submit();
+        var container = this.element.closest('.widget');
+        var index=container.index();
+        var i=0;
+        var lastdate='';
+        container.closest('tbody').find('.widget').each(function() {
+            
+            
+            console.log(i);
+            if(i>0 && lastdate!='') {
+                console.log(lastdate);
+                $(this).find('input.startDate').val(lastdate);
+            }
+            lastdate=$(this).find('input.endDate').val();
+            i++;
+                
+        });
+        setRanges();
+
     }
 );
+}
+setRanges();
 
 
 $('.combobox ul.dropdown-menu li a').click(function() {

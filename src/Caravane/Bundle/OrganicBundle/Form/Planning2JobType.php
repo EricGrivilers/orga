@@ -15,13 +15,13 @@ class Planning2JobType extends AbstractType
             ->add('planningtype','hidden')
             ->add('startdate','datetime',array(
                 'widget' => 'single_text',
-                'format' => 'dd/MM/yyyy HH:mm:ss',
+                'format' => 'dd/MM/yyyy HH:mm',
                 'attr' => array('class' => 'startDate col-md-12')
 
             ))
              ->add('enddate','datetime',array(
                 'widget' => 'single_text',
-                'format' => 'dd/MM/yyyy HH:mm:ss',
+                'format' => 'dd/MM/yyyy HH:mm',
                 'attr' => array('class' => 'endDate col-md-12')
 
             ))

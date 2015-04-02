@@ -20,20 +20,22 @@ class JobManager
 
     public function changeReference() {
 
-
         $entity=$this->entity;
         $plannings=$entity->getPlannings();
-        foreach($plannings as $planning) {
+        $eventDate=$entity->getEventDate();
+        /*foreach($plannings as $planning) {
             if($planning->getPlanningtype()=='build') {
                 $eventDate=$planning->getStartdate();
             }
         }
-
+*/
         //date('Ym')."-".$entity->getId()."-O".strtoupper(substr($entity->getOffretype(),0,1))."-".$entity->getUserid()->getIso()."_".$this->slugify($entity->getClientId()->getName())."_".$eventDate->format('Y-m-d')."_".$this->slugify($entity->getZip()."-".$entity->getCity());
         //ID Job + Nom du client + date de l'event + lieu de l'event
 
 
         $name=$this->slugify($entity->getClientId()->getName())."_".$eventDate->format('Y-m-d')."_".$this->slugify($entity->getZip()."-".$entity->getCity());
+
+       
         if($entity->getReference()=='temp' || $entity->getReference()=='') {
             //$entity->setReference(date('Ym')."-".$entity->getId()."-O".strtoupper(substr($entity->getOffretype(),0,1))."-".$entity->getUserid()->getIso());
             $entity->setReference(date('Ym')."-".$entity->getId()."-J".strtoupper(substr($entity->getOffretype(),0,1))."-".$entity->getUserid()->getIso()."_".$name );

@@ -36,7 +36,6 @@ class EntitiesStatusUpdater {
 
 
     public function postUpdate(LifecycleEventArgs $args) {
-
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
         if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Offre) {
@@ -86,7 +85,6 @@ class EntitiesStatusUpdater {
 
     }
     public function prePersist(LifecycleEventArgs $args) {
-
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
         if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Client) {
@@ -104,7 +102,6 @@ class EntitiesStatusUpdater {
     }
 
     public function postPersist(LifecycleEventArgs $args) {
-
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
         if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Client) {

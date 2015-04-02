@@ -16,7 +16,8 @@
 		});
 	    $('#{{form.vars.id}}').daterangepicker({
 	        singleDatePicker: true,
-	        showDropdowns: true
+	        showDropdowns: true,
+	        format: "DD/MM/YYYY",
 	    });
 	});
 	</script>
@@ -32,9 +33,9 @@
 		<span class="input-group-btn">
 			<button class="btn btn-default date" type="button"><a class="fa fa-calendar"></a></button>
 		</span>
-		<span class="input-group-btn">
+		{#<span class="input-group-btn">
 			<button class="btn btn-default hour active" type="button"><a class="fa fa-clock-o"></a></button>
-		</span>
+		</span>#}
 
 	</div><!-- /input-group -->
 
@@ -50,13 +51,13 @@
 	        singleDatePicker: true,
 	        showDropdowns: true,
 	        timePicker: true,
-	        format: "DD/MM/YYYY HH:MM",
+	        format: "DD/MM/YYYY HH:mm",
 	        timePickerIncrement: 15,
 	        timePicker12Hour: false,
         	timePickerSeconds: false
 	    });
 
-	    $('#{{form.vars.id}}_widget .input-group-btn button.hour').click(function(e) {
+	    {#$('#{{form.vars.id}}_widget .input-group-btn button.hour').click(function(e) {
 			e.stopPropagation();
 			e.preventDefault();
 			$(this).toggleClass('active');
@@ -65,7 +66,7 @@
 					singleDatePicker: true,
 			        showDropdowns: true,
 			        timePicker: true,
-			        format: "DD/MM/YYYY HH:MM",
+			        format: "YYYY-MM-DD HH:mm",
 			        timePickerIncrement: 15,
 			        timePicker12Hour: false,
 		        	timePickerSeconds: false
@@ -76,10 +77,10 @@
 					singleDatePicker: true,
 	        		showDropdowns: true,
 					timePicker: false,
-	        		format: "DD/MM/YYYY"
+	        		format: "YYYY-MM-DD"
 				});
 			}
-		});
+		});#}
 	});
 	</script>
 

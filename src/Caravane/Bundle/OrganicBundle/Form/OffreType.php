@@ -24,7 +24,7 @@ class OffreType extends AbstractType
            // ->add('reference')
             ->add('eventdate','CaravaneUIDateTimePicker',array(
                 'widget'=>'single_text',
-                'format' => 'dd/MM/yyyy hh:mm:ss',
+                'format' => 'dd/MM/yyyy HH:mm',
                 'label'=>"Event date",
                 'attr'=>array(
                     'class'=>'col-md-3 datepicker'
