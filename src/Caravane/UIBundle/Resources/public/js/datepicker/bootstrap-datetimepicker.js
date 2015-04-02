@@ -1230,12 +1230,12 @@
         (is12Hours ? ' data-hour-format="12"' : '') +
         '>' +
         '<tr>' +
-          '<td><a href="#" class="btn" data-action="incrementHours"><i class="icon-chevron-up"></i></a></td>' +
+          '<td><a href="#" class="btn btn-default" data-action="incrementHours"><i class="icon-chevron-up"></i></a></td>' +
           '<td class="separator"></td>' +
-          '<td><a href="#" class="btn" data-action="incrementMinutes"><i class="icon-chevron-up"></i></a></td>' +
+          '<td><a href="#" class="btn btn-default" data-action="incrementMinutes"><i class="icon-chevron-up"></i></a></td>' +
           (showSeconds ?
           '<td class="separator"></td>' +
-          '<td><a href="#" class="btn" data-action="incrementSeconds"><i class="icon-chevron-up"></i></a></td>': '')+
+          '<td><a href="#" class="btn btn-default" data-action="incrementSeconds"><i class="icon-chevron-up"></i></a></td>': '')+
           (is12Hours ? '<td class="separator"></td>' : '') +
         '</tr>' +
         '<tr>' +
@@ -1252,12 +1252,12 @@
           '</td>' : '') +
         '</tr>' +
         '<tr>' +
-          '<td><a href="#" class="btn" data-action="decrementHours"><i class="icon-chevron-down"></i></a></td>' +
+          '<td><a href="#" class="btn btn-default" data-action="decrementHours"><i class="icon-chevron-down"></i></a></td>' +
           '<td class="separator"></td>' +
-          '<td><a href="#" class="btn" data-action="decrementMinutes"><i class="icon-chevron-down"></i></a></td>' +
+          '<td><a href="#" class="btn btn-default" data-action="decrementMinutes"><i class="icon-chevron-down"></i></a></td>' +
           (showSeconds ?
           '<td class="separator"></td>' +
-          '<td><a href="#" class="btn" data-action="decrementSeconds"><i class="icon-chevron-down"></i></a></td>': '') +
+          '<td><a href="#" class="btn btn-default" data-action="decrementSeconds"><i class="icon-chevron-down"></i></a></td>': '') +
           (is12Hours ? '<td class="separator"></td>' : '') +
         '</tr>' +
       '</table>' +

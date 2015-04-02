@@ -33,7 +33,7 @@
                             <td></td>
                              {% else %}
                              <td>
-                                <a href="{{path('invoice_new_from_job',{'id':slice.vars.value.id})}}" class="btn btn-inverse"><i class="fa fa-plus"></i> Invoice</a>
+                                <a href="{{path('invoice_new_from_job',{'id':slice.vars.value.id})}}" class="btn btn-primary"><i class="fa fa-plus"></i> Invoice</a>
                             </td>
                             <td>
                                 <a class="delete_row" data-rel="{{entity.id}}" data-type="job_slice" data-target="{{slice.vars.value.id}}"><i class="fa fa-trash"></i></a>

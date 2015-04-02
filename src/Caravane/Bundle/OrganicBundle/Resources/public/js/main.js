@@ -4,7 +4,7 @@
 
 $('#reportrange').daterangepicker(
     {
-    	buttonClasses:"btn-inverse",
+    	buttonClasses:"btn-primary",
     	startDate:$('#startDate').val(),
     	endDate:$('#endDate').val(),
     	minDate: moment().subtract(29, 'days'),
@@ -31,7 +31,7 @@ $('#reportrange').daterangepicker(
 
 $('.reportrange').daterangepicker(
     {
-        buttonClasses:"btn-inverse",
+        buttonClasses:"btn-primary",
         startDate:$(this).closest('.widget').find('input.startDate').val(),
         endDate:$(this).closest('.widget').find('input.endDate').val(),
         minDate: moment().subtract(29, 'days'),
