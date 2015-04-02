@@ -1,14 +1,18 @@
-Following Offers are still valida during next 3 days:
+<p>
+	Following Offers are still valid during next 3 days:
+</p>
 
 {% for offre in offres %}
-##########
-
-Reference: {{offre.reference}}
-Client: {{offre.clientid.name }}
-Updated on: {{offre.updatedate|date('Y-m-d')}}
-Valid limitation: {{offre.validity}} days
-
-##########
-
+	<p>
+##########<br/>
+<br/>
+Reference: {{offre.reference}}<br/>
+Client: {{offre.clientid.name }}<br/>
+Updated on: {{offre.updatedate|date('Y-m-d')}}<br/>
+Valid limitation: {{offre.validity}} days<br/>
+{{url('offre_edit', {'id':offre.id})}}
+<br/>
+##########<br/>
+</p>
 
 {% endfor %}

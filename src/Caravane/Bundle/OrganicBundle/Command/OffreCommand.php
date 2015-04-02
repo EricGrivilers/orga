@@ -34,15 +34,14 @@ class OffreCommand extends ContainerAwareCommand
                 if($lastDay->format('Y-m-d')==$today->format('Y-m-d')) {
                     $entities[$offre->getUserid()->getEmail()][]=$offre;
                 }
-                echo $today->format('Y-m-d')." " .$offre->getId()." ".$firstDay->format('Y-m-d')." ".$offre->getValidity()."\n";
-               
+                    
             }
 
-
             foreach($entities as $to=>$offres) {
-               
                 $body=$this->getContainer()->get('templating')->render('CaravaneOrganicBundle:Offre:email.reminder.html.twig',
                     array('offres' => $offres));
+
+                $to="eric@caravanemedia.com";
                 
                 $message = \Swift_Message::newInstance()
                 ->setSubject('Offers to validate')
@@ -50,11 +49,10 @@ class OffreCommand extends ContainerAwareCommand
                 ->setTo($to)
                 ->setCc("eric@caravanemedia.com")
                 ->setBody($body,'text/html');
-                /*
+                
                 if(!$this->getContainer()->get('mailer')->send($message)) {
                     echo "error";
-                }
-                */
+                } 
             }
             
         }

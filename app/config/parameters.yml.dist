@@ -6,10 +6,13 @@ parameters:
     database_user:     organic
     database_password: loukahugo
 
-    mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
-    mailer_password:   ~
+    mailer_transport: smtp
+    mailer_host: smtp.caravanemedia.com
+    mailer_user: organic@caravanemedia.com
+    mailer_password: 'DXWQ2MxjOH'
+    mailer_port: 465
+    mailer_auth_mode: login
+    mailer_encryption: ssl
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
