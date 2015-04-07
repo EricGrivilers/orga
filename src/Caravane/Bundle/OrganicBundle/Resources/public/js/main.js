@@ -438,6 +438,40 @@ function initOffre() {
              $('#transportModal').modal('hide');
         });
 
+
+       $("#transport_filter").keyup(function () {
+            //split the current value of searchInput
+            var data = this.value.split(" ");
+            //create a jquery object of the rows
+            var jo = $("table.transport tbody tr");
+            if (this.value == "" || this.value.length<3) {
+                jo.show();
+                return;
+            }
+            //hide all the rows
+            jo.hide();
+
+            //Recusively filter the jquery object to get results.
+            jo.filter(function (i, v) {
+                var $t = $(this);
+                for (var d = 0; d < data.length; ++d) {
+                    if ($t.is(":contains('" + data[d] + "')")) {
+                        return true;
+                    }
+                }
+                return false;
+            })
+            //show the rows that match.
+            .show();
+        }).focus(function () {
+            this.value = "";
+            $(this).css({
+                "color": "black"
+            });
+            $(this).unbind('focus');
+        }).css({
+            "color": "#C0C0C0"
+        });
     });
 
 
@@ -519,3 +553,10 @@ function initSearch() {
 function resetSearch() {
     $('#searchSuggestion').remove();
 }
+
+
+
+
+jQuery.expr[':'].contains = function(a, i, m) { 
+  return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0; 
+};

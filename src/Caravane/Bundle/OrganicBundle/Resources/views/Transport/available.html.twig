@@ -1,52 +1,43 @@
 
 
 <div class="row tableContainer">
+        <div class='col-md-12 content'>
+            <input type="text" id="transport_filter" class="form-control" placeholder="search"  ><b/r>
+            <table class="table table-bordered table-condensed table-striped transport">
+                <thead>
+                    <tr>
+                        <th>zip</th>
+                        <th>Name</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
 
-    <div class='content'>
+                <tbody>
 
-        <table class="table table-bordered table-condensed table-striped transport">
-            <thead>
-                <tr>
-                    <th>zip</th>
-
-                    <th>Name</th>
-                    <th>Cost</th>
-
-
-                </tr>
-            </thead>
-
-            <tbody>
-
-            {% for entity in entities %}
-
-                <tr data-productid="{{entity.id}}" >
-                    <td><a data-productid="{{entity.id}}">{{ entity.zip }}</a></td>
-
-                    <td><a data-productid="{{entity.id}}">{{ entity.name }}</a></td>
-                    <td><a data-productid="{{entity.id}}">{{ entity.cost }}</a></td>
+                {% for entity in entities %}
+                    <tr data-productid="{{entity.id}}" >
+                        <td><a data-productid="{{entity.id}}">{{ entity.zip }}</a></td>
+                        <td><a data-productid="{{entity.id}}">{{ entity.name }}</a></td>
+                        <td><a data-productid="{{entity.id}}">{{ entity.cost }}</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
 
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    {#
 
+            <div class="row">
+                <div class="pagination">
+                      <ul>
 
-{#
+                        {% for p in 1..nbpages %}
+                        <li {% if page==p %} class="active" {% endif %} ><a href="{{path('tent_get_available',{'type': type,'ob':ob,'page':p,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s'),'entityId':entityId,'categoryId':categoryId} )}}">{{p}}</a></li>
+                        {% endfor %}
 
-        <div class="row">
-            <div class="pagination">
-                  <ul>
-
-                    {% for p in 1..nbpages %}
-                    <li {% if page==p %} class="active" {% endif %} ><a href="{{path('tent_get_available',{'type': type,'ob':ob,'page':p,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s'),'entityId':entityId,'categoryId':categoryId} )}}">{{p}}</a></li>
-                    {% endfor %}
-
-                  </ul>
+                      </ul>
+                </div>
             </div>
+            #}
         </div>
-        #}
-</div>
-
 </div>
