@@ -203,11 +203,13 @@ class PlanningController extends Controller
 
     public function loadEventsAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $startDatetime = new \DateTime();
-        $startDatetime->setTimestamp($request->get('start'));
+        $startDatetime = \DateTime::createFromFormat("Y-m-d", $request->get('start'));
+        //$startDatetime = new \DateTime();
+        //$startDatetime->setTimestamp($request->get('start'));
 
-        $endDatetime = new \DateTime();
-        $endDatetime->setTimestamp($request->get('end'));
+        $endDatetime = \DateTime::createFromFormat("Y-m-d", $request->get('end'));
+        //$endDatetime = new \DateTime();
+        //$endDatetime->setTimestamp($request->get('end'));
 
         //$events = $this->container->get('event_dispatcher')->dispatch(CalendarEvent::CONFIGURE, new CalendarEvent($startDatetime, $endDatetime))->getEvents();
         $jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAllBetweenDates($startDatetime,$endDatetime);

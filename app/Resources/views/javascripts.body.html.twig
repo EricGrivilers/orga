@@ -1,7 +1,7 @@
 {% block bodyscripts %}
 
     {% javascripts output="js/organic-calendar.js"
-        "@CaravaneCalendarBundle/Resources/public/js/fullcalendar/jquery.fullcalendar.min.js"
+        "%kernel.root_dir%/../vendor/arshaw/fullcalendar/dist/fullcalendar.min.js"
         "@CaravaneCalendarBundle/Resources/public/js/calendar-settings.js"
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -11,7 +11,6 @@
     {% javascripts output="js/organic-ui.js"
         "%kernel.root_dir%/../vendor/biggora/bootstrap-ajax-typeahead/js/bootstrap-typeahead.js"
         "%kernel.root_dir%/../vendor/voidberg/html5sortable/dist/html.sortable.js"
-        "%kernel.root_dir%/../vendor/dangrossman/bootstrap-daterangepicker/moment.js"
         "%kernel.root_dir%/../vendor/dangrossman/bootstrap-daterangepicker/daterangepicker.js"
         "@CaravaneOrganicBundle/Resources/public/js/main.js"
     %}
