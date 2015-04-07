@@ -255,7 +255,10 @@
 
 
 
-{{"Une assurance est à votre charge durant votre location"|trans}}.<br/><br/>
+{% if entity.offreType=='rent' %}
+	{{"Une assurance est à votre charge durant votre location"|trans}}.
+{% endif %}
+<br/><br/>
 <b>{{"Nos prix s'entendent hors TVA"|trans}}</b><br/>
 {{"Validité de cette offre"|trans}}: {{entity.validity?entity.validity:"14"}} {{"jours date de l'offre"|trans}}
 </p>
