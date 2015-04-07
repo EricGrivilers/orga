@@ -97,8 +97,9 @@
 		</div>
 	</div>
 
-
-
+	{% include "CaravaneOrganicBundle:Shared:modal.stock.html.twig" %}
+	{% include "CaravaneOrganicBundle:Shared:modal.transport.html.twig" %}
+{#
 	<div id="stockModal" data-target="{{entity.id}}" class="modal hide fade largeModal" tabindex="-1" role="dialog" aria-labelledby="stockModalLabel" aria-hidden="true">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -126,9 +127,11 @@
 
 			</div>
 	</div>
+#}
 
+	
 
-	<div id="transportModal" data-target="{{entity.id}}" class="modal hide fade largeModal" tabindex="-1" role="dialog" aria-labelledby="transportModalLabel" aria-hidden="true">
+{#	<div id="transportModal" data-target="{{entity.id}}" class="modal fade largeModal" tabindex="-1" role="dialog" aria-labelledby="transportModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			<h3>Transport</h3>
@@ -143,6 +146,6 @@
 
 		</div>
 	</div>
-
+#}
 
 {% endblock body %}

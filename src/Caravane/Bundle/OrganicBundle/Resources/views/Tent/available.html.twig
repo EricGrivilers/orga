@@ -33,34 +33,25 @@
 
             <tbody>
                 {% set offreEntity=entity %}
-            {% for entity in entities %}
-                
-                <tr data-productid="{{entity.id}}" >
-                    <td><a data-productid="{{entity.id}}">{{ entity.reference }}</a></td>
-
-                    <td><a data-productid="{{entity.id}}">{{ entity.name }}</a></td>
-
-                    <td>{% if entity.kit %} Yes {% else %} No {% endif %}</td>
-                    <td>{% if entity.ownerid %}{{ entity.ownerid.name }}{% endif %}</td>
-                    <td>{{ entity.color }}</td>
-                    <td>{{ entity.length }}</td>
-                    <td>{{ entity.width }}</td>
-                    <td>{{ entity.m2 }}</td>
-
-
-                    <td>{{ entity.etat }}</td>
-
-
-
+                {% for entity in entities %}
+                    <tr data-productid="{{entity.id}}" >
+                        <td><a data-productid="{{entity.id}}">{{ entity.reference }}</a></td>
+                        <td><a data-productid="{{entity.id}}">{{ entity.name }}</a></td>
+                        <td>{% if entity.kit %} Yes {% else %} No {% endif %}</td>
+                        <td>{% if entity.ownerid %}{{ entity.ownerid.name }}{% endif %}</td>
+                        <td>{{ entity.color }}</td>
+                        <td>{{ entity.length }}</td>
+                        <td>{{ entity.width }}</td>
+                        <td>{{ entity.m2 }}</td>
+                        <td>{{ entity.etat }}</td>
                         <td>{% for offre in entity.offres %}
-
-                            {% if offre.offreid in offres %}
-                                <li>{{offre.offreid}}</li>
+                        {% if offre.offreid in offres %}
+                                <li><a href="{{path('offre_edit',{'id':offre.offreid.id} )}}">{{offre.offreid}}</a></li>
                             {% endif %}
                         {% endfor %}</td>
 
-                </tr>
-            {% endfor %}
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
 

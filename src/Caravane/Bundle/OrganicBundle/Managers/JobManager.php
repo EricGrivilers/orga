@@ -22,7 +22,13 @@ class JobManager
 
         $entity=$this->entity;
         $plannings=$entity->getPlannings();
-        $eventDate=$entity->getEventDate();
+        if(!$eventDate=$entity->getEventDate()) {
+            foreach($plannings as $planning) {
+                if($planning->getPlanningtype()=='build') {
+                    $eventDate=$planning->getStartdate();
+                }
+            }
+        }
         /*foreach($plannings as $planning) {
             if($planning->getPlanningtype()=='build') {
                 $eventDate=$planning->getStartdate();

@@ -36,7 +36,7 @@ function setRanges() {
         buttonClasses:"btn",
         applyClass: 'btn-primary',
         cancelClass: 'btn-default',
-        startDate: moment('15/01/2014 00:00').toDate(),
+        startDate: $(this).closest('.widget').find('input.startDate').val(),
         endDate:$(this).closest('.widget').find('input.endDate').val(),
         minDate: moment().subtract(29, 'days'),
         timePicker: true,
@@ -59,14 +59,14 @@ function setRanges() {
         //this.element.find(" ~ .reportrange").css('color','1px solid red');
         this.element.find('span.display').html("<span class='static'>From</span> "+start.format('DD/MM/YYYY HH:mm') + " <span class='static'>to</span> " + end.format('DD/MM/YYYY HH:mm'));
         //$('#rangeDateForm').submit();
-        var container = this.element.closest('.widget');
+    /*    var container = this.element.closest('.widget');
         var index=container.index();
         var i=0;
         var lastdate='';
         container.closest('tbody').find('.widget').each(function() {
             
             
-            console.log(i);
+           // console.log(i);
             if(i>0 && lastdate!='') {
                 console.log(lastdate);
                 $(this).find('input.startDate').val(lastdate);
@@ -76,7 +76,7 @@ function setRanges() {
                 
         });
         setRanges();
-
+    */
     }
 );
 }

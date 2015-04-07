@@ -384,9 +384,9 @@ class TentController extends Controller
             $type='';
         }
         if(!$ob=$request->query->get('ob')) {
-            $ob='reference asc';
+            $ob='insertdate desc';
         }
-         if(!$page=$request->query->get('page')) {
+        if(!$page=$request->query->get('page')) {
             $page=1;
         }
 
@@ -406,7 +406,7 @@ class TentController extends Controller
         $category=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->find($categoryId);
         $jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAllBetweenDates($startDate,$endDate);
         $offres=$em->getRepository('CaravaneOrganicBundle:Offre')->findAllBetweenDates($startDate,$endDate);
-        $options=array('ownerid'=>0,'job'=>true,'offre'=>false,'jobs'=>$jobs,'offres'=>$offres,'category'=>$category,'page'=>$page,'exclude'=>$exclude);
+        $options=array('ownerid'=>0,'job'=>true,'offre'=>false,'jobs'=>$jobs,'offres'=>$offres,'category'=>$category,'page'=>$page,'exclude'=>$exclude, 'ob'=>$ob);
         $entities=$em->getRepository('CaravaneOrganicBundle:Tent')->getFree(false,$startDate,$endDate,$options);
         $nbpages=(Integer)(count($entities)/25)+1;
 
