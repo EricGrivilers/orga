@@ -384,7 +384,7 @@ function initOffre() {
         entity=$('#mainForm').data('entity');
         option=$(this).closest('table').data('option');
         $('#stockModal').modal('show');
-        $('table.stock tbody tr, table.stock tbody a').click(function(e) {
+        $('table.stock tbody tr a.add').click(function(e) {
             e.stopPropagation();
             tentid=$(this).data('productid');
             entityId=$(this).closest('.modal').data('target');
@@ -399,6 +399,21 @@ function initOffre() {
             $('#stockModal').modal('hide');
         });
 
+        $('#add_selected_products').click(function(e) {
+            e.stopPropagation();
+            entityId=$(this).closest('.modal').data('target');
+            tentids=[];
+            $('table.stock tbody input:checked').each(function() {
+                tentids.push($(this).val());
+            });
+            $.post(Routing.generate(entity+'_add_tent',{'id':entityId,'tentid':tentids}),{'option':option},function(data) {
+               //window.location.hash = "#tab_products";
+               //window.location.reload();
+               // $('form').submit();
+               $('#mainForm').submit();
+            })
+            $('#stockModal').modal('hide');
+        });
     });
 
 

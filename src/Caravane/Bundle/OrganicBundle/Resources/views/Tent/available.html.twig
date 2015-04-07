@@ -7,27 +7,17 @@
         <table class="table table-bordered table-condensed table-striped stock">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Reference</th>
-
                     <th>Name</th>
-
                     <th>Kit</th>
                     <th>Owner</th>
                     <th>Color</th>
                     <th>Length</th>
                     <th>Width</th>
                     <th>Area</th>
-
-
                     <th>Etat</th>
-
-
-                        <th>Offres</th>
-
-
-
-
-
+                    <th>Offres</th>
                 </tr>
             </thead>
 
@@ -35,8 +25,9 @@
                 {% set offreEntity=entity %}
                 {% for entity in entities %}
                     <tr data-productid="{{entity.id}}" >
-                        <td><a data-productid="{{entity.id}}">{{ entity.reference }}</a></td>
-                        <td><a data-productid="{{entity.id}}">{{ entity.name }}</a></td>
+                        <td><input type="checkbox" name="products[]" value="{{entity.id}}" /></td>
+                        <td><a data-productid="{{entity.id}}" class="add">{{ entity.reference }}</a></td>
+                        <td><a data-productid="{{entity.id}}" class="add">{{ entity.name }}</a></td>
                         <td>{% if entity.kit %} Yes {% else %} No {% endif %}</td>
                         <td>{% if entity.ownerid %}{{ entity.ownerid.name }}{% endif %}</td>
                         <td>{{ entity.color }}</td>
@@ -59,16 +50,19 @@
 
 
         <div class="row">
-           {# <div class="pagination">
-                  <ul>
+            <div class="col-md-12">
+                
+               {# <div class="pagination">
+                      <ul>
 
-                    {% for p in 1..nbpages %}
-                    <li {% if page==p %} class="active" {% endif %} ><a href="{{path('tent_get_available',{'type': type,'ob':ob,'page':p,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s'),'entityId':entityId,'categoryId':categoryId} )}}">{{p}}</a></li>
-                    {% endfor %}
+                        {% for p in 1..nbpages %}
+                        <li {% if page==p %} class="active" {% endif %} ><a href="{{path('tent_get_available',{'type': type,'ob':ob,'page':p,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s'),'entityId':entityId,'categoryId':categoryId} )}}">{{p}}</a></li>
+                        {% endfor %}
 
-                  </ul>
-            </div>#}
+                      </ul>
+                </div>#}
+            </div>
         </div>
-</div>
+    </div>
 
 </div>

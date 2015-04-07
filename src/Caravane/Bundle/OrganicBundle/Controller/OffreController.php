@@ -417,8 +417,21 @@ class OffreController extends Controller
     public function addStockProductAction(Request $request,$id,$tentid) {
         $em = $this->getDoctrine()->getManager();
         $offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
-        $tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($tentid);
+        //$tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($tentid);
 
+        if(preg_match("/,/",$tentid)) {
+            $tentid=explode(",",$tentid);
+            foreach($tentid as $tid) {
+                $tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($tid);
+                $this->addTent($tent,$offre, $request);
+            }
+        }
+        else {
+            $tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($tentid);
+            $this->addTent($tent,$offre, $request);
+        }
+
+        /*
         $rank=$this->getRank($offre);
         if($tent) {
             $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
@@ -450,9 +463,48 @@ class OffreController extends Controller
             $em->persist($offre);
             $em->flush();
         }
-
+    */
         return new Response('ok');
     }
+
+
+
+    private function addTent($tent,$offre, $request) {
+        echo $tent->getId();
+        $em = $this->getDoctrine()->getManager();
+        $rank=$this->getRank($offre);
+        if($tent) {
+            $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
+            $product->setOffreid($offre);
+            $product->setInsertdate(new \Datetime('now'));
+            $product->setUpdatedate(new \Datetime('now'));
+            $product->setIsoption(false);
+
+            $product->setDescription($tent->getName()."(".$tent->getReference().")");
+            $product->setTentid($tent);
+            $datas=array();
+            //$datas['etat']=$tent->getEtat();
+            $datas['plancher']='0';
+            $datas['surfaceplancher']='';
+            $datas['sol']='';
+            $datas['canalisation']='0';
+            $datas['other']='';
+
+            $product->setDatas(json_encode($datas));
+            $product->setPrice(0);
+            $product->setIsoption($request->request->get('option'));
+
+            $product->setRank($rank);
+            $product->setproductid($rank);
+
+
+            $em->persist($product);
+            $offre->addProduct($product);
+            $em->persist($offre);
+            $em->flush();
+        }
+    }
+
 
     public function addTransportProductAction(Request $request,$id,$transportid) {
         $em = $this->getDoctrine()->getManager();

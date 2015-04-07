@@ -378,10 +378,23 @@ class JobController extends Controller
     }
 
     public function addStockProductAction($id,$tentid) {
+
+
         $em = $this->getDoctrine()->getManager();
         $job=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
-        $tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($tentid);
-
+        if(preg_match("/,/",$tentid)) {
+            $tentid=explode(",",$tentid);
+            foreach($tentid as $tid) {
+                $tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($tid);
+                $this->addTent($tent,$job);
+            }
+        }
+        else {
+            $tent=$em->getRepository('CaravaneOrganicBundle:Tent')->find($tentid);
+            $this->addTent($tent,$job);
+        }
+        
+/*
         $rank=$this->getRank($job);
         if($tent) {
             $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2job();
@@ -414,10 +427,42 @@ class JobController extends Controller
         else {
 
         }
-
+*/
         return new Response('ok');
     }
 
+    private function addTent($tent,$job) {
+        $em = $this->getDoctrine()->getManager();
+        $rank=$this->getRank($job);
+        if($tent) {
+            $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2job();
+            $product->setJobid($job);
+            $product->setInsertdate(new \Datetime('now'));
+            $product->setUpdatedate(new \Datetime('now'));
+            //$product->setIsoption(false);
+
+            $product->setDescription($tent->getName()."(".$tent->getReference().")");
+            $product->setTentid($tent);
+            $datas=array();
+            //$datas['etat']=$tent->getEtat();
+            $datas['plancher']='0';
+            $datas['surfaceplancher']='';
+            $datas['sol']='';
+            $datas['canalisation']='0';
+            $datas['other']='';
+
+            $product->setDatas(json_encode($datas));
+            $product->setPrice(0);
+
+            $product->setRank($rank);
+            $product->setproductid($rank);
+
+            $em->persist($product);
+            $em->persist($job);
+            $em->flush();
+
+        }
+    }
 
 
     public function addTransportProductAction(Request $request,$id,$transportid) {
