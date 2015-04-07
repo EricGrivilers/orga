@@ -202,6 +202,8 @@ class PlanningController extends Controller
 
 
     public function loadEventsAction(Request $request) {
+
+        
         $em = $this->getDoctrine()->getManager();
         $startDatetime = \DateTime::createFromFormat("Y-m-d", $request->get('start'));
         //$startDatetime = new \DateTime();

@@ -1,17 +1,18 @@
+Place: <b>{{job.zip~' '~job.city}}</b><br/>
 Account: <b>{{job.userid.name}}</b><br/>
 Reference: <b>{{job.reference}}</b>
 <hr/>
 Dates:
-	{% for p in job.plannings %}
-		{% if p.planningtype=='build' or p.planningtype=='unbuild' %}
-			<li>{{p.planningtype}} {% if p.userid %}({{p.userid.iso}}){% endif %}:
-			<br><b>{{p.startdate|date('d/m/Y H:i')}}</b> - {{p.enddate|date('d/m/Y H:i')}}  </li>
-		{% endif %}
-	{% endfor %}
+{% for p in job.plannings %}
+	{% if p.planningtype=='build' or p.planningtype=='unbuild' %}
+		<li>{{p.planningtype}} {% if p.userid %}({{p.userid.iso}}){% endif %}:
+		<br><b>{{p.startdate|date('d/m/Y H:i')}}</b> - {{p.enddate|date('d/m/Y H:i')}}  </li>
+	{% endif %}
+{% endfor %}
 <hr/>
 Stock:
-	{% for product in job.products %}
-		{% if product.tentid %}
-			<li>{{product.tentid.reference}} ({{product.tentid.productCategory.name}})</li>
-		{% endif %}
-	{% endfor %}
+{% for product in job.products %}
+	{% if product.tentid %}
+		<li>{{product.tentid.reference}} ({{product.tentid.productCategory.name}})</li>
+	{% endif %}
+{% endfor %}

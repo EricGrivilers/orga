@@ -26,6 +26,11 @@ calendar.show=function(category) {
 			right: 'month,agendaWeek,agendaDay,'
 		},
 		firstDay: 1,
+		businessHours: {
+			start: '05:00', // a start time (10am in this example)
+    		end: '23:59', // an end time (6pm in this example)
+    		dow: [ 0, 1, 2, 3, 4, 5, 6 ]
+		},
 		lazyFetching:true,
         timeFormat: {
             // for agendaWeek and agendaDay

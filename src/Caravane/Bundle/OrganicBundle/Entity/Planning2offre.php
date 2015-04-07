@@ -129,6 +129,9 @@ class Planning2offre
      */
     public function getStartdate()
     {
+        if((int)$this->startdate->format('HH')=='0') {
+            $this->startdate->setTime(7, 00, 00);
+        }
         return $this->startdate;
     }
 
