@@ -61,20 +61,20 @@
 
 </p>
 
-
-<b><u>{{"Dates"|trans}}</u></b>
-{% if entity.eventDate %}<br/> {{"Event date"|trans}}: {{entity.eventDate|date('d/m/Y h:i:s') }} {% endif %}
-<ul>
-{% if entity.plannings|length>0 %}
-	<li>{{"Montage"|trans}} : {{entity.plannings[1].startDate|date('d/m/Y H:i:s')}}</li>
-	<li>{{"Jour(s) de votre événement"|trans}} : {{"du"|trans}} {{entity.plannings[2].startDate|date('d/m/Y H:i:s')}} {{"au"|trans}} {{entity.plannings[2].endDate|date('d/m/Y H:i:s')}}</li>
-	<li>{{"Démontage"|trans}} : {{entity.plannings[3].startDate|date('d/m/Y H:i:s')}}</li>
-
-
-{% else %}
-	<li>{{entity.eventDate|date('d/m/Y H:i:s')}}</li>
+{% if entity.offreType=='rent' %}
+	<b><u>{{"Dates"|trans}}</u></b>
+	{% if entity.eventDate %}<br/> {{"Event date"|trans}}: {{entity.eventDate|date('d/m/Y h:i:s') }} {% endif %}
+	<ul>
+		{% if entity.plannings|length>0 %}
+			<li>{{"Montage"|trans}} : {{entity.plannings[1].startDate|date('d/m/Y H:i:s')}}</li>
+			<li>{{"Jour(s) de votre événement"|trans}} : {{"du"|trans}} {{entity.plannings[2].startDate|date('d/m/Y H:i:s')}} {{"au"|trans}} {{entity.plannings[2].endDate|date('d/m/Y H:i:s')}}</li>
+			<li>{{"Démontage"|trans}} : {{entity.plannings[3].startDate|date('d/m/Y H:i:s')}}</li>
+		{% else %}
+			<li>{{entity.eventDate|date('d/m/Y H:i:s')}}</li>
+		{% endif %}
+	</ul>
 {% endif %}
-</ul>
+
 <br/>
 <br/>
 <b><u>{{"Tente(s)"|trans}}</u></b>
