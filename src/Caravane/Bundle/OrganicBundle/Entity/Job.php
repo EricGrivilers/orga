@@ -42,6 +42,49 @@ class Job
      */
     private $updatedate;
 
+    
+        /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="previewDate", type="datetime", nullable=true)
+     */
+    private $previewdate;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
+     */
+    private $previewUser;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="buildDate", type="datetime", nullable=true)
+     */
+    private $builddate;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
+     */
+    private $buildUser;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="unbuildDate", type="datetime", nullable=true)
+     */
+    private $unbuilddate;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
+     */
+    private $unbuildUser;
+
     /**
      * @var string
      *
@@ -1607,5 +1650,149 @@ class Job
     public function getComment()
     {
         return $this->comment;
+    }
+
+    /**
+     * Set previewdate
+     *
+     * @param \DateTime $previewdate
+     *
+     * @return Job
+     */
+    public function setPreviewdate($previewdate)
+    {
+        $this->previewdate = $previewdate;
+
+        return $this;
+    }
+
+    /**
+     * Get previewdate
+     *
+     * @return \DateTime
+     */
+    public function getPreviewdate()
+    {
+        return $this->previewdate;
+    }
+
+    /**
+     * Set builddate
+     *
+     * @param \DateTime $builddate
+     *
+     * @return Job
+     */
+    public function setBuilddate($builddate)
+    {
+        $this->builddate = $builddate;
+
+        return $this;
+    }
+
+    /**
+     * Get builddate
+     *
+     * @return \DateTime
+     */
+    public function getBuilddate()
+    {
+        return $this->builddate;
+    }
+
+    /**
+     * Set unbuilddate
+     *
+     * @param \DateTime $unbuilddate
+     *
+     * @return Job
+     */
+    public function setUnbuilddate($unbuilddate)
+    {
+        $this->unbuilddate = $unbuilddate;
+
+        return $this;
+    }
+
+    /**
+     * Get unbuilddate
+     *
+     * @return \DateTime
+     */
+    public function getUnbuilddate()
+    {
+        return $this->unbuilddate;
+    }
+
+    /**
+     * Set previewUser
+     *
+     * @param \Caravane\UserBundle\Entity\User $previewUser
+     *
+     * @return Job
+     */
+    public function setPreviewUser(\Caravane\UserBundle\Entity\User $previewUser = null)
+    {
+        $this->previewUser = $previewUser;
+
+        return $this;
+    }
+
+    /**
+     * Get previewUser
+     *
+     * @return \Caravane\UserBundle\Entity\User
+     */
+    public function getPreviewUser()
+    {
+        return $this->previewUser;
+    }
+
+    /**
+     * Set buildUser
+     *
+     * @param \Caravane\UserBundle\Entity\User $buildUser
+     *
+     * @return Job
+     */
+    public function setBuildUser(\Caravane\UserBundle\Entity\User $buildUser = null)
+    {
+        $this->buildUser = $buildUser;
+
+        return $this;
+    }
+
+    /**
+     * Get buildUser
+     *
+     * @return \Caravane\UserBundle\Entity\User
+     */
+    public function getBuildUser()
+    {
+        return $this->buildUser;
+    }
+
+    /**
+     * Set unbuildUser
+     *
+     * @param \Caravane\UserBundle\Entity\User $unbuildUser
+     *
+     * @return Job
+     */
+    public function setUnbuildUser(\Caravane\UserBundle\Entity\User $unbuildUser = null)
+    {
+        $this->unbuildUser = $unbuildUser;
+
+        return $this;
+    }
+
+    /**
+     * Get unbuildUser
+     *
+     * @return \Caravane\UserBundle\Entity\User
+     */
+    public function getUnbuildUser()
+    {
+        return $this->unbuildUser;
     }
 }

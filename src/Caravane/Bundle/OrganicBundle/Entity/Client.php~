@@ -4,6 +4,8 @@ namespace Caravane\Bundle\OrganicBundle\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContext;
 
+use Symfony\Component\Validator\ExecutionContextInterface;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -87,7 +89,6 @@ class Client
      * @var string
      *
      * @ORM\Column(name="vat", type="string", length=50, nullable=true)
-     * @Assert\NotBlank(groups="is_cie_group")
      */
     private $vat;
 
@@ -1036,15 +1037,28 @@ class Client
         $this->invoices = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-     public function validateClientType(ExecutionContext $ec)
+     public function validateClientType(ExecutionContextInterface $ec)
   {
-
     if ($this->clienttype=='cie')
     {
-      $ec->getGraphWalker()->walkReference($this, 'is_cie_group', $ec->getPropertyPath(), true);
+      //$ec->getGraphWalker()->walkReference($this, 'is_cie_group', $ec->getPropertyPath(), true);
+
+        if($this->name=='') {
+            $ec
+            ->buildViolation('Cannot be blank.') // message
+            ->atPath('is_cie_group')                                                   // attribut de l'objet qui est violé
+            ->addViolation();
+        }
+       
     }
     else {
-        $ec->getGraphWalker()->walkReference($this, 'is_part_group', $ec->getPropertyPath(), true);
+        //$ec->getGraphWalker()->walkReference($this, 'is_part_group', $ec->getPropertyPath(), true);
+        if($this->lastname=='') {
+            $ec
+            ->buildViolation('Cannot be blank.') // message
+            ->atPath('is_part_group')                                                   // attribut de l'objet qui est violé
+            ->addViolation();
+        }
     }
   }
 

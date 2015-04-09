@@ -42,10 +42,53 @@ class Job
      */
     private $updatedate;
 
+    
+        /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="previewDate", type="datetime", nullable=true)
+     */
+    private $previewdate;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
+     */
+    private $previewUser;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="buildDate", type="datetime", nullable=true)
+     */
+    private $builddate;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
+     */
+    private $buildUser;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="unbuildDate", type="datetime", nullable=true)
+     */
+    private $unbuilddate;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
+     */
+    private $unbuildUser;
+
     /**
      * @var string
      *
-     * @ORM\Column(name="reference", type="string", length=50, nullable=false)
+     * @ORM\Column(name="reference", type="string", length=100, nullable=false)
      */
     private $reference;
 
@@ -1607,5 +1650,77 @@ class Job
     public function getComment()
     {
         return $this->comment;
+    }
+
+    /**
+     * Set previewdate
+     *
+     * @param \DateTime $previewdate
+     *
+     * @return Job
+     */
+    public function setPreviewdate($previewdate)
+    {
+        $this->previewdate = $previewdate;
+
+        return $this;
+    }
+
+    /**
+     * Get previewdate
+     *
+     * @return \DateTime
+     */
+    public function getPreviewdate()
+    {
+        return $this->previewdate;
+    }
+
+    /**
+     * Set builddate
+     *
+     * @param \DateTime $builddate
+     *
+     * @return Job
+     */
+    public function setBuilddate($builddate)
+    {
+        $this->builddate = $builddate;
+
+        return $this;
+    }
+
+    /**
+     * Get builddate
+     *
+     * @return \DateTime
+     */
+    public function getBuilddate()
+    {
+        return $this->builddate;
+    }
+
+    /**
+     * Set unbuilddate
+     *
+     * @param \DateTime $unbuilddate
+     *
+     * @return Job
+     */
+    public function setUnbuilddate($unbuilddate)
+    {
+        $this->unbuilddate = $unbuilddate;
+
+        return $this;
+    }
+
+    /**
+     * Get unbuilddate
+     *
+     * @return \DateTime
+     */
+    public function getUnbuilddate()
+    {
+        return $this->unbuilddate;
     }
 }

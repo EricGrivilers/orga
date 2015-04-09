@@ -219,7 +219,12 @@ class OffreType extends AbstractType
 
 
 
-
+        $builder->add('previewdate');
+        $builder->add('builddate');
+        $builder->add('unbuilddate');
+        $builder->add('previewUser');
+        $builder->add('buildUser');
+        $builder->add('unbuildUser');
 
         $builder->add('plannings', 'collection', array(
                 'type' => new Planning2offreType(),

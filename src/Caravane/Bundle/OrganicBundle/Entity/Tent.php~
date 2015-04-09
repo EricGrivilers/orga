@@ -1,6 +1,8 @@
 <?php
 
 namespace Caravane\Bundle\OrganicBundle\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContext;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +27,7 @@ class Tent
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=64, nullable=false)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -32,6 +35,7 @@ class Tent
      * @var string
      *
      * @ORM\Column(name="reference", type="string", length=64, nullable=true)
+     * @Assert\NotBlank()
      */
     private $reference;
 
