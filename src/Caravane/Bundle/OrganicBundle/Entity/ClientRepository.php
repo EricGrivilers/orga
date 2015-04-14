@@ -64,16 +64,16 @@ class ClientRepository extends EntityRepository
 			if(!$name=$client->getName()) {
 				$name=$client->getFirstname()." ".$client->getLastname();
 			}
-			if($client->getvat()) {
+			/*if($client->getvat()) {
 				$name.=" (".$client->getVat().")";
-			}
+			}*/
 			switch($type) {
 				default:
 					$clients[]="<li class='client'>cli <a href=\"".$controller->generateUrl('client_edit',array('id'=>$client->getId()))."\" >".$name."</a></li>";
 
 				break;
 				case 'json':
-					$clients[]=array('type'=>'contact','value'=>$client->getId(),"label"=>$name);
+					$clients[]=array('type'=>'contact','value'=>$client->getId(),"label"=>$name, "listName"=>$name." (".$client->getVat().")");
 				break;
 			}
 			//

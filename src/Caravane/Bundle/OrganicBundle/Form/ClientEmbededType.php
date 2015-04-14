@@ -21,7 +21,6 @@ class ClientEmbededType extends AbstractType
             ->add('name',"CaravaneUIBootstrapTypeahead",array(
                 'label'=>"Company name",
                 "attr"=>array(
-                    "class"=>"col-md-12",
                     "source_route"=>"client_autocomplete",
                     "label_field"=>"name",
                     "updater"=>"fillClient",
@@ -31,7 +30,6 @@ class ClientEmbededType extends AbstractType
             ->add('lastname',"CaravaneUIBootstrapTypeahead",array(
                 'label'=>"Lastname",
                 "attr"=>array(
-                    "class"=>"col-md-12",
                     "source_route"=>"client_autocomplete",
                     "label_field"=>"lastname",
                     "updater"=>"fillClient",

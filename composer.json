@@ -36,7 +36,7 @@
         "components/jquery":"*",
         "components/font-awesome":"*",
         "components/font-awesome":"*",
-        
+
         "stof/doctrine-extensions-bundle": "dev-master",
         "avalanche123/imagine-bundle": "v2.1",
         "arshaw/fullcalendar":"dev-master",
@@ -46,7 +46,7 @@
         "liuggio/excelbundle": "~2.0",
         "jms/translation-bundle": "dev-master",
         "ExactTarget/fuelux": "dev-master",
-        "biggora/bootstrap-ajax-typeahead": "dev-master",
+        "twitter/typeahead.js": "dev-master",
         "voidberg/html5sortable": "dev-master",
         "dangrossman/bootstrap-daterangepicker": "dev-master"
     },

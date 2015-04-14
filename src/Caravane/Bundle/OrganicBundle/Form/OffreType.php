@@ -217,15 +217,25 @@ class OffreType extends AbstractType
             ))
         ;
 
+        $date=new \Datetime('now');
+        $date->setTime(null,null);
 
-
-        $builder->add('previewdate');
-        $builder->add('builddate');
-        $builder->add('unbuilddate');
+        $builder->add('previewdate','datetime', array(
+            "data"=>$date,
+            "required"=>false
+        ));
+        $builder->add('builddate','datetime', array(
+            "data"=>$date,
+            "required"=>false
+        ));
+        $builder->add('unbuilddate','datetime', array(
+            "data"=>$date,
+            "required"=>false
+        ));
         $builder->add('previewUser');
         $builder->add('buildUser');
         $builder->add('unbuildUser');
-
+/*
         $builder->add('plannings', 'collection', array(
                 'type' => new Planning2offreType(),
                 'allow_add'    => true,
@@ -234,7 +244,7 @@ class OffreType extends AbstractType
                 'data_class'=> null
                 )
             );
-
+*/
         $builder->add('slices', 'collection', array(
                 'type' => new Slice2OffreType(),
                 'allow_add'    => true,

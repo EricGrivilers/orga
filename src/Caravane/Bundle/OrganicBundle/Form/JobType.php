@@ -214,7 +214,7 @@ class JobType extends AbstractType
         $builder->add('buildUser');
         $builder->add('unbuildUser');
 
-
+/*
 
         $builder->add('plannings', 'collection', array(
                 'type' => new Planning2JobType(),
@@ -224,7 +224,7 @@ class JobType extends AbstractType
                 'data_class'=> null
                 )
             );
-
+*/
         $builder->add('slices', 'collection', array(
                 'type' => new Slice2JobType(),
                 'allow_add'    => true,

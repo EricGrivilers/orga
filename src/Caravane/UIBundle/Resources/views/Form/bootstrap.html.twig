@@ -1,9 +1,50 @@
 {% block CaravaneUIBootstrapTypeahead_widget %}
 {% set label_field_value = form.parent.vars.value|access(form.vars.attr.label_field) %}
+<div class="scrollable-dropdown-menu">
+	<input class="{{form.vars.attr.class is defined?form.vars.attr.class:''}} form-control typeahead" type="text" id="{{form.vars.id}}" value="{{label_field_value}}" data-provide="typeahead" name="{{form.vars.full_name}}" >
+</div>
 
-	<input class="{{form.vars.attr.class}} typeahead" type="text" id="{{form.vars.id}}" value="{{label_field_value}}" data-provide="typeahead" name="{{form.vars.full_name}}" >
+<script type="text/javascript">
+		$(document).ready(function() {
 
+			var {{form.vars.id}}_var = new Bloodhound({
+				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+				queryTokenizer: Bloodhound.tokenizers.whitespace,
+				prefetch: Routing.generate('{{form.vars.attr.source_route}}'),
+				remote: Routing.generate('{{form.vars.attr.source_route}}')+"?query=%QUERY"
+			});
 
+			{{form.vars.id}}_var.initialize();
+
+			$('#{{form.vars.id}}').typeahead({
+				hint: true,
+				highlight: true,
+				minLength: 2
+			},
+			{
+				name: '',
+				displayKey: 'label',
+				source: {{form.vars.id}}_var.ttAdapter()
+			});
+
+			$('#{{form.vars.id}}').bind('typeahead:selected', function(obj, datum, name) {
+			        //alert(JSON.stringify(obj)); // object
+			        // outputs, e.g., {"type":"typeahead:selected","timeStamp":1371822938628,"jQuery19105037956037711017":true,"isTrigger":true,"namespace":"","namespace_re":null,"target":{"jQuery19105037956037711017":46},"delegateTarget":{"jQuery19105037956037711017":46},"currentTarget":
+			        alert(JSON.stringify(datum)); // contains datum value, tokens and custom fields
+			        // outputs, e.g., {"redirect_url":"http://localhost/test/topic/test_topic","image_url":"http://localhost/test/upload/images/t_FWnYhhqd.jpg","description":"A test description","value":"A test value","tokens":["A","test","value"]}
+			        // in this case I created custom fields called 'redirect_url', 'image_url', 'description'
+
+			        alert(JSON.stringify(name)); // contains dataset name
+			        // outputs, e.g., "my_dataset"
+			        //
+			     		{% if form.vars.attr.updater %}
+						{{form.vars.attr.updater}}(datum.value,'{{form.vars.attr.target_field}}')
+					{% endif %}
+			});
+		});
+	</script>
+
+{#
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#{{form.vars.id}}').typeahead({
@@ -35,6 +76,7 @@
 		    });
 		});
 	</script>
+#}
 {% endblock %}
 
 {% block CaravaneUIBootstrapRadioButton_widget %}

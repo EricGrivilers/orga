@@ -57,7 +57,7 @@ class Offre
      * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
      */
     private $previewUser;
-    
+
     /**
      * @var \DateTime
      *
@@ -657,6 +657,9 @@ class Offre
      */
     public function getStartbuild()
     {
+
+        return $this->builddate;
+        /*
         if($this->plannings) {
             if($this->plannings[1]) {
                 $this->startbuild = $this->plannings[1]->getStartdate();
@@ -664,6 +667,7 @@ class Offre
         }
 
         return $this->startbuild;
+        */
     }
 
     /**
@@ -686,12 +690,14 @@ class Offre
      */
     public function getEndbuild()
     {
-        if($this->plannings) {
+        return $this->unbuilddate;
+        /*if($this->plannings) {
             if($this->plannings[3]) {
                 $this->endbuild = $this->plannings[3]->getEnddate();
             }
         }
         return $this->endbuild;
+        */
 
     }
 
@@ -1775,7 +1781,7 @@ class Offre
     public function clearId()
     {
         $this->id = null; // également essayé avec "", 0, valeur de l'auto-incrément, true, false, -1
-     
+
         return $this;
     }
 
@@ -1851,7 +1857,7 @@ class Offre
         return $this->unbuilddate;
     }
 
-   
+
 
     /**
      * Set previewUser

@@ -199,8 +199,8 @@ class OffreController extends Controller
             return $this->redirect($this->generateUrl('offre_edit', array('id' => $entity->getId())));
         }
         else {
-           // var_dump($request->request);
-           // echo $form->getErrorsAsString() ;
+        //   var_dump($request->request);
+           echo $form->getErrorsAsString() ;
 
         }
         //return new Response('nok');
@@ -210,6 +210,7 @@ class OffreController extends Controller
             'productCategories' =>$productCategories,
             'customErrors'=>$this->customErrors
         ));
+
     }
 
     /**
@@ -332,7 +333,11 @@ class OffreController extends Controller
             $request->request->get('hash')?$hash=$request->request->get('hash'):$hash='';
             return $this->redirect($this->generateUrl('offre_edit', array('id' => $id)).$hash);
         }
+        else {
+         // var_dump($request->request);
+           echo $editForm->getErrorsAsString() ;
 
+        }
         return $this->render('CaravaneOrganicBundle:Offre:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
@@ -638,7 +643,7 @@ class OffreController extends Controller
 
     }
 
-    
+
     public function exportAction() {
 
 
@@ -647,7 +652,7 @@ class OffreController extends Controller
         $fields = array(
             "id"=>"ID",
             "clientId"=>"Client",
-           
+
             "reference"=>"Reference",
             "offreType"=>"Type",
             "status"=>"Status",
@@ -658,7 +663,7 @@ class OffreController extends Controller
             "endBuild"=>"To",
             "planningComments"=>"Planning comments",
             "requestDate"=>"Request date",
-            
+
             "userId"=>"Account manager",
             "priceType"=>"Price type",
             "price"=>"Price",
@@ -682,11 +687,11 @@ class OffreController extends Controller
             "comments"=>"Place comments",
              "language"=>"Language",
            // "introText"=>"",
-            "issue"=>"Issues", 
+            "issue"=>"Issues",
             //"deleted"=>"",
             //"public"=>"",
-           
-            
+
+
             "validity"=>"Validity",
             "jobId"=>"Job",
             "insertDate"=>"Creation date",
@@ -694,11 +699,11 @@ class OffreController extends Controller
 
         );
 
-        
+
 
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('CaravaneOrganicBundle:Offre')->findBy(array('deleted'=>false, 'public'=>true));
-        
+
         $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
         $exportManager=new ExportManager;
 
@@ -728,13 +733,13 @@ class OffreController extends Controller
                     else if($k=='jobId') {
                         if($entity->getJobId()) {
                             $value=$entity->getJobId()->getReference();
-                        }        
+                        }
                     }
                     else if($k=='clientId') {
                         if($entity->getClientId()) {
                             $value=$entity->getClientId()->getReference();
                         }
-                        
+
                     }
                     else if($k=='tents') {
                         $tents=array();
@@ -745,21 +750,21 @@ class OffreController extends Controller
                                 }
                             }
                         }
-                        
+
                         $value=implode(",",$tents);
                     }
                     else {
                         $value=$entity->$getter();
                     }
-                } 
+                }
                 $col = $exportManager->num2alpha($l).$r;
                 //echo $col." : ".$getter." : ".$value." <br/>";
                 $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, (string)$value);
                 $l++;
             }
-           
+
         }
-        
+
         $phpExcelObject->getActiveSheet()->setTitle($filename);
         // Set active sheet index to the first sheet, so Excel opens this as the first sheet
         $phpExcelObject->setActiveSheetIndex(0);
