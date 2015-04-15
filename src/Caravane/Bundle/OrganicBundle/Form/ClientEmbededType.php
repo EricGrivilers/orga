@@ -24,7 +24,8 @@ class ClientEmbededType extends AbstractType
                     "source_route"=>"client_autocomplete",
                     "label_field"=>"name",
                     "updater"=>"fillClient",
-                    'target_field'=>"#clientid"
+                    'target_field'=>"#clientid",
+                    "sub_form"=>'#offre_client'
                 )
             ))
             ->add('lastname',"CaravaneUIBootstrapTypeahead",array(
@@ -33,7 +34,8 @@ class ClientEmbededType extends AbstractType
                     "source_route"=>"client_autocomplete",
                     "label_field"=>"lastname",
                     "updater"=>"fillClient",
-                    'target_field'=>"#clientid"
+                    'target_field'=>"#clientid",
+                    "sub_form"=>'#offre_client'
                 )
             ))
             ->add('firstname',"text",array(
@@ -71,13 +73,13 @@ class ClientEmbededType extends AbstractType
                     "privé"=>"privé"
                 ),
                 'required'=>false,
-                "label"=>"Type",
+                "label"=>"Company type",
                 'attr'=>array(
                     'class'=>'col-md-12'
                 )
             ))
             ->add('vat',"text",array(
-                "label"=>"VAT",
+                "label"=>"Company VAT",
                 'attr'=>array(
                     'class'=>'col-md-12'
                 )

@@ -221,16 +221,16 @@ class OffreType extends AbstractType
         $date->setTime(null,null);
 
         $builder->add('previewdate','datetime', array(
-            "data"=>$date,
-            "required"=>false
+            "empty_data"=>$date,
+            //"required"=>false
         ));
         $builder->add('builddate','datetime', array(
-            "data"=>$date,
-            "required"=>false
+            "empty_data"=>$date,
+            //"required"=>false
         ));
         $builder->add('unbuilddate','datetime', array(
-            "data"=>$date,
-            "required"=>false
+            "empty_data"=>$date,
+            //"required"=>false
         ));
         $builder->add('previewUser');
         $builder->add('buildUser');

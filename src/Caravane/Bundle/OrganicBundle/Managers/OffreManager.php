@@ -43,7 +43,7 @@ class OffreManager
             $entity->setInsertdate(new \Datetime('now'));
             $entity->setUpdatedate(new \Datetime('now'));
             $loop=0;
-            foreach($entity->getPlannings() as $planning) {
+   /*         foreach($entity->getPlannings() as $planning) {
                 $planning->setOffreid($entity);
                 $em->persist($planning);
                 if($planning->getPlanningtype()=='build') {
@@ -53,7 +53,7 @@ class OffreManager
                     $entity->setEndbuild($planning->getEnddate());
                 }
             }
-
+*/
 
             $priceHt=0;
             foreach($entity->getProducts() as $product) {

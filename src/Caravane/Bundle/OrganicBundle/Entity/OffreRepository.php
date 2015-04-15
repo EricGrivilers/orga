@@ -28,9 +28,6 @@ class OffreRepository extends EntityRepository
 				case 'running':
 					$dql.=" AND (O.status!='ok' OR O.status!='draft' OR O.status='') AND O.jobid IS NULL ";
 				break;
-
-
-
 			}
 
 		}
@@ -110,7 +107,7 @@ class OffreRepository extends EntityRepository
 		$to = $date->format('Y-m-d H:i:s');
 		$date->modify("-30 days");
 		$from = $date->format('Y-m-d H:i:s');
-		
+
 		//echo $from;
 		//echo $to;
 		$qb = $this->getEntityManager()->getRepository("CaravaneOrganicBundle:Offre")->createQueryBuilder('O')
