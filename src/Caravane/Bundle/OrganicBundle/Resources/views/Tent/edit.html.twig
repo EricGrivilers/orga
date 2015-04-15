@@ -112,7 +112,7 @@
 
                             </div>
                         </div>
-                    </div>                      
+                    </div>
                     <div class="well">
                         <div class="row">
                             <div class="col-md-4">
@@ -164,14 +164,14 @@
                                             {{ form_widget(document.description)}}
                                         </td>
                                         <td>
-                                            <a class="delete_document" data-rel="{{entity.id}}" data-type="tent" data-target="{{document.vars.value.id}}"><i class="fa fa-trash"></i></a>
+                                            <a class="delete_document" data-rel="{{entity.id}}" data-type="tent" data-target="{{document.vars.value.id}}"><i class="fa fa-trash-o"></i></a>
                                         </td>
                                     </tr>
                                 {% endfor %}
                         </tbody>
                     </table>
                     {{ form_row(edit_form.files) }}
-               
+
 
                     {{ form_rest(edit_form) }}
                     <div class="row">

@@ -24,7 +24,7 @@
               <i data-time-icon="icon-time" data-date-icon="icon-calendar">
               </i>
             </span>
-          </div> <label>and</label> 
+          </div> <label>and</label>
           <div id="endDate" name="endDate" class="input-append date">
             <input data-format="dd/MM/yyyy hh:mm:ss" type="text" value="{{endDate|date('d/m/Y H:i:s')}}" />
             <span class="add-on">
@@ -45,7 +45,7 @@
             <span>{{startDate|date('d/m/Y H:i:s')}} - {{endDate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
         </div>
     </form>
-        
+
         {% endif %}
 </div>
 <div class="col-md-2">
@@ -68,7 +68,7 @@
             <th><a data-orderby="reference" >Reference</a></th>
             <th><a data-orderby="productCategory" >Category</a></th>
             <th><a data-orderby="name" >Name</a></th>
-            
+
             <th>Kit</th>
             <th><a data-orderby="ownerid" >Owner</a></th>
             <th>Color</th>
@@ -97,7 +97,7 @@
             <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
             <td>{{ entity.productCategory }}</td>
             <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
-            
+
             <td>{% if entity.kit %} Yes {% else %} No {% endif %}</td>
             <td>{% if entity.ownerid %}<a href="{{path('client',{'id':entity.ownerid.id})}}">{{ entity.ownerid.name }}</a>{% endif %}</td>
             <td>{{ entity.color }}</td>
@@ -109,7 +109,7 @@
             <td>{{ entity.etat }}</td>
             {% if type=='reserved' %}
                 <td>{% for job in entity.jobs %}
-                    
+
                     {% if job.jobid in jobs %}
                         <li><a href='{{path('job_edit',{'id':job.jobid.id})}}'>{{job.jobid}}</a></li>
                     {% endif %}
@@ -117,7 +117,7 @@
             {% endif %}
             {% if type=='option' %}
                 <td>{% for offre in entity.offres %}
-                   
+
                     {% if offre.offreid in offres %}
                         <li><a href='{{path('offre_edit',{'id':offre.offreid.id})}}'>{{offre.offreid}}</a></li>
                     {% endif %}
@@ -140,10 +140,10 @@
 
             <td>
                 <a href="{{ path('tent_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i></a>
-                
+
             </td>
              <td>
-                <a href="{{ path('tent_delete', { 'id': entity.id }) }}" data-rel="{{entity.reference}}" ><i class="fa fa-trash"></i></a>
+                <a href="{{ path('tent_delete', { 'id': entity.id }) }}" data-rel="{{entity.reference}}" ><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
     {% endfor %}

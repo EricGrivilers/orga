@@ -13,13 +13,13 @@
 
 
         {% if form_errors(edit_form) %}
-            <div class="alert alert-error">
+            <div class="alert alert-danger">
                 {{ form_errors(edit_form) }}
             </div>
         {% endif %}
         {% if customErrors %}
             {% for error in customErrors %}
-                <div class="alert alert-error">{{error}}
+                <div class="alert alert-danger">{{error}}
                 </div>
             {% endfor %}
         {% endif %}

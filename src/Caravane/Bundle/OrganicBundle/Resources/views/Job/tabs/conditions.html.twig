@@ -16,7 +16,7 @@
                         <td class="col-md-1">'~form_widget(edit_form.slices.vars.prototype.slice)~'</td>
                         <td class="col-md-1">'~form_widget(edit_form.slices.vars.prototype.priceht)~'</td>
                         <td class="col-md-1"></td>
-                        <td><a class="delete_new_row" ><i class="fa fa-trash"></i></a></td>
+                        <td><a class="delete_new_row" ><i class="fa fa-trash-o"></i></a></td>
                     ')|e}}">
 
                         {% for slice in edit_form.slices %}
@@ -36,7 +36,7 @@
                                 <a href="{{path('invoice_new_from_job',{'id':slice.vars.value.id})}}" class="btn btn-primary"><i class="fa fa-plus"></i> Invoice</a>
                             </td>
                             <td>
-                                <a class="delete_row" data-rel="{{entity.id}}" data-type="job_slice" data-target="{{slice.vars.value.id}}"><i class="fa fa-trash"></i></a>
+                                <a class="delete_row" data-rel="{{entity.id}}" data-type="job_slice" data-target="{{slice.vars.value.id}}"><i class="fa fa-trash-o"></i></a>
                             </td>
                             {% endif %}
                         </tr>

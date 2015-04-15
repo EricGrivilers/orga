@@ -9,16 +9,16 @@
 				<form id='mainForm' action="{{ path('job_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} data-entity="job" novalidate >
 				<input type="hidden" id="hash"  name="hash" />
 			{% endblock form_header %}
-			
+
 			<input type='hidden' name='clientid' id="clientid"  value="{% if entity.clientid %}{{entity.clientid.id}} {% endif %}"/>
 			{% if form_errors(edit_form) %}
-				<div class="alert alert-error">
+				<div class="alert alert-danger">
 					{{ form_errors(edit_form) }}
 				</div>
 			{% endif %}
 			{% if customErrors %}
 				{% for error in customErrors %}
-					<div class="alert alert-error">{{error}}
+					<div class="alert alert-danger">{{error}}
 					</div>
 				{% endfor %}
 			{% endif %}
@@ -129,7 +129,7 @@
 	</div>
 #}
 
-	
+
 
 {#	<div id="transportModal" data-target="{{entity.id}}" class="modal fade largeModal" tabindex="-1" role="dialog" aria-labelledby="transportModalLabel" aria-hidden="true">
 		<div class="modal-header">

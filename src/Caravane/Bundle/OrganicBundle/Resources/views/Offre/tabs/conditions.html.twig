@@ -14,7 +14,7 @@
                         <td class="col-md-9">'~form_widget(edit_form.slices.vars.prototype.comments)~'</td>
                         <td class="col-md-1">'~form_widget(edit_form.slices.vars.prototype.slice)~'</td>
                         <td class="col-md-1">'~form_widget(edit_form.slices.vars.prototype.priceht)~'</td>
-                        <td><a class="delete_new_row" ><i class="fa fa-trash"></i></a></td>
+                        <td><a class="delete_new_row" ><i class="fa fa-trash-o"></i></a></td>
                     ')|e}}">
 
                         {% for slice in edit_form.slices %}
@@ -24,7 +24,7 @@
 
                             <td>{{form_widget(slice.priceht)}}<br/>
                              </td>
-                             <td><a class="delete_row" data-rel="{{entity.id}}" data-type="offre_slice" data-target="{{slice.vars.value.id}}"><i class="fa fa-trash"></i></a></td>
+                             <td><a class="delete_row" data-rel="{{entity.id}}" data-type="offre_slice" data-target="{{slice.vars.value.id}}"><i class="fa fa-trash-o"></i></a></td>
                         </tr>
                         {% endfor %}
 

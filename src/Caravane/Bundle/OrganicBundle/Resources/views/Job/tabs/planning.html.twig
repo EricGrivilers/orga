@@ -1,44 +1,12 @@
 <div class="well">
     <div class="row">
-        {#% for i in (0..3) %}
-            <!--   -->
-            {% set planning=edit_form.plannings[i] %}
-            <div class="col-md-1">
-                <label><b>{{planning.vars.value.planningtype}}</b></label>{{form_widget(planning.planningtype)}}
-            </div>
-            <div class="col-md-9">
-                <div class="hidden">{{form_widget(planning.startdate)}}
-                {{form_widget(planning.enddate)}}</div>
-                <div class="reportrange" >
-                    <i class="icon-calendar icon-large"></i>
-                    <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i:s')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
-                </div>
-            </div>
-            <div class="col-md-2">
-                {{form_widget(planning.userid)}}
-            </div>
-            <!-- -->
-        {% endfor %#}
-
-        {{form_widget(edit_form.previewdate)}}
-        {{form_widget(edit_form.builddate)}}
-        {{form_widget(edit_form.unbuilddate)}}
-
-                {{form_widget(edit_form.previewUser)}}
-        {{form_widget(edit_form.buildUser)}}
-        {{form_widget(edit_form.unbuildUser)}}
-
         <div class="col-md-12">
             <table class="table">
                 <thead>
                     <tr>
                         <th>#
                         </th>
-                        <th>From
-                        </th>
-                        <th>To
-                        </th>
-                        <th>
+                        <th>Date
                         </th>
                         <th>In charge
                         </th>
@@ -47,61 +15,26 @@
                     </tr>
                 </thead>
                 <tbody >
-                    {% set planning=edit_form.plannings[0] %}
-                    <tr class='widget'>
-                        <td><label><b>{{planning.vars.value.planningtype}}</b></label>{{form_widget(planning.planningtype)}}</td>
-                        <td>{{form_widget(planning.startdate)}}</td>
-                        <td>{{form_widget(planning.enddate)}}</td>
-                        <td><div class="reportrange" >
-                            <i class="fa fa-calendar"></i>
-                            <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i')}}</span> <b class="caret"></b>
-                        </div></td>
-                        <td>{{form_widget(planning.userid)}}</td>
-                        {#<td>{{form_widget(planning.etat)}}</td>#}
-                    </tr>
-                    {% set planning=edit_form.plannings[1] %}
-                    <tr class='widget'>
-                        <td><label><b>{{planning.vars.value.planningtype}}</b></label>{{form_widget(planning.planningtype)}}</td>
-                        <td>{{form_widget(planning.startdate)}}</td>
-                        <td>{{form_widget(planning.enddate)}}</td>
-                        <td><div class="reportrange" >
-                            <i class="fa fa-calendar"></i>
-                            <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i')}}</span> <b class="caret"></b>
-                        </div></td>
-                        <td>{{form_widget(planning.userid)}}</td>
-                        {#<td>{{form_widget(planning.etat)}}</td>#}
-                    </tr>
-                    <tr><td colspan="5">{{form_row(edit_form.buildnotes)}}</td></tr>
-                    {% set planning=edit_form.plannings[2] %}
-                    <tr class='widget'>
-                        <td><label><b>{{planning.vars.value.planningtype}}</b></label>{{form_widget(planning.planningtype)}}</td>
-                        <td>{{form_widget(planning.startdate)}}</td>
-                        <td>{{form_widget(planning.enddate)}}</td>
-                        <td><div class="reportrange" >
-                            <i class="fa fa-calendar"></i>
-                            <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i')}}</span> <b class="caret"></b>
-                        </div></td>
-                        <td>{{form_widget(planning.userid)}}</td>
-                        {#<td>{{form_widget(planning.etat)}}</td>#}
-                    </tr>
-                    {% set planning=edit_form.plannings[3] %}
-                    <tr class='widget'>
-                        <td><label><b>{{planning.vars.value.planningtype}}</b></label>{{form_widget(planning.planningtype)}}</td>
-                        <td>{{form_widget(planning.startdate)}}</td>
-                        <td>{{form_widget(planning.enddate)}}</td>
-                        <td><div class="reportrange" >
-                            <i class="fa fa-calendar"></i>
-                            <span class='display'><span class='static'>From </span> {{planning.vars.value.startdate|date('d/m/Y H:i')}} <span class='static'> to </span> {{planning.vars.value.enddate|date('d/m/Y H:i')}}</span> <b class="caret"></b>
-                        </div></td>
-                        <td>{{form_widget(planning.userid)}}</td>
-                        {#<td>{{form_widget(planning.etat)}}</td>#}
-                    </tr>
-                    <tr><td colspan="5">{{form_row(edit_form.unbuildnotes)}}</td></tr>
-                </tbody>
-            </table>
 
-        
-            {{form_row(edit_form.planningcomments)}}
-         </div>
+                    <tr class="widget">
+                            <td><label><b>Preview</b></label></td>
+                            <td>{{form_widget(edit_form.previewdate)}}</td>
+                            <td>  {{form_widget(edit_form.previewUser)}}</td>
+                        </tr>
+                        <tr class="widget">
+                            <td><label><b>Build</b></label></td>
+                            <td>{{form_widget(edit_form.builddate)}}</td>
+                            <td>  {{form_widget(edit_form.buildUser)}}</td>
+                        </tr>
+                        <tr class="widget">
+                            <td><label><b>Unbuild</b></label></td>
+                            <td>{{form_widget(edit_form.unbuilddate)}}</td>
+                            <td>  {{form_widget(edit_form.unbuildUser)}}</td>
+                        </tr>
+
+            </tbody>
+        </table>
+        {{form_row(edit_form.planningcomments)}}
+        </div>
     </div>
 </div>

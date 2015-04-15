@@ -20,7 +20,7 @@
             <tbody class="products" id="products" {% if entity.id %} data-update="{{path('offre_sort_products',{'id':entity.id})}}" {% endif %} data-prototype="{{('
                         <td class="col-md-9">'~form_widget(edit_form.products.vars.prototype.description)~' '~form_widget(edit_form.products.vars.prototype.datas)~'</td>
                         <td class="col-md-3">'~form_widget(edit_form.products.vars.prototype.price)~'</td>
-                        <td>'~form_widget(edit_form.products.vars.prototype.isoption)~'<a class="delete_new_row" ><i class="fa fa-trash"></i></a></td>
+                        <td>'~form_widget(edit_form.products.vars.prototype.isoption)~'<a class="delete_new_row" ><i class="fa fa-trash-o"></i></a></td>
                     ')|e}}">
                     {% set c=0 %}
                 {% for product in edit_form.products  %}
@@ -67,7 +67,7 @@
                         <td class="col-md-3">
                             {{form_widget(product.price)}}
                         </td>
-                        <td>{{form_widget(product.isoption)}}<a class="delete_row" data-rel="{{entity.id}}" data-type="offre" data-target="{{product.vars.value.id}}"><i class="fa fa-trash"></i></a></td>
+                        <td>{{form_widget(product.isoption)}}<a class="delete_row" data-rel="{{entity.id}}" data-type="offre" data-target="{{product.vars.value.id}}"><i class="fa fa-trash-o"></i></a></td>
                     </tr>
                     {% endif %}
                     {% set c=c+1 %}
@@ -181,7 +181,7 @@
                                 <td class="col-md-3">
                                     {{form_widget(product.price)}}
                                 </td>
-                                <td>{{form_widget(product.isoption)}}<a class="delete_row" data-rel="{{entity.id}}" data-type="offre" data-target="{{product.vars.value.id}}"><i class="fa fa-trash"></i></a></td>
+                                <td>{{form_widget(product.isoption)}}<a class="delete_row" data-rel="{{entity.id}}" data-type="offre" data-target="{{product.vars.value.id}}"><i class="fa fa-trash-o"></i></a></td>
                             </tr>
                             {% endif %}
                         {% endfor %}
