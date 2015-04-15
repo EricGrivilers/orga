@@ -1,35 +1,4 @@
 
-
-/*
-
-$('#reportrange').daterangepicker(
-    {
-    	buttonClasses:"btn-primary",
-    	startDate:$('#startDate').val(),
-    	endDate:$('#endDate').val(),
-    	minDate: moment().subtract(29, 'days'),
-        ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        locale: {
-        	customRangeLabel:"Custom dates"
-        }
-    },
-    function(start, end) {
-    	$('#startDate').val(start.format('yyyy-MM-dd hh:mm:ss'));
-    	$('#endDate').val(end.format('yyyy-MM-dd hh:mm:ss'));
-        $('#reportrange span').html(start.format('MMMM d, yyyy') + ' - ' + end.format('MMMM d, yyyy'));
-        $('#rangeDateForm').submit();
-    }
-);
-
-*/
-
 function setRanges() {
     $('.reportrange').daterangepicker(
     {
@@ -59,24 +28,7 @@ function setRanges() {
         //this.element.find(" ~ .reportrange").css('color','1px solid red');
         this.element.find('span.display').html("<span class='static'>From</span> "+start.format('DD/MM/YYYY HH:mm') + " <span class='static'>to</span> " + end.format('DD/MM/YYYY HH:mm'));
         //$('#rangeDateForm').submit();
-    /*    var container = this.element.closest('.widget');
-        var index=container.index();
-        var i=0;
-        var lastdate='';
-        container.closest('tbody').find('.widget').each(function() {
-            
-            
-           // console.log(i);
-            if(i>0 && lastdate!='') {
-                console.log(lastdate);
-                $(this).find('input.startDate').val(lastdate);
-            }
-            lastdate=$(this).find('input.endDate').val();
-            i++;
-                
-        });
-        setRanges();
-    */
+
     }
 );
 }
@@ -87,7 +39,10 @@ $('.combobox ul.dropdown-menu li a').click(function() {
     $(this).closest('.combobox').find('input').val($(this).text());
 });
 
-
+$(window).on('popstate', function() {
+    var anchor = location.hash || $("a[data-toggle=tab]").first().attr("href");
+    $('a[href=' + anchor + ']').tab('show');
+});
 
 $(document).ready(function() {
 
@@ -98,6 +53,7 @@ $(document).ready(function() {
     initSlice();
     initSearch();
 
+/*
     var url = document.location.toString();
     formAction=$('#mainForm').attr('action');
     if (url.match('#')) {
@@ -110,12 +66,18 @@ $(document).ready(function() {
         $('#hash').val('#'+hash);
     }
 
-    // Change hash for page-reload
+
     $('.nav-tabs a').on('shown', function (e) {
         window.location.hash = e.target.hash;
         $('#hash').val(e.target.hash);
     })
-
+*/
+     if(location.hash) {
+        $('a[href=' + location.hash + ']').tab('show');
+    }
+    $(document.body).on("click", "a[data-toggle]", function(event) {
+        location.hash = this.getAttribute("href");
+    });
 
     $('select.status').change(function() {
         $(this).closest('form').submit();
@@ -237,24 +199,7 @@ function initProduct() {
             $('#mainForm').submit();
            // window.location.reload();
         });
-/*
-         e.preventDefault();
-         target=$(this).closest('table').find('tbody');
 
-        var prototype =$('table tbody#products').data('prototype');
-        var index=target.find('tr').length;
-        var newForm = prototype.replace(/__name__/g, index);
-         target.data('index', index + 1);
-         var $newFormLi = $('<tr></tr>').append(newForm);
-         target.append($newFormLi);
-         target.find('input:hidden').val($(this).data('isoption'));
-         $newFormLi.find('textarea:eq(0)').html('new product');
-         $(this).closest('form').submit();
-
-         $('a.delete_new_row').click(function() {
-            $(this).closest('tr').remove();
-        });
-*/
     });
 
     $('a.delete_document').click(function() {
@@ -306,7 +251,7 @@ function fillClient(clientid,targetField) {
     }
     entity=$('#mainForm').data('entity');
 
-    fields=new Array();
+    fields=[];
 
     $(targetField).val(clientid);
 
@@ -332,7 +277,7 @@ function fillClient(clientid,targetField) {
 
         });
 
-    })
+    });
 }
 
 
@@ -557,6 +502,6 @@ function resetSearch() {
 
 
 
-jQuery.expr[':'].contains = function(a, i, m) { 
-  return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0; 
+jQuery.expr[':'].contains = function(a, i, m) {
+  return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
 };
