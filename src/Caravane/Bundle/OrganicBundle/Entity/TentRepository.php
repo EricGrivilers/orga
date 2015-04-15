@@ -39,11 +39,11 @@ class TentRepository extends EntityRepository
 				case "winter":
 					$dql.=" AND  T.winter=1 ";
 				break;
-				
+
 			}
-			
+
 		}
-		
+
 		if($ob) {
 			$dql.=" ORDER BY T.".$ob." ";
 		}
@@ -64,15 +64,15 @@ class TentRepository extends EntityRepository
 
 
 	public function getFree($in=true, \Datetime $startDate=null,\Datetime $endDate=null,$options=array('job'=>true,'offre'=>true,'jobs'=>null,'offres'=>null)) {
-		
+
 		if(isset($options['page'])) {
 			$page=$options['page'];
 		}
 		else {
 			$page=$this->page;
 		}
-			
-		
+
+
 		if(is_null($startDate) && is_null($endDate)) {
 			$startDate=new \Datetime();
 			$endDate=new \Datetime();
@@ -84,8 +84,8 @@ class TentRepository extends EntityRepository
 		$dql.=" WHERE T.public=1 ";
 
 		//if($jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAllBetweenDates($startDate,$endDate)) {
-		
-		
+
+
 		$usedTents=array();
 		if(isset($options['exclude'])) {
 			$usedTents=$options['exclude'];
@@ -96,9 +96,9 @@ class TentRepository extends EntityRepository
 					if($tent2job->getTentid()) {
 						$usedTents[]=$tent2job->getTentid()->getId();
 					}
-					
+
 				}
-				
+
 			}
 		}
 		if($options['offre']==true) {
@@ -107,29 +107,29 @@ class TentRepository extends EntityRepository
 					if($tent2offre->getTentid()) {
 						$usedTents[]=$tent2offre->getTentid()->getId();
 					}
-					
+
 				}
-				
+
 			}
 		}
 		if(isset($options['ob'])) {
 			$ob=$options['ob'];
 			$this->ob=$ob;
-			
+
 		}
-		
+
 		$usedTents=array_unique($usedTents);
 		if($usedTents) {
 			if($in==true) {
 				$dql.=" AND T.id IN (".implode(",",$usedTents).") ";
 			}
 			else {
-				
+
 				$dql.=" AND T.id NOT IN (".implode(",",$usedTents).") ";
 			}
 		}
-		
-		
+
+
 		if(isset($options['category'])) {
 			$dql.=" AND T.productCategory='".$options['category']->getId()."' ";
 		}
@@ -137,7 +137,7 @@ class TentRepository extends EntityRepository
 			if($options['ownerid']==0) {
 				$dql.=" AND T.ownerid IS NULL ";
 			}
-			
+
 		}
 		//}
 
@@ -148,10 +148,10 @@ class TentRepository extends EntityRepository
 
 
 		$query = $this->getEntityManager()->createQuery($dql);
-		
+
 		//	$query->setFirstResult(($page-1)*25)
         //               ->setMaxResults(25);
-       
+
 
 		$tents = new Paginator($query, $fetchJoinCollection = true);
 
@@ -167,9 +167,9 @@ class TentRepository extends EntityRepository
 					if($tent2job->getTentid()==$tent->getId()) {
 						$usedInJob[]=$job;
 					}
-					
+
 				}
-				
+
 			}
 			return $usedInJob;
 	}
@@ -200,5 +200,4 @@ class TentRepository extends EntityRepository
 		return $categories;
 	}
 
-	
 }

@@ -297,12 +297,7 @@ class Offre
      */
     private $introtext;
 
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="issue", type="boolean", nullable=true)
-     */
-    private $issue;
+
 
     /**
      * @var string
@@ -352,6 +347,8 @@ class Offre
      * })
      */
     private $clientid;
+
+
 
 
     /**
@@ -408,6 +405,7 @@ class Offre
     private $condition;
 
 
+
      /**
      * @var \SLices
      *
@@ -415,6 +413,14 @@ class Offre
      */
 
     private $slices;
+
+
+        /**
+     * @var \Issue
+     *
+     * @ORM\ManyToMany(targetEntity="Issue", cascade={"persist", "remove"} )
+     */
+    private $issue;
 
 
 
@@ -1230,28 +1236,7 @@ class Offre
         return $this->introtext;
     }
 
-    /**
-     * Set issue
-     *
-     * @param boolean $issue
-     * @return Offre
-     */
-    public function setIssue($issue)
-    {
-        $this->issue = $issue;
 
-        return $this;
-    }
-
-    /**
-     * Get issue
-     *
-     * @return boolean
-     */
-    public function getIssue()
-    {
-        return $this->issue;
-    }
 
     /**
      * Set deleted
@@ -1587,16 +1572,6 @@ class Offre
 
 
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->tents2offre = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->plannings = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->slices = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
 
     /**
@@ -1930,4 +1905,54 @@ class Offre
     {
         return $this->unbuildUser;
     }
+
+    /**
+     * Add issue
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Issue $issue
+     *
+     * @return Offre
+     */
+    public function addIssue(\Caravane\Bundle\OrganicBundle\Entity\Issue $issue)
+    {
+        $this->issue[] = $issue;
+
+        return $this;
+    }
+
+    /**
+     * Remove issue
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Issue $issue
+     */
+    public function removeIssue(\Caravane\Bundle\OrganicBundle\Entity\Issue $issue)
+    {
+        $this->issue->removeElement($issue);
+    }
+
+    /**
+     * Get issue
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIssue()
+    {
+        return $this->issue;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->issue = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tents2offre = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->transport2offre = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->plannings = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->condition = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->slices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->document = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comment = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

@@ -41,7 +41,6 @@ class OffreController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-
         $users=$em->getRepository('CaravaneUserBundle:User')->findBy(array('enabled'=>true));
         $user=null;
         $userId=null;
@@ -192,6 +191,7 @@ class OffreController extends Controller
             $entity->setPublic(true);
             $offreManager=new offreManager($entity,$em);
             $offreManager->persist();
+            $offreManager->getIssues();
 
             $documentManager=new DocumentManager($entity,$em);
             $documentManager->moveAttachedDocument('/docs/offres/'.$entity->getId());
@@ -293,7 +293,6 @@ class OffreController extends Controller
 
         }
         else {
-
             if($this->get('request')->request->get('clientId')!=$entity->getClientid()->getId()) {
                 $client=$em->getRepository('CaravaneOrganicBundle:Client')->find($clientId);
                 $entity->setClientid($client);
@@ -307,6 +306,7 @@ class OffreController extends Controller
             $offreManager=new offreManager($entity,$em);
             $offreManager->persist();
 
+
             $entity->setPublic(true);
             if($entity->getStatus()=='CONFIRMÉ' && $entity->getJobid()=='') {
 
@@ -314,6 +314,7 @@ class OffreController extends Controller
                 $entity->setJobid($job);
                 $em->persist($entity);
                 $em->flush();
+
             }
 
             $documentManager=new DocumentManager($entity,$em);
@@ -331,10 +332,14 @@ class OffreController extends Controller
                 $em->flush();
             }
             $request->request->get('hash')?$hash=$request->request->get('hash'):$hash='';
+
+            $em->clear();
+            $offreManager2=new offreManager($entity,$em);
+            $offreManager2->getIssues();
             return $this->redirect($this->generateUrl('offre_edit', array('id' => $id)).$hash);
         }
         else {
-         // var_dump($request->request);
+          //var_dump($request->request);
            echo $editForm->getErrorsAsString() ;
 
         }

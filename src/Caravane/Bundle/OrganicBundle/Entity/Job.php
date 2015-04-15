@@ -42,7 +42,7 @@ class Job
      */
     private $updatedate;
 
-    
+
         /**
      * @var \DateTime
      *
@@ -56,7 +56,7 @@ class Job
      * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
      */
     private $previewUser;
-    
+
     /**
      * @var \DateTime
      *
@@ -309,10 +309,10 @@ class Job
      */
     private $public;
 
-    /**
-     * @var boolean
+        /**
+     * @var \Issue
      *
-     * @ORM\Column(name="issue", type="boolean", nullable=true)
+     * @ORM\ManyToMany(targetEntity="Issue", cascade={"persist", "remove"} )
      */
     private $issue;
 
@@ -448,17 +448,7 @@ class Job
     }
 
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->invoiceid = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->tents2job = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->plannings = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->slices = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
 
 
     public function setTotalSlice($totalSlice) {
@@ -1283,28 +1273,6 @@ class Job
         return $this->public;
     }
 
-    /**
-     * Set issue
-     *
-     * @param boolean $issue
-     * @return Job
-     */
-    public function setIssue($issue)
-    {
-        $this->issue = $issue;
-
-        return $this;
-    }
-
-    /**
-     * Get issue
-     *
-     * @return boolean
-     */
-    public function getIssue()
-    {
-        return $this->issue;
-    }
 
     /**
      * Set language
@@ -1645,7 +1613,7 @@ class Job
     /**
      * Get comment
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getComment()
     {
@@ -1795,4 +1763,53 @@ class Job
     {
         return $this->unbuildUser;
     }
+
+    /**
+     * Add issue
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Issue $issue
+     *
+     * @return Job
+     */
+    public function addIssue(\Caravane\Bundle\OrganicBundle\Entity\Issue $issue)
+    {
+        $this->issue[] = $issue;
+
+        return $this;
+    }
+
+    /**
+     * Remove issue
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Issue $issue
+     */
+    public function removeIssue(\Caravane\Bundle\OrganicBundle\Entity\Issue $issue)
+    {
+        $this->issue->removeElement($issue);
+    }
+
+    /**
+     * Get issue
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIssue()
+    {
+        return $this->issue;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->issue = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->invoiceid = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tents2job = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->plannings = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->slices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->document = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comment = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

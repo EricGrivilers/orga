@@ -130,10 +130,10 @@ class Tent
      */
     private $winter;
 
-    /**
-     * @var integer
+        /**
+     * @var \Issue
      *
-     * @ORM\Column(name="issue", type="integer", nullable=true)
+     * @ORM\ManyToMany(targetEntity="Issue", cascade={"persist", "remove"} )
      */
     private $issue;
 
@@ -585,28 +585,7 @@ class Tent
         return $this->winter;
     }
 
-    /**
-     * Set issue
-     *
-     * @param integer $issue
-     * @return Tent
-     */
-    public function setIssue($issue)
-    {
-        $this->issue = $issue;
 
-        return $this;
-    }
-
-    /**
-     * Get issue
-     *
-     * @return integer
-     */
-    public function getIssue()
-    {
-        return $this->issue;
-    }
 
     /**
      * Set insertdate
@@ -722,13 +701,7 @@ class Tent
     {
         return $this->ownerid;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->tents2job = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
 
     /**
      * Add tents2job
@@ -944,5 +917,39 @@ class Tent
     public function getDocument()
     {
         return $this->document;
+    }
+
+    /**
+     * Add issue
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Issue $issue
+     *
+     * @return Tent
+     */
+    public function addIssue(\Caravane\Bundle\OrganicBundle\Entity\Issue $issue)
+    {
+        $this->issue[] = $issue;
+
+        return $this;
+    }
+
+    /**
+     * Remove issue
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Issue $issue
+     */
+    public function removeIssue(\Caravane\Bundle\OrganicBundle\Entity\Issue $issue)
+    {
+        $this->issue->removeElement($issue);
+    }
+
+    /**
+     * Get issue
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIssue()
+    {
+        return $this->issue;
     }
 }

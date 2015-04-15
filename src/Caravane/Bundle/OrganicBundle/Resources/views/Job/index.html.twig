@@ -67,7 +67,7 @@
     <tbody>
     {% for entity in entities %}
     {% set row=loop.index %}
-        <tr {% if entity.issue>0 %} class="error" {% endif %}>
+        <tr {% if entity.issue>0 %} class="danger" {% endif %}>
             <td><a href="{{ path('job_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
             <td>{% if entity.clientid %} <a href="{{ path('client_edit', { 'id': entity.clientid.id }) }}">{{ entity.clientid.name }}</a> {% endif %}</td>
             <td>{{ entity.offretype }}</td>

@@ -117,6 +117,11 @@ class Product2offre
      */
     private $toremove;
 
+
+
+    public function __toString() {
+        return $this->getId()."_".$this->getProductId();
+    }
     /**
      * Get id
      *
@@ -414,7 +419,7 @@ class Product2offre
     /**
      * Get transportid
      *
-     * @return \Caravane\Bundle\OrganicBundle\Entity\Transport 
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Transport
      */
     public function getTransportid()
     {

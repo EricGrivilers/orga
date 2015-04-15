@@ -40,6 +40,7 @@ class EntitiesStatusUpdater {
         $entityManager = $args->getEntityManager();
         if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Offre) {
 
+
         }
         if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Job) {
             $jobManager=new JobManager($entity,$entityManager);

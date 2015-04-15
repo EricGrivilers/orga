@@ -3,6 +3,7 @@
 namespace Caravane\Bundle\OrganicBundle\Managers;
 
 use Caravane\Bundle\OrganicBundle\Entity\Offre;
+use Caravane\Bundle\OrganicBundle\Entity\Issue;
 
 class OffreManager
 {
@@ -35,7 +36,7 @@ class OffreManager
             $entity=$this->entity;
             $em=$this->em;
 
-            $issue=0;
+            $errors=array();
 
             $entity->setReference('temp');
             $entity->setLanguage($entity->getClientid()->getLanguage());
@@ -87,10 +88,19 @@ class OffreManager
             //$entity->setTotalSlice($totalSlice);
             //$entity->setTotalSlicePriceht($totalSlicePriceHt);
             if($entity->getTotalSlicePriceht()!=$entity->getPrice() || $entity->getTotalSlice()!=100 ) {
-                $issue++;
+
+                $errors[]=array('entity'=>$entity,"description"=>"Price error");
+            }
+            if(count($errors)>0) {
+                foreach($errors as $error) {
+                    $entity=$error['entity'];
+                     $issue=new Issue();
+                     $issue->setDescription($error['description']);
+                     $em->persist($issue);
+                     $entity->addIssue($issue);
+                }
             }
 
-            $entity->setIssue($issue);
 
 
 
@@ -216,7 +226,87 @@ class OffreManager
 
     }
 
+    public function getIssues() {
+        $offre=$this->entity;
+        $em=$this->em;
+        $from= new \Datetime('now');
+        $to= new \Datetime('now');
+        $to->modify('+5 years');
+        //$offres=$em->getRepository('CaravaneOrganicBundle:Offre')->findAllBetweenDates($from, $to);
+        //$tents=$em->getRepository('CaravaneOrganicBundle:Tent')->findAll();
 
+        //echo "--------------> C=".count($offres)."<br/>";
+
+        $dql="SELECT A, B
+        FROM CaravaneOrganicBundle:Offre A
+        JOIN CaravaneOrganicBundle:Offre B WITH ( A.builddate BETWEEN B.builddate AND B.unbuilddate
+        or A.unbuilddate BETWEEN  B.builddate AND B.unbuilddate
+        and A.id != B.id )";
+
+
+        $dql.="WHERE A.public=1
+        and B.public=1
+        and A.offretype='rent'
+        and B.offretype='rent' ";
+
+        $dql.=" AND ( (A.builddate BETWEEN '".$from->format('Y-m-d H:i:s')."' AND '".$to->format('Y-m-d H:i:s')."' ) ";
+        $dql.=" OR ( A.unbuilddate BETWEEN '".$from->format('Y-m-d H:i:s')."' AND '".$to->format('Y-m-d H:i:s')."' ) ";
+        $dql.=" OR ( A.builddate <= '".$from->format('Y-m-d H:i:s')."' AND A.unbuilddate >= '".$to->format('Y-m-d H:i:s')."' ) )";
+
+
+        $dql.=" AND ( (B.builddate BETWEEN '".$from->format('Y-m-d H:i:s')."' AND '".$to->format('Y-m-d H:i:s')."' ) ";
+        $dql.=" OR ( B.unbuilddate BETWEEN '".$from->format('Y-m-d H:i:s')."' AND '".$to->format('Y-m-d H:i:s')."' ) ";
+        $dql.=" OR ( B.builddate <= '".$from->format('Y-m-d H:i:s')."' AND B.unbuilddate >= '".$to->format('Y-m-d H:i:s')."' ) )";
+
+        $dql.=" AND A.id='".$offre->getId()."' ";
+        $dql.=" AND B.id!='".$offre->getId()."' ";
+        //$dql.= " ORDER BY A.id ";
+
+        echo $dql;
+        $query = $em->createQuery($dql);
+        $offres=$query->getResult();
+
+        echo "--------------> C=".count($offres)."<br/>";
+
+        $products=array();
+        $errors=array();
+        $issue=false;
+        foreach($offres as $offre) {
+            echo $offre->getReference()." from " .$offre->getBuilddate()->format('Y-m-d')." to ".$offre->getUnbuilddate()->format('Y-m-d')." <br/>";
+            foreach($offre->getProducts() as $p2o) {
+                if($p2o->getTentId()) {
+                    $pid = $p2o->getTentId()->getId();
+                    echo $pid;
+                     if(!isset($products[$pid])) {
+                        $products[$pid]=1;
+                    }
+                    else {
+                         $issue=true;
+                         $errors[]=array('entity'=>$offre, "description"=>"Product doublons: ".$p2o->getTentId()->getReference());
+                        $products[$pid]=$products[$pid]+1;
+                    }
+                }
+
+            }
+        }
+
+        if(count($errors)>0) {
+
+            foreach($errors as $error) {
+                $offre=$error['entity'];
+                foreach($offre->getIssue() as $i) {
+                    $offre->removeIssue($i);
+                }
+                $issue = new Issue();
+                $issue->setDescription($error['description']);
+                $em->persist($issue);
+                $offre->addIssue($issue);
+                $em->persist($offre);
+            }
+            $em->flush();
+        }
+
+    }
 
 }
 

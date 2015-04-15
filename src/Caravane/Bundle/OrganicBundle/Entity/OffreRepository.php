@@ -58,10 +58,14 @@ class OffreRepository extends EntityRepository
 
 		$dql="SELECT O FROM CaravaneOrganicBundle:Offre O ";
 		$dql.=" WHERE O.public=1 ";
-		$dql.=" AND O.startbuild BETWEEN '".$startDate->format('Y-m-d H:i:s')."' AND '".$endDate->format('Y-m-d H:i:s')."' ";
+		/*$dql.=" AND O.startbuild BETWEEN '".$startDate->format('Y-m-d H:i:s')."' AND '".$endDate->format('Y-m-d H:i:s')."' ";
 		$dql.=" OR O.endbuild BETWEEN '".$startDate->format('Y-m-d H:i:s')."' AND '".$endDate->format('Y-m-d H:i:s')."' ";
-		$dql.=" OR O.startbuild <= '".$startDate->format('Y-m-d H:i:s')."' AND O.endbuild >= '".$endDate->format('Y-m-d H:i:s')."' ";
+		$dql.=" OR O.startbuild <= '".$startDate->format('Y-m-d H:i:s')."' AND O.endbuild >= '".$endDate->format('Y-m-d H:i:s')."' ";*/
+		$dql.=" AND O.builddate BETWEEN '".$startDate->format('Y-m-d H:i:s')."' AND '".$endDate->format('Y-m-d H:i:s')."' ";
+		$dql.=" OR O.unbuilddate BETWEEN '".$startDate->format('Y-m-d H:i:s')."' AND '".$endDate->format('Y-m-d H:i:s')."' ";
+		$dql.=" OR O.builddate <= '".$startDate->format('Y-m-d H:i:s')."' AND O.unbuilddate >= '".$endDate->format('Y-m-d H:i:s')."' ";
 
+		$dql.=" ORDER BY O.builddate ASC ";
 
 
 		$query = $this->getEntityManager()->createQuery($dql);

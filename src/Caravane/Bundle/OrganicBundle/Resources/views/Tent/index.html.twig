@@ -93,7 +93,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr>
+        <tr {% if entity.issue>0 %} class="danger" {% endif %}>
             <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
             <td>{{ entity.productCategory }}</td>
             <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
