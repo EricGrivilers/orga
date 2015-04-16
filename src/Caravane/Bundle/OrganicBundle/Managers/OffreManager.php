@@ -7,16 +7,20 @@ use Caravane\Bundle\OrganicBundle\Entity\Issue;
 
 class OffreManager
 {
+    protected $router;
     protected $em;
     protected $entity;
 
-    public function __construct(Offre $entity,$em)
+    public function __construct($router, $em)
     {
+        $this->router=$router;
         $this->em=$em;
-    	$this->entity = $entity;
 
     }
 
+    public function loadEntity($entity) {
+        $this->entity=$entity;
+    }
 
     public function changeReference() {
 

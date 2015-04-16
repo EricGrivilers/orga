@@ -7,11 +7,13 @@ use Caravane\Bundle\OrganicBundle\Entity\Chat as Log;
 
 class JobManager
 {
+    protected $router;
     protected $em;
     protected $entity;
 
-    public function __construct(Job $entity,$em)
+    public function __construct($router, Job $entity,$em)
     {
+        $this->router=$router;
         $this->em=$em;
     	$this->entity = $entity;
 

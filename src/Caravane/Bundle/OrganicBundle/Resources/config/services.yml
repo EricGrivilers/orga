@@ -13,24 +13,24 @@ services:
             - { name: twig.extension }
     caravane_organic.client_manager:
         class: %caravane_organic.client.class%
-        arguments: [client,em]
+        arguments: [client,@doctrine.orm.entity_manager]
 
 
     caravane_organic.invoice_manager:
         class: %caravane_organic.invoice.class%
-        arguments: [invoice,em]
+        arguments: [@router, @doctrine.orm.entity_manager]
 
     caravane_organic.offre_manager:
         class: %caravane_organic.offre.class%
-        arguments: [offre,em]
+        arguments: [@router, @doctrine.orm.entity_manager]
 
     caravane_organic.pdf_manager:
         class: %caravane_organic.pdf.class%
-        arguments: [em,@templating,@html2pdf_factory]
+        arguments: [@doctrine.orm.entity_manager,@templating,@html2pdf_factory]
 
     caravane_organic.document_manager:
         class: %caravane_organic.document.class%
-        arguments: [entity,em]
+        arguments: [entity,@doctrine.orm.entity_manager]
 
 
     caravane_organic.listener:
