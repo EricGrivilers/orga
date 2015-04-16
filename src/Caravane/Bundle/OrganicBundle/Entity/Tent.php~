@@ -952,4 +952,17 @@ class Tent
     {
         return $this->issue;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->issue = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tents2job = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tents2offre = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->offres = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->jobs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->document = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

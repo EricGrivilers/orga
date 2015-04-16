@@ -73,7 +73,12 @@ class OffreController extends Controller
 
         $entities=$em->getRepository('CaravaneOrganicBundle:Offre')->listAll($type,$ob,$page,$offset, $userId);
         $nbpages=(Integer)(count($entities)/$offset)+1;
-
+/*
+foreach($entities as $entity) {
+    $offreManager2=new offreManager($entity,$em);
+    $offreManager2->getIssues();
+}
+*/
         return $this->render('CaravaneOrganicBundle:Offre:index.html.twig', array(
             'entities' => $entities,
             'type'=>$type,
@@ -195,6 +200,9 @@ class OffreController extends Controller
 
             $documentManager=new DocumentManager($entity,$em);
             $documentManager->moveAttachedDocument('/docs/offres/'.$entity->getId());
+
+            $offreManager2=new offreManager($entity,$em);
+            $offreManager2->getIssues();
 
             return $this->redirect($this->generateUrl('offre_edit', array('id' => $entity->getId())));
         }

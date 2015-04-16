@@ -91,7 +91,9 @@
             </td>
 
 
-             <td>{% if entity.issue|length>0 %}<a role="button" data-trigger="focus" data-container="body" data-toggle="popover" data-placement="top" data-content="{% for issue in entity.issue %}<p>{{issue.description}}</p> {% endfor %}"><span class="label label-danger" >{{ entity.issue|length }}</span>{% endif %}</a></td>
+             <td>
+                {% if entity.issue|length>0 %}
+                    <a type="button" data-toggle="popover" data-placement="left" data-content="{% for issue in entity.issue %}<p>{{issue.description}}</p> {% endfor %}"><span class="label label-danger" >{{ entity.issue|length }}</span></a>{% endif %}</td>
               <td>
                 <a href="{{ path('offre_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i></a>
 

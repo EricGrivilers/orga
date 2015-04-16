@@ -1797,4 +1797,19 @@ class Job
     {
         return $this->issue;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->issue = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->invoiceid = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tents2job = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->plannings = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->slices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->document = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comment = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

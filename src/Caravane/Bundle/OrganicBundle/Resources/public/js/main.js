@@ -118,7 +118,9 @@ $(document).ready(function() {
         document.location=href;
     });
 
-    $('[data-toggle="popover"]').popover();
+    $('[data-toggle="popover"]').popover({
+        html : true
+    });
 });
 
 

@@ -266,46 +266,62 @@ class OffreManager
         $query = $em->createQuery($dql);
         $offres=$query->getResult();
 
-        echo "--------------> C=".count($offres)."<br/>";
+        echo "offres --------------> C=".count($offres)."<br/>";
 
-        $products=array();
-        $errors=array();
-        $issue=false;
-        foreach($offres as $offre) {
-            echo $offre->getReference()." from " .$offre->getBuilddate()->format('Y-m-d')." to ".$offre->getUnbuilddate()->format('Y-m-d')." <br/>";
-            foreach($offre->getProducts() as $p2o) {
-                if($p2o->getTentId()) {
-                    $pid = $p2o->getTentId()->getId();
-                    echo $pid;
-                     if(!isset($products[$pid])) {
-                        $products[$pid]=1;
-                    }
-                    else {
-                         $issue=true;
-                         $errors[]=array('entity'=>$offre, "description"=>"Product doublons: ".$p2o->getTentId()->getReference());
-                        $products[$pid]=$products[$pid]+1;
-                    }
-                }
-
+        $p2os = $offre->getProducts();
+        $products =array();
+        foreach($p2os as $p2o) {
+            if($tent = $p2o->getTentId()) {
+                $products[]=$tent->getId();
             }
         }
 
-        if(count($errors)>0) {
+        print_r($products);
+        
 
-            foreach($errors as $error) {
-                $offre=$error['entity'];
-                foreach($offre->getIssue() as $i) {
-                    $offre->removeIssue($i);
+        foreach($offres as $o) {
+            if($o->getId()!=$offre->getId()) {
+                echo "offre: ".$o->getReference()."<br/>";
+                if($issues=$offre->getIssue()) {
+                    foreach($issues as $i) {
+                        if($i->getReference()==$o->getReference()) {
+                            $offre->removeIssue($i);
+                        }
+                    }
                 }
-                $issue = new Issue();
-                $issue->setDescription($error['description']);
-                $em->persist($issue);
-                $offre->addIssue($issue);
-                $em->persist($offre);
-            }
-            $em->flush();
-        }
+                if($issues=$o->getIssue()) {
+                    foreach($issues as $i) {
+                        if($i->getReference()==$offre->getReference()) {
+                            $o->removeIssue($i);
+                        }
+                    }
+                }
+                $p2os = $o->getProducts();
+                foreach($p2os as $p2o) {
+                    if($tent = $p2o->getTentId()) {
+                        echo "product: ".$tent->getReference()."<br/>";
+                        if(in_array($tent->getId(), $products)) {
+                            echo "----------> product: ".$tent->getReference()."<br/>";
+                            $issue1=new Issue();
+                            $issue1->setReference($offre->getReference());
+                            $issue1->setDescription("Product ".$tent->getReference()." - Offre <a href='#'>".$offre->getReference()."</a>");
+                            $em->persist($issue1);
+                            $o->addIssue($issue1);
+                            $em->persist($o);
 
+                            $issue2=new Issue();
+                            $issue2->setReference($o->getReference());
+                            $issue2->setDescription("Product ".$tent->getReference()." - Offre <a href='#'>".$o->getReference()."</a>");
+                            $em->persist($issue2);
+                            $offre->addIssue($issue2);
+                        }
+                    }
+                }
+            }
+        }
+        $em->flush();
+
+      
     }
 
 }
