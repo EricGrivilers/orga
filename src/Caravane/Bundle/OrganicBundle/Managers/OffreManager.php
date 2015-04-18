@@ -10,11 +10,13 @@ class OffreManager
     protected $router;
     protected $em;
     protected $entity;
+    protected $issueManager;
 
-    public function __construct($router, $em)
+    public function __construct($router, $em, $issueManager)
     {
         $this->router=$router;
         $this->em=$em;
+        $this->issueManager= $issueManager;
 
     }
 
@@ -23,8 +25,6 @@ class OffreManager
     }
 
     public function changeReference() {
-
-
         $entity=$this->entity;
         if($entity->getReference()=='temp' || $entity->getReference()=='') {
             $entity->setReference(date('Ym')."-".$entity->getId()."-O".strtoupper(substr($entity->getOffretype(),0,1))."-".$entity->getUserid()->getIso());
@@ -47,18 +47,6 @@ class OffreManager
             //
             $entity->setInsertdate(new \Datetime('now'));
             $entity->setUpdatedate(new \Datetime('now'));
-            $loop=0;
-   /*         foreach($entity->getPlannings() as $planning) {
-                $planning->setOffreid($entity);
-                $em->persist($planning);
-                if($planning->getPlanningtype()=='build') {
-                    $entity->setStartbuild($planning->getStartdate());
-                }
-                if($planning->getPlanningtype()=='unbuild') {
-                    $entity->setEndbuild($planning->getEnddate());
-                }
-            }
-*/
 
             $priceHt=0;
             foreach($entity->getProducts() as $product) {
@@ -111,14 +99,15 @@ class OffreManager
 
             $em->persist($entity);
             $em->flush();
+
             return $entity;
     }
 
 
     public function postPersist() {
-         $entity=$this->entity;
-         $em=$this->em;
-         $this->changeReference();
+        $entity=$this->entity;
+        $em=$this->em;
+        $this->changeReference();
         $em->persist($entity);
         $em->flush();
     }
@@ -231,101 +220,12 @@ class OffreManager
     }
 
     public function getIssues() {
-        $offre=$this->entity;
-        $em=$this->em;
-        $from= new \Datetime('now');
-        $to= new \Datetime('now');
-        $to->modify('+5 years');
-        //$offres=$em->getRepository('CaravaneOrganicBundle:Offre')->findAllBetweenDates($from, $to);
-        //$tents=$em->getRepository('CaravaneOrganicBundle:Tent')->findAll();
-
-        //echo "--------------> C=".count($offres)."<br/>";
-
-        $dql="SELECT A, B
-        FROM CaravaneOrganicBundle:Offre A
-        JOIN CaravaneOrganicBundle:Offre B WITH ( A.builddate BETWEEN B.builddate AND B.unbuilddate
-        or A.unbuilddate BETWEEN  B.builddate AND B.unbuilddate
-        and A.id != B.id )";
+        $entity=$this->entity;
+        $this->issueManager->loadEntity($entity);
+        $this->issueManager->getConflictIssues("Offre","Offre");
+        $this->issueManager->getConflictIssues("Offre","Job");
 
 
-        $dql.="WHERE A.public=1
-        and B.public=1
-        and A.offretype='rent'
-        and B.offretype='rent' ";
-
-        $dql.=" AND ( (A.builddate BETWEEN '".$from->format('Y-m-d H:i:s')."' AND '".$to->format('Y-m-d H:i:s')."' ) ";
-        $dql.=" OR ( A.unbuilddate BETWEEN '".$from->format('Y-m-d H:i:s')."' AND '".$to->format('Y-m-d H:i:s')."' ) ";
-        $dql.=" OR ( A.builddate <= '".$from->format('Y-m-d H:i:s')."' AND A.unbuilddate >= '".$to->format('Y-m-d H:i:s')."' ) )";
-
-
-        $dql.=" AND ( (B.builddate BETWEEN '".$from->format('Y-m-d H:i:s')."' AND '".$to->format('Y-m-d H:i:s')."' ) ";
-        $dql.=" OR ( B.unbuilddate BETWEEN '".$from->format('Y-m-d H:i:s')."' AND '".$to->format('Y-m-d H:i:s')."' ) ";
-        $dql.=" OR ( B.builddate <= '".$from->format('Y-m-d H:i:s')."' AND B.unbuilddate >= '".$to->format('Y-m-d H:i:s')."' ) )";
-
-        $dql.=" AND A.id='".$offre->getId()."' ";
-        $dql.=" AND B.id!='".$offre->getId()."' ";
-        //$dql.= " ORDER BY A.id ";
-
-        echo $dql;
-        $query = $em->createQuery($dql);
-        $offres=$query->getResult();
-
-        echo "offres --------------> C=".count($offres)."<br/>";
-
-        $p2os = $offre->getProducts();
-        $products =array();
-        foreach($p2os as $p2o) {
-            if($tent = $p2o->getTentId()) {
-                $products[]=$tent->getId();
-            }
-        }
-
-        print_r($products);
-        
-
-        foreach($offres as $o) {
-            if($o->getId()!=$offre->getId()) {
-                echo "offre: ".$o->getReference()."<br/>";
-                if($issues=$offre->getIssue()) {
-                    foreach($issues as $i) {
-                        if($i->getReference()==$o->getReference()) {
-                            $offre->removeIssue($i);
-                        }
-                    }
-                }
-                if($issues=$o->getIssue()) {
-                    foreach($issues as $i) {
-                        if($i->getReference()==$offre->getReference()) {
-                            $o->removeIssue($i);
-                        }
-                    }
-                }
-                $p2os = $o->getProducts();
-                foreach($p2os as $p2o) {
-                    if($tent = $p2o->getTentId()) {
-                        echo "product: ".$tent->getReference()."<br/>";
-                        if(in_array($tent->getId(), $products)) {
-                            echo "----------> product: ".$tent->getReference()."<br/>";
-                            $issue1=new Issue();
-                            $issue1->setReference($offre->getReference());
-                            $issue1->setDescription("Product ".$tent->getReference()." - Offre <a href='#'>".$offre->getReference()."</a>");
-                            $em->persist($issue1);
-                            $o->addIssue($issue1);
-                            $em->persist($o);
-
-                            $issue2=new Issue();
-                            $issue2->setReference($o->getReference());
-                            $issue2->setDescription("Product ".$tent->getReference()." - Offre <a href='#'>".$o->getReference()."</a>");
-                            $em->persist($issue2);
-                            $offre->addIssue($issue2);
-                        }
-                    }
-                }
-            }
-        }
-        $em->flush();
-
-      
     }
 
 }

@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Caravane\Bundle\OrganicBundle\Entity\Job;
+use Caravane\Bundle\OrganicBundle\Entity\Issue;
 use Caravane\Bundle\OrganicBundle\Form\JobType;
 use Caravane\Bundle\OrganicBundle\Managers\PdfManager;
 use Caravane\Bundle\OrganicBundle\Managers\DocumentManager;
@@ -136,6 +137,10 @@ class JobController extends Controller
 
             $documentManager=new DocumentManager($entity,$em);
             $documentManager->moveAttachedDocument('/docs/jobs/'.$entity->getId());
+
+            $jobManager2=$this->get('caravane_organic.job_manager');
+            $jobManager2->loadEntity($entity);
+            $jobManager2->getIssues();
 
             return $this->redirect($this->generateUrl('job_show', array('id' => $entity->getId())));
         }
@@ -268,10 +273,15 @@ class JobController extends Controller
             //$entity->setTotalSlice($totalSlice);
             //$entity->setTotalSlicePriceht($totalSlicePriceHt);
             if($entity->getTotalSlicePriceht()!=$entity->getPrice() || $entity->getTotalSlice()!=100 ) {
+                $is=new Issue();
+                $is->setReference("price");
+                $is->setDescription("Price error");
+                $em->persist($is);
+                $entity->addIssue($is);
                 $issue++;
             }
 
-            $entity->setIssue($issue);
+            //$entity->setIssue($issue);
 
             $em->persist($entity);
             $em->flush();
@@ -291,6 +301,10 @@ class JobController extends Controller
                 $em->flush();
             }
 
+            $em->clear();
+            $jobManager2=$this->get('caravane_organic.job_manager');
+            $jobManager2->loadEntity($entity);
+            $jobManager2->getIssues();
 
             return $this->redirect($this->generateUrl('job_edit', array('id' => $id)));
         }

@@ -43,8 +43,10 @@ class EntitiesStatusUpdater {
 
         }
         if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Job) {
-            $jobManager=new JobManager($entity,$entityManager);
+            $jobManager=$this->container->get('caravane_organic.job_manager');
+            $jobManager->loadEntity($entity);
             $jobManager->postPersist();
+
             $mails=$jobManager->checkAvailability($this->container);
             if(!empty($mails)) {
                 foreach($mails as $mail) {
@@ -112,12 +114,14 @@ class EntitiesStatusUpdater {
         }
          if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Job) {
 
-            $jobManager=new JobManager($entity,$entityManager);
+            $jobManager=$this->container->get('caravane_organic.job_manager');
+            $jobManager->loadEntity($entity);
             $jobManager->postPersist();
             $jobManager->checkAvailability($this->container);
         }
          if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Offre) {
-            $offreManager=new OffreManager($entity,$entityManager);
+             $offreManager=$this->container->get('caravane_organic.offre_manager');
+             $offreManager->loadEntity($entity);
             $offreManager->postPersist();
 
         }
@@ -131,7 +135,8 @@ class EntitiesStatusUpdater {
         $uow = $entityManager->getUnitOfWork();
         if ($entity instanceof \Caravane\Bundle\OrganicBundle\Entity\Offre) {
             if ($args->hasChangedField('offretype')  || $entity->getReference()=='temp') {
-                $offreManager=new OffreManager($entity,$entityManager);
+                $offreManager=$this->container->get('caravane_organic.offre_manager');
+                $offreManager->loadEntity($entity);
                 $entity->setReference($offreManager->changeReference());
                 $uow->recomputeSingleEntityChangeSet($entityManager->getClassMetadata("CaravaneOrganicBundle:Offre"),$entity);
             }

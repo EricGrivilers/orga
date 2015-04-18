@@ -2,6 +2,8 @@ parameters:
     caravane_organic.client.class: Caravane\Bundle\OrganicBundle\Managers\ClientManager
     caravane_organic.invoice.class: Caravane\Bundle\OrganicBundle\Managers\InvoiceManager
     caravane_organic.offre.class: Caravane\Bundle\OrganicBundle\Managers\OffreManager
+    caravane_organic.job.class: Caravane\Bundle\OrganicBundle\Managers\JobManager
+    caravane_organic.issue.class: Caravane\Bundle\OrganicBundle\Managers\IssueManager
     caravane_organic.document.class: Caravane\Bundle\OrganicBundle\Managers\DocumentManager
     caravane_organic.pdf.class: Caravane\Bundle\OrganicBundle\Managers\PdfManager
     caravane_organic.listener.class: Caravane\Bundle\OrganicBundle\Listeners\EntitiesStatusUpdater
@@ -22,6 +24,14 @@ services:
 
     caravane_organic.offre_manager:
         class: %caravane_organic.offre.class%
+        arguments: [@router, @doctrine.orm.entity_manager, @caravane_organic.issue_manager]
+
+    caravane_organic.job_manager:
+        class: %caravane_organic.job.class%
+        arguments: [@router, @doctrine.orm.entity_manager, @caravane_organic.issue_manager]
+
+    caravane_organic.issue_manager:
+        class: %caravane_organic.issue.class%
         arguments: [@router, @doctrine.orm.entity_manager]
 
     caravane_organic.pdf_manager:

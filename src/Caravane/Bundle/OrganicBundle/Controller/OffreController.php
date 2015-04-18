@@ -74,11 +74,13 @@ class OffreController extends Controller
         $entities=$em->getRepository('CaravaneOrganicBundle:Offre')->listAll($type,$ob,$page,$offset, $userId);
         $nbpages=(Integer)(count($entities)/$offset)+1;
 /*
-foreach($entities as $entity) {
-    $offreManager2=new offreManager();
-    $offreManager2->getIssues();
-}
+        foreach($entities as $entity) {
+            $offreManager2=$this->get('caravane_organic.offre_manager');
+            $offreManager2->loadEntity($entity);
+            $offreManager2->getIssues();
+        }
 */
+
         return $this->render('CaravaneOrganicBundle:Offre:index.html.twig', array(
             'entities' => $entities,
             'type'=>$type,
@@ -194,7 +196,7 @@ foreach($entities as $entity) {
             $entity->setClientid($client);
 
             $entity->setPublic(true);
-            $offreManager=new offreManager();
+            $offreManager=$this->get('caravane_organic.offre_manager');
             $offreManager->loadEntity($entity);
             $offreManager->persist();
             $offreManager->getIssues();
@@ -202,7 +204,7 @@ foreach($entities as $entity) {
             $documentManager=new DocumentManager($entity,$em);
             $documentManager->moveAttachedDocument('/docs/offres/'.$entity->getId());
 
-            $offreManager2=new offreManager();
+            $offreManager2=$this->get('caravane_organic.offre_manager');
             $offreManager2->loadEntity($entity);
             $offreManager2->getIssues();
 
@@ -344,7 +346,7 @@ foreach($entities as $entity) {
             $request->request->get('hash')?$hash=$request->request->get('hash'):$hash='';
 
             $em->clear();
-            $offreManager2=new offreManager();
+            $offreManager2=$this->get('caravane_organic.offre_manager');
             $offreManager2->loadEntity($entity);
             $offreManager2->getIssues();
             return $this->redirect($this->generateUrl('offre_edit', array('id' => $id)).$hash);

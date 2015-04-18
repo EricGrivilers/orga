@@ -10,15 +10,18 @@ class JobManager
     protected $router;
     protected $em;
     protected $entity;
+    protected $issueManager;
 
-    public function __construct($router, Job $entity,$em)
+    public function __construct($router,$em, $issueManager)
     {
         $this->router=$router;
         $this->em=$em;
-    	$this->entity = $entity;
-
+        $this->issueManager= $issueManager;
     }
 
+    public function loadEntity($entity) {
+        $this->entity=$entity;
+    }
 
     public function changeReference() {
 
@@ -31,15 +34,6 @@ class JobManager
                 }
             }
         }
-        /*foreach($plannings as $planning) {
-            if($planning->getPlanningtype()=='build') {
-                $eventDate=$planning->getStartdate();
-            }
-        }
-*/
-        //date('Ym')."-".$entity->getId()."-O".strtoupper(substr($entity->getOffretype(),0,1))."-".$entity->getUserid()->getIso()."_".$this->slugify($entity->getClientId()->getName())."_".$eventDate->format('Y-m-d')."_".$this->slugify($entity->getZip()."-".$entity->getCity());
-        //ID Job + Nom du client + date de l'event + lieu de l'event
-
 
         $name=$this->slugify($entity->getClientId()->getName())."_".$eventDate->format('Y-m-d')."_".$this->slugify($entity->getZip()."-".$entity->getCity());
 
@@ -93,7 +87,7 @@ class JobManager
 
                         if(in_array($tent,$tents)) {
                             $p->setToremove(true);
-                            $offre->setIssue(1);
+                         //$offre->setIssue(1);
                             //echo "offre:".$offre->getReference()." / tent:".$p->getTentid()->getReference()."<br/>";
                             $em->persist($p);
                             $em->persist($offre);
@@ -165,6 +159,15 @@ class JobManager
         }
 
         return $text;
+    }
+
+
+    public function getIssues()
+    {
+        $entity = $this->entity;
+        $this->issueManager->loadEntity($entity);
+        $this->issueManager->getConflictIssues("Job", "Job");
+        $this->issueManager->getConflictIssues("Job", "Offre");
     }
 
 }

@@ -16,5 +16,5 @@
 /www/
 
 .DS_Store
-
+.idea
 /__www

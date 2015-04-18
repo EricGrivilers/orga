@@ -67,7 +67,7 @@
     <tbody>
     {% for entity in entities %}
     {% set row=loop.index %}
-        <tr {% if entity.issue>0 %} class="danger" {% endif %}>
+        <tr {% if entity.issue|length>0 %} class="danger" {% endif %}>
             <td><a href="{{ path('job_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
             <td>{% if entity.clientid %} <a href="{{ path('client_edit', { 'id': entity.clientid.id }) }}">{{ entity.clientid.name }}</a> {% endif %}</td>
             <td>{{ entity.offretype }}</td>
@@ -94,8 +94,11 @@
                 </li>
             </td>
 
-
-             <td>{% if entity.issue %}<span class="label label-important">{{ entity.issue }}</span>{% endif %}</td>
+            <td>
+                {% if entity.issue|length>0 %}
+                <a type="button" data-toggle="popover" data-placement="left" data-content="{% for issue in entity.issue %}<p>{{issue.description}}</p> {% endfor %}"><span class="label label-danger" >{{ entity.issue|length }}</span></a>
+                {% endif %}
+            </td>
               <td>
                 <a href="{{ path('job_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i></a>
 

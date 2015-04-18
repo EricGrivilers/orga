@@ -4,6 +4,7 @@
 {% block body %}
 
 	<div class="row">
+
 		<div class="col-md-12">
 			{% block form_header %}
 				<form id='mainForm' action="{{ path('job_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} data-entity="job" novalidate >
@@ -23,6 +24,12 @@
 				{% endfor %}
 			{% endif %}
 
+
+            {% if entity.issue|length>0 %}
+                <div class="alert alert-danger">
+                    {% for issue in entity.issue %}<p>{{issue.description|raw}}</p> {% endfor %}
+                </div>
+            {% endif %}
 			<div class="row">
 				<div class="col-md-12">
 					<div class="actions">
