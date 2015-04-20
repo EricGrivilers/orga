@@ -80,6 +80,13 @@ class Offre
     private $unbuilddate;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="$startunbuilddate", type="datetime", nullable=true)
+     */
+    private $startunbuilddate;
+
+    /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")

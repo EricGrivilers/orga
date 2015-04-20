@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "39f210662172d671d8f6559ddc70ed78",
+    "hash": "aaee7cb195ca213c90f2cce0a62f6356",
     "packages": [
         {
             "name": "ExactTarget/fuelux",
@@ -15,7 +15,7 @@
                 "reference": "origin/master"
             },
             "type": "library",
-            "time": "2015-03-25 15:11:02"
+            "time": "2015-04-13 20:33:05"
         },
         {
             "name": "arshaw/fullcalendar",
@@ -124,7 +124,7 @@
                 "reference": "origin/master"
             },
             "type": "library",
-            "time": "2015-03-17 17:54:50"
+            "time": "2014-02-05 00:37:00"
         },
         {
             "name": "components/bootstrap",
@@ -272,17 +272,6 @@
             "description": "jQuery JavaScript Library",
             "homepage": "http://jquery.com",
             "time": "2014-12-23 06:48:45"
-        },
-        {
-            "name": "dangrossman/bootstrap-daterangepicker",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/dangrossman/bootstrap-daterangepicker.git",
-                "reference": "origin/master"
-            },
-            "type": "library",
-            "time": "2015-03-16 14:37:36"
         },
         {
             "name": "doctrine/annotations",
@@ -638,12 +627,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "3bf42bf13d1bd010cda573e9309bc6a10d9c0d43"
+                "reference": "4652c10a37883464dec54918ee4b8ca1c70418c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/3bf42bf13d1bd010cda573e9309bc6a10d9c0d43",
-                "reference": "3bf42bf13d1bd010cda573e9309bc6a10d9c0d43",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/4652c10a37883464dec54918ee4b8ca1c70418c2",
+                "reference": "4652c10a37883464dec54918ee4b8ca1c70418c2",
                 "shasum": ""
             },
             "require": {
@@ -707,7 +696,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2015-03-15 17:18:10"
+            "time": "2015-04-19 17:11:26"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -973,12 +962,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "5f1861835535c5bd90cf69f5a24f65488975a073"
+                "reference": "71d134fcc08e9d7869f2cc09c47cdd093db5ef0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/5f1861835535c5bd90cf69f5a24f65488975a073",
-                "reference": "5f1861835535c5bd90cf69f5a24f65488975a073",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/71d134fcc08e9d7869f2cc09c47cdd093db5ef0a",
+                "reference": "71d134fcc08e9d7869f2cc09c47cdd093db5ef0a",
                 "shasum": ""
             },
             "require": {
@@ -1042,7 +1031,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2015-04-14 15:37:54"
+            "time": "2015-04-18 09:13:31"
         },
         {
             "name": "egeloen/ckeditor-bundle",
@@ -1304,6 +1293,52 @@
             "time": "2013-09-12 17:00:40"
         },
         {
+            "name": "eonasdan/bootstrap-datetimepicker",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Eonasdan/bootstrap-datetimepicker.git",
+                "reference": "e750af7a4a65870030056a83fd1b52fc7b343246"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Eonasdan/bootstrap-datetimepicker/zipball/e750af7a4a65870030056a83fd1b52fc7b343246",
+                "reference": "e750af7a4a65870030056a83fd1b52fc7b343246",
+                "shasum": ""
+            },
+            "require": {
+                "components/jquery": ">=1.9.1",
+                "moment/moment": ">=2.8",
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "src/js/bootstrap-datetimepicker.js"
+                    ],
+                    "files": [
+                        "build/js/bootstrap-datetimepicker.min.js",
+                        "build/css/bootstrap-datetimepicker.css",
+                        "build/css/bootstrap-datetimepicker.min.css",
+                        "src/less/_bootstrap-datetimepicker.less",
+                        "src/less/bootstrap-datetimepicker-build.less"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Date/time picker widget based on twitter bootstrap",
+            "homepage": "http://eonasdan.github.io/bootstrap-datetimepicker/",
+            "keywords": [
+                "DateTimePicker",
+                "bootstrap"
+            ],
+            "time": "2015-04-02 22:01:45"
+        },
+        {
             "name": "friendsofsymfony/elastica-bundle",
             "version": "2.1.x-dev",
             "target-dir": "FOS/ElasticaBundle",
@@ -1428,7 +1463,7 @@
                     "homepage": "https://github.com/friendsofsymfony/FOSJsRoutingBundle/contributors"
                 },
                 {
-                    "name": "William DURAND",
+                    "name": "William Durand",
                     "email": "william.durand1@gmail.com"
                 }
             ],
@@ -1527,12 +1562,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "832f18ca55af72c97996157b1e08f147d1d5efeb"
+                "reference": "192c53916942847aee687722af54f431aead0b70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/832f18ca55af72c97996157b1e08f147d1d5efeb",
-                "reference": "832f18ca55af72c97996157b1e08f147d1d5efeb",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/192c53916942847aee687722af54f431aead0b70",
+                "reference": "192c53916942847aee687722af54f431aead0b70",
                 "shasum": ""
             },
             "require": {
@@ -1586,7 +1621,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2015-04-15 14:50:07"
+            "time": "2015-04-16 23:14:14"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -1594,12 +1629,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "53b8b1d768343d0811bf3ce7f9106c0b93d76eb2"
+                "reference": "0f130d2b0ad96914fb3e251bdfd835eb7c853660"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/53b8b1d768343d0811bf3ce7f9106c0b93d76eb2",
-                "reference": "53b8b1d768343d0811bf3ce7f9106c0b93d76eb2",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/0f130d2b0ad96914fb3e251bdfd835eb7c853660",
+                "reference": "0f130d2b0ad96914fb3e251bdfd835eb7c853660",
                 "shasum": ""
             },
             "require": {
@@ -1665,7 +1700,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2015-03-30 09:21:01"
+            "time": "2015-04-08 20:13:25"
         },
         {
             "name": "imagine/imagine",
@@ -2134,16 +2169,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/serializer.git",
-                "reference": "e619ca451a6644e3768a36d86de5df4afde938ac"
+                "reference": "8fc5eb9da5306966e748a166781e9294e369c7a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/e619ca451a6644e3768a36d86de5df4afde938ac",
-                "reference": "e619ca451a6644e3768a36d86de5df4afde938ac",
+                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/8fc5eb9da5306966e748a166781e9294e369c7a5",
+                "reference": "8fc5eb9da5306966e748a166781e9294e369c7a5",
                 "shasum": ""
             },
             "require": {
                 "doctrine/annotations": "1.*",
+                "doctrine/instantiator": "~1.0.3",
                 "jms/metadata": "~1.1",
                 "jms/parser-lib": "1.*",
                 "php": ">=5.3.2",
@@ -2195,7 +2231,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2015-01-06 11:33:26"
+            "time": "2015-04-17 09:43:25"
         },
         {
             "name": "jms/serializer-bundle",
@@ -2477,6 +2513,60 @@
             "time": "2015-01-29 15:59:44"
         },
         {
+            "name": "moment/moment",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moment/moment.git",
+                "reference": "ce233cecf3d07aa15869a1db0fd8a8c43efccfcd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moment/moment/zipball/ce233cecf3d07aa15869a1db0fd8a8c43efccfcd",
+                "reference": "ce233cecf3d07aa15869a1db0fd8a8c43efccfcd",
+                "shasum": ""
+            },
+            "require": {
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "moment.js"
+                    ],
+                    "files": [
+                        "min/*.js",
+                        "locale/*.js"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Wood",
+                    "email": "washwithcare@gmail.com"
+                }
+            ],
+            "description": "Parse, validate, manipulate, and display dates in JavaScript.",
+            "homepage": "http://github.com/moment/moment/",
+            "keywords": [
+                "date",
+                "ender",
+                "format",
+                "i18n",
+                "l10n",
+                "moment",
+                "parse",
+                "time",
+                "validate"
+            ],
+            "time": "2015-04-09 06:31:25"
+        },
+        {
             "name": "monolog/monolog",
             "version": "dev-master",
             "source": {
@@ -2736,7 +2826,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -2791,6 +2881,50 @@
                 "psr-3"
             ],
             "time": "2015-03-26 14:39:45"
+        },
+        {
+            "name": "robloach/component-installer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RobLoach/component-installer.git",
+                "reference": "c73a58466fc9182cc79c3bf9a0e90cd1e7487d94"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/c73a58466fc9182cc79c3bf9a0e90cd1e7487d94",
+                "reference": "c73a58466fc9182cc79c3bf9a0e90cd1e7487d94",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "1.0.0",
+                "kriswallsmith/assetic": "1.*",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "composer/composer": "1.*"
+            },
+            "type": "composer-installer",
+            "extra": {
+                "class": "ComponentInstaller\\Installer"
+            },
+            "autoload": {
+                "psr-0": {
+                    "ComponentInstaller": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Loach",
+                    "homepage": "http://robloach.net"
+                }
+            ],
+            "description": "Allows installation of Components via Composer.",
+            "time": "2015-03-30 03:26:38"
         },
         {
             "name": "ruflin/elastica",
@@ -2990,9 +3124,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "This bundle generates code for you",
@@ -3343,12 +3475,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "eb2ff793e8fc3153fc4d48ecf501bf131113695b"
+                "reference": "f48cc1ba3497eda512a75b76fb82d95ac80a05fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/eb2ff793e8fc3153fc4d48ecf501bf131113695b",
-                "reference": "eb2ff793e8fc3153fc4d48ecf501bf131113695b",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/f48cc1ba3497eda512a75b76fb82d95ac80a05fd",
+                "reference": "f48cc1ba3497eda512a75b76fb82d95ac80a05fd",
                 "shasum": ""
             },
             "require": {
@@ -3452,7 +3584,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-04-16 06:58:21"
+            "time": "2015-04-19 17:01:19"
         },
         {
             "name": "twig/extensions",
@@ -3506,12 +3638,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "67920147a81d5bd5bcd052b239ff85bae789f5a3"
+                "reference": "7d5fe0fbd442f6bfc526260eb14ed99ea2a561f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/67920147a81d5bd5bcd052b239ff85bae789f5a3",
-                "reference": "67920147a81d5bd5bcd052b239ff85bae789f5a3",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7d5fe0fbd442f6bfc526260eb14ed99ea2a561f5",
+                "reference": "7d5fe0fbd442f6bfc526260eb14ed99ea2a561f5",
                 "shasum": ""
             },
             "require": {
@@ -3555,7 +3687,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-03-26 12:33:23"
+            "time": "2015-04-19 08:35:47"
         },
         {
             "name": "twitter/typeahead.js",
@@ -3563,12 +3695,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twitter/typeahead.js.git",
-                "reference": "0fd2467baa3e0593b91794b485be0bd725b7d2cb"
+                "reference": "c078cf9c7dcb698ef23c2d0dc41d4f00231458d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twitter/typeahead.js/zipball/0fd2467baa3e0593b91794b485be0bd725b7d2cb",
-                "reference": "0fd2467baa3e0593b91794b485be0bd725b7d2cb",
+                "url": "https://api.github.com/repos/twitter/typeahead.js/zipball/c078cf9c7dcb698ef23c2d0dc41d4f00231458d1",
+                "reference": "c078cf9c7dcb698ef23c2d0dc41d4f00231458d1",
                 "shasum": ""
             },
             "type": "library",
@@ -3588,7 +3720,7 @@
                 "autocomplete",
                 "typeahead"
             ],
-            "time": "2014-10-01 14:38:12"
+            "time": "2015-04-17 18:59:51"
         },
         {
             "name": "voidberg/html5sortable",
@@ -3633,7 +3765,7 @@
             ],
             "authors": [
                 {
-                    "name": "William Durand",
+                    "name": "William DURAND",
                     "email": "william.durand1@gmail.com",
                     "homepage": "http://www.willdurand.fr"
                 }
@@ -3707,7 +3839,8 @@
         "exacttarget/fuelux": 20,
         "twitter/typeahead.js": 20,
         "voidberg/html5sortable": 20,
-        "dangrossman/bootstrap-daterangepicker": 20
+        "eonasdan/bootstrap-datetimepicker": 20,
+        "moment/moment": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

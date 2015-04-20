@@ -30,14 +30,14 @@ class JobType extends AbstractType
             ))
             */
 
-            ->add('eventdate','CaravaneUIDateTimePicker',array(
-                'widget'=>'single_text',
-                'format' => 'dd/MM/yyyy HH:mm',
-                'label'=>"Event date",
-                'attr'=>array(
-                    'class'=>'col-md-3 datepicker'
-                )
-            ))
+          ->add('eventdate','datetime',array(
+              'widget'=>'single_text',
+              'format' => 'dd/MM/yyyy HH:mm',
+              'label'=>"Event date",
+              'attr'=>array(
+                  'class'=>'datetimepicker'
+              )
+          ))
 
             ->add('planningcomments','ckeditor',array(
                 'label'=>"Planning comments",
@@ -207,9 +207,39 @@ class JobType extends AbstractType
             ))
         ;
 
-        $builder->add('previewdate');
-        $builder->add('builddate');
-        $builder->add('unbuilddate');
+        $builder->add('previewdate','datetime',array(
+            'widget'=>'single_text',
+            'format' => 'dd/MM/yyyy HH:mm',
+            'attr'=>array(
+                'class'=>'datetimepicker'
+            )
+        ));
+        $builder->add('builddate','datetime',array(
+            'widget'=>'single_text',
+            'format' => 'dd/MM/yyyy HH:mm',
+            'empty_data'=>$date,
+            'attr'=>array(
+                'class'=>'datetimepicker builddate'
+            )
+        ));
+        $builder->add('startunbuilddate','datetime',array(
+            'widget'=>'single_text',
+            'format' => 'dd/MM/yyyy HH:mm',
+            'empty_data'=>$date,
+            'attr'=>array(
+                'class'=>'datetimepicker startunbuilddate'
+            )
+        ));
+
+        $builder->add('unbuilddate','datetime',array(
+            'widget'=>'single_text',
+            'format' => 'dd/MM/yyyy HH:mm',
+            'empty_data'=>$date,
+            'attr'=>array(
+                'class'=>'datetimepicker unbuilddate'
+            )
+        ));
+
         $builder->add('previewUser');
         $builder->add('buildUser');
         $builder->add('unbuildUser');

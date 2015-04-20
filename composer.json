@@ -48,7 +48,8 @@
         "ExactTarget/fuelux": "dev-master",
         "twitter/typeahead.js": "dev-master",
         "voidberg/html5sortable": "dev-master",
-        "dangrossman/bootstrap-daterangepicker": "dev-master"
+        "eonasdan/bootstrap-datetimepicker": "dev-master",
+        "moment/moment": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
@@ -119,18 +120,6 @@
                 "version":"dev-master",
                 "source":{
                     "url": "git://github.com/voidberg/html5sortable.git",
-                    "type":"git",
-                    "reference":"origin/master"
-                }
-            }
-        },
-        {
-            "type":"package",
-            "package":{
-                "name":"dangrossman/bootstrap-daterangepicker",
-                "version":"dev-master",
-                "source":{
-                    "url": "git://github.com/dangrossman/bootstrap-daterangepicker.git",
                     "type":"git",
                     "reference":"origin/master"
                 }

@@ -162,4 +162,28 @@ class Issue
     {
         return $this->insertDate;
     }
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     *
+     * @return Issue
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
 }

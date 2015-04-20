@@ -80,6 +80,13 @@ class Offre
     private $unbuilddate;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="$startunbuilddate", type="datetime", nullable=true)
+     */
+    private $startunbuilddate;
+
+    /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
@@ -1955,4 +1962,31 @@ class Offre
         $this->comment = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+    /**
+     * Set startunbuilddate
+     *
+     * @param \DateTime $startunbuilddate
+     *
+     * @return Offre
+     */
+    public function setStartunbuilddate($startunbuilddate)
+    {
+        $this->startunbuilddate = $startunbuilddate;
+
+        return $this;
+    }
+
+    /**
+     * Get startunbuilddate
+     *
+     * @return \DateTime
+     */
+    public function getStartunbuilddate()
+    {
+        if(!$this->startunbuilddate) {
+            $this->startunbuilddate=$this->unbuilddate;
+        }
+        return $this->startunbuilddate;
+    }
 }

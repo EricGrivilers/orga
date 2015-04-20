@@ -18,16 +18,19 @@ class OffreType extends AbstractType
     }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $date = new \Datetime('now');
+        $date->setTime(0,0,0);
         $builder
            // ->add('insertdate')
             //->add('updatedate')
            // ->add('reference')
-            ->add('eventdate','CaravaneUIDateTimePicker',array(
-                'widget'=>'single_text',
+            ->add('eventdate','datetime',array(
+               'widget'=>'single_text',
                 'format' => 'dd/MM/yyyy HH:mm',
                 'label'=>"Event date",
+               'empty_data'=>$date,
                 'attr'=>array(
-                    'class'=>'col-md-3 datepicker'
+                    'class'=>'datetimepicker'
                 )
             ))
             ->add('validity','choice',array(
@@ -220,18 +223,40 @@ class OffreType extends AbstractType
         $date=new \Datetime('now');
         $date->setTime(null,null);
 
-        $builder->add('previewdate','datetime', array(
-            "empty_data"=>$date,
-            //"required"=>false
+        $builder->add('previewdate','datetime',array(
+            'widget'=>'single_text',
+            'format' => 'dd/MM/yyyy HH:mm',
+            'empty_data'=>$date,
+            'attr'=>array(
+                'class'=>'datetimepicker'
+            )
         ));
-        $builder->add('builddate','datetime', array(
-            "empty_data"=>$date,
-            //"required"=>false
+        $builder->add('builddate','datetime',array(
+            'widget'=>'single_text',
+            'format' => 'dd/MM/yyyy HH:mm',
+            'empty_data'=>$date,
+            'attr'=>array(
+                'class'=>'datetimepicker builddate'
+            )
         ));
-        $builder->add('unbuilddate','datetime', array(
-            "empty_data"=>$date,
-            //"required"=>false
+        $builder->add('startunbuilddate','datetime',array(
+            'widget'=>'single_text',
+            'format' => 'dd/MM/yyyy HH:mm',
+            'empty_data'=>$date,
+            'attr'=>array(
+                'class'=>'datetimepicker startunbuilddate'
+            )
         ));
+
+        $builder->add('unbuilddate','datetime',array(
+            'widget'=>'single_text',
+            'format' => 'dd/MM/yyyy HH:mm',
+            'empty_data'=>$date,
+            'attr'=>array(
+                'class'=>'datetimepicker unbuilddate'
+            )
+        ));
+
         $builder->add('previewUser');
         $builder->add('buildUser');
         $builder->add('unbuildUser');
