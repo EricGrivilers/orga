@@ -27,7 +27,7 @@ calendar.show=function(category) {
 		},
 		firstDay: 1,
 		businessHours: {
-			start: '05:00', // a start time (10am in this example)
+			start: '05:00', // a start time (5am in this example)
     		end: '23:59', // an end time (6pm in this example)
     		dow: [ 0, 1, 2, 3, 4, 5, 6 ]
 		},
@@ -48,7 +48,7 @@ calendar.show=function(category) {
 				//url: Routing.generate('fullcalendar_loader',{'user':$('#planning_user').val(),'show_inplace':$('#show_inplace:checked')}),
 				type: 'POST',
 				error: function(data) {
-					console.log(data);
+					//console.log(data);
 					alert('There was an error while fetching  Calendar!');
 				},
 				success: function() {

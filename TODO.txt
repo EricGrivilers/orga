@@ -2,10 +2,18 @@ UPDATE job J SET previewdate=(SELECT startDate FROM planning2job PJ WHERE PJ.job
 UPDATE offre J SET previewdate=(SELECT startDate FROM planning2offre PJ WHERE PJ.offreId=J.id AND planningType='preview');
 
 UPDATE offre J SET builddate=(SELECT startDate FROM planning2offre PJ WHERE PJ.offreId=J.id AND planningType='build');
-UPDATE offre J SET unbuilddate=(SELECT startDate FROM planning2offre PJ WHERE PJ.offreId=J.id AND planningType='unbuild');
+UPDATE offre J SET unbuilddate=(SELECT endDate FROM planning2offre PJ WHERE PJ.offreId=J.id AND planningType='unbuild');
+
+UPDATE offre J SET endbuilddate=(SELECT endDate FROM planning2offre PJ WHERE PJ.offreId=J.id AND planningType='build');
+UPDATE offre J SET startunbuilddate=(SELECT startDate FROM planning2offre PJ WHERE PJ.offreId=J.id AND planningType='unbuild');
+
 
 UPDATE job J SET builddate=(SELECT startDate FROM planning2job PJ WHERE PJ.jobId=J.id AND planningType='build');
-UPDATE job J SET unbuilddate=(SELECT startDate FROM planning2job PJ WHERE PJ.jobId=J.id AND planningType='unbuild');
+UPDATE job J SET unbuilddate=(SELECT endDate FROM planning2job PJ WHERE PJ.jobId=J.id AND planningType='unbuild');
+
+
+UPDATE job J SET endbuilddate=(SELECT endDate FROM planning2job PJ WHERE PJ.jobId=J.id AND planningType='build');
+UPDATE job J SET startunbuilddate=(SELECT startDate FROM planning2job PJ WHERE PJ.jobId=J.id AND planningType='unbuild');
 
 
 

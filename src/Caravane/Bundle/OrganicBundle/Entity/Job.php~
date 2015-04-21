@@ -65,6 +65,13 @@ class Job
     private $builddate;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="endbuilddate", type="datetime", nullable=true)
+     */
+    private $endbuilddate;
+    
+    /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
@@ -1819,4 +1826,28 @@ class Job
         $this->comment = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+    /**
+     * Set startunbuilddate
+     *
+     * @param \DateTime $startunbuilddate
+     *
+     * @return Job
+     */
+    public function setStartunbuilddate($startunbuilddate)
+    {
+        $this->startunbuilddate = $startunbuilddate;
+
+        return $this;
+    }
+
+    /**
+     * Get startunbuilddate
+     *
+     * @return \DateTime
+     */
+    public function getStartunbuilddate()
+    {
+        return $this->startunbuilddate;
+    }
 }

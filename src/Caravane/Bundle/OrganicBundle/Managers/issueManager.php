@@ -82,11 +82,11 @@ class IssueManager
         }
         //$dql.= " ORDER BY A.id ";
 
-        echo $dql;
+       // echo $dql;
         $query = $em->createQuery($dql);
         $offres=$query->getResult();
 
-        echo "offres --------------> C=".count($offres)."<br/>";
+       // echo "offres --------------> C=".count($offres)."<br/>";
 
         $p2os = $entity->getProducts();
         $products =array();
@@ -96,12 +96,12 @@ class IssueManager
             }
         }
 
-        print_r($products);
+        //print_r($products);
 
 
         foreach($offres as $o) {
             if($o->getId()!=$entity->getId()) {
-                echo "offre: ".$o->getReference()."<br/>";
+                //echo "offre: ".$o->getReference()."<br/>";
                 if($issues=$entity->getIssue()) {
                     foreach($issues as $i) {
                         if($i->getReference()==$o->getReference()) {
@@ -119,19 +119,21 @@ class IssueManager
                 $p2os = $o->getProducts();
                 foreach($p2os as $p2o) {
                     if($tent = $p2o->getTentId()) {
-                        echo "product: ".$tent->getReference()."<br/>";
+                        //echo "product: ".$tent->getReference()."<br/>";
                         if(in_array($tent->getId(), $products)) {
-                            echo "- ------------ -- - -- - - - - - - - ----------> product: ".$tent->getReference()."<br/>";
+                            //echo "- ------------ -- - -- - - - - - - - ----------> product: ".$tent->getReference()."<br/>";
                             $issue1=new Issue();
                             $issue1->setReference($entity->getReference());
-                            $issue1->setDescription("Product ".$tent->getReference()." - ".$a." <a href='#'>".$entity->getReference()."</a>");
+                            $link1=$this->router->generate(strtolower($a).'_edit', array('id'=>$entity->getId()));
+                            $issue1->setDescription("Product ".$tent->getReference()." - ".$a." <a href='".$link1."#tab_products'>".$entity->getReference()."</a>");
                             $em->persist($issue1);
                             $o->addIssue($issue1);
                             $em->persist($o);
 
                             $issue2=new Issue();
                             $issue2->setReference($o->getReference());
-                            $issue2->setDescription("Product ".$tent->getReference()." - ".$b." <a href='#'>".$o->getReference()."</a>");
+                            $link2=$this->router->generate(strtolower($b).'_edit', array('id'=>$o->getId()));
+                            $issue2->setDescription("Product ".$tent->getReference()." - ".$b." <a href='".$link2."#tab_products'>".$o->getReference()."</a>");
                             $em->persist($issue2);
                             $entity->addIssue($issue2);
                         }

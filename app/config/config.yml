@@ -145,15 +145,16 @@ fos_elastica:
 
 
 ivory_ck_editor:
+    default_config: basic
     configs:
-        minimum:
-            toolbar: "minimum"
+        basic:
+            toolbar: "basic"
 
-    toolbars:
-        configs:
-            minimum: [ "@editing", "/", "@basicstyles" , "/", "@paragraph" ]
-        items:
-            editing: [ 'find', 'selection', 'spellchecker' ]
-            basicstyles:     [ 'basicstyles', 'cleanup' ]
-            paragraph:     [ 'list', 'indent', 'blocks', 'align' ]
+    #toolbars:
+    #    configs:
+    #        minimum: [ "@editing", "/", "@basicstyles" , "/", "@paragraph" ]
+    #    items:
+    #        editing: [ 'find', 'selection', 'spellchecker' ]
+    #        basicstyles:     [ 'basicstyles', 'cleanup' ]
+    #        paragraph:     [ 'list', 'indent', 'blocks', 'align' ]
 

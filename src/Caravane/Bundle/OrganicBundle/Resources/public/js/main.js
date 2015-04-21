@@ -122,8 +122,18 @@ $(document).ready(function() {
         html : true
     });
 
-    $('.datetimepicker').datetimepicker({
-        format: "DD/MM/YYYY HH:mm",
+    $('.datetimepicker input[type=text]').datetimepicker({
+        format: "DD/MM/YYYY",
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            next: "fa fa-arrow-right",
+            previous: "fa fa-arrow-left",
+        }
+    });
+
+    $('input[type=time]').datetimepicker({
+        format: "HH:mm",
         icons: {
             time: "fa fa-clock-o",
             date: "fa fa-calendar",
@@ -132,22 +142,34 @@ $(document).ready(function() {
         }
     });
 
-    $(".datetimepicker.builddate").on("dp.change", function (e) {
-        $('.datetimepicker.startunbuilddate').data("DateTimePicker").minDate(e.date);
-    });
-    $(".datetimepicker.startunbuilddate").on("dp.change", function (e) {
-        $('.datetimepicker.builddate').data("DateTimePicker").maxDate(e.date);
+
+    $(".datetimepicker.d1 input[type=text]").on("dp.change", function (e) {
+        $(".datetimepicker.d2 input[type=text]").data("DateTimePicker").minDate(e.date);
     });
 
-    $(".datetimepicker.startunbuilddate").on("dp.change", function (e) {
-        $('.datetimepicker.unbuilddate').data("DateTimePicker").minDate(e.date);
+    $(".datetimepicker.d2 input[type=text]").on("dp.change", function (e) {
+        $(".datetimepicker.d3 input[type=text]").data("DateTimePicker").minDate(e.date);
     });
-    $(".datetimepicker.unbuilddate").on("dp.change", function (e) {
-        $('.datetimepicker.startunbuilddate').data("DateTimePicker").maxDate(e.date);
+
+    $(".datetimepicker.d3 input[type=text]").on("dp.change", function (e) {
+        $(".datetimepicker.d4 input[type=text]").data("DateTimePicker").minDate(e.date);
     });
+
+
 });
 
 
+function hideHour(obj,id) {
+    $('#'+id).parent().toggle();
+    if($(obj).prop("checked") == true){
+        if($(obj).parent().hasClass('end')) {
+            $('#'+id).val('23:59');
+        }
+        else {
+            $('#'+id).val('00:00');
+        }
+    }
+}
 
 function pagination() {
 

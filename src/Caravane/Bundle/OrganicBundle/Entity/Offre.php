@@ -66,6 +66,13 @@ class Offre
     private $builddate;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="endbuilddate", type="datetime", nullable=true)
+     */
+    private $endbuilddate;
+
+    /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="Caravane\UserBundle\Entity\User")
@@ -82,7 +89,7 @@ class Offre
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="$startunbuilddate", type="datetime", nullable=true)
+     * @ORM\Column(name="startunbuilddate", type="datetime", nullable=true)
      */
     private $startunbuilddate;
 
@@ -1972,6 +1979,7 @@ class Offre
      */
     public function setStartunbuilddate($startunbuilddate)
     {
+
         $this->startunbuilddate = $startunbuilddate;
 
         return $this;
@@ -1984,9 +1992,33 @@ class Offre
      */
     public function getStartunbuilddate()
     {
-        if(!$this->startunbuilddate) {
-            $this->startunbuilddate=$this->unbuilddate;
-        }
+
         return $this->startunbuilddate;
+    }
+
+    /**
+     * Set endbuilddate
+     *
+     * @param \DateTime $endbuilddate
+     *
+     * @return Offre
+     */
+    public function setEndbuilddate($endbuilddate)
+    {
+
+        $this->endbuilddate = $endbuilddate;
+
+        return $this;
+    }
+
+    /**
+     * Get endbuilddate
+     *
+     * @return \DateTime
+     */
+    public function getEndbuilddate()
+    {
+
+        return $this->endbuilddate;
     }
 }

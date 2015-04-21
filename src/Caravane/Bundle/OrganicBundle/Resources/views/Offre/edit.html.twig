@@ -1,5 +1,5 @@
 {% extends "::base.html.twig" %}
-
+{% form_theme edit_form 'CaravaneOrganicBundle:Form:fields.html.twig' %}
 
 {% block body %}
 
@@ -16,7 +16,7 @@
     {% if form_errors(edit_form) %}
     {{ form_errors(edit_form) }}
     {% endif %}
-    {% if customErrors %}
+    {% if customErrors is defined %}
     {% for error in customErrors %}
     <div class="alert alert-danger">{{error}}
     </div>

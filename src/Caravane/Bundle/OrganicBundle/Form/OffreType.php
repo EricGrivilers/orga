@@ -5,6 +5,8 @@ namespace Caravane\Bundle\OrganicBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 use Caravane\Bundle\OrganicBundle\Form\ClientType;
 use Doctrine\ORM\EntityRepository;
@@ -25,13 +27,14 @@ class OffreType extends AbstractType
             //->add('updatedate')
            // ->add('reference')
             ->add('eventdate','datetime',array(
-               'widget'=>'single_text',
-                'format' => 'dd/MM/yyyy HH:mm',
-                'label'=>"Event date",
+               'date_widget'=>'single_text',
+               'time_widget'=>'single_text',
+               'date_format' => 'dd/MM/yyyy',
                'empty_data'=>$date,
-                'attr'=>array(
-                    'class'=>'datetimepicker'
-                )
+               'attr'=>array(
+                   'class'=>'datetimepicker'
+               ),
+               "label"=>"Event date"
             ))
             ->add('validity','choice',array(
                 'choices'=>array('14'=>'14 days','21'=>'21 days','30'=>'1 month'),
@@ -224,36 +227,48 @@ class OffreType extends AbstractType
         $date->setTime(null,null);
 
         $builder->add('previewdate','datetime',array(
-            'widget'=>'single_text',
-            'format' => 'dd/MM/yyyy HH:mm',
+            'date_widget'=>'single_text',
+            'time_widget'=>'single_text',
+            'date_format' => 'dd/MM/yyyy',
             'empty_data'=>$date,
             'attr'=>array(
                 'class'=>'datetimepicker'
             )
         ));
         $builder->add('builddate','datetime',array(
-            'widget'=>'single_text',
-            'format' => 'dd/MM/yyyy HH:mm',
+            'date_widget'=>'single_text',
+            'time_widget'=>'single_text',
+            'date_format' => 'dd/MM/yyyy',
             'empty_data'=>$date,
             'attr'=>array(
-                'class'=>'datetimepicker builddate'
+                'class'=>'datetimepicker builddate start d1'
+            )
+        ));
+        $builder->add('endbuilddate','datetime',array(
+            'required' => false,
+            'date_widget'=>'single_text',
+            'time_widget'=>'single_text',
+            'date_format' => 'dd/MM/yyyy',
+            'attr'=>array(
+                'class'=>'datetimepicker builddate end d2'
             )
         ));
         $builder->add('startunbuilddate','datetime',array(
-            'widget'=>'single_text',
-            'format' => 'dd/MM/yyyy HH:mm',
+            'date_widget'=>'single_text',
+            'time_widget'=>'single_text',
+            'date_format' => 'dd/MM/yyyy',
             'empty_data'=>$date,
             'attr'=>array(
-                'class'=>'datetimepicker startunbuilddate'
+                'class'=>'datetimepicker unbuilddate start d3'
             )
         ));
 
         $builder->add('unbuilddate','datetime',array(
-            'widget'=>'single_text',
-            'format' => 'dd/MM/yyyy HH:mm',
-            'empty_data'=>$date,
+            'date_widget'=>'single_text',
+            'time_widget'=>'single_text',
+            'date_format' => 'dd/MM/yyyy',
             'attr'=>array(
-                'class'=>'datetimepicker unbuilddate'
+                'class'=>'datetimepicker unbuilddate end d4'
             )
         ));
 
@@ -286,7 +301,19 @@ class OffreType extends AbstractType
                 'by_reference' => false,
                 'data_class'=> null
                 )
-            );
+        );
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $data = $event->getData();
+            if($data->getUnbuilddate()=='') {
+                $data->setUnbuilddate($data->getStartunbuilddate());
+            }
+
+            if($data->getEndbuilddate()=='') {
+                $data->setEndbuilddate($data->getBuilddate());
+            }
+            $event->setData($data);
+        });
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

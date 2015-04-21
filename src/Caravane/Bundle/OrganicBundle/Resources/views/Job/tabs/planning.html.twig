@@ -1,40 +1,54 @@
 <div class="well">
     <div class="row">
+
+
+
+
+
+
         <div class="col-md-12">
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>#
-                        </th>
-                        <th>Date
-                        </th>
-                        <th>In charge
-                        </th>
-                        {#<th>Status
-                        </th>#}
-                    </tr>
+                <tr>
+                    <th>#
+                    </th>
+                    <th>Date
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th>In charge
+                    </th>
+                    {#<th>Status
+                    </th>#}
+                </tr>
                 </thead>
                 <tbody >
 
-                    <tr class="widget">
-                            <td><label><b>Preview</b></label></td>
-                            <td>{{form_widget(edit_form.previewdate)}}</td>
-                            <td>  {{form_widget(edit_form.previewUser)}}</td>
-                        </tr>
-                        <tr class="widget">
-                            <td><label><b>Build</b></label></td>
-                            <td>{{form_widget(edit_form.builddate)}}</td>
-                            <td>  {{form_widget(edit_form.buildUser)}}</td>
-                        </tr>
-                        <tr class="widget">
-                            <td><label><b>Unbuild</b></label></td>
-                            <td>{{form_widget(edit_form.unbuilddate)}}</td>
-                            <td>  {{form_widget(edit_form.unbuildUser)}}</td>
-                        </tr>
+                <tr class="widget">
+                    <td><label><b>Preview</b></label></td>
+                    <td>{{form_widget(edit_form.previewdate)}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>  {{form_widget(edit_form.previewUser)}}</td>
+                </tr>
+                <tr class="widget">
+                    <td><label><b>Build</b></label></td>
+                    <td>{{form_widget(edit_form.builddate)}}</td>
+                    <td> <input type="checkbox" {{ entity.endbuilddate==entity.builddate?"checked":"" }} onclick="$('#{{ edit_form.endbuilddate.vars.id }}').parent().toggle()"  /> 1 day</td>
+                    <td><div {{ entity.endbuilddate==entity.builddate?"style='display:none'":"" }}>{{form_widget(edit_form.endbuilddate)}}</div></td>
+                    <td>  {{form_widget(edit_form.buildUser)}}</td>
+                </tr>
+                <tr class="widget">
+                    <td><label><b>Unbuild</b></label></td>
+                    <td>{{form_widget(edit_form.startunbuilddate)}}</td>
+                    <td><input type="checkbox" {{ entity.startunbuilddate==entity.unbuilddate?"checked":"" }} onclick="$('#{{ edit_form.unbuilddate.vars.id }}').parent().toggle()" /> 1 day</td>
+                    <td><div {{ entity.startunbuilddate==entity.unbuilddate?"style='display:none'":"" }}>{{form_widget(edit_form.unbuilddate)}}</div></td>
+                    <td>  {{form_widget(edit_form.unbuildUser)}}</td>
+                </tr>
 
-            </tbody>
-        </table>
-        {{form_row(edit_form.planningcomments)}}
+                </tbody>
+            </table>
+            {{form_row(edit_form.planningcomments)}}
         </div>
     </div>
 </div>

@@ -235,17 +235,79 @@ class PlanningController extends Controller
         foreach($jobs as $job) {
             $users=array();
             $users[]=$job->getUserid();
-            foreach($job->getPlannings() as $p) {
+            $users[]=$job->getBuildUser();
+            $users[]=$job->getUnbuildUser();
+            /*foreach($job->getPlannings() as $p) {
                 $users[]=$p->getUserid();
-            }
+            }*/
             if(in_array($user,$users) || $request->get('user')=='any') {
                 $hasInplace=false;
+                //preview
+                if($job->getPreviewdate()) {
+                    $allDay=false;
+                    $hour= $job->getPreviewdate()->format("H:i");
+                    if($hour=='00:00' || $hour=='12:00') {
+                        $allDay=true;
+                    }
+                    $return_events[] = array(
+                        'start'=>$job->getPreviewdate()->format("Y-m-d\TH:i:sP"),
+                        'end'=>$job->getPreviewdate()->format("Y-m-d\TH:i:sP"),
+                        'allDay'=>$allDay,
+                        'className'=>"preview ".$job->getOffreType(),
+                        'title'=>$job->getReference(),
+                        'client'=>$job->getClientid()->getName(),
+                        'url'=>$this->generateUrl('job_edit',array('id'=>$job->getId())),
+                        'content'=>$this->renderView('CaravaneOrganicBundle:Job:popover.html.twig', array('job'=>$job))
+                    );
+                }
+
+
+
+
+                //build
+                $allDay=false;
+                $hour= $job->getBuilddate()->format("H:i");
+                if($hour=='00:00' || $hour=='12:00') {
+                    $allDay=true;
+                }
+                $return_events[] = array(
+                    'start'=>$job->getBuilddate()->format("Y-m-d\TH:i:sP"),
+                    'end'=>$job->getEndbuilddate()->format("Y-m-d\TH:i:sP"),
+                    'allDay'=>$allDay,
+                    'className'=>"build ".$job->getOffreType(),
+                    'title'=>$job->getReference(),
+                    'client'=>$job->getClientid()->getName(),
+                    'url'=>$this->generateUrl('job_edit',array('id'=>$job->getId())),
+                    'content'=>$this->renderView('CaravaneOrganicBundle:Job:popover.html.twig', array('job'=>$job))
+                );
+
+
+                //unbuild
+                $allDay=false;
+                $hour= $job->getStartunbuilddate()->format("H:i");
+                if($hour=='00:00' || $hour=='12:00') {
+                    $allDay=true;
+                }
+                $return_events[] = array(
+                    'start'=>$job->getStartunbuilddate()->format("Y-m-d\TH:i:sP"),
+                    'end'=>$job->getUnbuilddate()->format("Y-m-d\TH:i:sP"),
+                    'allDay'=>$allDay,
+                    'className'=>"unbuild ".$job->getOffreType(),
+                    'title'=>$job->getReference(),
+                    'client'=>$job->getClientid()->getName(),
+                    'url'=>$this->generateUrl('job_edit',array('id'=>$job->getId())),
+                    'content'=>$this->renderView('CaravaneOrganicBundle:Job:popover.html.twig', array('job'=>$job))
+                );
+
+
+/*
                 foreach($job->getPlannings() as $p) {
                     if($p->getPlanningtype()!="inplace" ) {
                         if($p->getStartdate() && $p->getEnddate() ) {
                             $return_events[] = array(
                                 'start'=>$p->getStartdate()->format("Y-m-d\TH:i:sP"),
                                 'end'=>$p->getEnddate()->format("Y-m-d\TH:i:sP"),
+                                'allDay'=>($p->getStartdate()->format("H:i")=='00:00' || $p->getEnddate()->format("H:i")=='23:59')?true:false,
                                 'className'=>$p->getPlanningtype()." ".$job->getOffreType(),
                                 'title'=>$p->getStartdate()->format("H:i")." - ".$job->getReference(),
                                 'client'=>$job->getClientid()->getName(),
@@ -264,16 +326,28 @@ class PlanningController extends Controller
                         
                     }
                 }
+*/
                 if($request->query->get('show_inplace')=='true') {
                     $return_events[] = array(
+                        'start'=>$job->getStartunbuilddate()->format("Y-m-d\TH:i:sP"),
+                        'end'=>$job->getStartunbuilddate()->format("Y-m-d\TH:i:sP"),
+                        'allDay'=>true,
+                        'className'=>"inplace ",
+                        'title'=>$job->getReference(),
+                        'client'=>$job->getClientid()->getName(),
+                        'url'=>$this->generateUrl('job_edit',array('id'=>$job->getId())),
+                        'content'=>$this->renderView('CaravaneOrganicBundle:Job:popover.html.twig', array('job'=>$job))
+                    );
+                   /* $return_events[] = array(
                         'start'=>$startBuild->format("Y-m-d\TH:i:sP"),
                         'end'=>$startUnbuild->format("Y-m-d\TH:i:sP"),
+                        'allDay'=>($startBuild->getStartdate()->format("H:i")=='00:00' || $startUnbuild()->format("H:i")=='23:59')?true:false,
                         'className'=>'inplace',
                         'title'=>$job->getReference(). " inplace",
                         'client'=>$job->getClientid()->getName(),
                         'url'=>$this->generateUrl('job_edit',array('id'=>$job->getId())),
                         'content'=>$this->renderView('CaravaneOrganicBundle:Job:popover.html.twig', array('job'=>$job))
-                    );
+                    );*/
                 }
 
             }
@@ -306,18 +380,20 @@ class PlanningController extends Controller
         $filename = "clients";
 
         $fields = array(
-            "jobid"=>"Job",
+            "id"=>"Job",
             "offreid"=>"Offre",
-            "planningtype"=>"Action",
-            "startdate"=>"From",
-            "enddate"=>"To",
+            "previewdate"=>"Preview",
+            "builddate"=>"Build From",
+            "endbuilddate"=>"To",
+            "startunbuilddate"=>"Unbuild From",
+            "unbuilddate"=>"To"
         );
 
         
 
         
-        $jobentities = $em->getRepository('CaravaneOrganicBundle:Planning2Job')->findAllByMonth($month);
-        $offreentities = $em->getRepository('CaravaneOrganicBundle:Planning2Offre')->findAllByMonth($month);
+        $jobentities = $em->getRepository('CaravaneOrganicBundle:Job')->findAllByMonth($month);
+        $offreentities = $em->getRepository('CaravaneOrganicBundle:Offre')->findAllByMonth($month);
         
         $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
         $exportManager=new ExportManager;
@@ -346,7 +422,7 @@ class PlanningController extends Controller
                     $value="";
                 }
                 else if($entity->$getter()) {
-                    if($k=='startdate' || $k=='enddate') {
+                    if($k=='previewdate' || $k=='eventdate' || $k=='builddate' || $k=='endbuilddate' || $k=='startunbuilddate' || $k=='unbuilddate' ) {
                         $value=$entity->$getter()->format('Y-m-d');
                     }
                     else if($k=='jobid') {
@@ -368,10 +444,10 @@ class PlanningController extends Controller
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, "Job");
             $l++;
             $col = $exportManager->num2alpha($l).$r;
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $entity->getJobId()->getUserId()->getName());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $entity->getUserId()->getName());
             $l++;
             $col = $exportManager->num2alpha($l).$r;
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $entity->getJobId()->getClientId()->getName());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $entity->getClientId()->getName());
         }
 
         foreach($offreentities as $entity) {
@@ -380,11 +456,11 @@ class PlanningController extends Controller
             foreach($fields as $k=>$v) {
                 $getter="get".ucwords($k);
                 $value="";
-                if($k=='jobid') {
+                if($k=='offreid') {
                     $value="";
                 }
                 else if($entity->$getter()) {
-                    if($k=='startdate' || $k=='enddate') {
+                    if($k=='previewdate' || $k=='eventdate' || $k=='builddate' || $k=='endbuilddate' || $k=='startunbuilddate' || $k=='unbuilddate' ) {
                         $value=$entity->$getter()->format('Y-m-d');
                     }
                      else if($k=='offreid') {
@@ -406,10 +482,10 @@ class PlanningController extends Controller
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, "Offer");
             $l++;
             $col = $exportManager->num2alpha($l).$r;
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $entity->getOffreId()->getUserId()->getName());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $entity->getUserId()->getName());
             $l++;
             $col = $exportManager->num2alpha($l).$r;
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $entity->getOffreId()->getClientId()->getName());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue($col, $entity->getClientId()->getName());
         }
         
         $phpExcelObject->getActiveSheet()->setTitle('Planning');

@@ -73,13 +73,16 @@ class OffreController extends Controller
 
         $entities=$em->getRepository('CaravaneOrganicBundle:Offre')->listAll($type,$ob,$page,$offset, $userId);
         $nbpages=(Integer)(count($entities)/$offset)+1;
-/*
+
+
+        /*
         foreach($entities as $entity) {
             $offreManager2=$this->get('caravane_organic.offre_manager');
             $offreManager2->loadEntity($entity);
             $offreManager2->getIssues();
         }
 */
+
 
         return $this->render('CaravaneOrganicBundle:Offre:index.html.twig', array(
             'entities' => $entities,
@@ -287,6 +290,7 @@ class OffreController extends Controller
             throw $this->createNotFoundException('Unable to find Offre entity.');
         }
 
+
         $originalProducts = array();
 
 
@@ -312,7 +316,9 @@ class OffreController extends Controller
         }
 
 
+
         $issue=0;
+
         if ($editForm->isValid()) {
 
             $offreManager=$this->get('caravane_organic.offre_manager');
@@ -353,9 +359,13 @@ class OffreController extends Controller
         }
         else {
           //var_dump($request->request);
-           echo $editForm->getErrorsAsString() ;
+            $this->customErrors[]=$editForm->getErrorsAsString();
+
+
 
         }
+
+
         return $this->render('CaravaneOrganicBundle:Offre:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),

@@ -125,4 +125,22 @@ class OffreRepository extends EntityRepository
 		$entities = $query->getResult();
 		return $entities;
 	}
+
+
+    public function findAllByMonth($month=null) {
+
+
+        $qb = $this->getEntityManager()->getRepository("CaravaneOrganicBundle:Offre")->createQueryBuilder('O')
+            ->select("O");
+        if($month) {
+            $qb->where("O.builddate LIKE '%".$month."%' OR O.unbuilddate LIKE '%".$month."%'");
+        }
+        $qb->addOrderBy("O.builddate","asc");
+        $query=  $qb->getQuery();
+
+
+
+        $entities = $query->getResult();
+        return $entities;
+    }
 }
