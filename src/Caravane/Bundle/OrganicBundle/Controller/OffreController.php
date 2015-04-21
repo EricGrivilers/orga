@@ -686,9 +686,9 @@ class OffreController extends Controller
             "status"=>"Status",
             "offreComments"=>"Comments",
             "surface"=>"Surface",
-            "eventDate"=>"Event date",
-            "startBuild"=>"From",
-            "endBuild"=>"To",
+            "eventdate"=>"Event date",
+            "builddate"=>"From",
+            "unbuilddate"=>"To",
             "planningComments"=>"Planning comments",
             "requestDate"=>"Request date",
 
@@ -750,7 +750,7 @@ class OffreController extends Controller
                 $getter="get".ucwords($k);
                 $value="";
                 if($entity->$getter()) {
-                    if($k=='insertDate' || $k=='updateDate' || $k=="startBuild" || $k=="endBuild" || $k=="requestDate" || $k=="eventDate") {
+                    if($k=='insertDate' || $k=='updateDate' || $k=="builddate" || $k=="unbuilddate" || $k=="requestDate" || $k=="eventdate") {
                         $value=$entity->$getter()->format('Y-m-d');
                     }
                     else if($k=='userId') {
@@ -780,6 +780,12 @@ class OffreController extends Controller
                         }
 
                         $value=implode(",",$tents);
+                    }
+                    else if($k=='issue') {
+                        if($issues=$entity->getIssue()) {
+                            $value=count($issues);
+                        }
+
                     }
                     else {
                         $value=$entity->$getter();

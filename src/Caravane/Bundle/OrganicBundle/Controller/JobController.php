@@ -615,9 +615,9 @@ foreach($entities as $entity) {
             "status"=>"Status",
             "offreComments"=>"Comments",
             "surface"=>"Surface",
-            "eventDate"=>"Event date",
-            "startBuild"=>"From",
-            "endBuild"=>"To",
+            "eventdate"=>"Event date",
+            "builddate"=>"From",
+            "unbuilddate"=>"To",
             "buildNotes"=>"Build notes",
             "unbuildNotes"=>"Unbuild notes",
             "planningComments"=>"Planning comments",
@@ -677,10 +677,15 @@ foreach($entities as $entity) {
             $r++;
             $l=0;
             foreach($fields as $k=>$v) {
+
                 $getter="get".ucwords($k);
+
+
+
+
                 $value="";
                 if($entity->$getter()) {
-                    if($k=='insertDate' || $k=='updateDate' || $k=="startBuild" || $k=="endBuild" || $k=="requestDate" || $k=="eventDate") {
+                    if($k=='insertDate' || $k=='updateDate' || $k=="builddate" || $k=="unbuilddate" || $k=="requestDate" || $k=="eventdate") {
                         $value=$entity->$getter()->format('Y-m-d');
                     }
                     else if($k=='userId') {
@@ -711,8 +716,15 @@ foreach($entities as $entity) {
                         
                         $value=implode(",",$tents);
                     }
+                    else if($k=='issue') {
+                        if($issues=$entity->getIssue()) {
+                            $value=count($issues);
+                        }
+
+                    }
                     else {
                         $value=$entity->$getter();
+
                     }
                 } 
                 $col = $exportManager->num2alpha($l).$r;
