@@ -76,13 +76,13 @@ class OffreController extends Controller
         $nbpages=(Integer)(count($entities)/$offset)+1;
 
 
-
-        foreach($entities as $entity) {
-            $offreManager2=$this->get('caravane_organic.offre_manager');
-            $offreManager2->loadEntity($entity);
-            $offreManager2->getIssues();
-        }
-
+/*
+foreach($entities as $entity) {
+    $offreManager2=$this->get('caravane_organic.offre_manager');
+    $offreManager2->loadEntity($entity);
+    $offreManager2->getIssues();
+}
+*/
 
 
         return $this->render('CaravaneOrganicBundle:Offre:index.html.twig', array(
