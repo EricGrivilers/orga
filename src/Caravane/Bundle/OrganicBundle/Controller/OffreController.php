@@ -16,6 +16,7 @@ use Caravane\Bundle\OrganicBundle\Form\OffreType;
 use Caravane\Bundle\OrganicBundle\Managers\OffreManager;
 use Caravane\Bundle\OrganicBundle\Managers\ClientManager;
 use Caravane\Bundle\OrganicBundle\Managers\PdfManager;
+use Caravane\Bundle\OrganicBundle\Managers\IssueManager;
 
 use Caravane\Bundle\OrganicBundle\Managers\DocumentManager;
 use Caravane\Bundle\OrganicBundle\Managers\ExportManager;
@@ -75,13 +76,13 @@ class OffreController extends Controller
         $nbpages=(Integer)(count($entities)/$offset)+1;
 
 
-        /*
+
         foreach($entities as $entity) {
             $offreManager2=$this->get('caravane_organic.offre_manager');
             $offreManager2->loadEntity($entity);
             $offreManager2->getIssues();
         }
-*/
+
 
 
         return $this->render('CaravaneOrganicBundle:Offre:index.html.twig', array(

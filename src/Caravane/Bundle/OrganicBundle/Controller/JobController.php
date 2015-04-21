@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Caravane\Bundle\OrganicBundle\Entity\Job;
 use Caravane\Bundle\OrganicBundle\Entity\Issue;
 use Caravane\Bundle\OrganicBundle\Form\JobType;
+use Caravane\Bundle\OrganicBundle\Managers\IssueManager;
 use Caravane\Bundle\OrganicBundle\Managers\PdfManager;
 use Caravane\Bundle\OrganicBundle\Managers\DocumentManager;
 
@@ -71,13 +72,13 @@ class JobController extends Controller
         $entities=$em->getRepository('CaravaneOrganicBundle:Job')->listAll($type,$ob,$page,$offset, $userId);
         $nbpages=(Integer)(count($entities)/$offset)+1;
 
-/*
+
 foreach($entities as $entity) {
     $jobManager2=$this->get('caravane_organic.offre_manager');
     $jobManager2->loadEntity($entity);
     $jobManager2->getIssues();
 }
-*/
+
 
 
         return $this->render('CaravaneOrganicBundle:Job:index.html.twig', array(
