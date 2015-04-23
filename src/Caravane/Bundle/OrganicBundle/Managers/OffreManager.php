@@ -121,7 +121,7 @@ class OffreManager
         $job->setEventdate($entity->getEventdate());
         $job->setInsertdate(new \Datetime('now'));
         $job->setUpdatedate(new \Datetime('now'));
-        
+
         $job->setOffretype($entity->getOffretype());
         $job->setPlanningcomments($entity->getPlanningcomments());
         $job->setOffrecomments($entity->getOffrecomments());

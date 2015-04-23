@@ -145,14 +145,35 @@ $(document).ready(function() {
 
     $(".datetimepicker.d1 input[type=text]").on("dp.change", function (e) {
         $(".datetimepicker.d2 input[type=text]").data("DateTimePicker").minDate(e.date);
+        if($(".datetimepicker.d2 input[type=text]").val()=='') {
+            $(".datetimepicker.d2 input[type=text]").val($(".datetimepicker.d1 input[type=text]").val());
+        }
+        if($(".datetimepicker.d1 input[type=time]").val()=='') {
+            $(".datetimepicker.d1 input[type=time]").val("00:00");
+        }
+        if($(".datetimepicker.d2 input[type=time]").val()=='') {
+            $(".datetimepicker.d2 input[type=time]").val("00:00");
+        }
     });
 
     $(".datetimepicker.d2 input[type=text]").on("dp.change", function (e) {
         $(".datetimepicker.d3 input[type=text]").data("DateTimePicker").minDate(e.date);
+        if($(".datetimepicker.d3 input[type=text]").val()=='') {
+            $(".datetimepicker.d3 input[type=text]").val($(".datetimepicker.d2 input[type=text]").val());
+        }
     });
 
     $(".datetimepicker.d3 input[type=text]").on("dp.change", function (e) {
         $(".datetimepicker.d4 input[type=text]").data("DateTimePicker").minDate(e.date);
+        if($(".datetimepicker.d4 input[type=text]").val()=='') {
+            $(".datetimepicker.d4 input[type=text]").val($(".datetimepicker.d3 input[type=text]").val());
+        }
+        if($(".datetimepicker.d3 input[type=time]").val()=='') {
+            $(".datetimepicker.d3 input[type=time]").val("00:00");
+        }
+        if($(".datetimepicker.d4 input[type=time]").val()=='') {
+            $(".datetimepicker.d4 input[type=time]").val("00:00");
+        }
     });
 
 
@@ -168,6 +189,16 @@ function hideHour(obj,id) {
         else {
             $('#'+id).val('00:00');
         }
+    }
+}
+
+function fullDay(obj,id, fromId) {
+    $('#'+id).parent().toggle();
+    if($(obj).prop("checked") == true){
+
+        $('#'+id+"_date").val($('#'+fromId+"_date").val());
+        $('#'+id+"_time").val($('#'+fromId+"_time").val());
+
     }
 }
 
