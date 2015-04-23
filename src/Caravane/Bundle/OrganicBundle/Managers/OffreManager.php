@@ -121,13 +121,24 @@ class OffreManager
         $job->setEventdate($entity->getEventdate());
         $job->setInsertdate(new \Datetime('now'));
         $job->setUpdatedate(new \Datetime('now'));
-        $job->setEventdate($entity->getEventdate());
+        
         $job->setOffretype($entity->getOffretype());
         $job->setPlanningcomments($entity->getPlanningcomments());
         $job->setOffrecomments($entity->getOffrecomments());
         $job->setSurface($entity->getSurface());
         $job->setStartbuild($entity->getStartbuild());
         $job->setEndbuild($entity->getEndbuild());
+
+        $job->setBuilddate($entity->getBuilddate());
+        $job->setEndbuilddate($entity->getEndbuilddate());
+        $job->setUnbuilddate($entity->getUnbuilddate());
+        $job->setStartunbuilddate($entity->getStartunbuilddate());
+        $job->setPreviewdate($entity->getPreviewdate());
+        $job->setPreviewUser($entity->getPreviewUser());
+        $job->setBuildUser($entity->getBuildUser());
+        $job->setUnbuildUser($entity->getUnbuildUser());
+
+
         //$job->setBuildnotes($entity->getBuildnotes());
         $job->setRequestdate($entity->getRequestdate());
         $job->setStatus('ok');
@@ -173,7 +184,7 @@ class OffreManager
             $tent2job->setTentid($t2o->getTentid());
             $em->persist($tent2job);
         }
-
+/*
         foreach($entity->getPlannings() as $p) {
             $planning2job=new \Caravane\Bundle\OrganicBundle\Entity\Planning2job;
             $planning2job->setPlanningtype($p->getPlanningtype());
@@ -184,7 +195,7 @@ class OffreManager
             $planning2job->setUserid($p->getUserid());
             $em->persist($planning2job);
         }
-
+*/
         foreach($entity->getSlices() as $p) {
             $slice2job=new \Caravane\Bundle\OrganicBundle\Entity\Slice2job;
             $slice2job->setSliceid($p->getSliceid());
