@@ -110,7 +110,8 @@ $(document).ready(function() {
     $('a.export_planning').click(function(e) {
         e.preventDefault();
         var date = $("#calendar-holder").fullCalendar('getDate');
-        var month = date.getFullYear()+"-"+(((date.getMonth()+1)<10)?'0'+(date.getMonth()+1):(date.getMonth()+1));
+        var month=date.format("YYYY-MM");
+        //var month = date.getFullYear()+"-"+(((date.getMonth()+1)<10)?'0'+(date.getMonth()+1):(date.getMonth()+1));
         var href=$(this).attr('href')+"?m="+month;
         if($('#planning_user').val()>0) {
             href+="&u="+$('#planning_user').val();
