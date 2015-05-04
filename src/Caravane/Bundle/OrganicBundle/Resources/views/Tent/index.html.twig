@@ -93,7 +93,7 @@
     </thead>
     <tbody>
     {% for entity in entities %}
-        <tr {% if entity.issue>0 %} class="danger" {% endif %}>
+        <tr {% if entity.issue|length >0 %} class="danger" {% endif %}>
             <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
             <td>{{ entity.productCategory }}</td>
             <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
@@ -136,7 +136,7 @@
                 </li>
             </td>
 
-           <td>{% if entity.issue %}<span class="label label-important">{{ entity.issue }}</span>{% endif %}</td>
+           <td>{% if entity.issue|length>0 %}<span class="label label-important">{{ entity.issue|length }}</span>{% endif %}</td>
 
             <td>
                 <a href="{{ path('tent_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i></a>
