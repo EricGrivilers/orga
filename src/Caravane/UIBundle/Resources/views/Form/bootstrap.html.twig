@@ -35,8 +35,10 @@
 			});
 
 			$('#{{form.vars.id}}').bind('keyup',function() {
-				$('{{form.vars.attr.sub_form}} input').not('#{{form.vars.id}}, :radio').val('');
-				$('{{form.vars.attr.sub_form}} select').val('');
+                {%  if form.vars.attr.sub_form is defined %}
+                    $('{{form.vars.attr.sub_form}} input').not('#{{form.vars.id}}, :radio').val('');
+				    $('{{form.vars.attr.sub_form}} select').val('');
+                {%  endif %}
 				$('{{form.vars.attr.target_field}}').val('');
 			});
 		});

@@ -23,55 +23,43 @@
                         <td>'~form_widget(edit_form.products.vars.prototype.isoption)~'<a class="delete_new_row" ><i class="fa fa-trash-o"></i></a></td>
                     ')|e}}">
                     {% set c=0 %}
+                    {%  set floors =[] %}
                 {% for product in edit_form.products  %}
 
                     {% if product.isoption.vars.data!=true %}
+                        {% if product.vars.value.tentid.productCategory.floor|default  %}
+                            {% set floors = floors|merge([product])  %}
+                        {%  else %}
+                            <tr data-productid="{{c}}" data-entity="{{product.vars.value.id}}" {% if product.vars.value.toremove %} class="error" {% endif %}>
+                                <td class="col-md-9">
+                                    {{form_widget(product.description)}}
+                                    {{form_widget(product.datas)}}
 
+                                </td>
+                                <td class="col-md-3">
+                                    {{form_widget(product.price)}}
+                                </td>
+                                <td>{{form_widget(product.isoption)}}<a class="delete_row" data-rel="{{entity.id}}" data-type="offre" data-target="{{product.vars.value.id}}"><i class="fa fa-trash-o"></i></a></td>
+                            </tr>
+                        {%  endif  %}
+                    {% endif %}
+                    {% set c=c+1 %}
+                {% endfor %}
+
+                {% if floors|length >0  %}
+                    {%  set product = floors[0] %} %}
                     <tr data-productid="{{c}}" data-entity="{{product.vars.value.id}}" {% if product.vars.value.toremove %} class="error" {% endif %}>
                         <td class="col-md-9">
                             {{form_widget(product.description)}}
-                            {% if product.vars.value.tentid %}
-                               {% if product.vars.value.tentid.productCategory=='Tent' %}
-                                <div class='row' class="additionalDatasRow" style="background:#ccc">
-                                    <div class="col-md-4">
-                                         Reference:  <b>{{product.vars.value.tentid.reference}}</b>
-                                         <br/>Name:  <b>{{product.vars.value.tentid.name}}</b>
-                                         <br/>Color:  <b>{{product.vars.value.tentid.color}}</b>
-                                         {% if product.vars.value.tentid.ownerid %}
-                                            <br/>Owner <b>{{product.vars.value.tentid.ownerid.name}}</b>
-                                        {% endif %}
-                                        <br/>Width: <b>{{product.vars.value.tentid.width}}</b> m x length: <b>{{product.vars.value.tentid.length}}</b> m ( <b>{{product.vars.value.tentid.m2}}</b> m2)
-
-                                    </div>
-
-                                        <div class="col-md-4">
-
-                                            Floor <input class="additionalData" type='checkbox' data-attribute="plancher" value='1' {% if product.vars.value.datasAsObject.plancher %} checked="checked"  {% endif %} />
-                                              area <input data-attribute="surfaceplancher"  type='text' value="{{product.vars.value.datasAsObject.surfaceplancher}}" class="col-md-10 additionalData"  />
-                                       <br/>
-                                            Ground<br/> <input class="additionalData" data-attribute="sol" type='text' value="{{product.vars.value.datasAsObject.sol}}" class="col-md-10"  />
-                                        <br/>
-                                            Pipeline  <input class="additionalData" data-attribute="canalisation" type='checkbox'  value='1' {% if product.vars.value.datasAsObject.canalisation %} checked="checked"  {% endif %} />
-                                        </div>
-                                        <div class="col-md-4">
-                                            Other<br/> <textarea data-attribute="other" class="col-md-12 additionalData">{{product.vars.value.datasAsObject.other}}</textarea>
-                                        </div>
-
-                                </div>
-
-
-                               {% endif %}
-                            {% endif %}
                             {{form_widget(product.datas)}}
+                            {{ floors|length }} 
                         </td>
                         <td class="col-md-3">
                             {{form_widget(product.price)}}
                         </td>
                         <td>{{form_widget(product.isoption)}}<a class="delete_row" data-rel="{{entity.id}}" data-type="offre" data-target="{{product.vars.value.id}}"><i class="fa fa-trash-o"></i></a></td>
                     </tr>
-                    {% endif %}
-                    {% set c=c+1 %}
-                {% endfor %}
+                {% endif %}
 
 
             </tbody>

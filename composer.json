@@ -46,7 +46,7 @@
         "liuggio/excelbundle": "~2.0",
         "jms/translation-bundle": "dev-master",
         "ExactTarget/fuelux": "dev-master",
-        "twitter/typeahead.js": "dev-master",
+        "twitter/typeahead.js": "v0.10.5",
         "voidberg/html5sortable": "dev-master",
         "eonasdan/bootstrap-datetimepicker": "dev-master",
         "moment/moment": "dev-master"

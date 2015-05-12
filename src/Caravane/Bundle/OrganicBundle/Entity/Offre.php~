@@ -89,7 +89,7 @@ class Offre
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="$startunbuilddate", type="datetime", nullable=true)
+     * @ORM\Column(name="startunbuilddate", type="datetime", nullable=true)
      */
     private $startunbuilddate;
 
@@ -1979,6 +1979,7 @@ class Offre
      */
     public function setStartunbuilddate($startunbuilddate)
     {
+
         $this->startunbuilddate = $startunbuilddate;
 
         return $this;
@@ -1991,9 +1992,7 @@ class Offre
      */
     public function getStartunbuilddate()
     {
-        if(!$this->startunbuilddate) {
-            $this->startunbuilddate=$this->unbuilddate;
-        }
+
         return $this->startunbuilddate;
     }
 
@@ -2006,6 +2005,7 @@ class Offre
      */
     public function setEndbuilddate($endbuilddate)
     {
+
         $this->endbuilddate = $endbuilddate;
 
         return $this;
@@ -2018,6 +2018,7 @@ class Offre
      */
     public function getEndbuilddate()
     {
+
         return $this->endbuilddate;
     }
 }

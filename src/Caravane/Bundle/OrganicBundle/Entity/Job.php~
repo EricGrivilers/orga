@@ -88,7 +88,7 @@ class Job
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="$startunbuilddate", type="datetime", nullable=true)
+     * @ORM\Column(name="startunbuilddate", type="datetime", nullable=true)
      */
     private $startunbuilddate;
 
@@ -1832,10 +1832,13 @@ class Job
      *
      * @param \DateTime $startunbuilddate
      *
-     * @return Job
+     * @return Offre
      */
     public function setStartunbuilddate($startunbuilddate)
     {
+        if(!$startunbuilddate) {
+            $startunbuilddate=$this->unbuilddate;
+        }
         $this->startunbuilddate = $startunbuilddate;
 
         return $this;
@@ -1848,6 +1851,39 @@ class Job
      */
     public function getStartunbuilddate()
     {
+        if(!$this->startunbuilddate) {
+            $this->startunbuilddate=$this->unbuilddate;
+        }
         return $this->startunbuilddate;
+    }
+
+    /**
+     * Set endbuilddate
+     *
+     * @param \DateTime $endbuilddate
+     *
+     * @return Offre
+     */
+    public function setEndbuilddate($endbuilddate)
+    {
+        if(!$endbuilddate) {
+            $endbuilddate=$this->builddate;
+        }
+        $this->endbuilddate = $endbuilddate;
+
+        return $this;
+    }
+
+    /**
+     * Get endbuilddate
+     *
+     * @return \DateTime
+     */
+    public function getEndbuilddate()
+    {
+        if(!$this->endbuilddate) {
+            $this->endbuilddate=$this->builddate;
+        }
+        return $this->endbuilddate;
     }
 }

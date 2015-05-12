@@ -29,9 +29,31 @@ class TentController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        if(!$floorCat=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findOneBy(array('floor'=>true))) {
+            $floorCat=new ProductCategory();
+            $floorCat->setName("Floor");
+            $floorCat->setFloor(true);
+            $em->persist($floorCat);
 
 
+            for($i=1;$i<=1000;$i++) {
+                $plancher=new Tent();
+                $plancher->setName("All floors");
+                $plancher->setReference("floor-100x250-".$i);
+                $plancher->setM2(2.5);
+                $plancher->setWidth(1);
+                $plancher->setLength(2.5);
+                $plancher->setStatus('OK');
+                $plancher->setPublic(true);
+                $plancher->setInsertdate(new \datetime('now'));
+                $plancher->setUpdatedate(new \datetime('now'));
+                $plancher->setProductCategory($floorCat);
+                $em->persist($plancher);
+            }
 
+            $em->flush();
+
+        }
         $request=$this->get('request');
         if(!$type=$request->query->get('type')) {
             $type='';
@@ -63,9 +85,14 @@ class TentController extends Controller
             $jobs=$em->getRepository('CaravaneOrganicBundle:Job')->findAllBetweenDates($startDate,$endDate);
             $offres=$em->getRepository('CaravaneOrganicBundle:Offre')->findAllBetweenDates($startDate,$endDate);
         //}
-
-        $entities=$em->getRepository('CaravaneOrganicBundle:Tent')->listAll($type,$ob,$page,$startDate,$endDate,$jobs,$offres,$offset);
+        $categories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
+        if(!$category=$request->query->get('category')) {
+            $category=$categories[0]->getId();
+        }
+        $entities=$em->getRepository('CaravaneOrganicBundle:Tent')->listAll($type,$ob,$page,$startDate,$endDate,$jobs,$offres,$offset, $category);
         $nbpages=(Integer)(count($entities)/$offset)+1;
+
+
 
         return $this->render('CaravaneOrganicBundle:Tent:index.html.twig', array(
             'entities' => $entities,
@@ -77,7 +104,9 @@ class TentController extends Controller
             "jobs"=>$jobs,
             "offres"=>$offres,
             'startDate'=>$startDate,
-            "endDate"=>$endDate
+            "endDate"=>$endDate,
+            "categories"=>$categories,
+            "category"=>$category
         ));
     }
 

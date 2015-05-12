@@ -17,23 +17,34 @@ class TentRepository extends EntityRepository
 	private $page;
 
 
-	public function listAll($type=null,$ob=null,$page=1,$startDate,$endDate,$jobs=null,$offres=null,$offset=25) {
+	public function listAll($type=null,$ob=null,$page=1,$startDate,$endDate,$jobs=null,$offres=null,$offset=25, $category=null) {
 		$this->type=$type;
 		$this->ob=$ob;
 		$this->page=$page;
 
+        if($category=='free') {
 
+        }
 		if($type=='free') {
-			return $this->getFree(false,$startDate,$endDate,array('offre'=>true,'job'=>true,'offres'=>$offres,'jobs'=>$jobs,'page'=>$page));
+			return $this->getFree(false,$startDate,$endDate,array('offre'=>true,'job'=>true,'offres'=>$offres,'jobs'=>$jobs,'page'=>$page, 'category'=>$category));
 		}
 		if($type=='reserved') {
-			return $this->getFree(true,$startDate,$endDate,array('offre'=>false,'job'=>true,'offres'=>$offres,'jobs'=>$jobs,'page'=>$page));
+			return $this->getFree(true,$startDate,$endDate,array('offre'=>false,'job'=>true,'offres'=>$offres,'jobs'=>$jobs,'page'=>$page, 'category'=>$category));
 		}
 		if($type=='option') {
-			return $this->getFree(true,$startDate,$endDate,array('offre'=>true,'job'=>false,'offres'=>$offres,'jobs'=>$jobs,'page'=>$page));
+			return $this->getFree(true,$startDate,$endDate,array('offre'=>true,'job'=>false,'offres'=>$offres,'jobs'=>$jobs,'page'=>$page, 'category'=>$category));
 		}
+
 		$dql = "SELECT T FROM CaravaneOrganicBundle:Tent T ";
 		$dql.=" WHERE T.public=1 ";
+        if($category) {
+            $dql.=" AND T.productCategory = ".$category;
+            if($cat=$this->getEntityManager()->getRepository('CaravaneOrganicBundle:ProductCategory')->find($category)) {
+                if($cat->getFloor()) {
+                    return $this->findFloors($cat);
+                }
+            }
+        }
 		if($type) {
 			switch($type) {
 				case "winter":
@@ -199,5 +210,16 @@ class TentRepository extends EntityRepository
 		}
 		return $categories;
 	}
+
+
+
+    public function findFloors($category) {
+        $floors=$this->findBy(array('productCategory'=>$category));
+        $entities=array();
+        foreach($floors as $entity) {
+            $entities[($entity->getWidth()*100)."x".($entity->getLength()*100)][]=$entity;
+        }
+        return $entities;
+    }
 
 }

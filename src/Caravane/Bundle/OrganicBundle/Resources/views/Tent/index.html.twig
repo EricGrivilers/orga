@@ -2,162 +2,205 @@
 
 {% block body %}
 
+    {% set floorCat=null %}
+    <div class="row">
 
-<div class="row">
-    <div class="tools">
-        <div class="col-md-10">
-        <ul class="nav nav-pills pull-left">
-          <li {% if type=='' %}class="active" {% endif %} >
-            <a href="{{path('tent',{'ob':ob})}}">All</a>
-          </li>
-          <li {% if type=='reserved' %}class="active" {% endif %} ><a href="{{path('tent',{'type': 'reserved','ob':ob,'page':1,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')} )}}">Booked</a></li>
-          <li {% if type=='option' %}class="active" {% endif %} ><a href="{{path('tent',{'type': 'option','ob':ob,'page':1,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')} )}}">Option</a></li>
-          <li {% if type=='free' %}class="active" {% endif %} ><a href="{{path('tent',{'type':'free','ob':ob,'page':1,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')})}}">Free</a></li>
-          <li {% if type=='winter' %}class="active" {% endif %} ><a href="{{path('tent',{'type':'winter','ob':ob,'page':1})}}">Winter stock</a></li>
+        <div class="tools">
+            <div class="col-md-9">
+                <ul class="nav nav-pills pull-left">
+                    <li {% if type=='' %}class="active" {% endif %} ><a href="{{path('tent',{'ob':ob})}}">All</a></li>
+                    <li {% if type=='reserved' %}class="active" {% endif %} ><a href="{{path('tent',{'type': 'reserved','ob':ob,'page':1,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')} )}}">Booked</a></li>
+                    <li {% if type=='option' %}class="active" {% endif %} ><a href="{{path('tent',{'type': 'option','ob':ob,'page':1,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')} )}}">Option</a></li>
+                    <li {% if type=='free' %}class="active" {% endif %} ><a href="{{path('tent',{'type':'free','ob':ob,'page':1,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s')})}}">Free</a></li>
+                    <li {% if type=='winter' %}class="active" {% endif %} ><a href="{{path('tent',{'type':'winter','ob':ob,'page':1})}}">Winter stock</a></li>
+                </ul>
+                {% if type=="reserved" or type=="free" or type=="option" %}
+                    <form action="{{path('tent',{'type': type,'ob':ob,'page':1} )}}" method="get" id="rangeDateForm"  class='form-inline'>
+                        <input type='hidden' name='type' value='{{type}}' />
+                        <input type='hidden' name='ob' value='{{ob}}' />
 
-        </ul>
-        {% if type=="reserved" or type=="free" or type=="option" %}
-         {#<form action="{{path('tent',{'type': type,'ob':ob,'page':1} )}}" method="get"  class='form-inline'>
-            <label>Between</label> <div id="startDate" name="startDate" class="input-append date">
-            <input data-format="dd/MM/yyyy hh:mm:ss" type="text" value="{{startDate|date('d/m/Y H:i:s')}}" />
-            <span class="add-on">
-              <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-              </i>
-            </span>
-          </div> <label>and</label>
-          <div id="endDate" name="endDate" class="input-append date">
-            <input data-format="dd/MM/yyyy hh:mm:ss" type="text" value="{{endDate|date('d/m/Y H:i:s')}}" />
-            <span class="add-on">
-              <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-              </i>
-            </span>
-          </div>
-          <input type="submit" value="ok" class="btn btn-primary" />
-        </form>#}
-        <form action="{{path('tent',{'type': type,'ob':ob,'page':1} )}}" method="get" id="rangeDateForm"  class='form-inline'>
-            <input type='hidden' name='type' value='{{type}}' />
-            <input type='hidden' name='ob' value='{{ob}}' />
-
-         <input id="startDate" name="startDate" data-format="dd/MM/yyyy hh:mm:ss" type="hidden" value="{{startDate|date('Y-m-d H:i:s')}}" />
-        <input id="endDate" name="endDate" data-format="dd/MM/yyyy hh:mm:ss" type="hidden" value="{{endDate|date('Y-m-d H:i:s')}}" />
-        <div id="reportrange" >
-            <i class="icon-calendar icon-large"></i>
-            <span>{{startDate|date('d/m/Y H:i:s')}} - {{endDate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
+                        <input id="startDate" name="startDate" data-format="dd/MM/yyyy hh:mm:ss" type="hidden" value="{{startDate|date('Y-m-d H:i:s')}}" />
+                        <input id="endDate" name="endDate" data-format="dd/MM/yyyy hh:mm:ss" type="hidden" value="{{endDate|date('Y-m-d H:i:s')}}" />
+                        <div id="reportrange" >
+                            <i class="icon-calendar icon-large"></i>
+                            <span>{{startDate|date('d/m/Y H:i:s')}} - {{endDate|date('d/m/Y H:i:s')}}</span> <b class="caret"></b>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+            <div class="col-md-3">
+                <a href="{{ path('tent_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i> New product</a>
+                <a href="{{ path('tent_export') }}" class="btn btn-default "><i class="fa fa-download"></i> Export</a>
+            </div>
         </div>
-    </form>
-
-        {% endif %}
-</div>
-<div class="col-md-2">
-     <a href="{{ path('tent_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i> New product
-        </a>
-        <a href="{{ path('tent_export') }}" class="btn btn-default "><i class="fa fa-download"></i> Export</a>
     </div>
+    <div class="row">
+        <div class=col-md-12">
+
+                <ul class="nav nav-tabs" >
+                    {%  for cat in categories %}
+                        <li class="{{ (cat.id==category)?'active':'' }}">
+                            <a href="{{ path('tent', {'type':type,'ob':ob,'page':page,'offset':offset,'category':cat.id}) }}" >{{ cat.name }}</a>
+                        </li>
+                        {% if cat.floor %}
+                            {%  set floorCat=cat  %}
+                        {%  endif %}
+                    {%  endfor %}
+
+                </ul>
+
+        </div>
     </div>
-</div>
 
-<div class="row">
+    {%  if category == floorCat.id %}
+        <div class=row">
+            <div class="col-md-12">
+                <form name="">
+                    <table class="table table-bordered table-condensed table-striped table-list">
+                        <thead>
+                            <th>
+                                Quantity
+                            </th>
+                            <th class="medium">
+                                Width
+                            </th>
+                            <th class="medium">
+                                Length
+                            </th>
+                            <th>
+                                Surface
+                            </th>
+                            <th>
+                                Total
+                            </th>
 
-    <div class="col-md-12">
+                        </thead>
+                        <tbody>
+                            {%  for k,size in entities %}
+                                <tr>
+                                    <td>
+                                        <input type="text" class="form-control" name="caravane_floor_total_{{ k }}" value="{{ size|length }}" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" name="caravane_floor_width_{{ k }}" value="{{ size[0].width }}" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" name="caravane_floor_length_{{ k }}" value="{{ size[0].length }}" />
+                                    </td>
+                                    <td>
+                                    {{ size[0].width * size[0].length }}m2
+                                    </td>
+                                    <td>
+                                        {{ size|length * 1 * (size[0].width * size[0].length) }}m2
+                                    </td>
+                                </tr>
+                            {%  endfor %}
+
+                        </tbody>
+                    </table>
+                    <input type=button" class="btn btn-primary" value="Update" />
+                </form>
+            </div>
+        </div>
+
+    {% else %}
+        <div class="row">
+            <div class="col-md-12">
+
+                <table class="table table-bordered table-condensed table-striped table-list">
+                    <thead>
+                        <tr>
+                            <th><a data-orderby="reference" >Reference</a></th>
+                            <th><a data-orderby="productCategory" >Category</a></th>
+                            <th><a data-orderby="name" >Name</a></th>
+                            <th>Kit</th>
+                            <th><a data-orderby="ownerid" >Owner</a></th>
+                            <th>Color</th>
+                            <th><a data-orderby="length" >Length</a></th>
+                            <th><a data-orderby="width" >Width</a></th>
+                            <th><a data-orderby="m2" >Area</a></th>
+                            <th><a data-orderby="status" >Etat</th>
+                            {% if type=='reserved' %}
+                                <th>Jobs</th>
+                            {% endif %}
+                            {% if type=='option' %}
+                                <th>Offres</th>
+                            {% endif %}
+                            <th>PDF</th>
+                            <th><a data-orderby="issue" >Issues</a></th>
+                            <th>Ed</th>
+                            <th>Del</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        <tr {% if entity.issue|length >0 %} class="danger" {% endif %}>
+                            <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
+                            <td>{{ entity.productCategory }}</td>
+                            <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+
+                            <td>{% if entity.kit %} Yes {% else %} No {% endif %}</td>
+                            <td>{% if entity.ownerid %}<a href="{{path('client',{'id':entity.ownerid.id})}}">{{ entity.ownerid.name }}</a>{% endif %}</td>
+                            <td>{{ entity.color }}</td>
+                            <td>{{ entity.length }}</td>
+                            <td>{{ entity.width }}</td>
+                            <td>{{ entity.m2 }}</td>
 
 
+                            <td>{{ entity.etat }}</td>
+                            {% if type=='reserved' %}
+                                <td>{% for job in entity.jobs %}
 
-<table class="table table-bordered table-condensed table-striped table-list">
-    <thead>
-        <tr>
-            <th><a data-orderby="reference" >Reference</a></th>
-            <th><a data-orderby="productCategory" >Category</a></th>
-            <th><a data-orderby="name" >Name</a></th>
+                                    {% if job.jobid in jobs %}
+                                        <li><a href='{{path('job_edit',{'id':job.jobid.id})}}'>{{job.jobid}}</a></li>
+                                    {% endif %}
+                                {% endfor %}</td>
+                            {% endif %}
+                            {% if type=='option' %}
+                                <td>{% for offre in entity.offres %}
 
-            <th>Kit</th>
-            <th><a data-orderby="ownerid" >Owner</a></th>
-            <th>Color</th>
-            <th><a data-orderby="length" >Length</a></th>
-            <th><a data-orderby="width" >Width</a></th>
-            <th><a data-orderby="m2" >Area</a></th>
+                                    {% if offre.offreid in offres %}
+                                        <li><a href='{{path('offre_edit',{'id':offre.offreid.id})}}'>{{offre.offreid}}</a></li>
+                                    {% endif %}
+                                {% endfor %}</td>
+                            {% endif %}
+                             <td>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>
+                                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+                                        {% for lg in ['en','fr','nl'] %}
+                                            <li role="presentation">
+                                                <a role="menuitem" href=""><img src="/images/icons/pdf.png"> Offre {{lg}}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            </td>
 
+                           <td>{% if entity.issue|length>0 %}<span class="label label-important">{{ entity.issue|length }}</span>{% endif %}</td>
 
-            <th><a data-orderby="status" >Etat</th>
-            {% if type=='reserved' %}
-                <th>Jobs</th>
-            {% endif %}
-             {% if type=='option' %}
-                <th>Offres</th>
-            {% endif %}
-            <th>PDF</th>
-             <th><a data-orderby="issue" >Issues</a></th>
+                            <td>
+                                <a href="{{ path('tent_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i></a>
 
-            <th>Ed</th>
-            <th>Del</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr {% if entity.issue|length >0 %} class="danger" {% endif %}>
-            <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.reference }}</a></td>
-            <td>{{ entity.productCategory }}</td>
-            <td><a href="{{ path('tent_edit', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                            </td>
+                             <td>
+                                <a href="{{ path('tent_delete', { 'id': entity.id }) }}" data-rel="{{entity.reference}}" ><i class="fa fa-trash-o"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
-            <td>{% if entity.kit %} Yes {% else %} No {% endif %}</td>
-            <td>{% if entity.ownerid %}<a href="{{path('client',{'id':entity.ownerid.id})}}">{{ entity.ownerid.name }}</a>{% endif %}</td>
-            <td>{{ entity.color }}</td>
-            <td>{{ entity.length }}</td>
-            <td>{{ entity.width }}</td>
-            <td>{{ entity.m2 }}</td>
+            </div>
+        </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                {% include "CaravaneOrganicBundle:Default:pagination.html.twig" %}
+            </div>
+        </div>
+    {%  endif %}
 
-            <td>{{ entity.etat }}</td>
-            {% if type=='reserved' %}
-                <td>{% for job in entity.jobs %}
-
-                    {% if job.jobid in jobs %}
-                        <li><a href='{{path('job_edit',{'id':job.jobid.id})}}'>{{job.jobid}}</a></li>
-                    {% endif %}
-                {% endfor %}</td>
-            {% endif %}
-            {% if type=='option' %}
-                <td>{% for offre in entity.offres %}
-
-                    {% if offre.offreid in offres %}
-                        <li><a href='{{path('offre_edit',{'id':offre.offreid.id})}}'>{{offre.offreid}}</a></li>
-                    {% endif %}
-                {% endfor %}</td>
-            {% endif %}
-             <td>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>
-                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
-                        {% for lg in ['en','fr','nl'] %}
-                            <li role="presentation">
-                                <a role="menuitem" href=""><img src="/images/icons/pdf.png"> Offre {{lg}}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            </td>
-
-           <td>{% if entity.issue|length>0 %}<span class="label label-important">{{ entity.issue|length }}</span>{% endif %}</td>
-
-            <td>
-                <a href="{{ path('tent_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i></a>
-
-            </td>
-             <td>
-                <a href="{{ path('tent_delete', { 'id': entity.id }) }}" data-rel="{{entity.reference}}" ><i class="fa fa-trash-o"></i></a>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
-
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        {% include "CaravaneOrganicBundle:Default:pagination.html.twig" %}
-    </div>
-</div>
 {% endblock body %}
 
 
