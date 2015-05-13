@@ -4,7 +4,7 @@
 
     <div class='col-md-12 content'>
 
-        <table class="table table-bordered table-condensed table-striped stock">
+        <table class="table table-bordered table-condensed table-striped stock  {{ category.floor?'floor hidden':''}}" id="category{{ categoryId }}" >
             <thead>
                 <tr>
                     <th></th>
@@ -23,9 +23,11 @@
 
             <tbody>
                 {% set offreEntity=entity %}
+                {% set c=0 %}
+                {% set m2=0 %}
                 {% for entity in entities %}
                     <tr data-productid="{{entity.id}}" >
-                        <td><input type="checkbox" name="products[]" value="{{entity.id}}" /></td>
+                        <td><input type="checkbox" name="products[]" value="{{entity.id}}" {%  if category.floor %} data-m2="{{ entity.m2 }}" {% endif %}/></td>
                         <td><a data-productid="{{entity.id}}" class="add">{{ entity.reference }}</a></td>
                         <td><a data-productid="{{entity.id}}" class="add">{{ entity.name }}</a></td>
                         <td>{% if entity.kit %} Yes {% else %} No {% endif %}</td>
@@ -42,27 +44,61 @@
                         {% endfor %}</td>
 
                     </tr>
+                    {% set c=c+1 %}
+                    {% set m2=m2+entity.m2 %}
                 {% endfor %}
             </tbody>
         </table>
 
 
+        {%  if category.floor  %}
+
+            <table class="table table-bordered table-condensed table-striped table-list">
+                <thead>
+                <th>
+                    Surface
+                </th>
+                <th class="medium">
+                    Width
+                </th>
+                <th class="medium">
+                    Length
+                </th>
+                <th>
+                    Surface
+                </th>
+                <th>
+                    Total available
+                </th>
+
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control" id="caravane_floor_surface_total" value="0" />
+                        </td>
+                        <td>
+                            {{ entities[0].width }}
+                        </td>
+                        <td>
+                            {{ entities[0].length }}
+                        </td>
+                        <td>
+                            {{ entities[0].width * entities[0].length }}m2
+                        </td>
+                        <td>
+                            {{ m2 }} m2
+                        </td>
+                    </tr>
 
 
-        <div class="row">
-            <div class="col-md-12">
-                
-               {# <div class="pagination">
-                      <ul>
+                </tbody>
+            </table>
 
-                        {% for p in 1..nbpages %}
-                        <li {% if page==p %} class="active" {% endif %} ><a href="{{path('tent_get_available',{'type': type,'ob':ob,'page':p,'startDate':startDate|date('Y-m-d H:i:s'),'endDate':endDate|date('Y-m-d H:i:s'),'entityId':entityId,'categoryId':categoryId} )}}">{{p}}</a></li>
-                        {% endfor %}
 
-                      </ul>
-                </div>#}
-            </div>
-        </div>
+
+        {%  endif %}
     </div>
 
 </div>

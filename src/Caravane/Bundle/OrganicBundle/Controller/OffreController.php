@@ -76,14 +76,6 @@ class OffreController extends Controller
         $nbpages=(Integer)(count($entities)/$offset)+1;
 
 
-/*
-foreach($entities as $entity) {
-    $offreManager2=$this->get('caravane_organic.offre_manager');
-    $offreManager2->loadEntity($entity);
-    $offreManager2->getIssues();
-}
-*/
-
 
         return $this->render('CaravaneOrganicBundle:Offre:index.html.twig', array(
             'entities' => $entities,
@@ -150,15 +142,18 @@ foreach($entities as $entity) {
             }
         }
 
+
         $entity->setUserid($this->getUser());
         $entity->setClientid($client);
         $form   = $this->createForm(new OffreType(), $entity);
+
 
         return $this->render('CaravaneOrganicBundle:Offre:new.html.twig', array(
             'entity' => $entity,
             'edit_form'   => $form->createView(),
             'productCategories' =>$productCategories,
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'products'=>$this->getProducts($entity)
         ));
     }
 
@@ -224,7 +219,8 @@ foreach($entities as $entity) {
             'entity' => $entity,
             'edit_form'   => $form->createView(),
             'productCategories' =>$productCategories,
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'products'=>$this->getProducts($entity)
         ));
 
     }
@@ -263,12 +259,15 @@ foreach($entities as $entity) {
         $editForm = $this->createForm(new OffreType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
+
+
         return $this->render('CaravaneOrganicBundle:Offre:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'productCategories' =>$productCategories,
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'products'=>$this->getProducts($entity)
         ));
     }
 
@@ -372,7 +371,8 @@ foreach($entities as $entity) {
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'productCategories' =>$productCategories,
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'products'=>$this->getProducts($entity)
         ));
     }
 
@@ -861,6 +861,28 @@ foreach($entities as $entity) {
         }
         $rank++;
         return $rank;
+    }
+
+    private function getProducts($entity) {
+        $products=array();
+        foreach($entity->getProducts() as $product) {
+            $o="required";
+            $t="free";
+            if($product->getIsoption()) {
+                $o="option";
+            }
+
+            if($tent=$product->getTentid()) {
+                if($tent->getProductCategory()->getFloor()) {
+                    $t="floor";
+                }
+                else {
+                    $t="tent";
+                }
+            }
+            $products[$o][$t][]=$product;
+        }
+        return $products;
     }
 
 }

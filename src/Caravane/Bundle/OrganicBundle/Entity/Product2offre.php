@@ -3,12 +3,14 @@
 namespace Caravane\Bundle\OrganicBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Product2offre
  *
  * @ORM\Table(name="product2offre")
  * @ORM\Entity
+ * @UniqueEntity({"tentid", "offreid"})
  */
 class Product2offre
 {

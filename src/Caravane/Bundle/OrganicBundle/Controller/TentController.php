@@ -450,6 +450,7 @@ class TentController extends Controller
             'startDate'=>$startDate,
             'endDate'=>$endDate,
             'categoryId'=>$categoryId,
+            'category'=>$category,
             'entityId'=>$entity->getId(),
             'entity'=>$entity
         ));

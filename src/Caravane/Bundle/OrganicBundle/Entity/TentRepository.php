@@ -164,8 +164,8 @@ class TentRepository extends EntityRepository
         //               ->setMaxResults(25);
 
 
-		$tents = new Paginator($query, $fetchJoinCollection = true);
-
+		//$tents = new Paginator($query, $fetchJoinCollection = true);
+        $tents=$query->getResult();
 		return $tents;
 	}
 

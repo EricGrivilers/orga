@@ -10,15 +10,16 @@
           <div class="col-md-12">
             <ul class="nav nav-tabs" id="myTab">
               {% for category in productCategories %}
-                <li {% if loop.index==1%} class='active' {% endif %}><a href="#cat{{category.id}}" data-toggle="tab" >{{category}}</a></li>
+                <li {% if loop.index==1%} class='active' {% endif %}><a href="#cat{{category.id}}" data-toggle="tab" data-route="{{ path('tent_get_available', {'entityId':entity.id, 'categoryId':category.id, 'startDate' : entity.builddate|date('Y-m-d H:i:s') ,'endDate': entity.unbuilddate|date('Y-m-d H:i:s') } ) }}" >{{category}}</a></li>
               {% endfor %}
             </ul>
 
             <div class="tab-content">
               {% for category in productCategories %}
-                <div class="tab-pane {% if loop.index==1 %} active {% endif %}" id="cat{{category.id}}" >
-                {#{ render(controller("CaravaneOrganicBundle:Tent:getAvailable" , { 'entity':entity,'categoryId':category.id, 'startDate' : edit_form.plannings[1].vars.value.startDate ,'endDate': edit_form.plannings[3].vars.value.endDate, 'ob':"insertDate desc"} )) }#}
-                 {{ render(controller("CaravaneOrganicBundle:Tent:getAvailable" , { 'entity':entity,'categoryId':category.id, 'startDate' : entity.builddate ,'endDate': entity.unbuilddate, 'ob':"insertDate desc"} )) }}
+                <div class="tab-pane {% if loop.index==1 %} active {% endif %}" id="cat{{category.id}}" data-loaded='0' >
+                    {%  if loop.index==100 %}
+                        {{ render(controller("CaravaneOrganicBundle:Tent:getAvailable" , { 'entity':entity,'categoryId':category.id, 'startDate' : entity.builddate ,'endDate': entity.unbuilddate, 'ob':"insertDate desc"} )) }}
+                    {%  endif %}
                 </div>
               {% endfor %}
             </div>
@@ -33,3 +34,44 @@
     </div>
   </div>
 </div>
+
+<script>
+
+    $(document).ready(function() {
+        $('a[data-toggle="tab"]').not('a[data-toggle="tab"]:first').on('shown.bs.tab', function (e) {
+            var tab = $(e.target);
+            var route=tab.attr('data-route');
+            var pane=tab.attr('href');
+            if($(pane).attr('data-loaded')==0) {
+                $.ajax({
+                    url: route,
+                    method: 'GET',
+                    success: function(data) {
+                        //console.log(data);
+                        $(pane).html(data);
+                        $(pane).attr('data-loaded',1);
+                        $(pane).on("blur","#caravane_floor_surface_total", function() {
+                            console.log('blur');
+                            $('table.floor input:checkbox').prop("checked", false);
+                            var t=0;
+                            while(t<parseFloat($('#caravane_floor_surface_total').val())) {
+                                u=$("table.floor input:checkbox:not(:checked):first");
+                                u.prop('checked',true);
+                                t=t+ parseFloat(u.attr('data-m2'));
+                                console.log(t);
+                            }
+                        })
+
+
+                    }
+                });
+            }
+
+                console.log("--------------------------------------------------------",route);
+             // newly activated tab
+            //e.relatedTarget // previous active tab
+        })
+    });
+
+
+</script>
