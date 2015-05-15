@@ -70,6 +70,16 @@ class Product2invoice
     private $isfromjob;
 
     /**
+     * @var \Tent
+     *
+     * @ORM\ManyToOne(targetEntity="Tent")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tentId", referencedColumnName="id")
+     * })
+     */
+    private $tentid;
+    
+    /**
      * @var \Invoice
      *
      * @ORM\ManyToOne(targetEntity="Invoice")

@@ -414,9 +414,29 @@ class OffreController extends Controller
     public function removeProductAction($id,$productid) {
         $em = $this->getDoctrine()->getManager();
         $offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
-        $product=$em->getRepository('CaravaneOrganicBundle:Product2offre')->find($productid);
-        $offre->removeProduct($product);
-        $em->remove($product);
+        $product2offre=$em->getRepository('CaravaneOrganicBundle:Product2offre')->find($productid);
+        if($product2offre->getTentid()) {
+            if($product2offre->getTentid()->getProductCategory()->getFloor()) {
+                $isOption=$product2offre->getIsoption();
+                $products=$em->getRepository('CaravaneOrganicBundle:Product2offre')->findBy(array('offreid'=>$id,'isoption'=>$isOption));
+                foreach($products as $p) {
+                    if($p->getTentid()) {
+                        if($p->getTentid()->getProductCategory()->getFloor()) {
+                            $offre->removeProduct($p);
+                            $em->remove($p);
+                        }
+                    }
+                }
+            }
+            else {
+                $offre->removeProduct($product2offre);
+                $em->remove($product);
+            }
+        }
+        else {
+            $offre->removeProduct($product2offre);
+            $em->remove($product);
+        }
         $em->persist($offre);
         $em->flush();
         return new Response('ok');
@@ -641,7 +661,7 @@ class OffreController extends Controller
                     'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/offres",
                     'filename'=>$entity->getReference()."-".$_locale.".pdf"
             );
-            $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Offre:pdf.html.twig",$file,$_locale,true);
+            $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Offre:pdf.html.twig",$file,$_locale,true, $this->getProducts($entity));
             return $this->redirect("/docs/offres/".$file['filename']);
         }
 

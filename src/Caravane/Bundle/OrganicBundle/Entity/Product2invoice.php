@@ -70,6 +70,16 @@ class Product2invoice
     private $isfromjob;
 
     /**
+     * @var \Tent
+     *
+     * @ORM\ManyToOne(targetEntity="Tent")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tentId", referencedColumnName="id")
+     * })
+     */
+    private $tentid;
+    
+    /**
      * @var \Invoice
      *
      * @ORM\ManyToOne(targetEntity="Invoice")
@@ -309,5 +319,29 @@ class Product2invoice
     public function getInvoiceid()
     {
         return $this->invoiceid;
+    }
+
+    /**
+     * Set tentid
+     *
+     * @param \Caravane\Bundle\OrganicBundle\Entity\Tent $tentid
+     *
+     * @return Product2invoice
+     */
+    public function setTentid(\Caravane\Bundle\OrganicBundle\Entity\Tent $tentid = null)
+    {
+        $this->tentid = $tentid;
+
+        return $this;
+    }
+
+    /**
+     * Get tentid
+     *
+     * @return \Caravane\Bundle\OrganicBundle\Entity\Tent
+     */
+    public function getTentid()
+    {
+        return $this->tentid;
     }
 }

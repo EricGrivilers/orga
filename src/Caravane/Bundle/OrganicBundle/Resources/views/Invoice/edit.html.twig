@@ -36,7 +36,7 @@
                                 <a class="dropdown-toggle" id="drop_1" role="button" data-toggle="dropdown" href="#"><img src="/images/icons/pdf.png"> <b class="caret"></b></a>#}
 
                             {% if entity.id %}
-                        <a class="pull-right btn" href="{{path('invoice_pdf',{'id':entity.id,'force':true,'_locale':'all','type':'inv'})}}"><img src="/images/icons/pdf.png"> Rebuild pdf</a>
+                        <a class="pull-right btn" href="{{path('invoice_pdf',{'id':entity.id,'force':true,'_locale':'all','type':'inv'})}}?t={{ date().timestamp }}"><img src="/images/icons/pdf.png"> Rebuild pdf</a>
                         {% endif %}
 
                     </div>
@@ -223,13 +223,30 @@
                                     <td class="col-md-3">'~form_widget(edit_form.products.vars.prototype.price)~'</td>
                                     <td><a class="delete_new_row" ><i class="fa fa-trash-o"></i></a></td>
                                 ')|e}}">
-
+                        {% set floors =[] %}
                             {% for product in edit_form.products %}
+                                {% if product.vars.value.tentid.productCategory.floor|default  %}
+                                    {% set floors = floors|merge([product])  %}
+                                {%  endif %}
+                                <tr  data-entity="{{product.vars.value.id}}" {{ (product.vars.value.tentid.productCategory.floor|default and floors|length>1 )?'style="display:none"':'' }} >
+                                    {%  if product.vars.value.tentid.productCategory.floor|default and floors|length==1  %}
+                                        <td class="col-md-9">
+                                            <div class="row">
+                                                <div class="col-md-8"> {{form_widget(product.description)}}  </div>
+                                                <div class="col-md-4">
+                                                    {%  set totalFloor=0 %}
+                                                    {%  for fl in  products.required.floor%}
+                                                        {%  set totalFloor=totalFloor+fl.tentid.m2 %}
+                                                    {%  endfor  %}
+                                                    {{ totalFloor }} m2 ({{ products.required.floor|length }} pieces)
 
-                                <tr  data-entity="{{product.vars.value.id}}"  >
-                                    <td class="col-md-9">
-                                        {{form_widget(product.description)}}
-                                    </td>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                    {%  else  %}
+                                        <td class="col-md-9"> {{form_widget(product.description)}} </td>
+                                    {%  endif  %}
                                     <td class="col-md-3">
                                         {{form_widget(product.price)}}
                                     </td>

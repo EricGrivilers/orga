@@ -112,11 +112,11 @@
         <tr>
             <th class="right">
                 <a data-rel="{{entity.id}}" id="add_product_link" class="add_product_link btn btn-default" data-isoption='0'>Add free row</a>
-                <a href="#transportModal" class="btn btn-default openTransportModal" data-isoption='0'>Add transport row</a>
+                <a href="#transportModal" class="btn btn-default openTransportModal" data-isoption='{{ option?'1':'0' }}'>Add transport row</a>
                 {% if entity.id and entity.builddate and entity.unbuilddate %}
-                    <a href="#stockModal"  class="btn btn-default openStockModal"  data-isoption='0'>Add from stock</a>
+                    <a href="#stockModal"  class="btn btn-default openStockModal"  data-isoption='{{ option?'1':'0' }}'>Add from stock</a>
                 {% else %}
-                    <a href="#stockModal"  class="btn btn-default disabled"  data-isoption='0'>Add from stock</a><br/>
+                    <a href="#stockModal"  class="btn btn-default disabled"  data-isoption='{{ option?'1':'0' }}'>Add from stock</a><br/>
                     You must give planning dates and save this offer to be able to add product from stock
                 {% endif %}
             </th>

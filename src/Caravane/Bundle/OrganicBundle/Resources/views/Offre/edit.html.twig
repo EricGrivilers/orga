@@ -47,7 +47,7 @@
                         <ul  class="dropdown-menu" role="menu" aria-labelledby="drop_1">
                             {% for lg in ['en','fr','nl'] %}
                                 <li role="presentation">
-                                    <a role="menuitem" href="{{path('offre_pdf',{'id':entity.id,'_locale':lg})}}" target="_blank" ><img src="/images/icons/pdf.png"> Offre {{lg}}</a>
+                                    <a role="menuitem" href="{{path('offre_pdf',{'id':entity.id,'_locale':lg})}}?t={{ date().timestamp }}" target="_blank" ><img src="/images/icons/pdf.png"> Offre {{lg}}</a>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -103,8 +103,8 @@
 </div>
 
 
-  {% include "CaravaneOrganicBundle:Shared:modal.stock.html.twig" %}
-  {% include "CaravaneOrganicBundle:Shared:modal.transport.html.twig" %}
+  {% include "CaravaneOrganicBundle:Shared:modal.stock.html.twig" with {'entityType': 'Offre'} %}
+  {% include "CaravaneOrganicBundle:Shared:modal.transport.html.twig" with {'entityType': 'Offre'} %}
 
 
 

@@ -95,8 +95,28 @@
 		</tr>
 	</thead>
 	<tbody>
+	    {% set floors =[] %}
 		{% for product in entity.products %}
-			{% if product.tentid %}
+            {% if product.tentid.productCategory.floor|default  %}
+                {% set floors = floors|merge([product])  %}
+            {%  endif %}
+            {% if product.tentid.productCategory.floor|default %}
+                {% if floors|length==1 %}
+                    <tr>
+                        <td style="border-bottom:1px solid #ededed">{{product.tentid.productCategory.name}}</td>
+                        <td style="border-bottom:1px solid #ededed" ></td>
+                        <td style="border-bottom:1px solid #ededed" >
+                            {%  set totalFloor=0 %}
+                            {%  for fl in  products.required.floor%}
+                                {%  set totalFloor=totalFloor+fl.tentid.m2 %}
+                            {%  endfor  %}
+                            {{ products.required.floor|length }} pieces
+                        </td>
+                        <td style="border-bottom:1px solid #ededed" ></td>
+                        <td style="border-bottom:1px solid #ededed" >{{ totalFloor }} m2</td>
+                    </tr>
+                {% endif %}
+			{% elseif product.tentid %}
 				<tr>
 					<td style="border-bottom:1px solid #ededed">{{product.tentid.productCategory.name}}</td>
 					<td style="border-bottom:1px solid #ededed" >{{product.tentid.reference}}</td>

@@ -79,9 +79,22 @@
 <br/>
 <b><u>{{"Tente(s)"|trans}}</u></b>
 <ul>
+    {% set floors =[] %}
 	{% for product in entity.products %}
+        {% if product.tentid.productCategory.floor|default  %}
+            {% set floors = floors|merge([product])  %}
+        {%  endif %}
+        {% if product.tentid.productCategory.floor|default %}
+            {% if floors|length==1 %}
+                <li>{{product.tentid.productCategory.name}} -  {%  set totalFloor=0 %}
+                    {%  for fl in  products.required.floor%}
+                        {%  set totalFloor=totalFloor+fl.tentid.m2 %}
+                    {%  endfor  %}
+                    {{ products.required.floor|length }} pieces - {{ totalFloor }} m2
 
-		{% if product.tentid %}
+                </li>
+            {% endif %}
+        {% elseif product.tentid %}
 			<li>{{product.tentid.reference}} - {{product.tentid.name}} - {{product.tentid.color}} - {{product.tentid.length}}m x {{product.tentid.width}}m {% if product.tentid.m2>0 %} - {{product.tentid.m2}}m2
 				{% endif %}
 			</li>
@@ -164,12 +177,31 @@
 		</tr>
 	</thead>
 	<tbody>
+        {% set floors =[] %}
 		{% for product in entity.products %}
 			{% if product.isOption!=1 %}
-			<tr>
-				<td class="left description">{{product.description|nl2br}}</td>
-				<td class='right' >{% if product.price>0 %}{{product.price|number_format(2,'.',' ')}} &euro;{% endif %}</td>
-			</tr>
+                {% if product.tentid.productCategory.floor|default  %}
+                    {% set floors = floors|merge([product])  %}
+                {%  endif %}
+                {% if product.tentid.productCategory.floor|default %}
+                    {% if floors|length==1 %}
+                    <tr>
+                        <td class="left description">{{product.description|nl2br}}
+                        {%  set totalFloor=0 %}
+                        {%  for fl in  products.required.floor%}
+                            {%  set totalFloor=totalFloor+fl.tentid.m2 %}
+                        {%  endfor  %}
+                        {{ products.required.floor|length }} pieces
+                        </td>
+                        <td class='right' >{% if product.price>0 %}{{product.price|number_format(2,'.',' ')}} &euro;{% endif %}</td>
+                    </tr>
+                    {%  endif %}
+                {% else  %}
+                    <tr>
+                        <td class="left description">{{product.description|nl2br}}</td>
+                        <td class='right' >{% if product.price>0 %}{{product.price|number_format(2,'.',' ')}} &euro;{% endif %}</td>
+                    </tr>
+                {%  endif %}
 			{% endif %}
 		{% endfor %}
 		<tr>
@@ -226,13 +258,34 @@
 	</thead>
 	{% set hasOption=false %}
 	<tbody>
+    {% set floors =[] %}
 		{% for product in entity.products %}
 			{% if product.isOption==1 %}
 			{% set hasOption=true %}
-				<tr>
-					<td class="left description">{{product.description|nl2br}}</td>
-					<td class='right' >{% if product.price>0 %} {{product.price|number_format(2,'.',' ')}} &euro;{% endif %}</td>
-				</tr>
+
+                {% if product.tentid.productCategory.floor|default  %}
+                    {% set floors = floors|merge([product])  %}
+                {%  endif %}
+
+                {% if product.tentid.productCategory.floor|default %}
+                    {% if floors|length==1 %}
+                        <tr>
+                            <td class="left description">{{product.description|nl2br}}
+                                {%  set totalFloor=0 %}
+                                {%  for fl in  products.required.floor%}
+                                    {%  set totalFloor=totalFloor+fl.tentid.m2 %}
+                                {%  endfor  %}
+                                {{ products.required.floor|length }} pieces
+                            </td>
+                            <td class='right' >{% if product.price>0 %}{{product.price|number_format(2,'.',' ')}} &euro;{% endif %}</td>
+                        </tr>
+                    {%  endif %}
+                {% else  %}
+                    <tr>
+                        <td class="left description">{{product.description|nl2br}}</td>
+                        <td class='right' >{% if product.price>0 %}{{product.price|number_format(2,'.',' ')}} &euro;{% endif %}</td>
+                    </tr>
+                {%  endif %}
 			{% endif %}
 		{% endfor %}
 

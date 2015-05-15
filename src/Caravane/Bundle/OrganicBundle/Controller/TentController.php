@@ -378,7 +378,10 @@ class TentController extends Controller
     public function getAvailableFromRouteAction() {
         $request=$this->get('request');
 
-
+        $entityType="Offre";
+        if($request->query->get('entityType')) {
+            $entityType=$request->query->get('entityType');
+        }
         if($request->query->get('categoryId')) {
             $categoryId=$request->query->get('categoryId');
         }
@@ -388,9 +391,10 @@ class TentController extends Controller
         if($request->query->get('endDate')) {
             $endDate= new \Datetime($request->query->get('endDate'));
         }
+
         if($request->query->get('entityId')) {
             $em = $this->getDoctrine()->getManager();
-            $entity=$em->getRepository('CaravaneOrganicBundle:Offre')->find($request->query->get('entityId'));
+            $entity=$em->getRepository('CaravaneOrganicBundle:'.$entityType)->find($request->query->get('entityId'));
         }
         return $this->getAvailableAction($entity,$categoryId,$startDate,$endDate);
     }
@@ -426,7 +430,6 @@ class TentController extends Controller
                 if($prod->getTentid()) {
                     $exclude[]=$prod->getTentid()->getId();
                 }
-
             }
         }
 
