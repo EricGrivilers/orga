@@ -161,9 +161,8 @@
 
                 {%  if product.vars.value.tentid.productCategory.floor|default and floors|length==1  %}
                     <td class="col-md-9">
-                        <div class="row">
-                            <div class="col-md-8"> {{form_widget(product.description)}}  {{form_widget(product.datas)}}</div>
-                            <div class="col-md-4">
+                        {{form_widget(product.description)}}  {{form_widget(product.datas)}}
+                            <div class="alert alert-note">
                                 {%  set totalFloor=0 %}
 
                                 {%  for fl in  products.required.floor%}
@@ -172,11 +171,12 @@
                                 {{ totalFloor }} m2 ({{ products.required.floor|length }} pieces)
 
 
-                            </div>
-                        </div>
+
                     </td>
                 {%  else  %}
-                    <td class="col-md-9"> {{form_widget(product.description)}} {{form_widget(product.datas)}}</td>
+                    <td class="col-md-9"> {{form_widget(product.description)}} {{form_widget(product.datas)}}
+                        {%  if product.vars.value.tentid.reference  is defined or product.vars.value.tentid.name  is defined  %} <div class="alert alert-note">{{ product.vars.value.tentid.reference is defined ? product.vars.value.tentid.reference:''}} - {{ product.vars.value.tentid.name is defined ? product.vars.value.tentid.name:'' }} {%  endif %}</div>
+                    </td>
                 {%  endif  %}
 
                 <td class="col-md-3"> {{form_widget(product.price)}} </td>

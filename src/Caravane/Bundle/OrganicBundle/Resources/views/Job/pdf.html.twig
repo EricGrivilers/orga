@@ -64,14 +64,14 @@
 <p>
 <b><u>{{"Dates"|trans}}</u></b>
 <ul>
-{% if entity.plannings|length>0 %}
-	<li>{{"Montage"|trans}} : {{entity.plannings[1].startDate|date('d/m/Y H:i:s')}}</li>
-	<li>{{"Jour(s) de votre événement"|trans}} : {{"du"|trans}} {{entity.plannings[2].startDate|date('d/m/Y H:i:s')}} {{"au"|trans}} {{entity.plannings[2].endDate|date('d/m/Y H:i:s')}}</li>
-	<li>{{"Démontage"|trans}} : {{entity.plannings[3].startDate|date('d/m/Y H:i:s')}}</li>
+{% if entity.builddate and  entity.unbuilddate %}
+	<li>{{"Montage"|trans}} : {{entity.builddate|date('d/m/Y')}} {%  if entity.builddate|date('H:i')!="12:00" %} {{ entity.builddate|date('H:i')}} {%  endif  %}</li>
+	<li>{{"Jour(s) de votre événement"|trans}} : {{"du"|trans}} {{entity.builddate|date('d/m/Y')}} {{"au"|trans}} {{entity.unbuilddate|date('d/m/Y')}}</li>
+	<li>{{"Démontage"|trans}} : {{entity.unbuilddate|date('d/m/Y')}} {%  if entity.unbuilddate|date('H:i')!="12:00" %} {{ entity.unbuilddate|date('H:i')}} {%  endif  %} </li>
 
 
 {% else %}
-	<li>{{entity.eventDate|date('d/m/Y H:i:s')}}</li>
+	<li>{{entity.eventDate|date('d/m/Y')}}</li>
 {% endif %}
 </ul>
 </p>
@@ -84,7 +84,7 @@
 	</tr>
 </table>
 <br/>
-<table class="main">
+<table class="main" style="max-width:190mm;table-layout: fixed;">
 	<thead>
 		<tr>
 			<th style="width:15mm"></th>

@@ -177,7 +177,7 @@ foreach($entities as $entity) {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Job entity.');
         }
-
+        /*
          if(count($entity->getPlannings())!=4) {
             foreach($this->planningTypes as $planningType) {
                 $planning=new \Caravane\Bundle\OrganicBundle\Entity\Planning2job();
@@ -193,6 +193,7 @@ foreach($entities as $entity) {
             }
             $this->customErrors[]="Planning error, please double check the dates.";
         }
+        */
         if(count($entity->getSlices())<1) {
             $this->customErrors[]="Conditions error, please verify the slices.";
         }

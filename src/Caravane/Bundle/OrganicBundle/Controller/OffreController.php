@@ -238,6 +238,7 @@ class OffreController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Offre entity.');
         }
+        /*
         if(count($entity->getPlannings())!=4) {
             foreach($this->planningTypes as $planningType) {
                 $planning=new \Caravane\Bundle\OrganicBundle\Entity\Planning2offre();
@@ -253,6 +254,7 @@ class OffreController extends Controller
             }
             $this->customErrors[]="Planning error, please double check the dates.";
         }
+        */
         if(count($entity->getSlices())<1) {
             $this->customErrors[]="Conditions error, please verify the slices.";
         }
