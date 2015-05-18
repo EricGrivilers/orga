@@ -144,10 +144,24 @@ $(document).ready(function() {
     });
 
 
+    $(".datetimepicker input[type=text]").on("dp.change", function (e) {
+        var timeField=$(this).closest('.datetimepicker').find('input[type=time]');
+        if(timeField.val()=='') {
+            timeField.val('00:00');
+        }
+    });
+
     $(".datetimepicker.d1 input[type=text]").on("dp.change", function (e) {
+        //console.log(e.date);
         $(".datetimepicker.d2 input[type=text]").data("DateTimePicker").minDate(e.date);
-        if($(".datetimepicker.d2 input[type=text]").val()=='') {
-            $(".datetimepicker.d2 input[type=text]").val($(".datetimepicker.d1 input[type=text]").val());
+        //$(".datetimepicker.d2 input[type=text]").data("DateTimePicker").date(e.date);
+       // console.log('d2',$(".datetimepicker.d2 input[type=text]").data("DateTimePicker").date());
+        var diff = e.date.diff($(".datetimepicker.d2 input[type=text]").data("DateTimePicker").date(), 'hours');
+       // console.log(diff);
+        if($(".datetimepicker.d2 input[type=text]").val()=='' || diff>0 ) {
+            //console.log('empty', $(".datetimepicker.d1 input[type=text]").val());
+            $(".datetimepicker.d2 input[type=text]").data("DateTimePicker").date(e.date);
+            //$(".datetimepicker.d2 input[type=text]").val($(".datetimepicker.d1 input[type=text]").val());
         }
         if($(".datetimepicker.d1 input[type=time]").val()=='') {
             $(".datetimepicker.d1 input[type=time]").val("00:00");
@@ -156,18 +170,30 @@ $(document).ready(function() {
             $(".datetimepicker.d2 input[type=time]").val("00:00");
         }
     });
+/*
+    $(".datetimepicker.d2 input[type=text]").on('focus', function(e) {
+        if($(this).val()=='') {
+            $(this).val($(".datetimepicker.d1 input[type=text]").val());
+            $(".datetimepicker.d2 input[type=time]").val("23:59");
+        }
+    })
+    */
 
     $(".datetimepicker.d2 input[type=text]").on("dp.change", function (e) {
         $(".datetimepicker.d3 input[type=text]").data("DateTimePicker").minDate(e.date);
-        if($(".datetimepicker.d3 input[type=text]").val()=='') {
-            $(".datetimepicker.d3 input[type=text]").val($(".datetimepicker.d2 input[type=text]").val());
+        var diff = e.date.diff($(".datetimepicker.d3 input[type=text]").data("DateTimePicker").date(), 'hours');
+        if($(".datetimepicker.d3 input[type=text]").val()=='' || diff>0 ) {
+            //$(".datetimepicker.d3 input[type=text]").val($(".datetimepicker.d2 input[type=text]").val());
+            $(".datetimepicker.d3 input[type=text]").data("DateTimePicker").date(e.date);
         }
     });
 
     $(".datetimepicker.d3 input[type=text]").on("dp.change", function (e) {
         $(".datetimepicker.d4 input[type=text]").data("DateTimePicker").minDate(e.date);
-        if($(".datetimepicker.d4 input[type=text]").val()=='') {
-            $(".datetimepicker.d4 input[type=text]").val($(".datetimepicker.d3 input[type=text]").val());
+        var diff = e.date.diff($(".datetimepicker.d4 input[type=text]").data("DateTimePicker").date(), 'hours');
+        if($(".datetimepicker.d4 input[type=text]").val()=='' || diff>0) {
+            //$(".datetimepicker.d4 input[type=text]").val($(".datetimepicker.d3 input[type=text]").val());
+            $(".datetimepicker.d4 input[type=text]").data("DateTimePicker").date(e.date);
         }
         if($(".datetimepicker.d3 input[type=time]").val()=='') {
             $(".datetimepicker.d3 input[type=time]").val("00:00");

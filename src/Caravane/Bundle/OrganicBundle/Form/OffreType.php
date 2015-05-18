@@ -30,7 +30,7 @@ class OffreType extends AbstractType
                'date_widget'=>'single_text',
                'time_widget'=>'single_text',
                'date_format' => 'dd/MM/yyyy',
-               'empty_data'=>$date,
+               //'empty_data'=>$date,
                'attr'=>array(
                    'class'=>'datetimepicker'
                ),
@@ -179,7 +179,7 @@ class OffreType extends AbstractType
             'date_widget'=>'single_text',
             'time_widget'=>'single_text',
             'date_format' => 'dd/MM/yyyy',
-            'empty_data'=>$date,
+            //'empty_data'=>$date,
             'attr'=>array(
                 'class'=>'datetimepicker'
             )
@@ -188,7 +188,7 @@ class OffreType extends AbstractType
             'date_widget'=>'single_text',
             'time_widget'=>'single_text',
             'date_format' => 'dd/MM/yyyy',
-            'empty_data'=>$date,
+            //'empty_data'=>$date,
             'attr'=>array(
                 'class'=>'datetimepicker builddate start d1'
             )
@@ -206,7 +206,7 @@ class OffreType extends AbstractType
             'date_widget'=>'single_text',
             'time_widget'=>'single_text',
             'date_format' => 'dd/MM/yyyy',
-            'empty_data'=>$date,
+            //'empty_data'=>$date,
             'attr'=>array(
                 'class'=>'datetimepicker unbuilddate start d3'
             )
