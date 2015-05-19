@@ -89,21 +89,18 @@ $(document).ready(function() {
     });
 
     $('table.table-sortable tbody').sortable({
-        update:function(ui,item) {
-
-            lis=new Array();
-            $(this).find('tr').each(function() {
-                lis.push($(this).data('entity'));
-            });
-
-            $.post($(this).data('update'),{'list':lis},function(data) {
-                if(data=='ok') {
-                     window.location.reload();
-                }
-                //alert(data);
-            });
-
-        }
+        forcePlaceholderSize: true
+    }).bind('sortupdate', function(e, ui) {
+        lis=[];
+        $(this).find('tr').each(function() {
+            lis.push($(this).data('entity'));
+        });
+        $.post($(this).data('update'),{'list':lis},function(data) {
+            if(data=='ok') {
+                window.location.reload();
+            }
+            //alert(data);
+        });
     });
 
 

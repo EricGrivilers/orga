@@ -432,12 +432,12 @@ class OffreController extends Controller
             }
             else {
                 $offre->removeProduct($product2offre);
-                $em->remove($product);
+                $em->remove($product2offre);
             }
         }
         else {
             $offre->removeProduct($product2offre);
-            $em->remove($product);
+            $em->remove($product2offre);
         }
         $em->persist($offre);
         $em->flush();

@@ -1,5 +1,5 @@
 {% extends "::base.html.twig" %}
-
+{% import "CaravaneOrganicBundle:Default:macros.html.twig" as macros %}
 {% block body %}
 
 <div class="row">
@@ -72,7 +72,7 @@
             <td>{% if entity.clientid %} <a href="{{ path('client_edit', { 'id': entity.clientid.id }) }}">{{ entity.clientid.name }}</a> {% endif %}</td>
             <td>{{ entity.offretype }}</td>
              <td>{% if entity.clientid %}{{entity.clientid.country}}{% endif %}</td>
-             <td>{{entity.country}}</td>
+             <td>{{entity.zip}} {{entity.city}}{{   entity.country?(",<br/>"~entity.country)|raw:"" }}</td>
              <td>{{ entity.startBuild?entity.startBuild|date('d/m/Y H:i'):'' }}</td>
              <td>{{ entity.endBuild?entity.endBuild|date('d/m/Y H:i'):'' }}</td>
              <td>{{entity.status}}</td>
@@ -87,7 +87,7 @@
                     <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop{{row}}_1">
                         {% for lg in ['en','fr','nl'] %}
                             <li role="presentation">
-                                 <a role="menuitem" href="{{path('job_pdf',{'id':entity.id,'_locale':lg})}}" target="_blank" > Job {{lg}}</a>
+                                 <a role="menuitem" href="{{path('job_pdf',{'id':entity.id,'_locale':lg})}}?t={{ date().timestamp }}" target="_blank" > Job {{lg}}</a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -96,7 +96,8 @@
 
             <td>
                 {% if entity.issue|length>0 %}
-                <a type="button" data-toggle="popover" data-placement="left" data-content="{% for issue in entity.issue %}<p>{{issue.description}}</p> {% endfor %}"><span class="label label-danger" >{{ entity.issue|length }}</span></a>
+                    {{ macros.issueButton(entity.issue) }}
+                    {#<a type="button" data-toggle="popover" data-placement="left" data-content="{% for issue in entity.issue %}<p>{{issue.description}}</p> {% endfor %}"><span class="label label-danger" >{{ entity.issue|length }}</span></a>#}
                 {% endif %}
             </td>
               <td>

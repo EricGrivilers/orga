@@ -1,5 +1,5 @@
 {% extends "::base.html.twig" %}
-
+{% import "CaravaneOrganicBundle:Default:macros.html.twig" as macros %}
 {% block body %}
 
 <div class="row">
@@ -74,7 +74,7 @@
             <td>{{ entity.price|number_format(2,',',' ') }}</td>
              <td>{% if entity.status=='ok' %}Sent to client{% elseif entity.status=='ANNULÉ' or entity.status=='cancel' %} Canceled {% elseif entity.status=='draft' or entity.status=='' %}Draft {% elseif entity.jobid %}Job: <a href="{{path('job_edit',{'id':entity.jobid.id})}}" class="red">{{entity.jobid.reference}}</a>{% elseif entity.status=='CONFIRMÉ' %}Confirmed{% else %}{{entity.status}}{% endif %}</td>
              <td>{% if entity.clientid %}{{entity.clientid.country}}{% endif %}</td>
-             <td>{{entity.country}}</td>
+            <td>{{entity.zip}} {{entity.city}}{{   entity.country?(",<br/>"~entity.country)|raw:"" }}</td>
              <td>{{ entity.insertDate|date('d/m/Y') }}</td>
 
              <td>
@@ -83,7 +83,7 @@
                     <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop{{row}}_1">
                         {% for lg in ['en','fr','nl'] %}
                             <li role="presentation">
-                               <a role="menuitem" href="{{path('offre_pdf',{'id':entity.id,'_locale':lg})}}" target="_blank" > Offre {{lg}}</a>
+                               <a role="menuitem" href="{{path('offre_pdf',{'id':entity.id,'_locale':lg})}}?t={{ date().timestamp }}" target="_blank" > Offre {{lg}}</a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -93,7 +93,9 @@
 
              <td>
                 {% if entity.issue|length>0 %}
-                    <a type="button" data-toggle="popover" data-placement="left" data-content="{% for issue in entity.issue %}<p>{{issue.description}}</p> {% endfor %}"><span class="label label-danger" >{{ entity.issue|length }}</span></a>{% endif %}</td>
+                    {{ macros.issueButton(entity.issue) }}
+                    {#<a type="button" data-toggle="popover" data-placement="left" data-content="{% for issue in entity.issue %}<p>{{issue.description}}</p> {% endfor %}"><span class="label label-danger" >{{ entity.issue|length }}</span></a>#}
+                {% endif %}</td>
               <td>
                 <a href="{{ path('offre_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i></a>
 

@@ -575,6 +575,19 @@ class Job
     }
 
     /**
+     * Get shortReference
+     *
+     * @return string
+     */
+    public function getShortReference()
+    {
+        if($t=explode('_',$this->reference)) {
+            return $t[0];
+        }
+        return $this->reference;
+    }
+
+    /**
      * Set offretype
      *
      * @param string $offretype

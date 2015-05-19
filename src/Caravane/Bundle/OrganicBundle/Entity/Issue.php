@@ -28,6 +28,8 @@ class Issue
      */
     private $type;
 
+
+
     /**
      * @var string
      *
@@ -55,6 +57,20 @@ class Issue
      * @ORM\Column(name="insertDate", type="datetimetz", nullable=true)
      */
     private $insertDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="target", type="string", length=128, nullable=true)
+     */
+    private $target;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="source", type="string", length=128, nullable=true)
+     */
+    private $source;
 
 
     /**
@@ -185,5 +201,53 @@ class Issue
     public function getReference()
     {
         return $this->reference;
+    }
+
+    /**
+     * Set target
+     *
+     * @param string $target
+     *
+     * @return Issue
+     */
+    public function setTarget($target)
+    {
+        $this->target = $target;
+
+        return $this;
+    }
+
+    /**
+     * Get target
+     *
+     * @return string
+     */
+    public function getTarget()
+    {
+        return $this->target;
+    }
+
+    /**
+     * Set source
+     *
+     * @param string $source
+     *
+     * @return Issue
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+
+        return $this;
+    }
+
+    /**
+     * Get source
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->source;
     }
 }

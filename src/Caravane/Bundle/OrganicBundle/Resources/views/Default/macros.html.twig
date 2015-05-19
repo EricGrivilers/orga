@@ -1,0 +1,26 @@
+{%  macro issueButton(issues)  %}
+    {% set l=issues|length %}
+    {%  set floorIssue=null  %}
+    {%  set floorIssueReferences=[]  %}
+    <a type="button" data-toggle="popover" data-placement="left" data-content="
+
+
+            {% for issue in issues %}
+                {%  if issue.type=="Floor" %}
+                    {% set l=l-1 %}
+                    {% if floorIssue==null %}
+                        {%  set floorIssue=issue %}
+                        {% set l=l+1 %}
+                        {%  set floorIssueReferences=floorIssueReferences|merge([issue.reference]) %}
+                    {% endif %}
+                {%  else  %}
+                    <p>{{issue.description}}</p>
+                {% endif %}
+            {% endfor %}
+            {%  if floorIssue %}
+                <p>Possible floor surface conflict. Please remove floor and add new - {{floorIssueReferences|join(',')}}</p>
+            {%  endif %}
+
+   "><span class="label label-danger" >{{ l }}</span></a>
+
+{%  endmacro %}

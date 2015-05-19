@@ -11,9 +11,11 @@
 {% endblock reference %}
 
 {% block documentType %}
-	 {{"Job"|trans}} {{entity.reference}}<br/>
+	 {{"Job"|trans}} {{entity.shortReference}}<br/>
+    {{ entity.city }} {{ entity.zip }}<br/>
+    {{ entity.country }}
   <br/>
-  <br/>
+
 {% endblock documentType %}
 
 {% block address %}

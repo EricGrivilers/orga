@@ -79,22 +79,6 @@ class OffreManager
             }
             //$entity->setTotalSlice($totalSlice);
             //$entity->setTotalSlicePriceht($totalSlicePriceHt);
-            if($entity->getTotalSlicePriceht()!=$entity->getPrice() || $entity->getTotalSlice()!=100 ) {
-
-                $errors[]=array('entity'=>$entity,"description"=>"Price error");
-            }
-            if(count($errors)>0) {
-                foreach($errors as $error) {
-                    $entity=$error['entity'];
-                     $issue=new Issue();
-                     $issue->setDescription($error['description']);
-                     $em->persist($issue);
-                     $entity->addIssue($issue);
-                }
-            }
-
-
-
 
 
             $em->persist($entity);
@@ -233,9 +217,10 @@ class OffreManager
     public function getIssues() {
         $entity=$this->entity;
         $this->issueManager->loadEntity($entity);
+        $this->issueManager->getGeneralIssues("Offre");
         $this->issueManager->getConflictIssues("Offre","Offre");
         $this->issueManager->getConflictIssues("Offre","Job");
-
+        $this->issueManager->save();
 
     }
 

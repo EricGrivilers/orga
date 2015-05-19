@@ -24,8 +24,22 @@
     {% endif %}
 
     {% if entity.issue|length>0 %}
+        {%  set floorIssue=null  %}
+        {%  set floorIssueReferences=[]  %}
       <div class="alert alert-danger">
-        {% for issue in entity.issue %}<p>{{issue.description|raw}}</p> {% endfor %}
+        {% for issue in entity.issue %}
+            {%  if issue.type=="Floor" %}
+                {% if floorIssue==null %}
+                    {%  set floorIssue=issue %}
+                    {%  set floorIssueReferences=floorIssueReferences|merge([issue.reference]) %}
+                {% endif %}
+            {%  else  %}
+                <p>{{issue.description|raw}}</p>
+          {% endif %}
+        {% endfor %}
+        {%  if floorIssue %}
+            <p>Possible floor surface conflict. Please remove floor and add new - {{floorIssueReferences|join(',')}}</p>
+        {%  endif %}
       </div>
     {% endif %}
      <div class="row">
