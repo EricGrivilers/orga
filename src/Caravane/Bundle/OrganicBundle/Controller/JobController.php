@@ -368,7 +368,17 @@ foreach($entities as $entity) {
         ;
     }
 
+    public function cancelAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        if($job=$em->getRepository('CaravaneOrganicBundle:Job')->find($id)) {
+            $job->setPublic(false);
+            $em->persist($job);
+            $em->flush();
+            return new Response('ok');
 
+        }
+        return new Response('error');
+    }
 
     public function removeProductAction($id,$productid) {
         $em = $this->getDoctrine()->getManager();

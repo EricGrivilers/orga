@@ -41,6 +41,13 @@ job_delete:
     defaults: { _controller: "CaravaneOrganicBundle:Job:delete" }
     requirements: { _method: post }
 
+job_cancel:
+    pattern:  /{id}/cancel
+    defaults: { _controller: "CaravaneOrganicBundle:Job:cancel" }
+    requirements: { _method: get }
+    options:
+        expose: true
+
 job_remove_product:
     pattern:  /{id}/remove_product/{productid}
     defaults: { _controller: "CaravaneOrganicBundle:Job:removeProduct" }

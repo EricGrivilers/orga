@@ -405,6 +405,21 @@ class OffreController extends Controller
         return $this->redirect($this->generateUrl('offre'));
     }
 
+
+
+    public function cancelAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        if($offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id)) {
+            $offre->setPublic(false);
+            $offre->setStatus('cancel');
+            $em->persist($offre);
+            $em->flush();
+            return new Response('ok');
+
+        }
+        return new Response('error');
+    }
+
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))

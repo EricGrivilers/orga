@@ -60,7 +60,7 @@
              <th>PDF</th>
               <th><a data-orderby="issue" >Issues</a></th>
              <th>Ed</th>
-            <th>Del</th>
+            {#<th>Del</th>#}
 
         </tr>
     </thead>
@@ -104,14 +104,14 @@
                 <a href="{{ path('job_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i></a>
 
             </td>
-             <td>
+             {#<td>
 
                         <a href="{{ path('job_delete', { 'id': entity.id }) }}" data-rel="{{entity.reference}}" ><i class="fa fa-trash-o"></i></a>
 
 
-            </td>
+            </td>#}
 
-{#}
+{#
             <td><a href="{{ path('offre_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
             <td>{% if entity.insertdate %}{{ entity.insertdate|date('Y-m-d H:i:s') }}{% endif %}</td>
             <td>{% if entity.updatedate %}{{ entity.updatedate|date('Y-m-d H:i:s') }}{% endif %}</td>

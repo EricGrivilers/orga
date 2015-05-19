@@ -604,6 +604,20 @@ function resetSearch() {
 }
 
 
+function cancelJob(id,type) {
+    if(confirm("Are you sure you want to cancel this "+type+"? This can't be undone.")) {
+        var route= Routing.generate(type+'_cancel', {'id':id});
+        $.get(route, function(data) {
+            if(data=='ok') {
+                window.location=Routing.generate(type);
+            }
+            else {
+                alert(data);
+            }
+        })
+        //alert(route);
+    }
+}
 
 
 jQuery.expr[':'].contains = function(a, i, m) {
