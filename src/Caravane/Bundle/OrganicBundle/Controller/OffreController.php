@@ -577,32 +577,35 @@ class OffreController extends Controller
     }
 
 
-    public function addTransportProductAction(Request $request,$id,$transportid) {
+    public function addTransportProductAction(Request $request,$id) {
         $em = $this->getDoctrine()->getManager();
         $offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
-        $transport=$em->getRepository('CaravaneOrganicBundle:Transport')->find($transportid);
+     //   $transport=$em->getRepository('CaravaneOrganicBundle:Transport')->find($transportid);
+
 
         $rank=$this->getRank($offre);
-        if($transport) {
+        //var_dump($request->request);
+        //echo $price." -- ".$distance." --" .$trips;
 
-            $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
 
-            $product->setOffreid($offre);
+        $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2offre();
 
-            $product->setInsertdate(new \Datetime('now'));
-            $product->setUpdatedate(new \Datetime('now'));
-            $product->setIsoption(false);
-            $product->setPrice($transport->getCost());
-            $product->setDescription($transport->getName()."(".$transport->getZip().")");
+        $product->setOffreid($offre);
 
-            $product->setRank($rank);
-            $product->setproductid($rank);
+        $product->setInsertdate(new \Datetime('now'));
+        $product->setUpdatedate(new \Datetime('now'));
+        $product->setIsoption(false);
+        $product->setPrice($request->request->get('price'));
+        $product->setDescription($request->request->get('name'));
 
-            $em->persist($product);
-            $offre->addProduct($product);
-            $em->persist($offre);
-            $em->flush();
-        }
+        $product->setRank($rank);
+        $product->setproductid($rank);
+
+        $em->persist($product);
+        $offre->addProduct($product);
+        $em->persist($offre);
+        $em->flush();
+
 
         return new Response('ok');
     }

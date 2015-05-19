@@ -27,3 +27,7 @@ UPDATE job J SET buildUser_id=(SELECT userId FROM planning2job PJ WHERE PJ.jobId
 UPDATE job J SET unbuildUser_id=(SELECT userId FROM planning2job PJ WHERE PJ.jobId=J.id AND planningType='unbuild');
 UPDATE job J SET previewUser_id=(SELECT userId FROM planning2job PJ WHERE PJ.jobId=J.id AND planningType='preview');
 
+
+
+
+ALTER TABLE `tent` DROP FOREIGN KEY `FK_2713121064F6BD66`;

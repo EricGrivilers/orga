@@ -523,31 +523,33 @@ foreach($entities as $entity) {
     }
 
 
-    public function addTransportProductAction(Request $request,$id,$transportid) {
+
+
+    public function addTransportProductAction(Request $request,$id) {
         $em = $this->getDoctrine()->getManager();
         $job=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
-        $transport=$em->getRepository('CaravaneOrganicBundle:Transport')->find($transportid);
+        //$transport=$em->getRepository('CaravaneOrganicBundle:Transport')->find($transportid);
 
         $rank=$this->getRank($job);
-        if($transport) {
 
-            $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2job();
 
-            $product->setJobid($job);
+        $product=new \Caravane\Bundle\OrganicBundle\Entity\Product2job();
 
-            $product->setInsertdate(new \Datetime('now'));
-            $product->setUpdatedate(new \Datetime('now'));
-            $product->setPrice($transport->getCost());
-            $product->setDescription($transport->getName()."(".$transport->getZip().")");
+        $product->setJobid($job);
 
-            $product->setRank($rank);
-            $product->setproductid($rank);
+        $product->setInsertdate(new \Datetime('now'));
+        $product->setUpdatedate(new \Datetime('now'));
+        $product->setPrice($request->request->get('price'));
+        $product->setDescription($request->request->get('name'));
 
-            $em->persist($product);
-            $job->addProduct($product);
-            $em->persist($job);
-            $em->flush();
-        }
+        $product->setRank($rank);
+        $product->setproductid($rank);
+
+        $em->persist($product);
+        $job->addProduct($product);
+        $em->persist($job);
+        $em->flush();
+
 
         return new Response('ok');
     }

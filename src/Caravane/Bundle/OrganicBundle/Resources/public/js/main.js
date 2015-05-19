@@ -460,31 +460,41 @@ function initOffre() {
                //window.location.reload();
                // $('form').submit();
                $('#mainForm').submit();
-            })
+            });
             $('#stockModal').modal('hide');
         });
     });
 
+    $('#transportModal #transport_submit').click(function() {
+        entityId=$(this).closest('.modal').data('target');
+        $.post(Routing.generate(entity+'_add_transport',{'id':entityId}),{'option':option,'price':$('#transport_price').val(),'name':$('#transport_filter').val() + " ("+$('#transport_trips').val()+" x "+$('#transport_distance').val()+" km)",'price':$('#transport_total').val()},function(data) {
 
+            //console.log(data);
+            window.location.hash = "#tab_products";
+
+            $('#mainForm').submit();
+
+
+        });
+        $('#transportModal').modal('hide');
+    });
     $('.openTransportModal').click(function() {
         target=$(this).closest('table').find('.products');
         entity=$('#mainForm').data('entity');
+
         option=$(this).closest('table').data('option');
         $('#transportModal').modal('show');
-        $('table.transport tbody tr, table.transport tbody a').click(function(e) {
+        $('table.transport tbody tr').click(function(e) {
+
             e.stopPropagation();
+            $('#transport_filter').val($(this).data('name'));
+            $('#transport_distance').val($(this).data('distance'));
+
+            $('#transport_total').val( $('#transport_distance').val() * $('#transport_trips').val() * $('#transport_price').val() );
+
             transportid=$(this).data('productid');
             entityId=$(this).closest('.modal').data('target');
-            //alert(Routing.generate(entity+'_add_transport',{'id':entityId,'transportid':transportid}));
-             $.post(Routing.generate(entity+'_add_transport',{'id':entityId,'transportid':transportid}),{'option':option},function(data) {
 
-                //window.location.hash = "#tab_products";
-
-                $('#mainForm').submit();
-               //window.location.reload();
-              //  $('form').submit();
-            })
-             $('#transportModal').modal('hide');
         });
 
 

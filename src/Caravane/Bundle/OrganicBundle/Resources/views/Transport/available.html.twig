@@ -1,13 +1,38 @@
 
 
 <div class="row tableContainer">
+        <div class='col-md-2'>
+            <label>Location</label>
+            <input type="text" id="transport_filter" class="form-control" placeholder="search"  />
+        </div>
+        <div class='col-md-2'>
+            <label>Distance (km)</label>
+            <input type="text" id="transport_distance" class="form-control" placeholder="trips" value="0"  />
+        </div>
+        <div class='col-md-2'>
+            <label>Trips</label>
+            <input type="text" id="transport_trips" class="form-control" placeholder="trips" value="4"  />
+        </div>
+        <div class='col-md-2'>
+            <label>Cost per km</label>
+            <input type="text" id="transport_price" class="form-control" placeholder="Price per km" value="0.85"  />
+        </div>
+        <div class='col-md-2'>
+            <label><b>Total</b></label>
+            <input type="text" id="transport_total" name="transport_total" class="form-control" placeholder="Total" value="0" style="border:1px solid #000000"  />
+        </div>
+        <div class='col-md-2'>
+            <label><b>&nbsp;</b></label>
+            <input type="submit" id="transport_submit" class="btn btn-primary" value="Submit"/>
+        </div>
         <div class='col-md-12 content'>
-            <input type="text" id="transport_filter" class="form-control" placeholder="search"  ><b/r>
+
             <table class="table table-bordered table-condensed table-striped transport">
                 <thead>
                     <tr>
                         <th>zip</th>
                         <th>Name</th>
+                        <th>Distance</th>
                         <th>Cost</th>
                     </tr>
                 </thead>
@@ -15,9 +40,10 @@
                 <tbody>
 
                 {% for entity in entities %}
-                    <tr data-productid="{{entity.id}}" >
+                    <tr data-productid="{{entity.id}}" data-distance="{{ entity.distance }}" data-name="{{ entity.name }} {{ entity.zip }}">
                         <td><a data-productid="{{entity.id}}">{{ entity.zip }}</a></td>
                         <td><a data-productid="{{entity.id}}">{{ entity.name }}</a></td>
+                        <td><a data-productid="{{entity.id}}">{{ entity.distance }}</a></td>
                         <td><a data-productid="{{entity.id}}">{{ entity.cost }}</a></td>
                     </tr>
                 {% endfor %}

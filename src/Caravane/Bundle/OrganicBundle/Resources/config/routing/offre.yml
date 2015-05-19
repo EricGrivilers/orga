@@ -67,7 +67,7 @@ offre_add_tent:
         expose: true
 
 offre_add_transport:
-    pattern:  /{id}/add_transport_product/{transportid}
+    pattern:  /{id}/add_transport_product
     defaults: { _controller: "CaravaneOrganicBundle:Offre:addTransportProduct" }
     options:
         expose: true
