@@ -96,7 +96,7 @@
                             <ul  class="dropdown-menu" role="menu" aria-labelledby="drop{{row}}_1">
                                 {% for lg in ['en','fr','nl'] %}
                                     <li role="presentation">
-                                        <a role="menuitem" href="{{path('invoice_pdf',{'id':entity.id,'type':'inv','_locale':lg})}}" target="_blank" ><img src="/images/icons/pdf.png"> Invoice {{lg}}</a>
+                                        <a role="menuitem" href="{{path('invoice_pdf',{'id':entity.id,'type':'inv','_locale':lg})}}?t={{ date().timestamp }}" target="_blank" ><img src="/images/icons/pdf.png"> Invoice {{lg}}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -109,7 +109,7 @@
                             <ul  class="dropdown-menu" role="menu" aria-labelledby="drop{{row}}_2">
                                 {% for lg in ['en','fr','nl'] %}
                                     <li role="presentation">
-                                        <a role="menuitem" href="{{path('invoice_pdf',{'id':entity.id,'type':'r1','_locale':lg})}}" target="_blank" > Reminder 1 {{lg}}</a>
+                                        <a role="menuitem" href="{{path('invoice_pdf',{'id':entity.id,'type':'r1','_locale':lg})}}?t={{ date().timestamp }}" target="_blank" > Reminder 1 {{lg}}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -123,7 +123,7 @@
                             <ul  class="dropdown-menu" role="menu" aria-labelledby="drop{{row}}_3">
                                 {% for lg in ['en','fr','nl'] %}
                                     <li role="presentation">
-                                        <a role="menuitem" href="{{path('invoice_pdf',{'id':entity.id,'type':'r2','_locale':lg})}}" target="_blank" > Reminder 2  {{lg}}</a>
+                                        <a role="menuitem" href="{{path('invoice_pdf',{'id':entity.id,'type':'r2','_locale':lg})}}?t={{ date().timestamp }}" target="_blank" > Reminder 2  {{lg}}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -137,7 +137,7 @@
                             <ul  class="dropdown-menu" role="menu" aria-labelledby="drop{{row}}_4">
                                 {% for lg in ['en','fr','nl'] %}
                                     <li role="presentation">
-                                        <a role="menuitem" href="{{path('invoice_pdf',{'id':entity.id,'type':'med','_locale':lg})}}" target="_blank" > Ultimatum {{lg}}</a>
+                                        <a role="menuitem" href="{{path('invoice_pdf',{'id':entity.id,'type':'med','_locale':lg})}}?t={{ date().timestamp }}" target="_blank" > Ultimatum {{lg}}</a>
                                     </li>
                                 {% endfor %}
                             </ul>

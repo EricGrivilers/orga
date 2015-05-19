@@ -11,9 +11,11 @@
 {% endblock reference %}
 
 {% block documentType %}
-	 {{"Job"|trans}} {{entity.reference}}<br/>
+	 {{"Job"|trans}} {{entity.shortReference}}<br/>
+    {{ entity.city }} {{ entity.zip }}<br/>
+    {{ entity.country }}
   <br/>
-  <br/>
+
 {% endblock documentType %}
 
 {% block address %}
@@ -64,14 +66,14 @@
 <p>
 <b><u>{{"Dates"|trans}}</u></b>
 <ul>
-{% if entity.plannings|length>0 %}
-	<li>{{"Montage"|trans}} : {{entity.plannings[1].startDate|date('d/m/Y H:i:s')}}</li>
-	<li>{{"Jour(s) de votre événement"|trans}} : {{"du"|trans}} {{entity.plannings[2].startDate|date('d/m/Y H:i:s')}} {{"au"|trans}} {{entity.plannings[2].endDate|date('d/m/Y H:i:s')}}</li>
-	<li>{{"Démontage"|trans}} : {{entity.plannings[3].startDate|date('d/m/Y H:i:s')}}</li>
+{% if entity.builddate and  entity.unbuilddate %}
+	<li>{{"Montage"|trans}} : {{entity.builddate|date('d/m/Y')}} {%  if entity.builddate|date('H:i')!="12:00" %} {{ entity.builddate|date('H:i')}} {%  endif  %}</li>
+	<li>{{"Jour(s) de votre événement"|trans}} : {{"du"|trans}} {{entity.builddate|date('d/m/Y')}} {{"au"|trans}} {{entity.unbuilddate|date('d/m/Y')}}</li>
+	<li>{{"Démontage"|trans}} : {{entity.unbuilddate|date('d/m/Y')}} {%  if entity.unbuilddate|date('H:i')!="12:00" %} {{ entity.unbuilddate|date('H:i')}} {%  endif  %} </li>
 
 
 {% else %}
-	<li>{{entity.eventDate|date('d/m/Y H:i:s')}}</li>
+	<li>{{entity.eventDate|date('d/m/Y')}}</li>
 {% endif %}
 </ul>
 </p>
@@ -84,7 +86,7 @@
 	</tr>
 </table>
 <br/>
-<table class="main">
+<table class="main" width="190mm" style="width: 190mm; max-width:190mm;table-layout: fixed;">
 	<thead>
 		<tr>
 			<th style="width:15mm"></th>
@@ -95,8 +97,28 @@
 		</tr>
 	</thead>
 	<tbody>
+	    {% set floors =[] %}
 		{% for product in entity.products %}
-			{% if product.tentid %}
+            {% if product.tentid.productCategory.floor|default  %}
+                {% set floors = floors|merge([product])  %}
+            {%  endif %}
+            {% if product.tentid.productCategory.floor|default %}
+                {% if floors|length==1 %}
+                    <tr>
+                        <td style="border-bottom:1px solid #ededed">{{product.tentid.productCategory.name}}</td>
+                        <td style="border-bottom:1px solid #ededed" ></td>
+                        <td style="border-bottom:1px solid #ededed" >
+                            {%  set totalFloor=0 %}
+                            {%  for fl in  products.required.floor%}
+                                {%  set totalFloor=totalFloor+fl.tentid.m2 %}
+                            {%  endfor  %}
+                            {{ products.required.floor|length }} pieces
+                        </td>
+                        <td style="border-bottom:1px solid #ededed" ></td>
+                        <td style="border-bottom:1px solid #ededed" >{{ totalFloor }} m2</td>
+                    </tr>
+                {% endif %}
+			{% elseif product.tentid %}
 				<tr>
 					<td style="border-bottom:1px solid #ededed">{{product.tentid.productCategory.name}}</td>
 					<td style="border-bottom:1px solid #ededed" >{{product.tentid.reference}}</td>

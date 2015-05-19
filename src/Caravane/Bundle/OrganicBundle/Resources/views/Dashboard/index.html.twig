@@ -9,7 +9,7 @@
 
                 <ul>
                   {% for offre in offres %}
-                    <li><a href="{{path('offre_edit',{'id':offre.id})}}">{{offre.reference}} - {{ offre.clientid.name is defined ? offre.clientid.name:''  }} - {{ offre.city is defined ? offre.city:'' }}</a></li>
+                    <li><a href="{{path('offre_edit',{'id':offre.id})}}">{{offre.reference}}</a> - {%  if  offre.clientid.name is defined %} <a href="{{path('client_edit',{'id':offre.clientid.id})}}">{{ offre.clientid.name}}</a>{%  endif %} - {{ offre.city is defined ? offre.city:'' }}</li>
                   {% endfor %}
                 </ul>
               </div>
@@ -21,7 +21,7 @@
 
                 <ul>
                   {% for job in jobs %}
-                    <li><a href="{{path('job_edit',{'id':job.id})}}">{{job.reference}} - {{ job.clientid.name is defined? job.clientid.name:'' }} - {{ job.city is defined ? job.city:'' }}</a></li>
+                    <li><a href="{{path('job_edit',{'id':job.id})}}">{{job.reference}} </a> - {{ job.clientid.name is defined? job.clientid.name:'' }} - {{ job.city is defined ? job.city:'' }}</li>
                   {% endfor %}
                 </ul>
               </div>

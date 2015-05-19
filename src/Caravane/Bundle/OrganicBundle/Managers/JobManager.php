@@ -166,8 +166,11 @@ class JobManager
     {
         $entity = $this->entity;
         $this->issueManager->loadEntity($entity);
+        $this->issueManager->getGeneralIssues("Job");
         $this->issueManager->getConflictIssues("Job", "Job");
         $this->issueManager->getConflictIssues("Job", "Offre");
+        $this->issueManager->save();
+
     }
 
 }

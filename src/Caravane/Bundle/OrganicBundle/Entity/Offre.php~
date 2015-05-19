@@ -89,7 +89,7 @@ class Offre
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="$startunbuilddate", type="datetime", nullable=true)
+     * @ORM\Column(name="startunbuilddate", type="datetime", nullable=true)
      */
     private $startunbuilddate;
 
@@ -485,6 +485,21 @@ class Offre
         return $this->reference;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->issue = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tents2offre = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->transport2offre = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->plannings = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->condition = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->slices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->document = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comment = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -1831,6 +1846,9 @@ class Offre
      */
     public function setUnbuilddate($unbuilddate)
     {
+        if($unbuilddate<$this->startunbuilddate) {
+            $unbuilddate = $this->startunbuilddate;
+        }
         $this->unbuilddate = $unbuilddate;
 
         return $this;
@@ -1843,7 +1861,68 @@ class Offre
      */
     public function getUnbuilddate()
     {
+        if($this->unbuilddate<$this->startunbuilddate) {
+            $this->unbuilddate = $this->startunbuilddate;
+        }
         return $this->unbuilddate;
+    }
+
+
+
+    /**
+     * Set startunbuilddate
+     *
+     * @param \DateTime $startunbuilddate
+     *
+     * @return Offre
+     */
+    public function setStartunbuilddate($startunbuilddate)
+    {
+
+        $this->startunbuilddate = $startunbuilddate;
+
+        return $this;
+    }
+
+    /**
+     * Get startunbuilddate
+     *
+     * @return \DateTime
+     */
+    public function getStartunbuilddate()
+    {
+
+        return $this->startunbuilddate;
+    }
+
+    /**
+     * Set endbuilddate
+     *
+     * @param \DateTime $endbuilddate
+     *
+     * @return Offre
+     */
+    public function setEndbuilddate($endbuilddate)
+    {
+        if($endbuilddate<$this->getBuilddate()) {
+            $this->endbuilddate = $this->getBuilddate();
+        }
+        $this->endbuilddate = $endbuilddate;
+
+        return $this;
+    }
+
+    /**
+     * Get endbuilddate
+     *
+     * @return \DateTime
+     */
+    public function getEndbuilddate()
+    {
+        if($this->endbuilddate<$this->builddate) {
+            $this->endbuilddate = $this->builddate;
+        }
+        return $this->endbuilddate;
     }
 
 
@@ -1953,71 +2032,8 @@ class Offre
     {
         return $this->issue;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->issue = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->tents2offre = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->transport2offre = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->plannings = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->condition = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->slices = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->document = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->comment = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
 
-    /**
-     * Set startunbuilddate
-     *
-     * @param \DateTime $startunbuilddate
-     *
-     * @return Offre
-     */
-    public function setStartunbuilddate($startunbuilddate)
-    {
-        $this->startunbuilddate = $startunbuilddate;
 
-        return $this;
-    }
 
-    /**
-     * Get startunbuilddate
-     *
-     * @return \DateTime
-     */
-    public function getStartunbuilddate()
-    {
-        if(!$this->startunbuilddate) {
-            $this->startunbuilddate=$this->unbuilddate;
-        }
-        return $this->startunbuilddate;
-    }
-
-    /**
-     * Set endbuilddate
-     *
-     * @param \DateTime $endbuilddate
-     *
-     * @return Offre
-     */
-    public function setEndbuilddate($endbuilddate)
-    {
-        $this->endbuilddate = $endbuilddate;
-
-        return $this;
-    }
-
-    /**
-     * Get endbuilddate
-     *
-     * @return \DateTime
-     */
-    public function getEndbuilddate()
-    {
-        return $this->endbuilddate;
-    }
 }

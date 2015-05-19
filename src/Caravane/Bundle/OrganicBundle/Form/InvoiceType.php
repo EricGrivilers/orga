@@ -42,8 +42,10 @@ class InvoiceType extends AbstractType
             //->add('cslice')
             //->add('nbslices')
             //->add('insertdate')
-            ->add('paymentdate','CaravaneUIDatePicker',array(
-                "label"=>"Payment date"
+            ->add('paymentdate','date',array(
+                "label"=>"Payment date",
+                //'widget'=>'single_text',
+
             ))
            ->add('priceht','number',array(
                 'precision' => 2,

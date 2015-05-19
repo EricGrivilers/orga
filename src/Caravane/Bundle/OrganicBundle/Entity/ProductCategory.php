@@ -29,6 +29,15 @@ class ProductCategory
     private $name;
 
 
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="floor", type="boolean", nullable=true)
+     */
+    private $floor;
+
+
     public function __toString() {
         return $this->name;
     }
@@ -63,5 +72,29 @@ class ProductCategory
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set floor
+     *
+     * @param boolean $floor
+     *
+     * @return ProductCategory
+     */
+    public function setFloor($floor)
+    {
+        $this->floor = $floor;
+
+        return $this;
+    }
+
+    /**
+     * Get floor
+     *
+     * @return boolean
+     */
+    public function getFloor()
+    {
+        return $this->floor;
     }
 }

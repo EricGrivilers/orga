@@ -126,7 +126,8 @@ foreach($entities as $entity) {
         return $this->render('CaravaneOrganicBundle:Job:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'products'=>$this->getProducts($entity)
         ));
     }
 
@@ -158,7 +159,8 @@ foreach($entities as $entity) {
         return $this->render('CaravaneOrganicBundle:Job:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'products'=>$this->getProducts($entity)
         ));
     }
 
@@ -175,7 +177,7 @@ foreach($entities as $entity) {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Job entity.');
         }
-
+        /*
          if(count($entity->getPlannings())!=4) {
             foreach($this->planningTypes as $planningType) {
                 $planning=new \Caravane\Bundle\OrganicBundle\Entity\Planning2job();
@@ -191,6 +193,7 @@ foreach($entities as $entity) {
             }
             $this->customErrors[]="Planning error, please double check the dates.";
         }
+        */
         if(count($entity->getSlices())<1) {
             $this->customErrors[]="Conditions error, please verify the slices.";
         }
@@ -203,7 +206,8 @@ foreach($entities as $entity) {
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
              'productCategories' =>$productCategories,
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'products'=>$this->getProducts($entity)
         ));
     }
 
@@ -324,7 +328,8 @@ foreach($entities as $entity) {
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
              'productCategories' =>$productCategories,
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'products'=>$this->getProducts($entity)
         ));
     }
 
@@ -363,14 +368,43 @@ foreach($entities as $entity) {
         ;
     }
 
+    public function cancelAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        if($job=$em->getRepository('CaravaneOrganicBundle:Job')->find($id)) {
+            $job->setPublic(false);
+            $em->persist($job);
+            $em->flush();
+            return new Response('ok');
 
+        }
+        return new Response('error');
+    }
 
     public function removeProductAction($id,$productid) {
         $em = $this->getDoctrine()->getManager();
         $job=$em->getRepository('CaravaneOrganicBundle:Job')->find($id);
-        $product=$em->getRepository('CaravaneOrganicBundle:Product2job')->find($productid);
-        $job->removeProduct($product);
-        $em->remove($product);
+        $product2job=$em->getRepository('CaravaneOrganicBundle:Product2job')->find($productid);
+        if($product2job->getTentid()) {
+            if($product2job->getTentid()->getProductCategory()->getFloor()) {
+                $products=$em->getRepository('CaravaneOrganicBundle:Product2job')->findBy(array('jobid'=>$id));
+                foreach($products as $p) {
+                    if($p->getTentid()) {
+                        if($p->getTentid()->getProductCategory()->getFloor()) {
+                            $job->removeProduct($p);
+                            $em->remove($p);
+                        }
+                    }
+                }
+            }
+            else {
+                $job->removeProduct($product2job);
+                $em->remove($product);
+            }
+        }
+        else {
+            $job->removeProduct($product2job);
+            $em->remove($product);
+        }
         $em->persist($job);
         $em->flush();
         return new Response('ok');
@@ -571,7 +605,7 @@ foreach($entities as $entity) {
                     'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/jobs",
                     'filename'=>$entity->getReference()."-".$_locale.".pdf"
             );
-            $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Job:pdf.html.twig",$file,$_locale,true);
+            $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Job:pdf.html.twig",$file,$_locale,true, $this->getProducts($entity));
             return $this->redirect("/docs/jobs/".$file['filename']);
         }
 
@@ -761,6 +795,25 @@ foreach($entities as $entity) {
         }
         $rank++;
         return $rank;
+    }
+
+
+    private function getProducts($entity) {
+        $products=array();
+        foreach($entity->getProducts() as $product) {
+            $o="required";
+            $t="free";
+            if($tent=$product->getTentid()) {
+                if($tent->getProductCategory()->getFloor()) {
+                    $t="floor";
+                }
+                else {
+                    $t="tent";
+                }
+            }
+            $products[$o][$t][]=$product;
+        }
+        return $products;
     }
 
 }

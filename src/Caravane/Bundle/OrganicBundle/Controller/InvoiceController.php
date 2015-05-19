@@ -88,7 +88,8 @@ class InvoiceController extends Controller
         return $this->render('CaravaneOrganicBundle:Invoice:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'products'=>$this->getProducts($entity)
                     ));
     }
 
@@ -112,7 +113,7 @@ class InvoiceController extends Controller
             'entity' => $entity,
             'edit_form'   => $form->createView(),
             'customErrors'=>$this->customErrors,
-            'conditions'=>$em->getRepository('CaravaneOrganicBundle:Invoice')->getConditions()
+            'products'=>$this->getProducts($entity)
         ));
     }
 
@@ -143,6 +144,7 @@ class InvoiceController extends Controller
             $p->setUpdatedate($product->getUpdatedate());
             $p->setRank($product->getRank());
             $p->setIsfromjob(true);
+            $p->setTentid($product->getTentid());
             $entity->addProduct($p);
 
         }
@@ -291,7 +293,8 @@ class InvoiceController extends Controller
         return $this->render('CaravaneOrganicBundle:Invoice:new.html.twig', array(
             'entity' => $entity,
             'edit_form'   => $form->createView(),
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'products'=>$this->getProducts($entity)
         ));
     }
 
@@ -321,7 +324,8 @@ class InvoiceController extends Controller
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'customErrors'=>$this->customErrors,
-            'conditions'=>$em->getRepository('CaravaneOrganicBundle:Invoice')->getConditions()
+            'conditions'=>$em->getRepository('CaravaneOrganicBundle:Invoice')->getConditions(),
+            'products'=>$this->getProducts($entity)
         ));
     }
 
@@ -375,7 +379,8 @@ class InvoiceController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'products'=>$this->getProducts($entity)
         ));
     }
 
@@ -452,7 +457,7 @@ class InvoiceController extends Controller
                     'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/invoices",
                     'filename'=>$entity->getReference()."-".$type."-".$_locale.".pdf"
                 );
-                $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Invoice:pdf.".$type.".html.twig",$file,$_locale,$force);
+                $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Invoice:pdf.".$type.".html.twig",$file,$_locale,$force, $this->getProducts($entity));
                 switch($type) {
                     default:
                     case "r1":
@@ -474,7 +479,7 @@ class InvoiceController extends Controller
                     'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/invoices",
                     'filename'=>$entity->getReference()."-".$_locale.".pdf"
                 );
-                $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Invoice:pdf.html.twig",$file,$_locale,$force);
+                $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Invoice:pdf.html.twig",$file,$_locale,$force, $this->getProducts($entity));
             }
             return $this->redirect("/docs/invoices/".$file['filename']);
         }
@@ -721,6 +726,24 @@ class InvoiceController extends Controller
         }
         $rank++;
         return $rank;
+    }
+
+    private function getProducts($entity) {
+        $products=array();
+        foreach($entity->getProducts() as $product) {
+            $o="required";
+            $t="free";
+            if($tent=$product->getTentid()) {
+                if($tent->getProductCategory()->getFloor()) {
+                    $t="floor";
+                }
+                else {
+                    $t="tent";
+                }
+            }
+            $products[$o][$t][]=$product;
+        }
+        return $products;
     }
 
 

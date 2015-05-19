@@ -76,14 +76,6 @@ class OffreController extends Controller
         $nbpages=(Integer)(count($entities)/$offset)+1;
 
 
-/*
-foreach($entities as $entity) {
-    $offreManager2=$this->get('caravane_organic.offre_manager');
-    $offreManager2->loadEntity($entity);
-    $offreManager2->getIssues();
-}
-*/
-
 
         return $this->render('CaravaneOrganicBundle:Offre:index.html.twig', array(
             'entities' => $entities,
@@ -150,15 +142,18 @@ foreach($entities as $entity) {
             }
         }
 
+
         $entity->setUserid($this->getUser());
         $entity->setClientid($client);
         $form   = $this->createForm(new OffreType(), $entity);
+
 
         return $this->render('CaravaneOrganicBundle:Offre:new.html.twig', array(
             'entity' => $entity,
             'edit_form'   => $form->createView(),
             'productCategories' =>$productCategories,
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'products'=>$this->getProducts($entity)
         ));
     }
 
@@ -224,7 +219,8 @@ foreach($entities as $entity) {
             'entity' => $entity,
             'edit_form'   => $form->createView(),
             'productCategories' =>$productCategories,
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'products'=>$this->getProducts($entity)
         ));
 
     }
@@ -242,6 +238,7 @@ foreach($entities as $entity) {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Offre entity.');
         }
+        /*
         if(count($entity->getPlannings())!=4) {
             foreach($this->planningTypes as $planningType) {
                 $planning=new \Caravane\Bundle\OrganicBundle\Entity\Planning2offre();
@@ -257,18 +254,22 @@ foreach($entities as $entity) {
             }
             $this->customErrors[]="Planning error, please double check the dates.";
         }
+        */
         if(count($entity->getSlices())<1) {
             $this->customErrors[]="Conditions error, please verify the slices.";
         }
         $editForm = $this->createForm(new OffreType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
+
+
         return $this->render('CaravaneOrganicBundle:Offre:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'productCategories' =>$productCategories,
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'products'=>$this->getProducts($entity)
         ));
     }
 
@@ -372,7 +373,8 @@ foreach($entities as $entity) {
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'productCategories' =>$productCategories,
-            'customErrors'=>$this->customErrors
+            'customErrors'=>$this->customErrors,
+            'products'=>$this->getProducts($entity)
         ));
     }
 
@@ -403,6 +405,21 @@ foreach($entities as $entity) {
         return $this->redirect($this->generateUrl('offre'));
     }
 
+
+
+    public function cancelAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        if($offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id)) {
+            $offre->setPublic(false);
+            $offre->setStatus('cancel');
+            $em->persist($offre);
+            $em->flush();
+            return new Response('ok');
+
+        }
+        return new Response('error');
+    }
+
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
@@ -414,9 +431,29 @@ foreach($entities as $entity) {
     public function removeProductAction($id,$productid) {
         $em = $this->getDoctrine()->getManager();
         $offre=$em->getRepository('CaravaneOrganicBundle:Offre')->find($id);
-        $product=$em->getRepository('CaravaneOrganicBundle:Product2offre')->find($productid);
-        $offre->removeProduct($product);
-        $em->remove($product);
+        $product2offre=$em->getRepository('CaravaneOrganicBundle:Product2offre')->find($productid);
+        if($product2offre->getTentid()) {
+            if($product2offre->getTentid()->getProductCategory()->getFloor()) {
+                $isOption=$product2offre->getIsoption();
+                $products=$em->getRepository('CaravaneOrganicBundle:Product2offre')->findBy(array('offreid'=>$id,'isoption'=>$isOption));
+                foreach($products as $p) {
+                    if($p->getTentid()) {
+                        if($p->getTentid()->getProductCategory()->getFloor()) {
+                            $offre->removeProduct($p);
+                            $em->remove($p);
+                        }
+                    }
+                }
+            }
+            else {
+                $offre->removeProduct($product2offre);
+                $em->remove($product2offre);
+            }
+        }
+        else {
+            $offre->removeProduct($product2offre);
+            $em->remove($product2offre);
+        }
         $em->persist($offre);
         $em->flush();
         return new Response('ok');
@@ -641,7 +678,7 @@ foreach($entities as $entity) {
                     'path'=>__DIR__."/../../../../../".$this->container->getParameter('web_dir')."/docs/offres",
                     'filename'=>$entity->getReference()."-".$_locale.".pdf"
             );
-            $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Offre:pdf.html.twig",$file,$_locale,true);
+            $pdfManager->createPdf($entity,"CaravaneOrganicBundle:Offre:pdf.html.twig",$file,$_locale,true, $this->getProducts($entity));
             return $this->redirect("/docs/offres/".$file['filename']);
         }
 
@@ -861,6 +898,28 @@ foreach($entities as $entity) {
         }
         $rank++;
         return $rank;
+    }
+
+    private function getProducts($entity) {
+        $products=array();
+        foreach($entity->getProducts() as $product) {
+            $o="required";
+            $t="free";
+            if($product->getIsoption()) {
+                $o="option";
+            }
+
+            if($tent=$product->getTentid()) {
+                if($tent->getProductCategory()->getFloor()) {
+                    $t="floor";
+                }
+                else {
+                    $t="tent";
+                }
+            }
+            $products[$o][$t][]=$product;
+        }
+        return $products;
     }
 
 }

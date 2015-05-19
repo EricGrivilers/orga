@@ -30,17 +30,14 @@ class OffreType extends AbstractType
                'date_widget'=>'single_text',
                'time_widget'=>'single_text',
                'date_format' => 'dd/MM/yyyy',
-               'empty_data'=>$date,
+               //'empty_data'=>$date,
                'attr'=>array(
                    'class'=>'datetimepicker'
                ),
                "label"=>"Event date"
             ))
             ->add('validity','choice',array(
-                'choices'=>array('14'=>'14 days','21'=>'21 days','30'=>'1 month'),
-                'attr'=>array(
-                    'class'=>'col-md-12'
-                )
+                'choices'=>array('14'=>'14 days','21'=>'21 days','30'=>'1 month')
             ))
              ->add('offretype','choice',array(
                 "label"=>"Type",
@@ -50,22 +47,13 @@ class OffreType extends AbstractType
                 )
             ))
             ->add('planningcomments','ckeditor',array(
-                'label'=>"Planning comments",
-                'attr'=>array(
-                    'class'=>'col-md-12'
-                )
+                'label'=>"Planning comments"
             ))
             ->add('offrecomments','ckeditor',array(
-                'label'=>"Comments",
-                'attr'=>array(
-                    'class'=>'col-md-12'
-                )
+                'label'=>"Comments"
             ))
             ->add('surface','text',array(
-                'label'=>"Wished surface",
-                'attr'=>array(
-                    'class'=>"col-md-3"
-                )
+                'label'=>"Wished surface"
             ))
            // ->add('startbuild')
            // ->add('endbuild')
@@ -86,90 +74,53 @@ class OffreType extends AbstractType
                 )
             ))*/
             ->add('pricecomments','textarea',array(
-                'label'=>'Comments',
-                'attr'=>array(
-                    'class'=>"col-md-12"
-                )
+                'label'=>'Comments'
             ))
             ->add('conditions','ckeditor',array(
-                'label'=>"Conditions comments",
-                'attr'=>array(
-                    'class'=>'col-md-12'
-                )
+                'label'=>"Conditions comments"
             ))
          //   ->add('conditionsslices')
           //  ->add('tents')
             ->add('tentscomments','ckeditor',array(
-                'label'=>"Stock/products comments",
-                'attr'=>array(
-                    'class'=>"col-md-12"
-                )
+                'label'=>"Stock/products comments"
             ))
             ->add('address',"text",array(
-                "attr"=>array(
-                    "class"=>"col-md-12"
-                )
+
             ))
             ->add('number',"text",array(
-                "label"=>"Number/Box",
-                "attr"=>array(
-                    "class"=>"col-md-4"
-                )
+                "label"=>"Number/Box"
             ))
             ->add('zip',"text",array(
-                "attr"=>array(
-                    "class"=>"col-md-4"
-                )
+
             ))
             ->add('city',"text",array(
-                "attr"=>array(
-                    "class"=>"col-md-12"
-                )
+
             ))
             ->add('country')
             ->add('phone',"text",array(
-                "attr"=>array(
-                    "class"=>"col-md-12"
-                )
+
             ))
             ->add('phone2',"text",array(
-                "attr"=>array(
-                    "class"=>"col-md-12"
-                ),
+
                 "label"=>"Other"
             ))
             ->add('mobile',"text",array(
-                "attr"=>array(
-                    "class"=>"col-md-12"
-                )
+
             ))
             ->add('fax',"text",array(
-                "attr"=>array(
-                    "class"=>"col-md-12"
-                )
+
             ))
             ->add('email',"text",array(
-                "attr"=>array(
-                    "class"=>"col-md-12"
-                )
+
             ))
             ->add('url',"text",array(
-                "label"=>"Website",
-                "attr"=>array(
-                    "class"=>"col-md-12"
-                )
+                "label"=>"Website"
             ))
             ->add('comments','ckeditor',array(
-                'label'=>"Notes",
-                'attr'=>array(
-                    'class'=>'col-md-12'
-                )
+                'label'=>"Notes"
             ))
             ->add('introtext','ckeditor',array(
-                'label'=>"Offre introducting text",
-                'attr'=>array(
-                    'class'=>"col-md-12"
-                )
+                'label'=>"Offre introducting text"
             ))
             //->add('issue')
            // ->add('deleted')
@@ -187,9 +138,7 @@ class OffreType extends AbstractType
                 'label'=>"Account",
 
                 'class'=>'Caravane\UserBundle\Entity\User',
-                'attr'=>array(
-                    'class'=>'col-md-12'
-                ),
+
                  'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->where('u.enabled =1')
@@ -230,7 +179,7 @@ class OffreType extends AbstractType
             'date_widget'=>'single_text',
             'time_widget'=>'single_text',
             'date_format' => 'dd/MM/yyyy',
-            'empty_data'=>$date,
+            //'empty_data'=>$date,
             'attr'=>array(
                 'class'=>'datetimepicker'
             )
@@ -239,7 +188,7 @@ class OffreType extends AbstractType
             'date_widget'=>'single_text',
             'time_widget'=>'single_text',
             'date_format' => 'dd/MM/yyyy',
-            'empty_data'=>$date,
+            //'empty_data'=>$date,
             'attr'=>array(
                 'class'=>'datetimepicker builddate start d1'
             )
@@ -257,7 +206,7 @@ class OffreType extends AbstractType
             'date_widget'=>'single_text',
             'time_widget'=>'single_text',
             'date_format' => 'dd/MM/yyyy',
-            'empty_data'=>$date,
+            //'empty_data'=>$date,
             'attr'=>array(
                 'class'=>'datetimepicker unbuilddate start d3'
             )

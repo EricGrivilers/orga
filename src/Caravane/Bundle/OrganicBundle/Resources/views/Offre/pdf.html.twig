@@ -63,32 +63,38 @@
 
 {% if entity.offreType=='rent' %}
 	<b><u>{{"Dates"|trans}}</u></b>
-	{% if entity.eventDate %}<br/> {{"Event date"|trans}}: {{entity.eventDate|date('d/m/Y h:i:s') }} {% endif %}
-	<ul>
-		{% if entity.plannings|length>0 %}
-			<li>{{"Montage"|trans}} : {{entity.plannings[1].startDate|date('d/m/Y H:i:s')}}</li>
-			<li>{{"Jour(s) de votre événement"|trans}} : {{"du"|trans}} {{entity.plannings[2].startDate|date('d/m/Y H:i:s')}} {{"au"|trans}} {{entity.plannings[2].endDate|date('d/m/Y H:i:s')}}</li>
-			<li>{{"Démontage"|trans}} : {{entity.plannings[3].startDate|date('d/m/Y H:i:s')}}</li>
+	{% if entity.eventDate %}<br/> {{"Event date"|trans}}: {{entity.eventDate|date('d/m/Y') }} {% endif %}
+	<p>
+		{% if entity.builddate and  entity.unbuilddate %}
+			{{"Montage"|trans}} : {{entity.builddate|date('d/m/Y')}}<br/>
+			{#<li>{{"Jour(s) de votre événement"|trans}} : {{"du"|trans}} {{entity.builddate|date('d/m/Y')}} {{"au"|trans}} {{entity.unbuilddate|date('d/m/Y')}}</li>#}
+			{{"Démontage"|trans}} : {{entity.unbuilddate|date('d/m/Y')}}<br/>
 		{% else %}
-			<li>{{entity.eventDate|date('d/m/Y H:i:s')}}</li>
+			{{entity.eventDate|date('d/m/Y')}}<br/>
 		{% endif %}
-	</ul>
+	</p>
 {% endif %}
 
 <br/>
 <br/>
-<b><u>{{"Tente(s)"|trans}}</u></b>
+{#<b><u>{{"Tente(s)"|trans}}</u></b>
 <ul>
+    {% set floors =[] %}
 	{% for product in entity.products %}
-
-		{% if product.tentid %}
-			<li>{{product.tentid.reference}} - {{product.tentid.name}} - {{product.tentid.color}} - {{product.tentid.length}}m x {{product.tentid.width}}m {% if product.tentid.m2>0 %} - {{product.tentid.m2}}m2
-				{% endif %}
+        {% if product.tentid.productCategory.floor|default  %}
+            {% set floors = floors|merge([product])  %}
+        {%  endif %}
+        {% if product.tentid.productCategory.floor|default %}
+            {% if floors|length==1 %}
+                <li>{{product.description}}</li>
+            {% endif %}
+        {% elseif product.tentid %}
+			<li>{{product.description}}
 			</li>
 		{% endif %}
 	{% endfor %}
 </ul>
-
+#}
 {% endblock page1_body %}
 
 {% block page2 %}
@@ -164,12 +170,31 @@
 		</tr>
 	</thead>
 	<tbody>
+        {% set floors =[] %}
 		{% for product in entity.products %}
 			{% if product.isOption!=1 %}
-			<tr>
-				<td class="left description">{{product.description|nl2br}}</td>
-				<td class='right' >{% if product.price>0 %}{{product.price|number_format(2,'.',' ')}} &euro;{% endif %}</td>
-			</tr>
+                {% if product.tentid.productCategory.floor|default  %}
+                    {% set floors = floors|merge([product])  %}
+                {%  endif %}
+                {% if product.tentid.productCategory.floor|default %}
+                    {% if floors|length==1 %}
+                    <tr>
+                        <td class="left description">{{product.description|nl2br}}
+                        {%  set totalFloor=0 %}
+                        {%  for fl in  products.required.floor%}
+                            {%  set totalFloor=totalFloor+fl.tentid.m2 %}
+                        {%  endfor  %}
+                        {{ products.required.floor|length }} pieces
+                        </td>
+                        <td class='right' >{% if product.price>0 %}{{product.price|number_format(2,'.',' ')}} &euro;{% endif %}</td>
+                    </tr>
+                    {%  endif %}
+                {% else  %}
+                    <tr>
+                        <td class="left description">{{product.description|nl2br}}</td>
+                        <td class='right' >{% if product.price>0 %}{{product.price|number_format(2,'.',' ')}} &euro;{% endif %}</td>
+                    </tr>
+                {%  endif %}
 			{% endif %}
 		{% endfor %}
 		<tr>
@@ -226,13 +251,34 @@
 	</thead>
 	{% set hasOption=false %}
 	<tbody>
+    {% set floors =[] %}
 		{% for product in entity.products %}
 			{% if product.isOption==1 %}
 			{% set hasOption=true %}
-				<tr>
-					<td class="left description">{{product.description|nl2br}}</td>
-					<td class='right' >{% if product.price>0 %} {{product.price|number_format(2,'.',' ')}} &euro;{% endif %}</td>
-				</tr>
+
+                {% if product.tentid.productCategory.floor|default  %}
+                    {% set floors = floors|merge([product])  %}
+                {%  endif %}
+
+                {% if product.tentid.productCategory.floor|default %}
+                    {% if floors|length==1 %}
+                        <tr>
+                            <td class="left description">{{product.description|nl2br}}
+                                {%  set totalFloor=0 %}
+                                {%  for fl in  products.required.floor%}
+                                    {%  set totalFloor=totalFloor+fl.tentid.m2 %}
+                                {%  endfor  %}
+                                {{ products.required.floor|length }} pieces
+                            </td>
+                            <td class='right' >{% if product.price>0 %}{{product.price|number_format(2,'.',' ')}} &euro;{% endif %}</td>
+                        </tr>
+                    {%  endif %}
+                {% else  %}
+                    <tr>
+                        <td class="left description">{{product.description|nl2br}}</td>
+                        <td class='right' >{% if product.price>0 %}{{product.price|number_format(2,'.',' ')}} &euro;{% endif %}</td>
+                    </tr>
+                {%  endif %}
 			{% endif %}
 		{% endfor %}
 

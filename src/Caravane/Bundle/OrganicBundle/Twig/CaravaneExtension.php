@@ -8,6 +8,7 @@ class CaravaneExtension extends \Twig_Extension
     {
         return array(
             'menu' => new \Twig_Filter_Method($this, 'menuFilter'),
+            new \Twig_SimpleFilter('classFilter', array($this, 'getClassFilter')),
         );
     }
 
@@ -17,6 +18,12 @@ class CaravaneExtension extends \Twig_Extension
           return true;
         }
         return false;
+    }
+
+    public function getClassFilter($object)
+    {
+
+        return (new \ReflectionClass($object))->getShortName();
     }
 
     public function getName()

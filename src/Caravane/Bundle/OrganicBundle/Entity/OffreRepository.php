@@ -57,7 +57,7 @@ class OffreRepository extends EntityRepository
 		$em=$this->getEntityManager();
 
 		$dql="SELECT O FROM CaravaneOrganicBundle:Offre O ";
-		$dql.=" WHERE O.public=1 ";
+		$dql.=" WHERE O.public=1 AND O.status!='cancelled' AND O.status!='ANNULÉ' ";
 		/*$dql.=" AND O.startbuild BETWEEN '".$startDate->format('Y-m-d H:i:s')."' AND '".$endDate->format('Y-m-d H:i:s')."' ";
 		$dql.=" OR O.endbuild BETWEEN '".$startDate->format('Y-m-d H:i:s')."' AND '".$endDate->format('Y-m-d H:i:s')."' ";
 		$dql.=" OR O.startbuild <= '".$startDate->format('Y-m-d H:i:s')."' AND O.endbuild >= '".$endDate->format('Y-m-d H:i:s')."' ";*/

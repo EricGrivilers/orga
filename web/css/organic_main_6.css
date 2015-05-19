@@ -6,7 +6,11 @@ td {
 }
 .well {
   padding: 10px;
-  font-size: 12px;
+  /*font-size:12px;*/
+}
+label {
+  display: block;
+  font-weight: normal;
 }
 .navbar {
   margin-bottom: 10px;
@@ -136,6 +140,13 @@ ul.offset {
   background: #ededed;
   border: 2px solid #ccc;
 }
+#calendar-holder .fc-agendaWeek-view .weekday,
+#calendar-holder .fc-agendaDay-view .weekday {
+  display: none;
+}
+#calendar-holder .fc-month-view .weekday {
+  color: #cccccc;
+}
 #calendar-holder .fc-event-title,
 #calendar-holder .fc-event-skin {
   line-height: 14px;
@@ -245,4 +256,32 @@ ul.offset {
 }
 #conditionChoices td {
   cursor: pointer;
+}
+.tt-dropdown-menu {
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.tt-dropdown-menu .tt-suggestion {
+  cursor: pointer;
+  padding: 2px 8px;
+}
+.tt-dropdown-menu .tt-suggestion:hover {
+  background: #e1001a;
+  color: #ffffff;
+}
+.tt-dropdown-menu .tt-cursor {
+  background: #e1001a;
+  color: #ffffff;
+}
+.scrollable-dropdown-menu .tt-dropdown-menu {
+  max-height: 150px;
+  overflow-y: auto;
 }

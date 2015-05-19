@@ -26,8 +26,22 @@
 
 
             {% if entity.issue|length>0 %}
+                {%  set floorIssue=null  %}
+                {%  set floorIssueReferences=[]  %}
                 <div class="alert alert-danger">
-                    {% for issue in entity.issue %}<p>{{issue.description|raw}}</p> {% endfor %}
+                    {% for issue in entity.issue %}
+                        {%  if issue.type=="Floor" %}
+                            {% if floorIssue==null %}
+                                {%  set floorIssue=issue %}
+                                {%  set floorIssueReferences=floorIssueReferences|merge([issue.reference]) %}
+                            {% endif %}
+                        {%  else  %}
+                            <p>{{issue.description|raw}}</p>
+                        {% endif %}
+                    {% endfor %}
+                    {%  if floorIssue %}
+                        <p>Possible floor surface conflict. Please remove floor and add new - {{floorIssueReferences|join(',')}}</p>
+                    {%  endif %}
                 </div>
             {% endif %}
 			<div class="row">
@@ -46,7 +60,7 @@
 							<ul  class="dropdown-menu" role="menu" aria-labelledby="drop_1">
 								{% for lg in ['en','fr','nl'] %}
 									<li role="presentation">
-											<a role="menuitem" href="{{path('job_pdf',{'id':entity.id,'_locale':lg})}}" target="_blank" ><img src="/images/icons/pdf.png"> Job {{lg}}</a>
+											<a role="menuitem" href="{{path('job_pdf',{'id':entity.id,'_locale':lg})}}?t={{ date().timestamp }}" target="_blank" ><img src="/images/icons/pdf.png"> Job {{lg}}</a>
 									</li>
 								{% endfor %}
 							</ul>
@@ -104,55 +118,8 @@
 		</div>
 	</div>
 
-	{% include "CaravaneOrganicBundle:Shared:modal.stock.html.twig" %}
-	{% include "CaravaneOrganicBundle:Shared:modal.transport.html.twig" %}
-{#
-	<div id="stockModal" data-target="{{entity.id}}" class="modal hide fade largeModal" tabindex="-1" role="dialog" aria-labelledby="stockModalLabel" aria-hidden="true">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h3>Stock</h3>
-			</div>
-			<div class="modal-body">
-				<div class='row' id="products">
-					<ul class="nav nav-tabs" id="myTab">
-						{% for category in productCategories %}
-							<li {% if loop.index==1%} class='active' {% endif %}><a href="#cat{{category.id}}" data-toggle="tab" >{{category}}</a></li>
-						{% endfor %}
-					</ul>
+	{% include "CaravaneOrganicBundle:Shared:modal.stock.html.twig" with {'entityType': 'Job'}  %}
+	{% include "CaravaneOrganicBundle:Shared:modal.transport.html.twig" with {'entityType': 'Job'} %}
 
-					<div class="tab-content">
-						{% for category in productCategories %}
-							<div class="tab-pane {% if loop.index==1 %} active {% endif %}" id="cat{{category.id}}" >
-							{{ render(controller("CaravaneOrganicBundle:Tent:getAvailable" , { 'entity':entity,'categoryId':category.id, 'startDate' : edit_form.plannings[1].vars.value.startDate ,'endDate': edit_form.plannings[3].vars.value.endDate} )) }}
-							</div>
-						{% endfor %}
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-
-
-			</div>
-	</div>
-#}
-
-
-
-{#	<div id="transportModal" data-target="{{entity.id}}" class="modal fade largeModal" tabindex="-1" role="dialog" aria-labelledby="transportModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3>Transport</h3>
-		</div>
-		<div class="modal-body">
-			<div class='row' id="transports">
-			{{ render (controller("CaravaneOrganicBundle:Transport:getAvailable" )) }}
-			</div>
-		</div>
-		<div class="modal-footer">
-
-
-		</div>
-	</div>
-#}
 
 {% endblock body %}

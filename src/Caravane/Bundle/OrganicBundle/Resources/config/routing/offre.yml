@@ -45,6 +45,13 @@ offre_delete:
     defaults: { _controller: "CaravaneOrganicBundle:Offre:delete" }
     requirements: { _method: post }
 
+offre_cancel:
+    pattern:  /{id}/cancel
+    defaults: { _controller: "CaravaneOrganicBundle:Offre:cancel" }
+    requirements: { _method: get }
+    options:
+        expose: true
+
 offre_remove_product:
     pattern:  /{id}/remove_product/{productid}
     defaults: { _controller: "CaravaneOrganicBundle:Offre:removeProduct" }
