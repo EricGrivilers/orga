@@ -18,7 +18,7 @@ web/js
 /log
 /web/files
 /www/
-
+/components
 .DS_Store
 .idea
 /__www
