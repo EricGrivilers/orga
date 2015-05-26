@@ -41,7 +41,7 @@ class OffreCommand extends ContainerAwareCommand
                 $body=$this->getContainer()->get('templating')->render('CaravaneOrganicBundle:Offre:email.reminder.html.twig',
                     array('offres' => $offres));
 
-                $to="eric@caravanemedia.com";
+                //$to="eric@caravanemedia.com";
                 
                 $message = \Swift_Message::newInstance()
                 ->setSubject('Offers to validate')
