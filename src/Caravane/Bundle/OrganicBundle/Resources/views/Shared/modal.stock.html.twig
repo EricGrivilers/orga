@@ -10,17 +10,21 @@
           <div class="col-md-12">
             <ul class="nav nav-tabs" id="myTab">
               {% for category in productCategories %}
-                <li {% if loop.index==1%} class='active' {% endif %}><a href="#cat{{category.id}}" data-toggle="tab" data-route="{{ path('tent_get_available', {'entityId':entity.id, 'entityType':entityType,  'categoryId':category.id, 'startDate' : entity.builddate|date('Y-m-d H:i:s') ,'endDate': entity.unbuilddate|date('Y-m-d H:i:s') } ) }}" >{{category}}</a></li>
+                  {%  if category.id!=5  %}
+                    <li {% if loop.index==1%} class='active' {% endif %}><a href="#cat{{category.id}}" data-toggle="tab" data-route="{{ path('tent_get_available', {'entityId':entity.id, 'entityType':entityType,  'categoryId':category.id, 'startDate' : entity.builddate|date('Y-m-d H:i:s') ,'endDate': entity.unbuilddate|date('Y-m-d H:i:s') } ) }}" >{{category}}</a></li>
+                {%  endif %}
               {% endfor %}
             </ul>
 
             <div class="tab-content">
               {% for category in productCategories %}
-                <div class="tab-pane {% if loop.index==1 %} active {% endif %}" id="cat{{category.id}}" data-loaded='0' >
-                    {%  if loop.index==1 %}
-                        {{ render(controller("CaravaneOrganicBundle:Tent:getAvailable" , { 'entity':entity,'categoryId':category.id, 'startDate' : entity.builddate ,'endDate': entity.unbuilddate, 'ob':"insertDate desc"} )) }}
-                    {%  endif %}
-                </div>
+                {%  if category.id!=5  %}
+                    <div class="tab-pane {% if loop.index==1 %} active {% endif %}" id="cat{{category.id}}" data-loaded='0' >
+                        {%  if loop.index==1 %}
+                            {{ render(controller("CaravaneOrganicBundle:Tent:getAvailable" , { 'entity':entity,'categoryId':category.id, 'startDate' : entity.builddate ,'endDate': entity.unbuilddate, 'ob':"insertDate desc"} )) }}
+                        {%  endif %}
+                    </div>
+                {%  endif %}
               {% endfor %}
             </div>
           </div>
