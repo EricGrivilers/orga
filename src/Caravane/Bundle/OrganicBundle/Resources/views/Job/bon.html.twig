@@ -106,19 +106,46 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for product in entity.products %}
+                    {% set floors =[] %}
+                    {% for product in entity.products %}
+                        {% if product.tentid.productCategory.floor|default  %}
+                            {% set floors = floors|merge([product])  %}
+                        {%  endif %}
+                        {% if product.tentid.productCategory.floor|default %}
+                            {% if floors|length==1 %}
+                                {%  set totalFloor=0 %}
+                                {%  for fl in  products.required.floor%}
+                                    {%  set totalFloor=totalFloor+fl.tentid.m2 %}
+                                {%  endfor  %}
+                                <tr>
+                                    <td style="border-bottom:1px solid #ededed">{{product.description|nl2br}}  {{ products.required.floor|length }} pieces {{ totalFloor }} m2</td>
+                                    <td style="width:25mm" class="right borderedBottomLight" > {{product.price|number_format(2,'.',' ')}} &euro;</td>
+                                </tr>
+                            {% endif %}
+                        {% else  %}
+                            <tr>
+                                <td style="width:95mm" class="borderedBottomLight" >{{product.description|nl2br}}</td>
+                                <td style="width:25mm" class="right borderedBottomLight" > {{product.price|number_format(2,'.',' ')}} &euro;</td>
+
+
+                            </tr>
+                        {% endif %}
+                        {% set total=total+product.price %}
+                    {% endfor %}
+
+
+					{#% for product in entity.products %}
 
 							<tr>
 								<td style="width:95mm" class="borderedBottomLight" >{{product.description|nl2br}}</td>
-								{#<td style="width:25mm" class="borderedBottomLight" ></td>
-								<td style="width:25mm" class="right borderedBottomLight" ></td>#}
+
 								<td style="width:25mm" class="right borderedBottomLight" > {{product.price|number_format(2,'.',' ')}} &euro;</td>
 
 
 							</tr>
 							{% set total=total+product.price %}
 
-					{% endfor %}
+					{% endfor %#}
 				</tbody>
 				<tfoot>
 					<tr>
