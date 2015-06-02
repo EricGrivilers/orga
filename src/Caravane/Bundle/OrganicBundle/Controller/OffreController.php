@@ -283,6 +283,7 @@ class OffreController extends Controller
         print_r($_POST);
         echo "</pre>";
         die();*/
+
         $em = $this->getDoctrine()->getManager();
         $productCategories=$em->getRepository('CaravaneOrganicBundle:ProductCategory')->findAll();
 
@@ -352,6 +353,7 @@ class OffreController extends Controller
                 $em->flush();
             }
             $request->request->get('hash')?$hash=$request->request->get('hash'):$hash='';
+
 
             $em->clear();
             $offreManager2=$this->get('caravane_organic.offre_manager');

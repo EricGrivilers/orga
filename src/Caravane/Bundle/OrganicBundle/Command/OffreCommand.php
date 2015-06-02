@@ -39,7 +39,7 @@ class OffreCommand extends ContainerAwareCommand
 
             foreach($entities as $to=>$offres) {
                 $body=$this->getContainer()->get('templating')->render('CaravaneOrganicBundle:Offre:email.reminder.html.twig',
-                    array('offres' => $offres));
+                    array('offres' => $offres,'to'=>$to));
 
                 //$to="eric@caravanemedia.com";
                 

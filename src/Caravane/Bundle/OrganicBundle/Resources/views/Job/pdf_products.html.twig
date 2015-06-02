@@ -1,0 +1,122 @@
+<page backtop="30mm" backbottom="30mm" backleft="0mm" backright="0mm" >
+    <page_header>
+
+        <table class="main" >
+            <tr>
+                <td class="2col">
+                    <img src="{{dir}}/web/bundles/caravaneorganic/images/logo_print.png" style="width: 200px; height:62px" />
+                </td>
+                <td class="2col" >
+                    {% if entity.clientid.clientType=='cie' %}
+                        <b>{{entity.clientid.name}}</b>
+                    {% endif %}
+                    <br/>{{entity.clientid.clientTitle}} {{entity.clientid.firstname}} {{entity.clientid.lastname}}
+                    <br/>
+                    <br/>{{entity.clientid.address}} {{entity.clientid.number}}
+                    <br/>{{entity.clientid.zip}} {{entity.clientid.city}}
+                    <br/>{{entity.clientid.country}}
+                    <br/>
+                    {% if entity.clientid.vat %}
+                        <br/><br/>{{"VAT"|trans}}: {{entity.clientid.vat}}
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+
+    </page_header>
+    <page_footer>
+        <table class="main">
+            <tr><td class="center">{{"_More conditions"|trans}}<br/></td></tr>
+            <tr>
+                <td class="center 1col grey">
+                    Organic nv-sa - Molenveldstraat 18 - 2630 Aartselaar - Belgium
+                    <br/>
+                    www.organic-concept.com - TVA/BTW: 0807.879.247
+                    <br/>
+
+                    KBC - {{"Compte n°"|trans}} :  IBAN BE71 7350 3583 9969 - BIC: KREDBEBB
+                    <br/>
+                    ING - {{"Compte n°"|trans}} : IBAN: BE26 3631 0680 5629 - BIC: BBRUBEBB
+                    <br/>
+                    Tel 00 32 2 709 09 50 - info@organic-concept.com
+                </td>
+            </tr>
+        </table>
+    </page_footer>
+
+
+    <table class="grey main">
+        <tr>
+            <td class="grey 1col" style="width:185mm;text-align:center">
+                {{"MATERIEL"|trans}}
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <table class="main" width="190mm" style="width: 190mm; max-width:190mm;table-layout: fixed;">
+        <thead>
+        <tr>
+            <th style="width:15mm"></th>
+            <th style="width:25mm">Ref.</th>
+            <th style="width:80mm">{{"Nom"|trans}}</th>
+            <th style="width:25mm">{{"Couleur"|trans}}</th>
+            <th style="width:20mm">{{"m2"|trans}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set floors =[] %}
+        {% for product in entity.products %}
+            {% if product.tentid.productCategory.floor|default  %}
+                {% set floors = floors|merge([product])  %}
+            {%  endif %}
+            {% if product.tentid.productCategory.floor|default %}
+                {% if floors|length==1 %}
+                    <tr>
+                        <td style="border-bottom:1px solid #ededed">{{product.tentid.productCategory.name}}</td>
+                        <td style="border-bottom:1px solid #ededed" ></td>
+                        <td style="border-bottom:1px solid #ededed" >
+                            {%  set totalFloor=0 %}
+                            {%  for fl in  products.required.floor%}
+                                {%  set totalFloor=totalFloor+fl.tentid.m2 %}
+                            {%  endfor  %}
+                            {{ products.required.floor|length }} pieces
+                        </td>
+                        <td style="border-bottom:1px solid #ededed" ></td>
+                        <td style="border-bottom:1px solid #ededed" >{{ totalFloor }} m2</td>
+                    </tr>
+                {% endif %}
+            {% elseif product.tentid %}
+                <tr>
+                    <td style="border-bottom:1px solid #ededed">{{product.tentid.productCategory.name}}</td>
+                    <td style="border-bottom:1px solid #ededed" >{{product.tentid.reference}}</td>
+                    <td style="border-bottom:1px solid #ededed" >{{product.tentid.name}}
+                        {% if product.datasAsObject %}
+                            {% if product.datasAsObject.other %}
+                                <br/>{{product.datasAsObject.other}}
+                            {% endif %}
+
+                            {% if product.datasAsObject.plancher%}<br/><u>Plancher:</u> {% if product.datasAsObject.surfaceplancher %}{{product.datasAsObject.surfaceplancher}}{% else %} Yes {% endif %} {% endif %}
+                            {% if product.datasAsObject.sol %}<br/><u>Sol:</u>  Yes{% endif %}
+                            {% if product.datasAsObject.canalisation %}<br/><u>Canalisation:</u>  Yes {% endif %}
+
+                        {% endif %}
+                    </td>
+                    <td style="border-bottom:1px solid #ededed" >{{product.tentid.color}}</td>
+                    <td style="border-bottom:1px solid #ededed" >{% if product.tentid.m2>0 %}{{product.tentid.m2}}{% endif %}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td style="border-bottom:1px solid #ededed" ></td>
+                    <td style="border-bottom:1px solid #ededed" ></td>
+                    <td style="border-bottom:1px solid #ededed" >{{product.description}}</td>
+                    <td style="border-bottom:1px solid #ededed" ></td>
+                    <td style="border-bottom:1px solid #ededed" ></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    {%  if entity.tentsComments %}
+        <p>{{ entity.tentsComments|raw }}</p>
+    {%  endif %}
+</page>

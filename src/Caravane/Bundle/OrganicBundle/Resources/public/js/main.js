@@ -79,6 +79,12 @@ $(document).ready(function() {
         location.hash = this.getAttribute("href");
     });
 
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        //console.log(e.target);
+        $('#hash').val($(e.target).attr('href'));
+
+    })
+
     $('select.status').change(function() {
         $(this).closest('form').submit();
     });
@@ -456,7 +462,8 @@ function initOffre() {
                 tentids.push($(this).val());
             });
             $.post(Routing.generate(entity+'_add_tent',{'id':entityId,'tentid':tentids}),{'option':option},function(data) {
-               //window.location.hash = "#tab_products";
+               window.location.hash = "#tab_products";
+                $('#hash').val("#tab_products");
                //window.location.reload();
                // $('form').submit();
                $('#mainForm').submit();
@@ -471,6 +478,7 @@ function initOffre() {
 
             //console.log(data);
             window.location.hash = "#tab_products";
+            $('#hash').val("#tab_products");
 
             $('#mainForm').submit();
 

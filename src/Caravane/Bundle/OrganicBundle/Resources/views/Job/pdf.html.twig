@@ -1,5 +1,9 @@
 {% extends "CaravaneOrganicBundle:Default:pdf.html.twig" %}
 
+
+{% block bank_body %}
+{% endblock bank_body %}
+
 {% block reference %}
 
   {% if entity.userid %}
@@ -28,6 +32,13 @@
 			{{"_More conditions"|trans}}
 		</td>
 	</tr>
+    {#%  if entity.conditions %}
+        <tr>
+            <td class="center 1col" >
+                {{entity.conditions|raw}}
+            </td>
+        </tr>
+    {% endif %#}
 {% endblock conditions %}
 
 
@@ -62,7 +73,9 @@
 	<br/>{{entity.country}}
 
 </p>
-
+{%  if entity.offreComments %}
+    <p>{{ entity.offreComments|raw }}</p>
+{%  endif %}
 <p>
 <b><u>{{"Dates"|trans}}</u></b>
 <ul>
@@ -77,15 +90,12 @@
 {% endif %}
 </ul>
 </p>
+{%  if entity.planningComments %}
+    <p>{{ entity.planningComments|raw }}</p>
+{%  endif %}
 <br/>
-<table class="grey main">
-	<tr>
-		<td class="grey 1col" style="width:185mm;text-align:center">
-			{{"MATERIEL"|trans}}
-		</td>
-	</tr>
-</table>
-<br/>
+
+{#
 <table class="main" width="190mm" style="width: 190mm; max-width:190mm;table-layout: fixed;">
 	<thead>
 		<tr>
@@ -141,13 +151,17 @@
 		{% endfor %}
 	</tbody>
 </table>
-
-
+{%  if entity.tentsComments %}
+    <p>{{ entity.tentsComments|raw }}</p>
+{%  endif %}
+#}
 
 
 {% endblock page1_body %}
 
 {% block page2 %}
+    {% include "CaravaneOrganicBundle:Job:pdf_products.html.twig" %}
+
 	{% set type="in" %}
 	{% include "CaravaneOrganicBundle:Job:bon.html.twig" %}
 
